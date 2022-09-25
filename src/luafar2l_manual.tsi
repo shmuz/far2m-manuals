@@ -8463,6 +8463,32 @@ mtime=3853777145
 </article>
 </node>
 <node>
+id=503
+lv=3
+dt=Text
+nm=win.GetSystemTime
+ctime=3873304138
+mtime=3873304348
+<article>
+#_result = win.GetSystemTime()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  result   : table SystemTime
+#_
+#_**Windows API used:**
+#_  GetSystemTime
+#_
+#_@@@
+#_<lua> Links = { SystemTime="218.html" } </lua>
+#_
+#_
+#_
+</article>
+</node>
+<node>
 id=217
 lv=3
 dt=Text
