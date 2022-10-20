@@ -1010,22 +1010,22 @@ lv=2
 dt=Text
 nm=GetGlobalInfoW
 ctime=3861011876
-mtime=3870956471
+mtime=3874392997
 <article>
-#_DWORD GetGlobalInfoW()
+#_<markdown>
+#_`void GetGlobalInfoW(struct GlobalInfo *Info)`
 #_
-#_**Returns:**
-#_  Plugin's identifier (SysId) - integer (0 ... 2^32-1)
+#_### Description:
+#_  The function sets `Info->SysId` (the plugin's identifier; a 32-bit unsigned int)
 #_
-#_**Notes:**
-#_  1. This function is supported only with a modified Far2L version.
+#_### Notes:
+#_  1. `GetGlobalInfoW` is supported only with a modified Far2L version.
 #_     Plugins are not required to export this function.
-#_  2. If the generic LuaFAR plugin (*luaplug.c*) is used then *SYS_ID*
-#_     value must be defined as a compilation flag. The function will
-#_     return this value when called.
-#_  3. This function is called by Far prior to SetStartupInfoW()
-#_     and Far may fill the *Private* field of StartupInfo struct
-#_     if SysId identifies one of the "known plugins".
+#_  1. If the generic LuaFAR plugin (*luaplug.c*) is used then `GetGlobalInfoW`
+#_     is exported and `SYS_ID` value must be defined as a compilation flag.
+#_  1. `GetGlobalInfoW` is called by Far prior to [`SetStartupInfoW()`](118.html)
+#_     and Far Manager fills the `Private` field of `StartupInfo` struct
+#_     if `SysId` identifies one of the "known plugins".
 #_
 #_@@@
 #_
@@ -6015,6 +6015,31 @@ nm=far.MkTemp
 </article>
 </node>
 <node>
+id=504
+lv=2
+dt=Text
+nm=far.NameToInputRecord
+ctime=3873815146
+mtime=3873815311
+<article>
+#_Record = far.NameToInputRecord (Name)
+#_
+#_**Parameters:**
+#_  Name:   string
+#_
+#_**Returns:**
+#_  Record: table InputRecord, or nil
+#_er
+#_
+#_**Far API used:**
+#_  FarNameToInputRecord
+#_
+#_@@@
+#_<lua> Links = { InputRecord="187.html", } </lua>
+#_
+</article>
+</node>
+<node>
 id=66
 lv=2
 dt=Text
@@ -7014,7 +7039,7 @@ id=68
 lv=2
 dt=Text
 nm=far.PluginStartupInfo
-mtime=3872739772
+mtime=3875448672
 <article>
 #_Info = far.PluginStartupInfo ()
 #_
@@ -7025,8 +7050,8 @@ mtime=3872739772
 #_  Info: table
 #_    fields of Info:
 #_      ModuleName:   string
-#_      ModuleDir:    string (has a slash at the end)
-#_      ShareDir:     string (has a slash at the end)
+#_      ModuleDir:    string (no trailing slash)
+#_      ShareDir:     string (no trailing slash)
 #_      ModuleNumber: light userdata
 #_      RootKey:      string
 #_      PluginId:     number
@@ -7460,11 +7485,11 @@ id=187
 lv=2
 dt=Text
 nm=InputRecord
-mtime=3853778103
+mtime=3873815429
 <article>
 #_This table is used in the functions:
 #_editor.ProcessInput, editor.ReadInput,
-#_far.InputRecordToKey.
+#_far.InputRecordToKey, far.NameToInputRecord.
 #_
 #_**The table has the following fields:**
 #_
@@ -7496,6 +7521,7 @@ mtime=3853778103
 #_  ['editor.ProcessInput']="36.html",
 #_  ['editor.ReadInput']="38.html",
 #_  ['far.InputRecordToKey']="186.html",
+#_  ['far.NameToInputRecord']="504.html",
 #_  MouseEventRecord="313.html",
 #_} </lua>
 #_
