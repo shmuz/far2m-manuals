@@ -678,6 +678,31 @@ mtime=3637689351
 </article>
 </node>
 <node>
+id=107
+lv=2
+dt=Text
+nm=Other command line prefixes
+ctime=3875553296
+mtime=3875553323
+<article>
+#_The following command line prefixes provide some functionality
+#_of FarCmds plugin which is not currently available for Far2L.
+#_
+#_**view:** <file_path>
+#_
+#_**view:** < <command>
+#_
+#_**edit:** <file_path>
+#_
+#_**edit:** < <command>
+#_
+#_**load:** <plugin_path>
+#_
+#_**unload:** <plugin_path>
+#_
+</article>
+</node>
+<node>
 id=93
 lv=2
 dt=Text
