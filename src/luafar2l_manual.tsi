@@ -5420,12 +5420,36 @@ mtime=3851399293
 </article>
 </node>
 <node>
+id=505
+lv=2
+dt=Text
+nm=far.ClearPluginCache
+ctime=3876148717
+mtime=3876148832
+<article>
+#_result = far.ClearPluginCache (Param1, Param2)
+#_
+#_**Parameters:**
+#_  Param1:  flags (currently "PLT_PATH")
+#_  Param2:  string
+#_
+#_**Returns:**
+#_  result:  boolean
+#_
+#_**Far API used:**
+#_  PluginsControl, PCTL_CACHEFORGET
+#_
+#_@@@
+#_
+</article>
+</node>
+<node>
 id=416
 lv=2
 dt=Text
 nm=far.ForcedLoadPlugin
 ctime=3851399307
-mtime=3851399512
+mtime=3876148891
 <article>
 #_result = far.ForcedLoadPlugin (Param1, Param2)
 #_
@@ -5437,7 +5461,7 @@ mtime=3851399512
 #_  result:  boolean
 #_
 #_**Far API used:**
-#_  PluginsControl
+#_  PluginsControl, PCTL_FORCEDLOADPLUGIN
 #_
 #_@@@
 #_
@@ -5449,7 +5473,7 @@ lv=2
 dt=Text
 nm=far.LoadPlugin
 ctime=3851399323
-mtime=3851399528
+mtime=3876148920
 <article>
 #_result = far.LoadPlugin (Param1, Param2)
 #_
@@ -5461,7 +5485,7 @@ mtime=3851399528
 #_  result:  boolean
 #_
 #_**Far API used:**
-#_  PluginsControl
+#_  PluginsControl, PCTL_LOADPLUGIN
 #_
 #_@@@
 #_
@@ -5473,7 +5497,7 @@ lv=2
 dt=Text
 nm=far.UnloadPlugin
 ctime=3851399331
-mtime=3851399539
+mtime=3876148939
 <article>
 #_result = far.UnloadPlugin (Param1, Param2)
 #_
@@ -5485,7 +5509,7 @@ mtime=3851399539
 #_  result:  boolean
 #_
 #_**Far API used:**
-#_  PluginsControl
+#_  PluginsControl. PCTL_UNLOADPLUGIN
 #_
 #_@@@
 #_
@@ -6355,7 +6379,7 @@ lv=2
 dt=Text
 nm=far.GetConfigDir
 ctime=3864462591
-mtime=3870923762
+mtime=3875703532
 <article>
 #_Dir = far.GetConfigDir()
 #_
@@ -6366,9 +6390,9 @@ mtime=3870923762
 #_  Dir: string
 #_
 #_**Description:**
-#_  If Far Manager was launched with "-u <dir>" parameter this function
-#_  returns the value of **FARSETTINGS** environment variable.
-#_  Otherwise it returns "$HOME/.config/far2l" (with $HOME expanded).
+#_  Returns the directory where Far2L and plugins keep their settings.
+#_  Unless Far2L was launched with "-u <name>" parameter this function
+#_  returns "$HOME/.config/far2l" (with $HOME expanded).
 #_
 #_@@@
 #_
@@ -6378,11 +6402,11 @@ mtime=3870923762
 id=501
 lv=2
 dt=Text
-nm=far.GetFileFormat
+nm=far.GetFileEncoding
 ctime=3872013561
-mtime=3872014403
+mtime=3875699045
 <article>
-#_codepage = far.GetFileFormat (FileName)
+#_codepage = far.GetFileEncoding (FileName)
 #_
 #_**Parameters:**
 #_  FileName:   string
@@ -6395,9 +6419,10 @@ mtime=3872014403
 #_  the detection accuracy would be greatly reduced.
 #_
 #_**Far API used:**
-#_  FSF.GetFileFormat
+#_  FSF.GetFileEncoding
 #_
 #_@@@
+#_
 #_
 </article>
 </node>
