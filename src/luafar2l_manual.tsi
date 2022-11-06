@@ -5425,7 +5425,7 @@ lv=2
 dt=Text
 nm=far.ClearPluginCache
 ctime=3876148717
-mtime=3876148832
+mtime=3876935094
 <article>
 #_result = far.ClearPluginCache (Param1, Param2)
 #_
@@ -5437,7 +5437,7 @@ mtime=3876148832
 #_  result:  boolean
 #_
 #_**Far API used:**
-#_  PluginsControl, PCTL_CACHEFORGET
+#_  PluginsControlV3, PCTL_CACHEFORGET
 #_
 #_@@@
 #_
@@ -5449,19 +5449,42 @@ lv=2
 dt=Text
 nm=far.ForcedLoadPlugin
 ctime=3851399307
-mtime=3876148891
+mtime=3876935129
 <article>
-#_result = far.ForcedLoadPlugin (Param1, Param2)
+#_plugin_handle = far.ForcedLoadPlugin (Param1, Param2)
 #_
 #_**Parameters:**
-#_  Param1:  flags (currently "PLT_PATH")
+#_  Param1:  flags
 #_  Param2:  string
 #_
 #_**Returns:**
-#_  result:  boolean
+#_  plugin_handle:  userdata, or nil
 #_
 #_**Far API used:**
-#_  PluginsControl, PCTL_FORCEDLOADPLUGIN
+#_  PluginsControlV3, PCTL_FORCEDLOADPLUGIN
+#_
+#_@@@
+#_
+</article>
+</node>
+<node>
+id=506
+lv=2
+dt=Text
+nm=far.GetPlugins
+ctime=3876935307
+mtime=3876935369
+<article>
+#_plugin_handles = far.GetPlugins ()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  plugin_handles: table (array of plugin handles)
+#_
+#_**Far API used:**
+#_  PluginsControlV3, PCTL_GETPLUGINS
 #_
 #_@@@
 #_
@@ -5473,19 +5496,19 @@ lv=2
 dt=Text
 nm=far.LoadPlugin
 ctime=3851399323
-mtime=3876148920
+mtime=3876935198
 <article>
-#_result = far.LoadPlugin (Param1, Param2)
+#_plugin_handle = far.LoadPlugin (Param1, Param2)
 #_
 #_**Parameters:**
-#_  Param1:  flags (currently "PLT_PATH")
+#_  Param1:  flags
 #_  Param2:  string
 #_
 #_**Returns:**
-#_  result:  boolean
+#_  plugin_handle:  userdata, or nil
 #_
 #_**Far API used:**
-#_  PluginsControl, PCTL_LOADPLUGIN
+#_  PluginsControlV3, PCTL_LOADPLUGIN
 #_
 #_@@@
 #_
@@ -5497,19 +5520,18 @@ lv=2
 dt=Text
 nm=far.UnloadPlugin
 ctime=3851399331
-mtime=3876148939
+mtime=3876935254
 <article>
-#_result = far.UnloadPlugin (Param1, Param2)
+#_result = far.UnloadPlugin (Handle)
 #_
 #_**Parameters:**
-#_  Param1:  flags (currently "PLT_PATH")
-#_  Param2:  string
+#_  Handle:  userdata
 #_
 #_**Returns:**
 #_  result:  boolean
 #_
 #_**Far API used:**
-#_  PluginsControl. PCTL_UNLOADPLUGIN
+#_  PluginsControlV3. PCTL_UNLOADPLUGIN
 #_
 #_@@@
 #_
