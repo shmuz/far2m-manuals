@@ -1010,13 +1010,13 @@ lv=2
 dt=Text
 nm=GetGlobalInfoW
 ctime=3861011876
-mtime=3874392997
+mtime=3877053584
 <article>
 #_<markdown>
 #_`void GetGlobalInfoW(struct GlobalInfo *Info)`
 #_
 #_### Description:
-#_  The function sets `Info->SysId` (the plugin's identifier; a 32-bit unsigned int)
+#_  The function sets `Info->SysID` (the plugin's identifier; a 32-bit unsigned int)
 #_
 #_### Notes:
 #_  1. `GetGlobalInfoW` is supported only with a modified Far2L version.
@@ -1025,7 +1025,7 @@ mtime=3874392997
 #_     is exported and `SYS_ID` value must be defined as a compilation flag.
 #_  1. `GetGlobalInfoW` is called by Far prior to [`SetStartupInfoW()`](118.html)
 #_     and Far Manager fills the `Private` field of `StartupInfo` struct
-#_     if `SysId` identifies one of the "known plugins".
+#_     if `SysID` identifies one of the "known plugins".
 #_
 #_@@@
 #_
@@ -5444,6 +5444,30 @@ mtime=3876935094
 </article>
 </node>
 <node>
+id=507
+lv=2
+dt=Text
+nm=far.FindPlugin
+ctime=3876937531
+mtime=3877053602
+<article>
+#_plugin_handle = far.FindPlugin (Param1, Param2)
+#_
+#_**Parameters:**
+#_  Param1:  flags
+#_  Param2:  string (ModuleName) or integer (SysID), depending on Param1
+#_
+#_**Returns:**
+#_  plugin_handle:  userdata, or nil
+#_
+#_**Far API used:**
+#_  PluginsControlV3, PCTL_FINDPLUGIN
+#_
+#_@@@
+#_
+</article>
+</node>
+<node>
 id=416
 lv=2
 dt=Text
@@ -5462,6 +5486,39 @@ mtime=3876935129
 #_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_FORCEDLOADPLUGIN
+#_
+#_@@@
+#_
+</article>
+</node>
+<node>
+id=508
+lv=2
+dt=Text
+nm=far.GetPluginInformation
+ctime=3877053707
+mtime=3877053959
+<article>
+#_Info = far.GetPluginInformation (Handle)
+#_
+#_**Parameters:**
+#_  Handle:  userdata
+#_
+#_**Returns:**
+#_  Info:    table, or nil
+#_    ModuleName: string
+#_    Flags:      flags
+#_    PInfo:      table
+#_      Flags:         flags
+#_      DiskMenu:      table (array of strings)
+#_      PluginMenu:    table (array of strings)
+#_      PluginConfig:  table (array of strings)
+#_      CommandPrefix: string, or nil
+#_    GInfo:      table
+#_      SysID:         integer
+#_
+#_**Far API used:**
+#_  PluginsControlV3, PCTL_GETPLUGININFORMATION
 #_
 #_@@@
 #_
