@@ -5,7 +5,7 @@
 
 local discount = require "old-discount"
 local rex      = require "rex_pcre"
-local tsi      = require "tsi"
+local tsi4     = require "tsi4"
 
 local function fprintf(fp_out, fmt, ...)
   fp_out:write(fmt:format(...))
@@ -179,7 +179,7 @@ local CHM_INDEX = {
 }
 
 -- generate: files, project, TOC and FileIndex
-local function generateFPT (NodeIterator, ProjectName, fp_template, out_dir)
+local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
   local path_project_name = path_join(out_dir, ProjectName)
   -- create a FileIndex, a project file and a TOC file
   local fIndex = assert( io.open(path_project_name..".htm", "wt") )
@@ -193,29 +193,46 @@ local function generateFPT (NodeIterator, ProjectName, fp_template, out_dir)
 
   local ProjectHeaderReady
   local nodeLevel = -1
-  for node, _ in NodeIterator do
-    if node.datatype ~= "text" then
-      error(node.name .. ": article must be pure text type")
+  local tNodes, tArticles = assert( tsi4.ReadFile(DataFile) )
+
+  for _, art in ipairs(tArticles) do
+    if art.datatype ~= "Text" then
+      error(art.name .. ": article must be pure text type")
     end
-    local filename = ("%d.html"):format(node.id)
+    local filename = ("%d.html"):format(art.id)
     local fCurrent = assert( io.open(path_join(out_dir,filename), "wt") )
-    local article = process_article(node.article)
+    local article = process_article(art.content)
     if article.kind == "html" then
       fCurrent:write(article.text)
     else
-      writeTopicHeader(fCurrent, node.name, fp_template)
+      writeTopicHeader(fCurrent, art.name, fp_template)
       fCurrent:write(article.text)
       writeTopicFooter(fCurrent, fp_template)
     end
     fCurrent:close()
 
     if not ProjectHeaderReady then
-      writeProjectHeader(fProj, ProjectName, node.name, filename)
+      writeProjectHeader(fProj, ProjectName, art.name, filename)
       ProjectHeaderReady = true
     end
 
     -- include file name into the project file
     fProj:write(filename, "\n")
+
+    -- index nodes with non-empty articles
+    if art.content:find("%S") then
+      fChmIndex:write(CHM_INDEX.Item:format(art.name, filename))
+    end
+    -- index keywords in "simple" articles
+    if article.kind == "simple" then
+      for nm in article.text:gmatch([[<a name="(.-)">]]) do
+        fChmIndex:write(CHM_INDEX.Item:format(nm, filename.."#"..nm))
+      end
+    end
+  end
+
+  for _, node in ipairs(tNodes) do
+    local filename = ("%d.html"):format(node.art)
 
     -- get node level
     -- put node info into the TOC and the FileIndex
@@ -245,17 +262,6 @@ local function generateFPT (NodeIterator, ProjectName, fp_template, out_dir)
     fToc:write("\">\n")
     fputs_indent("</OBJECT>\n", fToc, newLevel+1)
 
-    -- index nodes with non-empty articles
-    if node.article:find("%S") then
-      fChmIndex:write(CHM_INDEX.Item:format(node.name, filename))
-    end
-    -- index keywords in "simple" articles
-    if article.kind == "simple" then
-      for nm in article.text:gmatch([[<a name="(.-)">]]) do
-        fChmIndex:write(CHM_INDEX.Item:format(nm, filename.."#"..nm))
-      end
-    end
-
     nodeLevel = newLevel
   end
 
@@ -280,6 +286,6 @@ do
   assert(datafile and tem and outdir, "some parameter is missing")
   local fp_template = (tem~="-") and assert(io.open(tem))
   local project_name = datafile:match("[^/\\]+$"):gsub("%.[^.]+$", "")
-  generateFPT(tsi.Nodes(datafile), project_name, fp_template, outdir or ".")
+  generateFPT(datafile, project_name, fp_template, outdir or ".")
   if fp_template then fp_template:close() end
 end

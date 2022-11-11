@@ -1,14 +1,34 @@
-<header>
-tag=SMZ1
-ver=2.7
-</header>
-<node>
-id=1
-lv=0
-dt=Text
-nm=LuaFAR for Editor (version 2.9)
-mtime=3859904262
-<article>
+<TreeSpice version 4.0>
+
+node lv=0 id=1 art=1 nm=LuaFAR for Editor (version 2.9)
+node lv=0 id=8 art=8 nm=User's utilities
+node lv=1 id=36 art=36 nm=Installation functions
+node lv=2 id=13 art=13 nm=AddToMenu
+node lv=2 id=57 art=57 nm=AddCommand
+node lv=2 id=20 art=20 nm=AddEvent
+node lv=2 id=34 art=34 nm=AddUserFile
+node lv=2 id=35 art=35 nm=AutoInstall
+node lv=1 id=73 art=73 nm=Input data of installed scripts
+node lv=1 id=37 art=37 nm=Packets of scripts
+node lv=1 id=68 art=68 nm=Utility for localization
+node lv=1 id=38 art=38 nm=Binary modules
+node lv=1 id=14 art=14 nm=Example of use
+node lv=0 id=59 art=59 nm=Command line and macro calls
+node lv=1 id=78 art=78 nm=Another syntax
+node lv=0 id=31 art=31 nm=Plugin API
+node lv=1 id=32 art=32 nm=lf4ed.config
+node lv=1 id=79 art=79 nm=lf4ed.reload
+node lv=1 id=33 art=33 nm=lf4ed.version
+node lv=0 id=21 art=21 nm=Lua Modules
+node lv=1 id=80 art=80 nm=far2.settings
+node lv=2 id=84 art=84 nm=deserialize
+node lv=2 id=86 art=86 nm=field
+node lv=2 id=83 art=83 nm=mdelete
+node lv=2 id=81 art=81 nm=mload
+node lv=2 id=82 art=82 nm=msave
+node lv=2 id=85 art=85 nm=serialize
+
+article id=1 dt=Text ctime=0 mtime=3859904262 nm=LuaFAR for Editor (version 2.9)
 #_<markdown>
 #_**LuaFAR for Editor** (a FAR plugin) is a collection of utilities
 #_that implement various actions controlling the work of FAR's
@@ -24,14 +44,8 @@ mtime=3859904262
 #_- [Plugin API](31.html)
 #_- [Lua Modules](21.html)
 #_
-</article>
-</node>
-<node>
-id=8
-lv=0
-dt=Text
-nm=User's utilities
-<article>
+
+article id=8 dt=Text ctime=0 mtime=0 nm=User's utilities
 #_<markdown>
 #_
 #_### Installing user's utilities
@@ -69,32 +83,8 @@ nm=User's utilities
 #_
 #_
 #_
-</article>
-</node>
-<node>
-id=36
-lv=1
-dt=Text
-nm=Installation functions
-mtime=3852664569
-<article>
-#_<markdown>
-#_
-#_[`AddToMenu`](13.html)<br>
-#_[`AddCommand`](57.html)<br>
-#_[`AddEvent`](20.html)<br>
-#_[`AddUserFile`](34.html)<br>
-#_[`AutoInstall`](35.html)<br>
-#_
-</article>
-</node>
-<node>
-id=13
-lv=2
-dt=Text
-nm=AddToMenu
-mtime=3860309876
-<article>
+
+article id=13 dt=Text ctime=0 mtime=3860309876 nm=AddToMenu
 #_<markdown>
 #_**`AddToMenu (where, text, hotkey, handler)`**
 #_
@@ -141,283 +131,8 @@ mtime=3860309876
 #_and specify the number of the built-in utility via `handler`:
 #_      AddToMenu ("e", nil, "Ctrl+1", 1)
 #_
-</article>
-</node>
-<node>
-id=57
-lv=2
-dt=Text
-nm=AddCommand
-mtime=3860309881
-<article>
-#_<markdown>
-#_**`AddCommand (command, handler [, description])`**
-#_
-#_### Description
-#_
-#_Function `AddCommand` is available to the *_usermenu.lua* script.<br>
-#_It establishes a correspondence between the given `command` and
-#_the specified action (`handler`). This allows to run that action
-#_either from the command line or from a macro.
-#_
-#_### Parameters
-#_
-#_1. `command`<br>
-#_The first command line parameter after the plugin's prefix.
-#_
-#_1. `handler`<br>
-#_A Lua function.
-#_
-#_1. `description`<br>
-#_Description of the command (a string)
-#_
-#_### Note
-#_
-#_`AddCommand` may be called several times with the same `command` parameter
-#_but different `handler` and `description` parameters. When such a comnmand
-#_is later invoked the user is presented with a menu for choosing the desired
-#_action.
-#_
-#_### Examples
-#_      AddCommand("calc", calc, "Calculator")
-#_      AddCommand("hello", function() far.Message("Hello") end, "Hello")
-#_
-</article>
-</node>
-<node>
-id=20
-lv=2
-dt=Text
-nm=AddEvent
-mtime=3860309886
-<article>
-#_<markdown>
-#_**`AddEvent (event_name, handler)`**
-#_
-#_### Description
-#_
-#_Function `AddEvent` is available to the *_usermenu.lua* script.<br>
-#_It allows to add a function handler that will be further called on some FAR event.
-#_
-#_`event_name` can be one of the following strings:
-#_
-#_* `"EditorInput"`
-#_* `"EditorEvent"`
-#_* `"ViewerEvent"`
-#_* `"DialogEvent"`
-#_* `"ExitScript"`
-#_
-#_### Notes about the handlers
-#_
-#_1. There can be multiple handlers for the same event type. They will
-#_   be called in the order their files are specified in
-#_   `_usermenu.lua`.
-#_1. The handlers' input parameters correspond to the *exported
-#_   functions* with the same names, e.g. `ViewerEvent`
-#_   corresponds to `export.ProcessViewerEvent`, etc. (see LuaFAR manual
-#_   for details). `ExitScript` has no parameters, no return value.
-#_1. If the return value of a handler's `EditorInput` is true,
-#_   the rest of `EditorInput` handlers are not called, and
-#_   true is returned to Far. This is the same also for `DialogEvent`.
-#_1. The return values of `EditorEvent` and `ViewerEvent` handlers
-#_   are ignored.
-#_1. `EditorInput` handlers are not called when a user-defined
-#_   hot key is pressed.
-#_1. `ExitScript` is called when the plugin is about to be unloaded.
-#_   It is also called before the "Reload User file" operation.
-#_
-</article>
-</node>
-<node>
-id=34
-lv=2
-dt=Text
-nm=AddUserFile
-mtime=3860305827
-<article>
-#_<markdown>
-#_**`AddUserFile (filename)`**
-#_
-#_### Description
-#_
-#_Function `AddUserFile` is available to the *_usermenu.lua* script.
-#_
-#_This function executes the script `filename` passing `filename` as the argument.
-#_The script can set some top-level variable to this value so that script's
-#_functions could use it.
-#_
-#_### Parameters
-#_
-#_1. `filename`<br>
-#_Specifies a file that is treated as an additional *_usermenu.lua* file.
-#_Either an absolute path or a path relative to the plugin's directory can be specified.
-#_
-#_### Notes
-#_
-#_If the file's extension is `.moon` then it is treated as a MoonScript file,
-#_otherwise as a Lua file.
-#_
-#_All utilities added by [`AddToMenu`](13.html) and
-#_[`AddCommand`](57.html) calls within the file specified by `filename`
-#_share a common environment that does not change until the next
-#_*Reload User File* operation (or until FAR termination).
-#_
-#_In fact, the plugin itself executes `AddUserFile("_usermenu.lua")`.
-#_
-#_
-</article>
-</node>
-<node>
-id=35
-lv=2
-dt=Text
-nm=AutoInstall
-mtime=3860306007
-<article>
-#_<markdown>
-#_**`AutoInstall (startpath)`**
-#_
-#_### Description
-#_
-#_Function `AutoInstall` is available to the *_usermenu.lua* script.<br>
-#_It looks for Lua and MoonScript files in `startpath` and its
-#_subdirectories recursively,
-#_and calls [`AddUserFile`](34.html) for each matching file found.
-#_
-#_### Parameters
-#_
-#_1. `startpath`<br>
-#_Either an absolute path or a path relative to the plugin's directory
-#_
-#_### Notes
-#_- During the recursive search the directories whose names begin with `_`
-#_  (underscore) are skipped with all their content
-#_- Lua files are determined by the extension `.lua`
-#_- MoonScript files are determined by the extension `.moon`
-#_- Files whose name begin with `_` (underscore) are skipped
-#_
-#_### Examples
-#_
-#_      AutoInstall ("scripts")
-#_
-</article>
-</node>
-<node>
-id=73
-lv=1
-dt=Text
-nm=Input data of installed scripts
-ctime=3491725586
-mtime=3859823590
-<article>
-#_<markdown>
-#_
-#_### Scripts installed via `AddToMenu` call (run from plugin menu or shortcut)
-#_
-#_* The invoked function receives no arguments.
-#_
-#_### Scripts installed via `AddCommand` call (run via plugin command)
-#_
-#_* The invoked function receives all the arguments (if any) specified after the command name.
-#_
-#_*Example:*
-#_      local function fShow(...) far.Show(...) end
-#_      AddCommand("Show", fShow)
-#_      ...
-#_      lfe: Show 45 67 foo bar
-</article>
-</node>
-<node>
-id=37
-lv=1
-dt=Text
-nm=Packets of scripts
-<article>
-#_<markdown>
-#_If there is a set of utilities that is distributed as a single
-#_unit ("packet of scripts"), it makes sense to install it separately
-#_from other scripts.
-#_
-#_* The standard location for adding packets of scripts is
-#_**`<plugin_path>/scripts`**.
-#_It is recommended to install the packet in subdirectory
-#_**`<plugin_path>/scripts/<packet_name>`**.
-#_
-#_* The plugin modifies `package.path` by adding at the beginning:
-#_**`<plugin_path>/scripts/?.lua;`**. (So the user doesn't have to.)
-#_
-#_* Due to the danger of module names collision, it is **not** recommended
-#_for packet writers to further modify `package.path`. Instead, start
-#_the argument of every `require` call with `<packet_name>`.
-#_E.g., if the packet is named *fl_scripts* then do:
-#_`require 'fl_scripts/utils/read_config'`
-</article>
-</node>
-<node>
-id=68
-lv=1
-dt=Text
-nm=Utility for localization
-ctime=3485729339
-mtime=3486625193
-<article>
-#_<markdown>
-#_
-#_The plugin contains a utility for adding localization to user packets of scripts. The utility consists of two files:
-#_<plugin_directory>/**`lf4ed_lang.lua`** and **`far2/makelang.lua`**.
-#_
-#_(1) Create a "language template" file (similar to **`lf4ed_lang.templ`** file in the plugin directory), let's assume it is *scripts/my_package/lang.templ*.
-#_
-#_   * The exact syntax of "language template" files is described in the file **`far2/makelang.lua`**. The template file should be in UTF-8 encoding, with or without BOM.
-#_
-#_   * Choose some prefix for all your message identifiers (e.g. "mp"), to avoid conflicts with the existing message identifiers (if conflicts occur, they are detected by the program).
-#_
-#_   * Every script using this message system should **`require "lf4ed_message"`**. This returns a table that can be accessed for retrieving localized messages.
-#_
-#_(2) Run the following command from the plugin's directory:<br>
-#_        lua lf4ed_lang.lua scripts/my_package/lang.templ
-#_If no errors occured, this will extend **`*.lng`** files and **`lf4ed_message.lua`** file with the localized messages of your script package.
-#_
-#_(3) Restart Far.
-#_
-#_
-#_**Example of use:**
-#_        local M = require "lf4ed_message"
-#_        ........
-#_        far.Message(M.mpSomeMsgText, M.mpSomeMsgTitle, M.mpSomeMsgButtons)
-#_
-#_
-</article>
-</node>
-<node>
-id=38
-lv=1
-dt=Text
-nm=Binary modules
-<article>
-#_<markdown>
-#_
-#_Sometimes, user scripts may need some binary module (e.g.,
-#_*LuaFileSystem*) for its functioning. There are two ways
-#_of installing the binary modules:
-#_
-#_* If there is no specific setup for changing `package.cpath`
-#_  (usually via the environment variable `LUA_CPATH`), then
-#_  put the binary modules into `%FARHOME%` directory.
-#_
-#_* Otherwise, put the binary modules into any directory listed
-#_  in `package.cpath`.
-#_
-#_
-</article>
-</node>
-<node>
-id=14
-lv=1
-dt=Text
-nm=Example of use
-mtime=3853967770
-<article>
+
+article id=14 dt=Text ctime=0 mtime=3853967770 nm=Example of use
 #_<markdown>
 #_### _usermenu.lua
 #_    local function SmartHome()
@@ -456,15 +171,239 @@ mtime=3853967770
 #_
 #_    AddEvent("EditorInput", ReplaceChar)
 #_    AddEvent("EditorEvent", ShowTemplatesMenu)
-</article>
-</node>
-<node>
-id=59
-lv=0
-dt=Text
-nm=Command line and macro calls
-mtime=3862201278
-<article>
+
+article id=20 dt=Text ctime=0 mtime=3860309886 nm=AddEvent
+#_<markdown>
+#_**`AddEvent (event_name, handler)`**
+#_
+#_### Description
+#_
+#_Function `AddEvent` is available to the *_usermenu.lua* script.<br>
+#_It allows to add a function handler that will be further called on some FAR event.
+#_
+#_`event_name` can be one of the following strings:
+#_
+#_* `"EditorInput"`
+#_* `"EditorEvent"`
+#_* `"ViewerEvent"`
+#_* `"DialogEvent"`
+#_* `"ExitScript"`
+#_
+#_### Notes about the handlers
+#_
+#_1. There can be multiple handlers for the same event type. They will
+#_   be called in the order their files are specified in
+#_   `_usermenu.lua`.
+#_1. The handlers' input parameters correspond to the *exported
+#_   functions* with the same names, e.g. `ViewerEvent`
+#_   corresponds to `export.ProcessViewerEvent`, etc. (see LuaFAR manual
+#_   for details). `ExitScript` has no parameters, no return value.
+#_1. If the return value of a handler's `EditorInput` is true,
+#_   the rest of `EditorInput` handlers are not called, and
+#_   true is returned to Far. This is the same also for `DialogEvent`.
+#_1. The return values of `EditorEvent` and `ViewerEvent` handlers
+#_   are ignored.
+#_1. `EditorInput` handlers are not called when a user-defined
+#_   hot key is pressed.
+#_1. `ExitScript` is called when the plugin is about to be unloaded.
+#_   It is also called before the "Reload User file" operation.
+#_
+
+article id=21 dt=Text ctime=0 mtime=3854644115 nm=Lua Modules
+#_<markdown>
+#_There are a few Lua modules that can be used in the utilities added by the user:
+#_
+#_* [`far2.settings`](80.html)
+#_
+
+article id=31 dt=Text ctime=0 mtime=3852182734 nm=Plugin API
+#_<markdown>
+#_
+#_1. There is an important thing to know when writing scripts for
+#_   *LuaFAR for Editor*: indexing string variables accesses functions
+#_   in **`utf8`** rather than in **`string`** namespace.
+#_     * For example, `s:sub(1,2)` means `utf8.sub(s,1,2)`.
+#_     * To use `string` library, specify that explicitly,
+#_       e.g., `string.sub(s,1,2)`.
+#_     * **`#s`** refers to `string.len(s)`. Use **`s:len()`**
+#_       to obtain number of characters.
+#_1. The plugin has a few functions that are available to user scripts.
+#_   They are placed under **lf4ed** namespace.
+#_     * [`lf4ed.config`](32.html)
+#_     * [`lf4ed.reload`](79.html)
+#_     * [`lf4ed.version`](33.html)
+#_
+
+article id=32 dt=Text ctime=0 mtime=3859383744 nm=lf4ed.config
+#_Get the plugin configuration.
+#_
+#_cfg = lf4ed.config()
+#_
+#_**Returns:**
+#_  *cfg*: table
+#_         Fields of *cfg*:
+#_           ReloadDefaultScript : boolean
+#_           RequireWithReload   : boolean
+#_           ReturnToMainMenu    : boolean
+#_
+#_**Description:**
+#_  The function returns a copy of the plugin's configuration table.
+#_
+
+article id=33 dt=Text ctime=0 mtime=0 nm=lf4ed.version
+#_Get plugin version.
+#_
+#_version = lf4ed.version()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  *version*: string, e.g. "0.8.0"
+#_
+#_
+
+article id=34 dt=Text ctime=0 mtime=3860305827 nm=AddUserFile
+#_<markdown>
+#_**`AddUserFile (filename)`**
+#_
+#_### Description
+#_
+#_Function `AddUserFile` is available to the *_usermenu.lua* script.
+#_
+#_This function executes the script `filename` passing `filename` as the argument.
+#_The script can set some top-level variable to this value so that script's
+#_functions could use it.
+#_
+#_### Parameters
+#_
+#_1. `filename`<br>
+#_Specifies a file that is treated as an additional *_usermenu.lua* file.
+#_Either an absolute path or a path relative to the plugin's directory can be specified.
+#_
+#_### Notes
+#_
+#_If the file's extension is `.moon` then it is treated as a MoonScript file,
+#_otherwise as a Lua file.
+#_
+#_All utilities added by [`AddToMenu`](13.html) and
+#_[`AddCommand`](57.html) calls within the file specified by `filename`
+#_share a common environment that does not change until the next
+#_*Reload User File* operation (or until FAR termination).
+#_
+#_In fact, the plugin itself executes `AddUserFile("_usermenu.lua")`.
+#_
+#_
+
+article id=35 dt=Text ctime=0 mtime=3860306007 nm=AutoInstall
+#_<markdown>
+#_**`AutoInstall (startpath)`**
+#_
+#_### Description
+#_
+#_Function `AutoInstall` is available to the *_usermenu.lua* script.<br>
+#_It looks for Lua and MoonScript files in `startpath` and its
+#_subdirectories recursively,
+#_and calls [`AddUserFile`](34.html) for each matching file found.
+#_
+#_### Parameters
+#_
+#_1. `startpath`<br>
+#_Either an absolute path or a path relative to the plugin's directory
+#_
+#_### Notes
+#_- During the recursive search the directories whose names begin with `_`
+#_  (underscore) are skipped with all their content
+#_- Lua files are determined by the extension `.lua`
+#_- MoonScript files are determined by the extension `.moon`
+#_- Files whose name begin with `_` (underscore) are skipped
+#_
+#_### Examples
+#_
+#_      AutoInstall ("scripts")
+#_
+
+article id=36 dt=Text ctime=0 mtime=3852664569 nm=Installation functions
+#_<markdown>
+#_
+#_[`AddToMenu`](13.html)<br>
+#_[`AddCommand`](57.html)<br>
+#_[`AddEvent`](20.html)<br>
+#_[`AddUserFile`](34.html)<br>
+#_[`AutoInstall`](35.html)<br>
+#_
+
+article id=37 dt=Text ctime=0 mtime=0 nm=Packets of scripts
+#_<markdown>
+#_If there is a set of utilities that is distributed as a single
+#_unit ("packet of scripts"), it makes sense to install it separately
+#_from other scripts.
+#_
+#_* The standard location for adding packets of scripts is
+#_**`<plugin_path>/scripts`**.
+#_It is recommended to install the packet in subdirectory
+#_**`<plugin_path>/scripts/<packet_name>`**.
+#_
+#_* The plugin modifies `package.path` by adding at the beginning:
+#_**`<plugin_path>/scripts/?.lua;`**. (So the user doesn't have to.)
+#_
+#_* Due to the danger of module names collision, it is **not** recommended
+#_for packet writers to further modify `package.path`. Instead, start
+#_the argument of every `require` call with `<packet_name>`.
+#_E.g., if the packet is named *fl_scripts* then do:
+#_`require 'fl_scripts/utils/read_config'`
+
+article id=38 dt=Text ctime=0 mtime=0 nm=Binary modules
+#_<markdown>
+#_
+#_Sometimes, user scripts may need some binary module (e.g.,
+#_*LuaFileSystem*) for its functioning. There are two ways
+#_of installing the binary modules:
+#_
+#_* If there is no specific setup for changing `package.cpath`
+#_  (usually via the environment variable `LUA_CPATH`), then
+#_  put the binary modules into `%FARHOME%` directory.
+#_
+#_* Otherwise, put the binary modules into any directory listed
+#_  in `package.cpath`.
+#_
+#_
+
+article id=57 dt=Text ctime=0 mtime=3860309881 nm=AddCommand
+#_<markdown>
+#_**`AddCommand (command, handler [, description])`**
+#_
+#_### Description
+#_
+#_Function `AddCommand` is available to the *_usermenu.lua* script.<br>
+#_It establishes a correspondence between the given `command` and
+#_the specified action (`handler`). This allows to run that action
+#_either from the command line or from a macro.
+#_
+#_### Parameters
+#_
+#_1. `command`<br>
+#_The first command line parameter after the plugin's prefix.
+#_
+#_1. `handler`<br>
+#_A Lua function.
+#_
+#_1. `description`<br>
+#_Description of the command (a string)
+#_
+#_### Note
+#_
+#_`AddCommand` may be called several times with the same `command` parameter
+#_but different `handler` and `description` parameters. When such a comnmand
+#_is later invoked the user is presented with a menu for choosing the desired
+#_action.
+#_
+#_### Examples
+#_      AddCommand("calc", calc, "Calculator")
+#_      AddCommand("hello", function() far.Message("Hello") end, "Hello")
+#_
+
+article id=59 dt=Text ctime=0 mtime=3862201278 nm=Command line and macro calls
 #_<markdown>
 #_
 #_###Syntax
@@ -489,16 +428,53 @@ mtime=3862201278
 #_####Example of macro call
 #_      Plugin.Call(0x6F332978, "-a calc 2+2")
 #_
-</article>
-</node>
-<node>
-id=78
-lv=1
-dt=Text
-nm=Another syntax
-ctime=3851458231
-mtime=3857977179
-<article>
+
+article id=68 dt=Text ctime=3485729339 mtime=3486625193 nm=Utility for localization
+#_<markdown>
+#_
+#_The plugin contains a utility for adding localization to user packets of scripts. The utility consists of two files:
+#_<plugin_directory>/**`lf4ed_lang.lua`** and **`far2/makelang.lua`**.
+#_
+#_(1) Create a "language template" file (similar to **`lf4ed_lang.templ`** file in the plugin directory), let's assume it is *scripts/my_package/lang.templ*.
+#_
+#_   * The exact syntax of "language template" files is described in the file **`far2/makelang.lua`**. The template file should be in UTF-8 encoding, with or without BOM.
+#_
+#_   * Choose some prefix for all your message identifiers (e.g. "mp"), to avoid conflicts with the existing message identifiers (if conflicts occur, they are detected by the program).
+#_
+#_   * Every script using this message system should **`require "lf4ed_message"`**. This returns a table that can be accessed for retrieving localized messages.
+#_
+#_(2) Run the following command from the plugin's directory:<br>
+#_        lua lf4ed_lang.lua scripts/my_package/lang.templ
+#_If no errors occured, this will extend **`*.lng`** files and **`lf4ed_message.lua`** file with the localized messages of your script package.
+#_
+#_(3) Restart Far.
+#_
+#_
+#_**Example of use:**
+#_        local M = require "lf4ed_message"
+#_        ........
+#_        far.Message(M.mpSomeMsgText, M.mpSomeMsgTitle, M.mpSomeMsgButtons)
+#_
+#_
+
+article id=73 dt=Text ctime=3491725586 mtime=3859823590 nm=Input data of installed scripts
+#_<markdown>
+#_
+#_### Scripts installed via `AddToMenu` call (run from plugin menu or shortcut)
+#_
+#_* The invoked function receives no arguments.
+#_
+#_### Scripts installed via `AddCommand` call (run via plugin command)
+#_
+#_* The invoked function receives all the arguments (if any) specified after the command name.
+#_
+#_*Example:*
+#_      local function fShow(...) far.Show(...) end
+#_      AddCommand("Show", fShow)
+#_      ...
+#_      lfe: Show 45 67 foo bar
+
+article id=78 dt=Text ctime=3851458231 mtime=3857977179 nm=Another syntax
 #_<markdown>
 #_
 #_###Syntax
@@ -509,64 +485,8 @@ mtime=3857977179
 #_is equivalent to
 #_      far.Show(5, 6+44, "apple")
 #_
-</article>
-</node>
-<node>
-id=31
-lv=0
-dt=Text
-nm=Plugin API
-mtime=3852182734
-<article>
-#_<markdown>
-#_
-#_1. There is an important thing to know when writing scripts for
-#_   *LuaFAR for Editor*: indexing string variables accesses functions
-#_   in **`utf8`** rather than in **`string`** namespace.
-#_     * For example, `s:sub(1,2)` means `utf8.sub(s,1,2)`.
-#_     * To use `string` library, specify that explicitly,
-#_       e.g., `string.sub(s,1,2)`.
-#_     * **`#s`** refers to `string.len(s)`. Use **`s:len()`**
-#_       to obtain number of characters.
-#_1. The plugin has a few functions that are available to user scripts.
-#_   They are placed under **lf4ed** namespace.
-#_     * [`lf4ed.config`](32.html)
-#_     * [`lf4ed.reload`](79.html)
-#_     * [`lf4ed.version`](33.html)
-#_
-</article>
-</node>
-<node>
-id=32
-lv=1
-dt=Text
-nm=lf4ed.config
-mtime=3859383744
-<article>
-#_Get the plugin configuration.
-#_
-#_cfg = lf4ed.config()
-#_
-#_**Returns:**
-#_  *cfg*: table
-#_         Fields of *cfg*:
-#_           ReloadDefaultScript : boolean
-#_           RequireWithReload   : boolean
-#_           ReturnToMainMenu    : boolean
-#_
-#_**Description:**
-#_  The function returns a copy of the plugin's configuration table.
-#_
-</article>
-</node>
-<node>
-id=79
-lv=1
-dt=Text
-nm=lf4ed.reload
-ctime=3851704547
-mtime=3851705152
-<article>
+
+article id=79 dt=Text ctime=3851704547 mtime=3851705152 nm=lf4ed.reload
 #_Reload user file.
 #_
 #_lf4ed.reload()
@@ -581,146 +501,12 @@ mtime=3851705152
 #_This is the same as running "Reload User File" from the plugin's
 #_configuration menu.
 #_
-</article>
-</node>
-<node>
-id=33
-lv=1
-dt=Text
-nm=lf4ed.version
-<article>
-#_Get plugin version.
-#_
-#_version = lf4ed.version()
-#_
-#_**Parameters:**
-#_  none
-#_
-#_**Returns:**
-#_  *version*: string, e.g. "0.8.0"
-#_
-#_
-</article>
-</node>
-<node>
-id=21
-lv=0
-dt=Text
-nm=Lua Modules
-mtime=3854644115
-<article>
-#_<markdown>
-#_There are a few Lua modules that can be used in the utilities added by the user:
-#_
-#_* [`far2.settings`](80.html)
-#_
-</article>
-</node>
-<node>
-id=80
-lv=1
-dt=Text
-nm=far2.settings
-ctime=3854196003
-mtime=3854197259
-<article>
+
+article id=80 dt=Text ctime=3854196003 mtime=3854197259 nm=far2.settings
 #_This library provides functions for storing and retrieving
 #_persistent data (persistent between FAR sessions).
-</article>
-</node>
-<node>
-id=84
-lv=2
-dt=Text
-nm=deserialize
-ctime=3854196154
-mtime=3854196918
-<article>
-#_value, errmsg = sett.deserialize (str)
-#_
-#_**Parameters:**
-#_  str:       string
-#_
-#_**Returns:**
-#_  value:     number, string, boolean, table, or nil.
-#_  errmsg:    nil on success, string on failure.
-#_
-#_**Description:**
-#_  Function *deserialize* recreates a copy of a previously serialized value.
-#_  If the second return value is nil then the first return value is valid.
-#_
-#_**See also:**
-#_  `serialize`
-#_
-#_@@@
-#_<lua> Links = {
-#_  serialize="85.html"
-#_} </lua>
-#_
-</article>
-</node>
-<node>
-id=86
-lv=2
-dt=Text
-nm=field
-ctime=3854197468
-mtime=3854199354
-<article>
-#_ret = sett.field (tbl, ...)
-#_
-#_**Parameters:**
-#_  tbl :    table
-#_  ... :    one or more strings
-#_
-#_**Returns:**
-#_  ret:     table
-#_
-#_**Description:**
-#_  This function tries to get a field from the table *tbl*.
-#_  If the field does not exist the function creates a new table
-#_  and assigns it to the field of the nearest enclosing table.
-#_  Multiple input strings are nested field names.
-#_
-#_**Example**
-#_  local tbl = {}
-#_  ret = sett.field(tbl, "foo", "bar")
-#_
-#_  After the call *tbl* will look as { foo = { bar={} } }
-#_  The function will return tbl["foo"]["bar"]
-#_
-</article>
-</node>
-<node>
-id=83
-lv=2
-dt=Text
-nm=mdelete
-ctime=3854196145
-mtime=3854197373
-<article>
-#_ret = sett.mdelete (key, name)
-#_
-#_**Parameters:**
-#_  key:       string
-#_  name:      string
-#_
-#_**Returns:**
-#_  ret:       boolean
-#_
-#_**Description:**
-#_  Function *mdelete* deletes a value from the database.
-#_
-</article>
-</node>
-<node>
-id=81
-lv=2
-dt=Text
-nm=mload
-ctime=3854196131
-mtime=3854196688
-<article>
+
+article id=81 dt=Text ctime=3854196131 mtime=3854196688 nm=mload
 #_value, errmsg = sett.mload (key, name)
 #_
 #_**Parameters:**
@@ -735,16 +521,8 @@ mtime=3854196688
 #_  Function *mload* reads a value from the database.
 #_  If the second return value is nil then the first return value is valid.
 #_
-</article>
-</node>
-<node>
-id=82
-lv=2
-dt=Text
-nm=msave
-ctime=3854196137
-mtime=3854196695
-<article>
+
+article id=82 dt=Text ctime=3854196137 mtime=3854196695 nm=msave
 #_ret = sett.msave (key, name, value)
 #_
 #_**Parameters:**
@@ -766,16 +544,45 @@ mtime=3854196695
 #_
 #_  The link between a table and its metatable is preserved.
 #_
-</article>
-</node>
-<node>
-id=85
-lv=2
-dt=Text
-nm=serialize
-ctime=3854196167
-mtime=3854196934
-<article>
+
+article id=83 dt=Text ctime=3854196145 mtime=3854197373 nm=mdelete
+#_ret = sett.mdelete (key, name)
+#_
+#_**Parameters:**
+#_  key:       string
+#_  name:      string
+#_
+#_**Returns:**
+#_  ret:       boolean
+#_
+#_**Description:**
+#_  Function *mdelete* deletes a value from the database.
+#_
+
+article id=84 dt=Text ctime=3854196154 mtime=3854196918 nm=deserialize
+#_value, errmsg = sett.deserialize (str)
+#_
+#_**Parameters:**
+#_  str:       string
+#_
+#_**Returns:**
+#_  value:     number, string, boolean, table, or nil.
+#_  errmsg:    nil on success, string on failure.
+#_
+#_**Description:**
+#_  Function *deserialize* recreates a copy of a previously serialized value.
+#_  If the second return value is nil then the first return value is valid.
+#_
+#_**See also:**
+#_  `serialize`
+#_
+#_@@@
+#_<lua> Links = {
+#_  serialize="85.html"
+#_} </lua>
+#_
+
+article id=85 dt=Text ctime=3854196167 mtime=3854196934 nm=serialize
 #_ret = sett.serialize (value)
 #_
 #_**Parameters:**
@@ -803,5 +610,28 @@ mtime=3854196934
 #_  deserialize="84.html"
 #_} </lua>
 #_
-</article>
-</node>
+
+article id=86 dt=Text ctime=3854197468 mtime=3854199354 nm=field
+#_ret = sett.field (tbl, ...)
+#_
+#_**Parameters:**
+#_  tbl :    table
+#_  ... :    one or more strings
+#_
+#_**Returns:**
+#_  ret:     table
+#_
+#_**Description:**
+#_  This function tries to get a field from the table *tbl*.
+#_  If the field does not exist the function creates a new table
+#_  and assigns it to the field of the nearest enclosing table.
+#_  Multiple input strings are nested field names.
+#_
+#_**Example**
+#_  local tbl = {}
+#_  ret = sett.field(tbl, "foo", "bar")
+#_
+#_  After the call *tbl* will look as { foo = { bar={} } }
+#_  The function will return tbl["foo"]["bar"]
+#_
+

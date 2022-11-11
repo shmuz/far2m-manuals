@@ -6,7 +6,7 @@
 local discount = require "discount"
 local lxsh     = require "lxsh"
 local rex      = require "rex_pcre"
-local tsi      = require "tsi"
+local tsi4     = require "tsi4"
 
 local function fprintf(fp_out, fmt, ...)
   fp_out:write(fmt:format(...))
@@ -195,40 +195,53 @@ local function path_join(path1, path2)
 end
 
 -- generate: files, project, TOC and FileIndex
-local function generateFPT (NodeIterator, ProjectName, fp_template, out_dir)
+local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
   local path_project_name = path_join(out_dir, ProjectName)
   -- create a FileIndex, a project file and a TOC file
-  local fIndex = assert(io.open(path_project_name..".htm", "w"))
+  local fIndex = assert( io.open(path_project_name..".htm", "wt") )
   fIndex:write("<HTML><HEAD><TITLE>\nFile Locator\n</TITLE></HEAD>\n<BODY>\n")
 
-  local fProj = assert(io.open(path_project_name..".hhp", "w"))
-  local fToc  = assert(io.open(path_project_name..".hhc", "w"))
+  local fProj = assert( io.open(path_project_name..".hhp", "wt") )
+  local fToc  = assert( io.open(path_project_name..".hhc", "wt") )
   writeTocHeader(fToc)
 
   local ProjectHeaderReady
   local nodeLevel = -1
   local ProjectFiles = {}
-  for node in NodeIterator do
-    local filename = ("%d.html"):format(node.id)
-    local fCurrent = assert(io.open(path_join(out_dir,filename), "w"))
-    local article, ready = process_article(node.article)
+  local tNodes, tArticles = assert( tsi4.ReadFile(DataFile) )
+
+  for _, art in ipairs(tArticles) do
+    if art.datatype ~= "Text" then
+      error(art.name .. ": article must be pure text type")
+    end
+    local filename = ("%d.html"):format(art.id)
+    local fCurrent = assert( io.open(path_join(out_dir,filename), "wt") )
+    local article, ready = process_article(art.content)
     if ready then
       fCurrent:write(article)
     else
-      writeTopicHeader(fCurrent, node.name, fp_template)
+      writeTopicHeader(fCurrent, art.name, fp_template)
       fCurrent:write(article)
       writeTopicFooter(fCurrent, fp_template)
     end
     fCurrent:close()
 
     if not ProjectHeaderReady then
-      writeProjectHeader(fProj, ProjectName, node.name, filename)
+      writeProjectHeader(fProj, ProjectName, art.name, filename)
       ProjectHeaderReady = true
     end
 
     -- include file name into the project file;
     -- do not write directly - put in a table for sorting (work around a conjectural compiler bug)
     table.insert(ProjectFiles, filename)
+  end
+
+  table.sort(ProjectFiles)
+  for _,nm in ipairs(ProjectFiles) do fProj:write(nm, "\n") end
+  fProj:close()
+
+  for _, node in ipairs(tNodes) do
+    local filename = ("%d.html"):format(node.art)
 
     -- get node level
     -- put node info into the TOC and the FileIndex
@@ -261,16 +274,14 @@ local function generateFPT (NodeIterator, ProjectName, fp_template, out_dir)
     nodeLevel = newLevel
   end
 
-  table.sort(ProjectFiles)
-  for _,nm in ipairs(ProjectFiles) do fProj:write(nm, "\n") end
-  fProj:close()
-
   for i = nodeLevel, 0, -1 do
     fputs_indent("</UL>\n", fToc, i)
     fputs_indent("</UL>\n", fIndex, i)
   end
+
   fToc:write("</BODY></HTML>\n")
   fIndex:write("</BODY></HTML>\n")
+
   fToc:close()
   fIndex:close()
 end
@@ -280,6 +291,6 @@ do
   assert(datafile and tem and outdir, "some parameter is missing")
   local fp_template = (tem~="-") and assert(io.open(tem))
   local project_name = datafile:match("[^/\\]+$"):gsub("%.[^.]+$", "")
-  generateFPT(tsi.Nodes(datafile), project_name, fp_template, outdir or ".")
+  generateFPT(datafile, project_name, fp_template, outdir or ".")
   if fp_template then fp_template:close() end
 end
