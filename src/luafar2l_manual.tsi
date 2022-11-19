@@ -244,8 +244,9 @@ node lv=2 id=211 art=211 nm=far.RecursiveSearch
 node lv=2 id=209 art=209 nm=far.TruncPathStr
 node lv=2 id=210 art=210 nm=far.TruncStr
 node lv=2 id=335 art=335 nm=far.XLat
-node lv=1 id=496 art=496 nm=Far2L-specific  functions
+node lv=1 id=496 art=496 nm=Far2L-specific functions
 node lv=2 id=453 art=453 nm=far.BackgroundTask
+node lv=2 id=509 art=505 nm=far.ClearPluginCache
 node lv=2 id=452 art=452 nm=far.DispatchInterThreadCalls
 node lv=2 id=451 art=451 nm=far.DisplayNotification
 node lv=2 id=449 art=449 nm=far.Execute
@@ -709,21 +710,30 @@ article id=21 dt=Text ctime=0 mtime=3851868780 nm=editor.Editor
 #_
 #_
 
-article id=22 dt=Text ctime=0 mtime=3863841114 nm=editor.AddColor
-#_result = editor.AddColor (StringNumber, StartPos, EndPos, Flags, Color)
+article id=22 dt=Text ctime=0 mtime=3877971178 nm=editor.AddColor
+#_result = editor.AddColor (StringNumber, StartPos, EndPos, Color, Flags)
 #_
 #_**Parameters:**
-#_  StringNumber: integer, or nil
-#_  StartPos:     integer (1-based)
-#_  EndPos:       integer (1-based)
-#_  Flags:        flags combination
-#_  Color:        integer
+#_  StringNumber : integer, or nil
+#_  StartPos     : integer (1-based)
+#_  EndPos       : integer (1-based)
+#_  Color        : integer, or table
+#_  Flags        : flags combination (defaults to 0)
 #_
 #_**Returns:**
-#_  result: boolean
+#_  result : boolean
+#_
+#_**Note 1:**
+#_  If *Color* parameter is a table, it may have the following fields:
+#_    BaseColor : integer 
+#_    TrueFore  : integer (foreground RGB color)
+#_    TrueBack  : integer (background RGB color)
+#_
+#_**Note 2:**
+#_  If Color (or Color.BaseColor) is nil or zero then the function fails
 #_
 #_**Far API used:**
-#_  EditorControl, ECTL_ADDCOLOR
+#_  EditorControl, ECTL_ADDTRUECOLOR
 #_
 #_@@@
 #_
@@ -788,7 +798,7 @@ article id=27 dt=Text ctime=0 mtime=3851868866 nm=editor.ExpandTabs
 #_@@@
 #_
 
-article id=28 dt=Text ctime=0 mtime=3859991225 nm=editor.GetColor
+article id=28 dt=Text ctime=0 mtime=3877971097 nm=editor.GetColor
 #_colordata = editor.GetColor(StringNumber, ColorItem)
 #_
 #_**Parameters:**
@@ -799,10 +809,12 @@ article id=28 dt=Text ctime=0 mtime=3859991225 nm=editor.GetColor
 #_  colordata:    table (or nil)
 #_                  StartPos:     integer
 #_                  EndPos:       integer
-#_                  Color:        integer
+#_                  BaseColor:    integer
+#_                  TrueFore:     integer, or nil
+#_                  TrueBack:     integer, or nil
 #_
 #_**Far API used:**
-#_  EditorControl, ECTL_GETCOLOR
+#_  EditorControl, ECTL_GETTRUECOLOR
 #_
 
 article id=29 dt=Text ctime=0 mtime=3853743777 nm=editor.GetInfo
@@ -6801,7 +6813,7 @@ article id=451 dt=Text ctime=3852953930 mtime=3852954119 nm=far.DisplayNotificat
 #_@@@
 #_
 
-article id=452 dt=Text ctime=3852954168 mtime=3852954258 nm=far.DispatchInterThreadCalls
+article id=452 dt=Text ctime=3852954168 mtime=3877361581 nm=far.DispatchInterThreadCalls
 #_result = DispatchInterThreadCalls()
 #_
 #_**Parameters:**
@@ -6812,7 +6824,6 @@ article id=452 dt=Text ctime=3852954168 mtime=3852954258 nm=far.DispatchInterThr
 #_
 #_**Far API used:**
 #_  FSF.DispatchInterThreadCalls
-#_
 #_
 #_@@@
 #_
@@ -7712,7 +7723,7 @@ article id=495 dt=Text ctime=3869370435 mtime=3869371040 nm=far.GenerateName
 #_@@@
 #_
 
-article id=496 dt=Text ctime=3870880710 mtime=3870923343 nm=Far2L-specific  functions
+article id=496 dt=Text ctime=3870880710 mtime=3870923343 nm=Far2L-specific functions
 
 article id=497 dt=Text ctime=3871192568 mtime=3871192627 nm=editor.GetTitle
 #_Title = editor.GetTitle()
