@@ -269,6 +269,10 @@ node lv=3 id=267 art=267 nm=methods find, findW
 node lv=3 id=386 art=386 nm=methods gsub, gsubW
 node lv=3 id=268 art=268 nm=methods match, matchW
 node lv=3 id=484 art=484 nm=methods tfind, tfindW
+node lv=1 id=511 art=510 nm=far.Host
+node lv=2 id=510 art=509 nm=far.Host.GetFiles
+node lv=2 id=512 art=511 nm=far.Host.GetFindData
+node lv=2 id=513 art=512 nm=far.Host.SetDirectory
 node lv=1 id=83 art=83 nm=Other functions
 node lv=2 id=185 art=185 nm=far.CPluginStartupInfo
 node lv=2 id=461 art=461 nm=far.InputRecordToName
@@ -477,7 +481,7 @@ article id=6 dt=Text ctime=0 mtime=3853512036 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3853512219 nm=panel.GetPanelInfo
+article id=7 dt=Text ctime=0 mtime=3878153525 nm=panel.GetPanelInfo
 #_PanelInfo = panel.GetPanelInfo (handle)
 #_
 #_**Parameters:**
@@ -486,20 +490,20 @@ article id=7 dt=Text ctime=0 mtime=3853512219 nm=panel.GetPanelInfo
 #_**Returns:**
 #_  PanelInfo: table, or nil
 #_    fields of PanelInfo:
-#_      PluginHandle:        userdata, or nil
 #_      PanelType:           integer
+#_      Plugin:              boolean
 #_      PanelRect:           table (fields: left, top, right, bottom)
 #_      ItemsNumber:         integer
 #_      SelectedItemsNumber: integer
 #_      CurrentItem:         1-based integer
 #_      TopPanelItem:        1-based integer
-#_      ViewMode:            integer
-#_      SortMode:            integer
-#_      Plugin:              boolean
 #_      Visible:             boolean
 #_      Focus:               boolean
-#_      ShortNames:          boolean
+#_      ViewMode:            integer
+#_      SortMode:            integer
 #_      Flags:               integer
+#_      PluginHandle:        userdata, or nil (as PCTL_FINDPLUGIN returns)
+#_      PanelHandle:         userdata, or nil (as OpenPluginW returns)
 #_
 #_**Far API used:**
 #_  Control, FCTL_GETPANELINFO
@@ -1829,30 +1833,31 @@ article id=83 dt=Text ctime=0 mtime=0 nm=Other functions
 
 article id=84 dt=Text ctime=0 mtime=0 nm="Structures"
 
-article id=85 dt=Text ctime=0 mtime=3859629606 nm=PluginPanelItem
+article id=85 dt=Text ctime=0 mtime=3878636786 nm=PluginPanelItem
 #_<markdown>
 #_**`PluginPanelItem`** is a table with the following predefined fields:
 #_
-#_      LastWriteTime:      number
-#_      LastAccessTime:     number
 #_      CreationTime:       number
+#_      LastAccessTime:     number
+#_      LastWriteTime:      number
 #_
 #_      FileSize:           number
-#_      PackSize:           number
+#_      PhysicalSize:       number
 #_
-#_      FileName:           string
-#_      AlternateFileName:  string
-#_
+#_      Description:        string
 #_      FileAttributes:     string
+#_      FileName:           string
+#_      Group:              string
+#_      Owner:              string
+#_
 #_      Flags:              integer
 #_      NumberOfLinks:      integer
-#_      Description:        string
-#_      Owner:              string
+#_      UnixMode:           integer
+#_
 #_      CustomColumnData:   table, or nil
 #_      UserData:           any Lua value
 #_
 #_@@@
-#_<lua> Links = { FindData="90.html" } </lua>
 #_
 
 article id=90 dt=Text ctime=0 mtime=3854818424 nm=FindData
@@ -7929,6 +7934,53 @@ article id=508 dt=Text ctime=3877053707 mtime=3877053959 nm=far.GetPluginInforma
 #_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_GETPLUGININFORMATION
+#_
+#_@@@
+#_
+
+article id=509 dt=Text ctime=3878636920 mtime=3878637139 nm=far.Host
+#_result = far.Host.GetFiles (handle, Items, Move, DestPath [, OpMode])
+#_
+#_**Parameters:**
+#_  handle:    panel handle
+#_  Items:     table (array of `PluginPanelItem`)
+#_  Move:      boolean
+#_  DestPath:  string
+#_  OpMode:    flags (default = OPM_FIND|OPM_SILENT)
+#_
+#_**Returns:**
+#_  result:    integer
+#_
+#_@@@
+#_<lua> Links = { PluginPanelItem="85.html" } </lua>
+#_
+
+article id=510 dt=Text ctime=3878636966 mtime=3878636966 nm=far.Host
+
+article id=511 dt=Text ctime=3878636989 mtime=3878637277 nm=far.Host.GetFindData
+#_Items = far.Host.GetFindData (handle [, OpMode])
+#_
+#_**Parameters:**
+#_  handle:  panel handle
+#_  OpMode:  flags (default = OPM_FIND|OPM_SILENT)
+#_
+#_**Returns:**
+#_  Items:   table (array of `PluginPanelItem`), or nil
+#_
+#_@@@
+#_<lua> Links = { PluginPanelItem="85.html" } </lua>
+#_
+
+article id=512 dt=Text ctime=3878637011 mtime=3878637382 nm=far.Host.SetDirectory
+#_result = far.Host.SetDirectory (handle, Dir [, OpMode])
+#_
+#_**Parameters:**
+#_  handle:    panel handle
+#_  Dir:       string
+#_  OpMode:    flags (default = OPM_FIND|OPM_SILENT)
+#_
+#_**Returns:**
+#_  result:    boolean
 #_
 #_@@@
 #_
