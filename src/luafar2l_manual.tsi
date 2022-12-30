@@ -7,6 +7,7 @@ node lv=1 id=214 art=214 nm=Generic LuaFAR plugin
 node lv=2 id=425 art=425 nm=Customizing the generic plugin
 node lv=2 id=487 art=487 nm=luafar_init.lua
 node lv=2 id=426 art=426 nm=Extra exported functions
+node lv=1 id=515 art=513 nm=Lua engine
 node lv=0 id=92 art=92 nm=LuaFAR plugin-exported functions
 node lv=1 id=122 art=122 nm=Common functions
 node lv=2 id=96 art=96 nm=export.Configure
@@ -213,6 +214,7 @@ node lv=2 id=506 art=506 nm=far.GetPlugins
 node lv=2 id=417 art=417 nm=far.LoadPlugin
 node lv=2 id=418 art=418 nm=far.UnloadPlugin
 node lv=1 id=82 art=82 nm=Far Standard Functions
+node lv=2 id=514 art=453 nm=far.BackgroundTask
 node lv=2 id=494 art=494 nm=far.CheckMask
 node lv=2 id=2 art=2 nm=far.CmpName
 node lv=2 id=493 art=493 nm=far.CmpNameList
@@ -251,9 +253,12 @@ node lv=2 id=452 art=452 nm=far.DispatchInterThreadCalls
 node lv=2 id=451 art=451 nm=far.DisplayNotification
 node lv=2 id=449 art=449 nm=far.Execute
 node lv=2 id=450 art=450 nm=far.ExecuteLibrary
-node lv=2 id=482 art=482 nm=far.GetConfigDir
 node lv=2 id=501 art=501 nm=far.GetFileEncoding
+node lv=2 id=519 art=517 nm=far.GetMyHome
 node lv=2 id=476 art=476 nm=far.GetPluginId
+node lv=2 id=517 art=515 nm=far.InMyCache
+node lv=2 id=516 art=514 nm=far.InMyConfig
+node lv=2 id=518 art=516 nm=far.InMyTemp
 node lv=2 id=459 art=459 nm=far.Log
 node lv=1 id=273 art=273 nm=Regular expression functions
 node lv=2 id=488 art=488 nm=regex.exec, execW
@@ -401,7 +406,7 @@ node lv=0 id=194 art=194 nm=Third party software used
 node lv=1 id=196 art=196 nm=Lua
 node lv=1 id=251 art=251 nm=LuaUtf8
 
-article id=2 dt=Text ctime=0 mtime=3869370731 nm=far.CmpName
+article id=2 dt=Text ctime=0 mtime=3879499433 nm=far.CmpName
 #_Result = far.CmpName (Mask, Name, Flags)
 #_
 #_**Parameters:**
@@ -413,7 +418,7 @@ article id=2 dt=Text ctime=0 mtime=3869370731 nm=far.CmpName
 #_  Result: boolean
 #_
 #_**Far API used:**
-#_  ProcessName
+#_  FSF.ProcessName
 #_
 #_@@@
 #_
@@ -1319,7 +1324,7 @@ article id=63 dt=Text ctime=0 mtime=0 nm=far.KeyToName
 #_@@@
 #_
 
-article id=64 dt=Text ctime=0 mtime=3852562033 nm=far.Menu
+article id=64 dt=Text ctime=0 mtime=3878734279 nm=far.Menu
 #_Item, Position = far.Menu (Properties, Items [, BreakKeys])
 #_
 #_**Parameters:**
@@ -1346,36 +1351,49 @@ article id=64 dt=Text ctime=0 mtime=3852562033 nm=far.Menu
 #_        selected:     boolean
 #_        AccelKey:     integer
 #_
-#_  BreakKeys: table (array of break key items)
-#_      a break key item is a table;
-#_      fields of a break key item:
-#_        BreakKey:     string
+#_  BreakKeys:
+#_      Either **table** (array of break key items)
+#_        a break key item is a table;
+#_        fields of a break key item:
+#_          BreakKey:     string (see **NOTE 2**)
+#_      Or **string** (space delimited sequence of keys)
 #_
 #_**Returns:**
-#_  Item:     table   (**chosen** item), or
-#_            nil     (the menu was cancelled by the user)
+#_  Item:     table   Either the selected element of *Items* array (if *Enter* was pressed)
+#_                    or an element of *BreakKeys* array (if a corresponding break key was
+#_                    pressed). If a break key was pressed and *BreakKeys* argument was a string
+#_                    then the returned table is created by *far.Menu* function.
+#_            nil     The menu was cancelled by the user.
 #_
-#_  Position: integer (position of the **selected** item), or
-#_            nil     (the menu was cancelled by the user)
+#_  Position: integer Position of the **selected** item at the moment of closing the menu.
+#_            nil     The menu was cancelled by the user.
 #_
-#_**Notes:**
-#_Properties.SelectIndex=N is equivalent to Items[N].selected=true
-#_but it has a higher priority.
+#_**NOTE 1**
+#_  Properties.SelectIndex=N is equivalent to Items[N].selected=true
+#_  but it has a higher priority.
 #_
-#_The first return value (*Item*) should be used by the
-#_program for performing the item-specific action. To do
-#_so, the program can put some specific field(s) into
-#_each element of *Items* and *BreakKeys* tables. For
-#_example, such fields can be "action", "filename", etc.
+#_**NOTE 2**
+#_  Example of constructing a BreakKey string:
+#_  **BreakKey="AS+DELETE"**, where:
+#_    *AS*     - stands for AltShift
+#_    *+*      - separates key modifiers from key
+#_    *DELETE* - `virtual key` *VK_DELETE* (prefix *VK_* is removed).
 #_
-#_The second return value (*Position*) is the menu item that
-#_was selected at the time of the menu closing. It can be used
-#_to call the closed menu again in the same visible state.
+#_  Key names used in Far macros are also acceptable, e.g. **BreakKey="AltShiftDel"**
+#_
+#_**NOTE 3**
+#_  The first return value (*Item*) can be used by the program for performing
+#_  the item-specific action. To do so, the program can put some specific field(s)
+#_  into each element of *Items* and *BreakKeys* tables. For example, such fields
+#_  can be "action", "filename", etc.
 #_
 #_**Far API used:**
-#_  Menu, FMENU_USEEXT
+#_  `Menu`
 #_
 #_@@@
+#_<lua> Links = {
+#_  ["virtual key"]="http://api.farmanager.com/ru/winapi/virtualkeycodes.html";
+#_} </lua>
 #_
 
 article id=65 dt=Text ctime=0 mtime=3853248148 nm=far.Message
@@ -1860,7 +1878,7 @@ article id=85 dt=Text ctime=0 mtime=3878636786 nm=PluginPanelItem
 #_@@@
 #_
 
-article id=90 dt=Text ctime=0 mtime=3854818424 nm=FindData
+article id=90 dt=Text ctime=0 mtime=3878651744 nm=FindData
 #_<markdown>
 #_**`FindData`** is a table with the following predefined fields:
 #_
@@ -1869,9 +1887,9 @@ article id=90 dt=Text ctime=0 mtime=3854818424 nm=FindData
 #_      LastAccessTime:     number
 #_      CreationTime:       number
 #_      FileSize:           number
-#_      PackSize:           number
+#_      PhysicalSize:       number
+#_      UnixMode:           number
 #_      FileName:           string
-#_      AlternateFileName:  string
 #_
 #_###Notes
 #_
@@ -2069,7 +2087,7 @@ article id=103 dt=Text ctime=0 mtime=3866133117 nm=GetMinFarVersionW
 #_int GetMinFarVersionW()
 #_
 
-article id=104 dt=Text ctime=0 mtime=3853777018 nm=export.GetOpenPluginInfo
+article id=104 dt=Text ctime=0 mtime=3878653174 nm=export.GetOpenPluginInfo
 #_OpenPluginInfo = export.GetOpenPluginInfo (object, handle)
 #_
 #_**Parameters:**
@@ -2078,7 +2096,7 @@ article id=104 dt=Text ctime=0 mtime=3853777018 nm=export.GetOpenPluginInfo
 #_
 #_**Returns:**
 #_  OpenPluginInfo: table
-#_    fields of OpenPluginInfo:
+#_    fields of OpenPluginInfo (most are optional):
 #_      Flags:            integer
 #_      HostFile:         string
 #_      CurDir:           string
@@ -2092,6 +2110,14 @@ article id=104 dt=Text ctime=0 mtime=3853777018 nm=export.GetOpenPluginInfo
 #_      StartPanelMode:   integer
 #_      StartSortMode:    flag
 #_      StartSortOrder:   integer
+#_      KeyBar:           table
+#_      ShortcutData:     string
+#_
+#_**Note:**
+#_  The *KeyBar* table may have the following fields (array tables):
+#_      "Titles", "CtrlTitles", "AltTitles", "ShiftTitles",
+#_      "CtrlShiftTitles", "AltShiftTitles",  "CtrlAltTitles".
+#_  Each of these arrays may contain up to 12 strings.
 #_
 #_@@@
 #_<lua> Links = { InfoLine="120.html", PanelMode="121.html" } </lua>
@@ -2382,19 +2408,19 @@ article id=120 dt=Text ctime=0 mtime=0 nm=InfoLine
 #_      Text: string
 #_      Data: string
 
-article id=121 dt=Text ctime=0 mtime=0 nm=PanelMode
+article id=121 dt=Text ctime=0 mtime=3878653394 nm=PanelMode
 #_<markdown>
 #_**`PanelMode`** is a table with the following predefined fields:
 #_
 #_      ColumnTypes:        string
 #_      ColumnWidths:       string
+#_      ColumnTitles:       table (array of strings)
 #_      FullScreen:         boolean
 #_      DetailedStatus:     integer
 #_      AlignExtensions:    integer
 #_      CaseConversion:     boolean
 #_      StatusColumnTypes:  string
 #_      StatusColumnWidths: string
-#_      ColumnTitles:       table (array of strings)
 #_
 #_
 
@@ -2501,7 +2527,7 @@ article id=132 dt=Text ctime=0 mtime=3851877307 nm=viewer.GetInfo
 #_<lua> Links = { CurMode="133.html" } </lua>
 #_
 
-article id=133 dt=Text ctime=0 mtime=0 nm=ViewerInfo.CurMode
+article id=133 dt=Text ctime=0 mtime=3878661339 nm=ViewerInfo.CurMode
 #_<markdown>
 #_**`ViewerInfo.CurMode`** is a table with the following predefined fields:
 #_
@@ -2509,7 +2535,7 @@ article id=133 dt=Text ctime=0 mtime=0 nm=ViewerInfo.CurMode
 #_      Wrap:           boolean
 #_      WordWrap:       integer
 #_      Hex:            boolean
-#_
+#_      Processed:      boolean
 #_
 
 article id=134 dt=Text ctime=0 mtime=0 nm=viewer.Quit
@@ -3669,7 +3695,7 @@ article id=189 dt=Text ctime=0 mtime=0 nm=far.LStrnicmp
 #_
 #_
 
-article id=190 dt=Text ctime=0 mtime=3869371075 nm=far.ProcessName
+article id=190 dt=Text ctime=0 mtime=3879499483 nm=far.ProcessName
 #_Result = far.ProcessName (Op, Mask, Name, Flags)
 #_
 #_**Parameters:**
@@ -3683,7 +3709,7 @@ article id=190 dt=Text ctime=0 mtime=3869371075 nm=far.ProcessName
 #_          String is returned on success if Op==PN_GENERATENAME
 #_
 #_**Far API used:**
-#_  ProcessName
+#_  FSF.ProcessName
 #_
 #_@@@
 #_
@@ -3961,7 +3987,7 @@ article id=210 dt=Text ctime=0 mtime=0 nm=far.TruncStr
 #_@@@
 #_
 
-article id=211 dt=Text ctime=0 mtime=3853601704 nm=far.RecursiveSearch
+article id=211 dt=Text ctime=0 mtime=3879499558 nm=far.RecursiveSearch
 #_far.RecursiveSearch (InitDir, Mask, UserFunc [, Flags [, ...]])
 #_
 #_**Parameters:**
@@ -3986,7 +4012,7 @@ article id=211 dt=Text ctime=0 mtime=3853601704 nm=far.RecursiveSearch
 #_  is stopped.
 #_
 #_**Far API used:**
-#_  FarRecursiveSearch
+#_  FSF.FarRecursiveSearch
 #_
 #_@@@
 #_<lua> Links = { FindData="90.html" } </lua>
@@ -5536,7 +5562,7 @@ article id=332 dt=Text ctime=3480326063 mtime=3853512722 nm=panel.SetCmdLineSele
 #_@@@
 #_
 
-article id=335 dt=Text ctime=3480362672 mtime=3856507931 nm=far.XLat
+article id=335 dt=Text ctime=3480362672 mtime=3879499583 nm=far.XLat
 #_result = far.XLat (Line, StartPos, EndPos, Flags)
 #_
 #_**Parameters:**
@@ -5549,7 +5575,7 @@ article id=335 dt=Text ctime=3480362672 mtime=3856507931 nm=far.XLat
 #_  result:   string, or nil
 #_
 #_**Far API used:**
-#_  XLat
+#_  FSF.XLat
 #_
 #_@@@
 #_
@@ -6768,12 +6794,21 @@ article id=448 dt=Text ctime=3852533773 mtime=3852533888 nm=LF_MayExitFAR
 #_@@@
 #_
 
-article id=449 dt=Text ctime=3852926106 mtime=3852926344 nm=far.Execute
+article id=449 dt=Text ctime=3852926106 mtime=3879507031 nm=far.Execute
 #_result = far.Execute (CmdStr, ExecFlags)
 #_
 #_**Parameters:**
 #_  CmdStr:     string
-#_  ExecFlags:  flags
+#_  ExecFlags:  flags combination
+#_    EF_HIDEOUT = 0x01    : don't display output of the command
+#_    EF_NOWAIT  = 0x02    : don't wait for command completion
+#_    EF_SUDO    = 0x04    : command must be run with root priviledges
+#_    EF_NOTIFY  = 0x08    : notify when command completed
+#_                           (if such notifications enabled in settings)
+#_    EF_NOCMDPRINT = 0x10 : don't print command in command line
+#_                           nor include it to history
+#_    EF_OPEN    = 0x20    : use desktop shell (if present) to open command
+#_                           (e.g. URLs, documents..)
 #_
 #_**Returns:**
 #_  result:     integer
@@ -6784,14 +6819,14 @@ article id=449 dt=Text ctime=3852926106 mtime=3852926344 nm=far.Execute
 #_@@@
 #_
 
-article id=450 dt=Text ctime=3852926114 mtime=3852926447 nm=far.ExecuteLibrary
+article id=450 dt=Text ctime=3852926114 mtime=3879491421 nm=far.ExecuteLibrary
 #_result = far.ExecuteLibrary (Library, Symbol, CmdStr, ExecFlags)
 #_
 #_**Parameters:**
 #_  Library:    string
 #_  Symbol:     string
 #_  CmdStr:     string
-#_  ExecFlags:  flags
+#_  ExecFlags:  flags (see far.Execute)
 #_
 #_**Returns:**
 #_  result:     integer
@@ -6800,6 +6835,9 @@ article id=450 dt=Text ctime=3852926114 mtime=3852926447 nm=far.ExecuteLibrary
 #_  FSF.ExecuteLibrary
 #_
 #_@@@
+#_<lua> Links = {
+#_  ["far.Execute"]="449.html"
+#_} </lua>
 #_
 
 article id=451 dt=Text ctime=3852953930 mtime=3852954119 nm=far.DisplayNotification
@@ -7470,23 +7508,6 @@ article id=481 dt=Text ctime=3863801209 mtime=3865959577 nm=editor.GetStringW
 #_<lua>Links = { ["editor.GetString"]="31.html" }</lua>
 #_
 
-article id=482 dt=Text ctime=3864462591 mtime=3875703532 nm=far.GetConfigDir
-#_Dir = far.GetConfigDir()
-#_
-#_**Parameters:**
-#_  none
-#_
-#_**Returns:**
-#_  Dir: string
-#_
-#_**Description:**
-#_  Returns the directory where Far2L and plugins keep their settings.
-#_  Unless Far2L was launched with "-u <name>" parameter this function
-#_  returns "$HOME/.config/far2l" (with $HOME expanded).
-#_
-#_@@@
-#_
-
 article id=483 dt=Text ctime=3864718897 mtime=3867736447 nm=regex.tfind, tfindW
 #_from, to, tbl = regex.tfind (subj, pattern, [init], [cflags])
 #_
@@ -7678,7 +7699,7 @@ article id=492 dt=Text ctime=3867754224 mtime=3867754300 nm=win.subW
 #_  and considers arguments *from* and *to* expressed in characters rather than bytes.
 #_
 
-article id=493 dt=Text ctime=3869369459 mtime=3869370740 nm=far.CmpNameList
+article id=493 dt=Text ctime=3869369459 mtime=3879499442 nm=far.CmpNameList
 #_Result = far.CmpNameList (Mask, Name, Flags)
 #_
 #_**Parameters:**
@@ -7690,12 +7711,12 @@ article id=493 dt=Text ctime=3869369459 mtime=3869370740 nm=far.CmpNameList
 #_  Result: boolean
 #_
 #_**Far API used:**
-#_  ProcessName
+#_  FSF.ProcessName
 #_
 #_@@@
 #_
 
-article id=494 dt=Text ctime=3869370298 mtime=3869370719 nm=far.CheckMask
+article id=494 dt=Text ctime=3869370298 mtime=3879499424 nm=far.CheckMask
 #_Result = far.CheckMask (Mask, Flags)
 #_
 #_**Parameters:**
@@ -7706,12 +7727,12 @@ article id=494 dt=Text ctime=3869370298 mtime=3869370719 nm=far.CheckMask
 #_  Result: boolean
 #_
 #_**Far API used:**
-#_  ProcessName
+#_  FSF.ProcessName
 #_
 #_@@@
 #_
 
-article id=495 dt=Text ctime=3869370435 mtime=3869371040 nm=far.GenerateName
+article id=495 dt=Text ctime=3869370435 mtime=3879499470 nm=far.GenerateName
 #_Result = far.GenerateName (Mask, Name, Flags)
 #_
 #_**Parameters:**
@@ -7723,7 +7744,7 @@ article id=495 dt=Text ctime=3869370435 mtime=3869371040 nm=far.GenerateName
 #_  Result: string, or false
 #_
 #_**Far API used:**
-#_  ProcessName
+#_  FSF.ProcessName
 #_
 #_@@@
 #_
@@ -7849,7 +7870,7 @@ article id=503 dt=Text ctime=3873304138 mtime=3873304348 nm=win.GetSystemTime
 #_
 #_
 
-article id=504 dt=Text ctime=3873815146 mtime=3873815311 nm=far.NameToInputRecord
+article id=504 dt=Text ctime=3873815146 mtime=3879499529 nm=far.NameToInputRecord
 #_Record = far.NameToInputRecord (Name)
 #_
 #_**Parameters:**
@@ -7860,7 +7881,7 @@ article id=504 dt=Text ctime=3873815146 mtime=3873815311 nm=far.NameToInputRecor
 #_er
 #_
 #_**Far API used:**
-#_  FarNameToInputRecord
+#_  FSF.FarNameToInputRecord
 #_
 #_@@@
 #_<lua> Links = { InputRecord="187.html", } </lua>
@@ -7938,7 +7959,7 @@ article id=508 dt=Text ctime=3877053707 mtime=3877053959 nm=far.GetPluginInforma
 #_@@@
 #_
 
-article id=509 dt=Text ctime=3878636920 mtime=3878637139 nm=far.Host
+article id=509 dt=Text ctime=3878636920 mtime=3878637139 nm=far.Host.GetFiles
 #_result = far.Host.GetFiles (handle, Items, Move, DestPath [, OpMode])
 #_
 #_**Parameters:**
@@ -7981,6 +8002,94 @@ article id=512 dt=Text ctime=3878637011 mtime=3878637382 nm=far.Host.SetDirector
 #_
 #_**Returns:**
 #_  result:    boolean
+#_
+#_@@@
+#_
+
+article id=513 dt=Text ctime=3881311938 mtime=3881320609 nm=Lua engine
+#_By default LuaFAR tries to load either of *libluajit-5.1.so*
+#_or *liblua5.1.so*, in this order.
+#_If the environment variable *FARPLAINLUA* is set then the order is reversed.
+#_
+
+article id=514 dt=Text ctime=3881479361 mtime=3881480702 nm=far.InMyConfig
+#_Path = far.InMyConfig(subpath, create_path)
+#_
+#_**Parameters:**
+#_  subpath     : string, default=nil
+#_  create_path : boolean, default=false
+#_
+#_**Returns:**
+#_  Path        : string
+#_
+#_**Description:**
+#_  Returns the path in the config directory.
+#_  If *create_path* is true then the function tries
+#_  to create the path up to the last slash.
+#_
+#_**Note:**
+#_  The function is not part of Far API.
+#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_
+#_@@@
+#_
+
+article id=515 dt=Text ctime=3881479376 mtime=3881480692 nm=far.InMyCache
+#_Path = far.InMyCache(subpath, create_path)
+#_
+#_**Parameters:**
+#_  subpath     : string, default=nil
+#_  create_path : boolean, default=false
+#_
+#_**Returns:**
+#_  Path        : string
+#_
+#_**Description:**
+#_  Returns the path in the cache directory.
+#_  If *create_path* is true then the function tries
+#_  to create the path up to the last slash.
+#_
+#_**Note:**
+#_  The function is not part of Far API.
+#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_
+#_@@@
+#_
+
+article id=516 dt=Text ctime=3881479391 mtime=3881480673 nm=far.InMyTemp
+#_Path = far.InMyTemp(subpath)
+#_
+#_**Parameters:**
+#_  subpath : string, default=nil
+#_
+#_**Returns:**
+#_  Path    : string
+#_
+#_**Description:**
+#_  Returns the path in the tmp directory.
+#_
+#_**Note:**
+#_  The function is not part of Far API.
+#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_
+#_@@@
+#_
+
+article id=517 dt=Text ctime=3881479399 mtime=3881480682 nm=far.GetMyHome
+#_Dir = far.GetMyHome()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Dir : string
+#_
+#_**Description:**
+#_  Returns the home directory.
+#_
+#_**Note:**
+#_  The function is not part of Far API.
+#_  It uses the undocumented *utils* library which is part of far2l sources.
 #_
 #_@@@
 #_
