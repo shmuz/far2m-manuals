@@ -58,6 +58,8 @@ node lv=2 id=56 art=56 nm=Plugin
 node lv=3 id=65 art=65 nm=Call
 node lv=3 id=83 art=83 nm=SyncCall
 node lv=2 id=50 art=50 nm=Viewer
+node lv=2 id=108 art=108 nm=Unsupported functions
+node lv=3 id=109 art=109 nm=mf.udlsplit
 node lv=1 id=5 art=5 nm=Misc
 node lv=2 id=2 art=2 nm=Macros beginning with @
 node lv=2 id=14 art=14 nm=Variables
@@ -2713,5 +2715,34 @@ article id=107 dt=Text ctime=3875553296 mtime=3878888681 nm=Other command line p
 #_**unload:** <plugin_path>
 #_
 #_**goto:** <path>
+#_
+
+article id=108 dt=Text ctime=3882879596 mtime=3882880272 nm=Unsupported functions
+#_<markdown>
+#_These functions exist for testing purposes and may be removed at any time.
+#_
+
+article id=109 dt=Text ctime=3882879741 mtime=3883070653 nm=mf.udlsplit
+#_*User-defined list split*
+#_
+#_s1,... = mf.udlsplit (flags, subject)
+#_
+#_**Parameters**
+#_  flags   : integer
+#_  subject : string
+#_
+#_**Flag bits:**
+#_  ULF_ADDASTERISK      = 0x001
+#_  ULF_PACKASTERISKS    = 0x002
+#_  ULF_PROCESSBRACKETS  = 0x004
+#_  ULF_UNIQUE           = 0x010
+#_  ULF_SORT             = 0x020
+#_  ULF_NOTTRIM          = 0x040
+#_  ULF_ACCOUNTEMPTYLINE = 0x100
+#_  ULF_CASESENSITIVE    = 0x200
+#_
+#_**Returns**
+#_  s1,...  : either sequence of strings or *false*
+#_
 #_
 

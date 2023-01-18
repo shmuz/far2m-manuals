@@ -212,7 +212,7 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
     fCurrent:close()
 
     if not ProjectHeaderReady then
-      writeProjectHeader(fProj, ProjectName, art.name, filename)
+      writeProjectHeader(fProj, ProjectName, tNodes[1].name, filename)
       ProjectHeaderReady = true
     end
 

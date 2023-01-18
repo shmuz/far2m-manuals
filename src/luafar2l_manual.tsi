@@ -396,7 +396,6 @@ node lv=2 id=181 art=181 nm=LF_SetDirectory
 node lv=2 id=182 art=182 nm=LF_SetFindList
 node lv=1 id=184 art=184 nm=Service functions
 node lv=2 id=341 art=341 nm=LF_Gsub
-node lv=2 id=340 art=340 nm=LF_LoadFile
 node lv=2 id=129 art=129 nm=LF_LuaOpen
 node lv=2 id=155 art=155 nm=LF_LuaClose
 node lv=2 id=156 art=156 nm=LF_Message
@@ -2448,22 +2447,19 @@ article id=127 dt=Text ctime=0 mtime=3862213275 nm=export.ProcessViewerEvent
 
 article id=128 dt=Text ctime=0 mtime=0 nm=LuaFAR C-interface
 
-article id=129 dt=Text ctime=0 mtime=3866304389 nm=LF_LuaOpen
+article id=129 dt=Text ctime=0 mtime=3883247727 nm=LF_LuaOpen
 #_<markdown>
-#_    lua_State* LF_LuaOpen (PluginStartupInfo *Info, 
-#_                           lua_CFunction OpenLibs)
+#_    int LF_LuaOpen (TPluginData* PlugData, lua_CFunction OpenLibs)
 #_
 #_#### Parameters:
-#_      Info:         Pointer to a static struct that must be already
+#_      PlugData:     Pointer to a static struct that must be already
 #_                    initialized during SetStartupInfo call.
 #_
 #_      OpenLibs:     Pointer to a function that can open additional
 #_                    libraries. (NULL is allowed.)
 #_
 #_#### Returns:
-#_      Pointer to a newly created lua_State that already has some
-#_      libraries opened (including standard Lua libraries, "far",
-#_      "bit" and "utf8" libraries).
+#_      1=success; 0=failure
 #_
 #_#### Description:
 #_
@@ -2473,7 +2469,7 @@ article id=129 dt=Text ctime=0 mtime=3866304389 nm=LF_LuaOpen
 #_@@@
 #_
 
-article id=130 dt=Text ctime=0 mtime=3501964398 nm=LF_RunDefaultScript
+article id=130 dt=Text ctime=0 mtime=3883238884 nm=LF_RunDefaultScript
 #_<markdown>
 #_    BOOL LF_RunDefaultScript(lua_State* L)
 #_
@@ -2489,9 +2485,9 @@ article id=130 dt=Text ctime=0 mtime=3501964398 nm=LF_RunDefaultScript
 #_
 #_Else, the starting (or "default") Lua script is searched in the plugin's directory, in the following order:
 #_
-#_1. The plugin name with the extension `.lua`, e.g.: `luaplug.dll -> luaplug.lua`
+#_1. The plugin name with the extension `.lua`, e.g.: `luaplug.far-plug-wide -> luaplug.lua`
 #_
-#_2. If the plugin name contains a hyphen, then its part preceding the last hyphen is looked for, e.g.: `luaplug-x64.dll -> luaplug.lua`.
+#_2. If the plugin name contains a hyphen, then its part preceding the last hyphen is looked for, e.g.: `luaplug-x64.far-plug-wide -> luaplug.lua`.
 #_
 #_This mechanism allows the default script to be either embedded into the application or external.
 #_
@@ -2959,12 +2955,12 @@ article id=153 dt=Text ctime=0 mtime=3862853420 nm=far.AdvControl
 #_
 #_
 
-article id=155 dt=Text ctime=0 mtime=0 nm=LF_LuaClose
+article id=155 dt=Text ctime=0 mtime=3883247920 nm=LF_LuaClose
 #_<markdown>
-#_    void LF_LuaClose(lua_State* L)
+#_    void LF_LuaClose(TPluginData* PlugData)
 #_
 #_#### Parameters:
-#_      L:  Lua state
+#_      PlugData:  pointer to a static struct
 #_
 #_#### Returns:
 #_      nothing
@@ -3330,12 +3326,12 @@ article id=172 dt=Text ctime=0 mtime=0 nm=LF_OpenFilePlugin
 #_@@@
 #_
 
-article id=173 dt=Text ctime=0 mtime=3480187978 nm=LF_OpenPlugin
+article id=173 dt=Text ctime=0 mtime=3883239616 nm=LF_OpenPlugin
 #_<markdown>
 #_    HANDLE LF_OpenPlugin(
 #_        lua_State* L,
 #_        int OpenFrom,
-#_        int Item)
+#_        INT_PTR Item)
 #_
 #_#### Parameters:
 #_      L:       Lua state
@@ -5588,19 +5584,6 @@ article id=336 dt=Text ctime=3480525243 mtime=3866283394 nm=Unicode support
 #_Most functions of the LuaFAR library assume string
 #_arguments and string return values to be in the **UTF-8**
 #_encoding (unless they are meant to hold binary data).
-#_
-
-article id=340 dt=Text ctime=3481108964 mtime=3481109892 nm=LF_LoadFile
-#_<markdown>
-#_    int LF_LoadFile (lua_State *L, const wchar_t *filename)
-#_
-#_#### Description:
-#_
-#_The function can be used as a replacement for `luaL_loadfile`,
-#_working with wide char *filename* parameter, otherwise identical.
-#_
-#_@@@
-#_
 #_
 
 article id=341 dt=Text ctime=3481108972 mtime=3481109785 nm=LF_Gsub
