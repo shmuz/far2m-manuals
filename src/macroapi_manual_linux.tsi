@@ -955,22 +955,25 @@ article id=52 dt=Text ctime=3553252733 mtime=3607106345 nm=Editor
 #_{undo}: http://api.farmanager.com/ru/macro/macrocmd/prop_func/editor.html#editor.undo
 #_
 
-article id=53 dt=Text ctime=3553252746 mtime=3867681118 nm=Menu
+article id=53 dt=Text ctime=3553252746 mtime=3888577331 nm=Menu
 #_**Menu** - a table with the following fields:
 #_
 #_**Properties:**
 #_
-#_  Id:     string   (not yet implemented)
+#_  Id:     string
 #_  Value:  string
 #_
 #_**Functions:**
 #_
-#_  Filter           (not yet implemented)
-#_  FilterStr        (not yet implemented)
+#_  Filter
+#_  FilterStr
 #_  GetValue
 #_  ItemStatus
 #_  Select
-#_  Show             (not yet implemented)
+#_  
+#_  Show
+#_    - only flag bits **0x8**, **0x10** and **0x80** are supported
+#_    - other flag bits are treated as being set to 0
 #_
 #_@@@
 #_{filterstr}: http://api.farmanager.com/ru/macro/macrocmd/prop_func/menus.html#Menu.FilterStr
@@ -984,7 +987,7 @@ article id=53 dt=Text ctime=3553252746 mtime=3867681118 nm=Menu
 #_
 #_
 
-article id=54 dt=Text ctime=3553252749 mtime=3618906559 nm=Far
+article id=54 dt=Text ctime=3553252749 mtime=3888598331 nm=Far
 #_**Far** - a table with the following fields:
 #_
 #_**Properties:**
@@ -999,9 +1002,9 @@ article id=54 dt=Text ctime=3553252749 mtime=3618906559 nm=Far
 #_
 #_**Functions:**
 #_
-#_  Cfg_Get (deprecated, use `GetConfig`)
+#_  Cfg_Get
 #_  DisableHistory
-#_  `GetConfig`
+#_  `GetConfig` (not implemented)
 #_  KbdLayout
 #_  KeyBar_Show
 #_  Window_Scroll
@@ -2370,14 +2373,14 @@ article id=97 dt=Text ctime=3639831305 mtime=3868112974 nm=File luafar_init.lua
 #_Plugin LuaMacro runs the file `$FARHOME/Plugins/luafar/luafar_init.lua` (if it exists) before running its default script.
 #_See description of this feature in LuaFAR manual.
 
-article id=98 dt=Text ctime=3730113272 mtime=3867597568 nm=Adding panel modules
+article id=98 dt=Text ctime=3730113272 mtime=3883939215 nm=Adding panel modules
 #_<markdown>
 #_
 #_"Panel module" is a set of Lua functions placed in a table and loaded with `PanelModule` function.
 #_
 #_- Names of those functions and their parameter sets coincide with functions from `export` table (see LuaFAR manual).
 #_- Here is the list of module-exported functions that are supported by the plugin:<br>
-#_`ClosePlugin`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPluginInfo`, `MakeDirectory`, `OpenFilePlugin`, `OpenPlugin`, `ProcessHostFile`, `ProcessEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
+#_`ClosePlugin`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPluginInfo`, `MakeDirectory`, `OpenFilePlugin`, `OpenPlugin`, `OpenShortcut`, `ProcessHostFile`, `ProcessEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
 #_- Every panel module must contain a table `Info` with a mandatory field `Guid`. Other fields are optional.
 #_
 #_```
@@ -2405,7 +2408,7 @@ article id=98 dt=Text ctime=3730113272 mtime=3867597568 nm=Adding panel modules
 #_
 #_1. To create a panel from the command line or from the plugins menu, the existing function [`CommandLine`](96.html) and [`MenuItem`](90.html) should be used. Their `action()` should return 2 values: (1) the module table and (2) the panel object (any non-false Lua value).
 #_1. Function `mod.OpenPlugin` is called by the plugin only with the following values of `OpenFrom` parameter:<br>
-#_`OPEN_FINDLIST` and `OPEN_SHORTCUT`.
+#_`OPEN_FINDLIST`.
 #_
 #_See also: [Demo Example](99.html)
 #_

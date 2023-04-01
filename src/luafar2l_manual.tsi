@@ -2,10 +2,8 @@
 
 node lv=0 id=91 art=91 nm=Manual of LuaFAR 2L
 node lv=1 id=329 art=329 nm=Flags
-node lv=1 id=336 art=336 nm=Unicode support
 node lv=1 id=214 art=214 nm=Generic LuaFAR plugin
 node lv=2 id=425 art=425 nm=Customizing the generic plugin
-node lv=2 id=487 art=487 nm=luafar_init.lua
 node lv=2 id=426 art=426 nm=Extra exported functions
 node lv=1 id=515 art=513 nm=Lua engine
 node lv=0 id=92 art=92 nm=LuaFAR plugin-exported functions
@@ -14,7 +12,11 @@ node lv=2 id=96 art=96 nm=export.Configure
 node lv=2 id=98 art=98 nm=export.ExitFAR
 node lv=2 id=105 art=105 nm=export.GetPluginInfo
 node lv=2 id=447 art=447 nm=export.MayExitFAR
+node lv=2 id=520 art=518 nm=export.OpenCommandLine
+node lv=2 id=523 art=521 nm=export.OpenDialog
+node lv=2 id=522 art=520 nm=export.OpenFromMacro
 node lv=2 id=109 art=109 nm=export.OpenPlugin
+node lv=2 id=521 art=519 nm=export.OpenShortcut
 node lv=2 id=485 art=485 nm=export.ProcessConsoleInput
 node lv=1 id=123 art=123 nm=Panel functions
 node lv=2 id=94 art=94 nm=export.ClosePlugin
@@ -54,6 +56,7 @@ node lv=0 id=131 art=131 nm=LuaFAR Far libraries
 node lv=1 id=78 art=78 nm=Common functions
 node lv=2 id=153 art=153 nm=far.AdvControl
 node lv=3 id=463 art=463 nm=actl namespace
+node lv=2 id=524 art=522 nm=far.FreeScreen
 node lv=2 id=53 art=53 nm=far.GetDirList
 node lv=2 id=58 art=58 nm=far.GetMsg
 node lv=2 id=60 art=60 nm=far.GetPluginDirList
@@ -345,6 +348,7 @@ node lv=2 id=422 art=422 nm=Time related functions
 node lv=3 id=464 art=464 nm=win.Clock
 node lv=3 id=465 art=465 nm=win.FileTimeToLocalFileTime
 node lv=3 id=215 art=215 nm=win.FileTimeToSystemTime
+node lv=3 id=525 art=523 nm=win.GetLocalTime
 node lv=3 id=503 art=503 nm=win.GetSystemTime
 node lv=3 id=217 art=217 nm=win.GetSystemTimeAsFileTime
 node lv=3 id=216 art=216 nm=win.SystemTimeToFileTime
@@ -1236,14 +1240,14 @@ article id=57 dt=Text ctime=0 mtime=3853579897 nm=far.Flags
 #_  editor.ProcessKey (F.KEY_CTRLEND)
 #_
 
-article id=58 dt=Text ctime=0 mtime=0 nm=far.GetMsg
+article id=58 dt=Text ctime=0 mtime=3884102418 nm=far.GetMsg
 #_msg = far.GetMsg (MsgId)
 #_
 #_**Parameters:**
 #_  MsgId: integer
 #_
 #_**Returns:**
-#_  msg: string
+#_  msg:   string
 #_
 #_**Far API used:**
 #_  GetMsg
@@ -1266,11 +1270,11 @@ article id=59 dt=Text ctime=0 mtime=0 nm=far.GetNumberOfLinks
 #_@@@
 #_
 
-article id=60 dt=Text ctime=0 mtime=3499742206 nm=far.GetPluginDirList
+article id=60 dt=Text ctime=0 mtime=3884103754 nm=far.GetPluginDirList
 #_list = far.GetPluginDirList (PluginNumber, handle, Dir)
 #_
 #_**Parameters:**
-#_  PluginNumber: integer
+#_  PluginNumber: light userdata, or nil
 #_  handle:       plugin handle, or nil
 #_  Dir:          string
 #_
@@ -1284,11 +1288,12 @@ article id=60 dt=Text ctime=0 mtime=3499742206 nm=far.GetPluginDirList
 #_<lua> Links = { PluginPanelItem="85.html" } </lua>
 #_
 
-article id=62 dt=Text ctime=0 mtime=3488636579 nm=far.InputBox
-#_result = far.InputBox (Title, Prompt, HistoryName, SrcText,
+article id=62 dt=Text ctime=0 mtime=3885840278 nm=far.InputBox
+#_result = far.InputBox (Id, Title, Prompt, HistoryName, SrcText,
 #_                       DestLength, HelpTopic, Flags)
 #_
 #_**Parameters:**
+#_  Id:          any value; currently ignored
 #_  Title:       string, or nil
 #_  Prompt:      string, or nil
 #_  HistoryName: string, or nil
@@ -1499,14 +1504,14 @@ article id=68 dt=Text ctime=0 mtime=3875448672 nm=far.PluginStartupInfo
 #_@@@
 #_
 
-article id=69 dt=Text ctime=0 mtime=0 nm=far.RestoreScreen
-#_result = far.RestoreScreen (handle)
+article id=69 dt=Text ctime=0 mtime=3884112552 nm=far.RestoreScreen
+#_far.RestoreScreen (handle)
 #_
 #_**Parameters:**
-#_  handle: light userdata
+#_  handle: userdata or nil (if nil, NULL is passed to Far)
 #_
 #_**Returns:**
-#_  result: boolean
+#_  nothing
 #_
 #_**Far API used:**
 #_  RestoreScreen
@@ -1514,7 +1519,7 @@ article id=69 dt=Text ctime=0 mtime=0 nm=far.RestoreScreen
 #_@@@
 #_
 
-article id=70 dt=Text ctime=0 mtime=0 nm=far.SaveScreen
+article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_handle = far.SaveScreen (X1, Y1, X2, Y2)
 #_
 #_**Parameters:**
@@ -1524,7 +1529,7 @@ article id=70 dt=Text ctime=0 mtime=0 nm=far.SaveScreen
 #_  Y2: integer, or nil
 #_
 #_**Returns:**
-#_  handle: light userdata
+#_  handle: userdata
 #_
 #_**Far API used:**
 #_  SaveScreen
@@ -1915,7 +1920,7 @@ article id=90 dt=Text ctime=0 mtime=3878651744 nm=FindData
 #_
 #_
 
-article id=91 dt=Text ctime=0 mtime=3866072335 nm=Manual of LuaFAR 2L
+article id=91 dt=Text ctime=0 mtime=3884072921 nm=Manual of LuaFAR 2L
 #_<markdown>
 #_## This manual describes the LuaFAR variant intended for work with [far2l](https://github.com/shmuz/far2l) (Linux fork of FAR Manager v2).
 #_
@@ -1923,39 +1928,29 @@ article id=91 dt=Text ctime=0 mtime=3866072335 nm=Manual of LuaFAR 2L
 #_
 #_This package allows writing Far Manager plugins in
 #_[Lua](https://www.lua.org/) 5.1 programming language.
-#_The package provides source code for `luafar2l.so` (a library)
-#_and `luaplug` (generic plugin).
-#_`luafar2l.so` is a runtime library used by a single or multiple plugins.
+#_The package provides source code for `luafar2l.so` (a runtime library)
+#_and `luaplug.c` (a generic plugin).
 #_
-#_* The functions exported by the plugin should be named in Lua as following,
-#_e.g., the function `OpenPluginW` should be named [`export.OpenPlugin`](109.html)
-#_in the Lua program, see the full list [here](92.html).
+#_* The functions exported by the plugin are found in the `export` global Lua table
+#_and are mostly named after their C-function callers, e.g., `ConfigureW` calls
+#_[`export.Configure`](96.html), see the full list of exported functions [here](92.html).
 #_ 
 #_* The service functions provided by Far Manager are found in the global Lua tables
-#_`far`, `editor`, `panel`, `viewer`, `regex`.
+#_`actl`, `editor`, `far`, `panel`, `regex`, `viewer`.
 #_For instance, function `EditorControl` with parameter `ECTL_GETINFO`
 #_is named [`editor.GetInfo`](29.html) in Lua plugins.
 #_
 #_* **Note:** the functions of the LuaFAR library assume
 #_string arguments and string return values to be in the **UTF-8**
 #_encoding (unless they are meant to hold binary data).
-#_
-#_Currently, the documentation on LuaFAR API is incomplete and may be somewhat inaccurate. When in doubt, consult the source code. The API may change in the future.
 #_ 
-#_One instance of `luafar2l.so` can "serve" arbitrary number of LuaFAR plugins at the same time. An example of the C-part of a LuaFAR plugin is `luaplug.c` (included in this package).
+#_One instance of `luafar2l.so` can serve arbitrary number of LuaFAR plugins at the same time.
 #_ 
-#_The starting (or "default") Lua script is searched in the plugin's DLL directory in the following order (see [`LF_RunDefaultScript`](130.html) for details):
+#_The starting (or "default") Lua script is searched in the plugin's
+#_directories as described in [`LF_RunDefaultScript`](130.html) article.
 #_
-#_1. The plugin name with the extension `.lua` is looked for, e.g.: `luaplug.far-plug-wide -> luaplug.lua`
-#_2. If the plugin name contains hyphens, then its part preceding the last hyphen is looked for, e.g.: `luaplug-x64.far-plug-wide -> luaplug.lua`.
-#_
-#_
-#_
-#_
-#_
-#_
-#_
-#_
+#_Currently, the documentation on LuaFAR API is incomplete and may be somewhat inaccurate.
+#_When in doubt, consult the source code. The API may change in the future.
 #_
 
 article id=92 dt=Text ctime=0 mtime=0 nm=LuaFAR plugin-exported functions
@@ -1991,7 +1986,7 @@ article id=95 dt=Text ctime=0 mtime=0 nm=export.Compare
 #_
 #_
 
-article id=96 dt=Text ctime=0 mtime=0 nm=export.Configure
+article id=96 dt=Text ctime=0 mtime=3883979212 nm=export.Configure
 #_result = export.Configure (ItemNumber)
 #_
 #_**Parameters:**
@@ -1999,6 +1994,9 @@ article id=96 dt=Text ctime=0 mtime=0 nm=export.Configure
 #_
 #_**Returns:**
 #_  result:     boolean
+#_
+#_**Far API used:**
+#_  ConfigureW
 #_
 #_@@@
 #_
@@ -2020,7 +2018,7 @@ article id=97 dt=Text ctime=0 mtime=0 nm=export.DeleteFiles
 #_
 #_
 
-article id=98 dt=Text ctime=0 mtime=0 nm=export.ExitFAR
+article id=98 dt=Text ctime=0 mtime=3883979252 nm=export.ExitFAR
 #_export.ExitFAR()
 #_
 #_**Parameters:**
@@ -2028,6 +2026,9 @@ article id=98 dt=Text ctime=0 mtime=0 nm=export.ExitFAR
 #_
 #_**Returns:**
 #_  nothing
+#_
+#_**Far API used:**
+#_  ExitFARW
 #_
 #_@@@
 #_
@@ -2123,7 +2124,7 @@ article id=104 dt=Text ctime=0 mtime=3878653174 nm=export.GetOpenPluginInfo
 #_
 #_
 
-article id=105 dt=Text ctime=0 mtime=3866020707 nm=export.GetPluginInfo
+article id=105 dt=Text ctime=0 mtime=3883979276 nm=export.GetPluginInfo
 #_PluginInfo = export.GetPluginInfo ()
 #_
 #_**Parameters:**
@@ -2137,6 +2138,9 @@ article id=105 dt=Text ctime=0 mtime=3866020707 nm=export.GetPluginInfo
 #_      PluginMenuStrings:   table (array of strings)
 #_      PluginConfigStrings: table (array of strings)
 #_      CommandPrefix:       string
+#_
+#_**Far API used:**
+#_  GetPluginInfoW, PluginInfo
 #_
 #_@@@
 #_
@@ -2193,49 +2197,26 @@ article id=108 dt=Text ctime=0 mtime=3480348469 nm=export.OpenFilePlugin
 #_
 #_
 
-article id=109 dt=Text ctime=0 mtime=3867586029 nm=export.OpenPlugin
+article id=109 dt=Text ctime=0 mtime=3883980172 nm=export.OpenPlugin
 #_object = export.OpenPlugin (OpenFrom, Item)
 #_
-#_**Definitions:**
-#_  **"int64"**
-#_    Type of userdata, produced by `bit64` library.
-#_  **"binary"**
-#_    By convention, it is a string enclosed in a table as its first element.
-#_    The string is intended to be passed to and from without conversions UTF-8 <-> UTF-32LE.
-#_  **"panel"**
-#_    By convention, it is a panel handle (any non-false Lua value) enclosed in a table
-#_    as its first element. The table must contain the field ["type"]="panel".
-#_
 #_**Parameters:**
-#_  OpenFrom: integer
-#_  Item:
-#_    - If OpenFrom == OPEN_FROMMACRO:
-#_        table (array of arguments):
-#_        - each argument can be either of:
-#_          string, nil, boolean, number, "int64", or "binary"
-#_        - field *n* of the table holds the length of the array
-#_    - else:
-#_        string (if OpenFrom is OPEN_SHORTCUT or OPEN_COMMANDLINE)
-#_        table  (if OpenFrom is OPEN_DIALOG)
-#_          ItemNumber : integer
-#_          hDlg       : userdata
-#_        integer (for other cases of OpenFrom)
+#_  OpenFrom: integer (either of OPEN_DISKMENU, OPEN_EDITOR,
+#_                     OPEN_FILEPANEL, OPEN_FINDLIST,
+#_                     OPEN_PLUGINSMENU, OPEN_VIEWER)
+#_  Item:     integer
 #_
 #_**Returns:**
-#_  if OpenFrom == OPEN_FROMMACRO:
-#_    0 or more Lua values.
-#_    Currently, values of the following types are supported:
-#_        string, nil, boolean, number, "int64", "binary", or "panel".
-#_    To open a panel, return a "panel" value as the first return value.
-#_  else:
-#_    object: plugin object (any Lua value)
-#_      - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
-#_      - Number 0 (zero) tells Far to unload the plugin.
-#_      - The plugin object is passed to other exported functions
-#_        when they are called by Far.
+#_  object: plugin object (any Lua value)
+#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
+#_    - Number 0 (zero) tells Far to unload the plugin.
+#_    - The plugin object is passed to other exported functions
+#_      when they are called by Far.
+#_
+#_**Far API used:**
+#_  OpenPluginW
 #_
 #_@@@
-#_<lua> Links = { bit64="471.html" } </lua>
 #_
 
 article id=110 dt=Text ctime=0 mtime=3862213220 nm=export.ProcessEditorEvent
@@ -2469,7 +2450,7 @@ article id=129 dt=Text ctime=0 mtime=3883247727 nm=LF_LuaOpen
 #_@@@
 #_
 
-article id=130 dt=Text ctime=0 mtime=3883238884 nm=LF_RunDefaultScript
+article id=130 dt=Text ctime=0 mtime=3883317286 nm=LF_RunDefaultScript
 #_<markdown>
 #_    BOOL LF_RunDefaultScript(lua_State* L)
 #_
@@ -2483,11 +2464,11 @@ article id=130 dt=Text ctime=0 mtime=3883238884 nm=LF_RunDefaultScript
 #_
 #_First, the function tries to `require` a module with the predefined name `<boot`. If `package.preload["<boot"]` contains a function, then it is run.
 #_
-#_Else, the starting (or "default") Lua script is searched in the plugin's directory, in the following order:
+#_Else, the starting (or "default") Lua script is searched in the plugin's directory, as follows:
 #_
-#_1. The plugin name with the extension `.lua`, e.g.: `luaplug.far-plug-wide -> luaplug.lua`
+#_- The plugin name with the extension `.lua`, e.g.: `myplug.far-plug-wide -> myplug.lua`
 #_
-#_2. If the plugin name contains a hyphen, then its part preceding the last hyphen is looked for, e.g.: `luaplug-x64.far-plug-wide -> luaplug.lua`.
+#_- If the plugin name contains a hyphen, then its part preceding the last hyphen is looked for, e.g.: `myplug-x64.far-plug-wide -> myplug.lua`.
 #_
 #_This mechanism allows the default script to be either embedded into the application or external.
 #_
@@ -4140,12 +4121,12 @@ article id=219 dt=Text ctime=0 mtime=3492005369 nm=far.DefDlgProc
 
 article id=220 dt=Text ctime=0 mtime=0 nm=Dialog functions
 
-article id=221 dt=Text ctime=0 mtime=3853171450 nm=export.ProcessDialogEvent
+article id=221 dt=Text ctime=0 mtime=3884099060 nm=export.ProcessDialogEvent
 #_ret = export.ProcessDialogEvent (Event, Param)
 #_
 #_**Parameters:**
 #_  Event:  integer
-#_  Param:  table *tFarDialogEvent*
+#_  Param:  table containing the following fields:
 #_            hDlg   : userdata
 #_            Msg    : integer
 #_            Param1 : integer
@@ -5472,21 +5453,18 @@ article id=327 dt=Text ctime=3480243336 mtime=3853777078 nm=IsFileInFilter
 #_<lua> Links = { FindData="90.html", } </lua>
 #_
 
-article id=329 dt=Text ctime=3480257526 mtime=3853580040 nm=Flags
+article id=329 dt=Text ctime=3480257526 mtime=3884073167 nm=Flags
 #_<markdown>
 #_
-#_As Far API makes wide use of named integer constants, there is
-#_a necessity to represent those constants in Lua. LuaFAR
-#_keeps the names and values of the constants in tables.
-#_Most constants are embedded into LuaFAR (in a table
-#_[`far.Flags`](57.html)).
+#_Far API makes wide use of named integer constants. Most of these
+#_constants are found in the Lua table [`far.Flags`](57.html).
 #_
 #_This manual uses the term **flag** for a single named constant
 #_and the term **flags combination** for the bitwise OR of one or
 #_more such constants.
 #_
 #_When some function parameter in this manual is denoted as *flag*,
-#_it can be supplied from Lua as either an integer, or as a string.
+#_it can be supplied from Lua as either an integer, or a string.
 #_
 #_When some function parameter in this manual is denoted as *flag
 #_combination*, it can be supplied from Lua as either an integer,
@@ -5574,16 +5552,6 @@ article id=335 dt=Text ctime=3480362672 mtime=3879499583 nm=far.XLat
 #_  FSF.XLat
 #_
 #_@@@
-#_
-
-article id=336 dt=Text ctime=3480525243 mtime=3866283394 nm=Unicode support
-#_<markdown>
-#_
-#_### Passing string arguments and returning string values
-#_
-#_Most functions of the LuaFAR library assume string
-#_arguments and string return values to be in the **UTF-8**
-#_encoding (unless they are meant to hold binary data).
 #_
 
 article id=341 dt=Text ctime=3481108972 mtime=3481109785 nm=LF_Gsub
@@ -6033,7 +6001,7 @@ article id=382 dt=Text ctime=3492068606 mtime=3853512200 nm=panel.GetPanelHostFi
 #_
 #_
 
-article id=385 dt=Text ctime=3497514263 mtime=3866304231 nm=LF_InitOtherLuaState
+article id=385 dt=Text ctime=3497514263 mtime=3883319249 nm=LF_InitOtherLuaState
 #_<markdown>
 #_    int LF_InitOtherLuaState (lua_State *L,
 #_                              lua_State *Lplug,
@@ -6051,7 +6019,7 @@ article id=385 dt=Text ctime=3497514263 mtime=3866304231 nm=LF_InitOtherLuaState
 #_
 #_The function initializes **L** Lua state.
 #_
-#_1. Open the standard Lua libraries, `far`, `bit` and `utf8` libraries.
+#_1. Open the standard Lua libraries and all the LuaFAR libraries.
 #_1. Call `aOpenLibs` function.
 #_
 #_@@@
@@ -6748,7 +6716,7 @@ article id=438 dt=Text ctime=3852117934 mtime=3852120740 nm=far.CreateUserContro
 #_{di_usercontrol}: http://api.farmanager.com/ru/dialogapi/controls/di_usercontrol.html
 #_
 
-article id=447 dt=Text ctime=3852492345 mtime=3852492415 nm=export.MayExitFAR
+article id=447 dt=Text ctime=3852492345 mtime=3883979361 nm=export.MayExitFAR
 #_result = export.MayExitFAR()
 #_
 #_**Parameters:**
@@ -6756,6 +6724,9 @@ article id=447 dt=Text ctime=3852492345 mtime=3852492415 nm=export.MayExitFAR
 #_
 #_**Returns:**
 #_  result:  boolean
+#_
+#_**Far API used:**
+#_  MayExitFARW
 #_
 #_@@@
 #_
@@ -7080,8 +7051,8 @@ article id=462 dt=Text ctime=3853816798 mtime=3853817758 nm=Methods of dialog ha
 #_<lua> Links = { ["far.SendDlgMessage"]="71.html"; } </lua>
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3861339714 nm=actl namespace
-#_There is an alternative interface to FAR's advanced control commands.
+article id=463 dt=Text ctime=3853931289 mtime=3884099602 nm=actl namespace
+#_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
 #_    1) info = far.AdvControl("ACTL_GETWINDOWINFO", 2)
@@ -7570,20 +7541,6 @@ article id=485 dt=Text ctime=3866071840 mtime=3866074560 nm=export.ProcessConsol
 
 article id=486 dt=Text ctime=3866132436 mtime=3870956917 nm=C-functions
 
-article id=487 dt=Text ctime=3867668999 mtime=3867670115 nm=luafar_init.lua
-#_<markdown>
-#_
-#_If the file `Plugins/luafar/luafar_init.lua` exists it is executed before the first run of
-#_the plugin's default script.<br>
-#_It is **not** executed when the default script is reloaded due to `far.ReloadDefaultScript == true`.
-#_
-#_See also:<br>
-#_[`LF_RunDefaultScript`](130.html)<br>
-#_[`LF_OpenPlugin`](173.html)<br>
-#_
-#_@@@
-#_
-
 article id=488 dt=Text ctime=3867734456 mtime=3867735676 nm=regex.exec, execW
 #_from, to, offsets = regex.exec (s, pattern, [init], [cflags])
 #_
@@ -7989,10 +7946,12 @@ article id=512 dt=Text ctime=3878637011 mtime=3878637382 nm=far.Host.SetDirector
 #_@@@
 #_
 
-article id=513 dt=Text ctime=3881311938 mtime=3881320609 nm=Lua engine
-#_By default LuaFAR tries to load either of *libluajit-5.1.so*
-#_or *liblua5.1.so*, in this order.
-#_If the environment variable *FARPLAINLUA* is set then the order is reversed.
+article id=513 dt=Text ctime=3881311938 mtime=3883485189 nm=Lua engine
+#_<markdown>
+#_By default LuaFAR tries to load either of `libluajit-5.1.so`
+#_or `liblua5.1.so`, in this order.
+#_
+#_If the environment variable `FARPLAINLUA` is set then the order is reversed.
 #_
 
 article id=514 dt=Text ctime=3881479361 mtime=3881480702 nm=far.InMyConfig
@@ -8075,5 +8034,128 @@ article id=517 dt=Text ctime=3881479399 mtime=3881480682 nm=far.GetMyHome
 #_  It uses the undocumented *utils* library which is part of far2l sources.
 #_
 #_@@@
+#_
+
+article id=518 dt=Text ctime=3883938040 mtime=3883980380 nm=export.OpenCommandLine
+#_object = export.OpenCommandLine (Item)
+#_
+#_**Parameters:**
+#_  Item:   string
+#_
+#_**Returns:**
+#_  object: plugin object (any Lua value)
+#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
+#_    - Number 0 (zero) tells Far to unload the plugin.
+#_    - The plugin object is passed to other exported functions
+#_      when they are called by Far.
+#_
+#_**Far API used:**
+#_  OpenPluginW (OPEN_COMMANDLINE)
+#_
+#_@@@
+#_
+
+article id=519 dt=Text ctime=3883938053 mtime=3883980424 nm=export.OpenShortcut
+#_object = export.OpenShortcut (Item)
+#_
+#_**Parameters:**
+#_  Item:   string
+#_
+#_**Returns:**
+#_  object: plugin object (any Lua value)
+#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
+#_    - Number 0 (zero) tells Far to unload the plugin.
+#_    - The plugin object is passed to other exported functions
+#_      when they are called by Far.
+#_
+#_**Far API used:**
+#_  OpenPluginW (OPEN_SHORTCUT)
+#_
+#_@@@
+#_
+
+article id=520 dt=Text ctime=3883938065 mtime=3883980618 nm=export.OpenFromMacro
+#_object = export.OpenFromMacro (Item)
+#_
+#_**Parameters:**
+#_  Item: table (array of arguments):
+#_        - each argument can be either of:
+#_          string, nil, boolean, number, "int64", or "binary"
+#_        - field *n* of the table holds the length of the array
+#_
+#_**Returns:**
+#_  0 or more Lua values.
+#_  Currently, values of the following types are supported:
+#_      string, nil, boolean, number, "int64", "binary", or "panel".
+#_  To open a panel, return a "panel" value as the first return value.
+#_
+#_**Definitions:**
+#_  **"int64"**
+#_    Type of userdata, produced by `bit64` library.
+#_  **"binary"**
+#_    By convention, it is a string enclosed in a table as its first element.
+#_    The string is passed to and from without code page conversions.
+#_  **"panel"**
+#_    By convention, it is a panel handle (any non-false Lua value) enclosed in a table
+#_    as its first element. The table must contain the field ["type"]="panel".
+#_
+#_**Far API used:**
+#_  OpenPluginW (OPEN_FROMMACRO)
+#_
+#_@@@
+#_<lua> Links = { bit64="471.html" } </lua>
+#_
+
+article id=521 dt=Text ctime=3883938743 mtime=3883981566 nm=export.OpenDialog
+#_object = export.OpenDialog (ItemNumber, hDlg)
+#_
+#_**Parameters:**
+#_  ItemNumber : integer
+#_  hDlg       : userdata
+#_
+#_**Returns:**
+#_  object: plugin object (any Lua value)
+#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
+#_    - Number 0 (zero) tells Far to unload the plugin.
+#_    - The plugin object is passed to other exported functions
+#_      when they are called by Far.
+#_
+#_**Far API used:**
+#_  OpenPluginW (OPEN_DIALOG)
+#_
+#_@@@
+#_
+
+article id=522 dt=Text ctime=3884191334 mtime=3884191369 nm=far.FreeScreen
+#_far.FreeScreen (handle)
+#_
+#_**Parameters:**
+#_  handle: userdata
+#_
+#_**Returns:**
+#_  nothing
+#_
+#_**Far API used:**
+#_  FreeScreen
+#_
+#_@@@
+#_
+
+article id=523 dt=Text ctime=3889374043 mtime=3889374092 nm=win.GetLocalTime
+#_result = win.GetLocalTime()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  result   : table SystemTime
+#_
+#_**Windows API used:**
+#_  GetLocalTime
+#_
+#_@@@
+#_<lua> Links = { SystemTime="218.html" } </lua>
+#_
+#_
 #_
 
