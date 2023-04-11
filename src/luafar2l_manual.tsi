@@ -722,10 +722,11 @@ article id=21 dt=Text ctime=0 mtime=3851868780 nm=editor.Editor
 #_
 #_
 
-article id=22 dt=Text ctime=0 mtime=3877971178 nm=editor.AddColor
-#_result = editor.AddColor (StringNumber, StartPos, EndPos, Color, Flags)
+article id=22 dt=Text ctime=0 mtime=3889633696 nm=editor.AddColor
+#_result = editor.AddColor (EditorId, StringNumber, StartPos, EndPos, Color, Flags)
 #_
 #_**Parameters:**
+#_  EditorId     : integer, or nil
 #_  StringNumber : integer, or nil
 #_  StartPos     : integer (1-based)
 #_  EndPos       : integer (1-based)
@@ -750,11 +751,11 @@ article id=22 dt=Text ctime=0 mtime=3877971178 nm=editor.AddColor
 #_@@@
 #_
 
-article id=23 dt=Text ctime=0 mtime=0 nm=editor.DeleteBlock
-#_result = editor.DeleteBlock ()
+article id=23 dt=Text ctime=0 mtime=3889634168 nm=editor.DeleteBlock
+#_result = editor.DeleteBlock (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -765,11 +766,11 @@ article id=23 dt=Text ctime=0 mtime=0 nm=editor.DeleteBlock
 #_@@@
 #_
 
-article id=24 dt=Text ctime=0 mtime=0 nm=editor.DeleteChar
-#_result = editor.DeleteChar ()
+article id=24 dt=Text ctime=0 mtime=3889634172 nm=editor.DeleteChar
+#_result = editor.DeleteChar (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -780,11 +781,11 @@ article id=24 dt=Text ctime=0 mtime=0 nm=editor.DeleteChar
 #_@@@
 #_
 
-article id=25 dt=Text ctime=0 mtime=0 nm=editor.DeleteString
-#_result = editor.DeleteString ()
+article id=25 dt=Text ctime=0 mtime=3889634191 nm=editor.DeleteString
+#_result = editor.DeleteString (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -795,10 +796,11 @@ article id=25 dt=Text ctime=0 mtime=0 nm=editor.DeleteString
 #_@@@
 #_
 
-article id=27 dt=Text ctime=0 mtime=3851868866 nm=editor.ExpandTabs
-#_result = editor.ExpandTabs ([StringNumber])
+article id=27 dt=Text ctime=0 mtime=3889634200 nm=editor.ExpandTabs
+#_result = editor.ExpandTabs (EditorId, [StringNumber])
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer (1-based)
 #_
 #_**Returns:**
@@ -810,10 +812,11 @@ article id=27 dt=Text ctime=0 mtime=3851868866 nm=editor.ExpandTabs
 #_@@@
 #_
 
-article id=28 dt=Text ctime=0 mtime=3877971097 nm=editor.GetColor
-#_colordata = editor.GetColor(StringNumber, ColorItem)
+article id=28 dt=Text ctime=0 mtime=3889634211 nm=editor.GetColor
+#_colordata = editor.GetColor (EditorId, StringNumber, ColorItem)
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer (1-based), or nil
 #_  ColorItem:    integer (1-based)
 #_
@@ -829,11 +832,11 @@ article id=28 dt=Text ctime=0 mtime=3877971097 nm=editor.GetColor
 #_  EditorControl, ECTL_GETTRUECOLOR
 #_
 
-article id=29 dt=Text ctime=0 mtime=3853743777 nm=editor.GetInfo
-#_Info = editor.GetInfo ()
+article id=29 dt=Text ctime=0 mtime=3889634222 nm=editor.GetInfo
+#_Info = editor.GetInfo (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  Info: table, or nil
@@ -863,14 +866,14 @@ article id=29 dt=Text ctime=0 mtime=3853743777 nm=editor.GetInfo
 #_@@@
 #_
 
-article id=30 dt=Text ctime=0 mtime=3485397529 nm=editor.GetSelection
+article id=30 dt=Text ctime=0 mtime=3889634229 nm=editor.GetSelection
 #_**Note:**
 #_--This function does not have a prototype in Far API.
 #_
-#_Info = editor.GetSelection ()
+#_Info = editor.GetSelection (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  Info: table, or nil
@@ -888,15 +891,16 @@ article id=30 dt=Text ctime=0 mtime=3485397529 nm=editor.GetSelection
 #_
 #_
 
-article id=31 dt=Text ctime=0 mtime=3863840796 nm=editor.GetString
+article id=31 dt=Text ctime=0 mtime=3889634254 nm=editor.GetString
 #_**Note:**
 #_  This function is an extension over its prototype in Far API.
 #_
-#_LineInfo = editor.GetString (StringNumber, Mode)
+#_LineInfo = editor.GetString (EditorId, StringNumber, Mode)
 #_    or
-#_StringText, StringEOL = editor.GetString (StringNumber, Mode)
+#_StringText, StringEOL = editor.GetString (EditorId, StringNumber, Mode)
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer, 1-based (default=0)
 #_  Mode:         integer (0,1,2,3; default=0)
 #_
@@ -926,11 +930,12 @@ article id=31 dt=Text ctime=0 mtime=3863840796 nm=editor.GetString
 #_@@@
 #_
 
-article id=32 dt=Text ctime=0 mtime=0 nm=editor.InsertString
-#_result = editor.InsertString ([indent])
+article id=32 dt=Text ctime=0 mtime=3889634275 nm=editor.InsertString
+#_result = editor.InsertString (EditorId, [indent])
 #_
 #_**Parameters:**
-#_  indent: boolean, defaults to false
+#_  EditorId: integer, or nil
+#_  indent:   boolean, defaults to false
 #_
 #_**Returns:**
 #_  result: boolean
@@ -941,12 +946,13 @@ article id=32 dt=Text ctime=0 mtime=0 nm=editor.InsertString
 #_@@@
 #_
 
-article id=33 dt=Text ctime=0 mtime=3854221352 nm=editor.InsertText
-#_result = editor.InsertText (text [, redraw])
+article id=33 dt=Text ctime=0 mtime=3889634284 nm=editor.InsertText
+#_result = editor.InsertText (EditorId, text [, redraw])
 #_
 #_**Parameters:**
-#_  text:    string
-#_  redraw:  boolean (default=false)
+#_  EditorId: integer, or nil
+#_  text:     string
+#_  redraw:   boolean (default=false)
 #_
 #_**Returns:**
 #_  result:  boolean
@@ -957,11 +963,12 @@ article id=33 dt=Text ctime=0 mtime=3854221352 nm=editor.InsertText
 #_@@@
 #_
 
-article id=36 dt=Text ctime=0 mtime=0 nm=editor.ProcessInput
-#_result = editor.ProcessInput (Input)
+article id=36 dt=Text ctime=0 mtime=3889634324 nm=editor.ProcessInput
+#_result = editor.ProcessInput (EditorId, Input)
 #_
 #_**Parameters:**
-#_  Input: table InputRecord.
+#_  EditorId: integer, or nil
+#_  Input:    table InputRecord.
 #_         (Field *EventType* is mandatory, other fields
 #_         are optional. If some field is missing, the default
 #_         value of 0/false is used, except for *wRepeatCount*
@@ -978,11 +985,11 @@ article id=36 dt=Text ctime=0 mtime=0 nm=editor.ProcessInput
 #_
 #_
 
-article id=37 dt=Text ctime=0 mtime=0 nm=editor.Quit
-#_result = editor.Quit ()
+article id=37 dt=Text ctime=0 mtime=3889634338 nm=editor.Quit
+#_result = editor.Quit (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId: integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -993,11 +1000,11 @@ article id=37 dt=Text ctime=0 mtime=0 nm=editor.Quit
 #_@@@
 #_
 
-article id=38 dt=Text ctime=0 mtime=0 nm=editor.ReadInput
-#_Info = editor.ReadInput ()
+article id=38 dt=Text ctime=0 mtime=3889634342 nm=editor.ReadInput
+#_Info = editor.ReadInput (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId: integer, or nil
 #_
 #_**Returns:**
 #_  Info: table InputRecord, or nil
@@ -1010,10 +1017,11 @@ article id=38 dt=Text ctime=0 mtime=0 nm=editor.ReadInput
 #_
 #_
 
-article id=39 dt=Text ctime=0 mtime=3851868988 nm=editor.RealToTab
-#_result = editor.RealToTab (StringNumber, SrcPos)
+article id=39 dt=Text ctime=0 mtime=3889634350 nm=editor.RealToTab
+#_result = editor.RealToTab (EditorId, StringNumber, SrcPos)
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer (1-based), or nil
 #_  SrcPos:       integer (1-based)
 #_
@@ -1027,11 +1035,11 @@ article id=39 dt=Text ctime=0 mtime=3851868988 nm=editor.RealToTab
 #_@@@
 #_
 
-article id=40 dt=Text ctime=0 mtime=0 nm=editor.Redraw
-#_result = editor.Redraw ()
+article id=40 dt=Text ctime=0 mtime=3889634357 nm=editor.Redraw
+#_result = editor.Redraw (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId: integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -1042,10 +1050,11 @@ article id=40 dt=Text ctime=0 mtime=0 nm=editor.Redraw
 #_@@@
 #_
 
-article id=41 dt=Text ctime=0 mtime=3853182596 nm=editor.SaveFile
-#_result = editor.SaveFile (FileName, FileEOL, CodePage)
+article id=41 dt=Text ctime=0 mtime=3889634364 nm=editor.SaveFile
+#_result = editor.SaveFile (EditorId, FileName, FileEOL, CodePage)
 #_
 #_**Parameters:**
+#_  EditorId: integer, or nil
 #_  FileName: string, or nil
 #_  FileEOL:  string, or nil
 #_  CodePage: integer, or nil
@@ -1059,13 +1068,14 @@ article id=41 dt=Text ctime=0 mtime=3853182596 nm=editor.SaveFile
 #_@@@
 #_
 
-article id=42 dt=Text ctime=0 mtime=3851869040 nm=editor.Select
-#_result = editor.Select (SelectData)
+article id=42 dt=Text ctime=0 mtime=3889634446 nm=editor.Select
+#_result = editor.Select (EditorId, SelectData)
 #_  or
-#_result = editor.Select (BlockType, BlockStartLine, BlockStartPos,
-#_                           BlockWidth, BlockHeight)
+#_result = editor.Select (EditorId, BlockType, BlockStartLine, BlockStartPos,
+#_                        BlockWidth, BlockHeight)
 #_
 #_**Parameters:**
+#_  EditorId:   integer, or nil
 #_  SelectData: table
 #_    fields of SelectData:
 #_      BlockType:      flag
@@ -1087,14 +1097,15 @@ article id=42 dt=Text ctime=0 mtime=3851869040 nm=editor.Select
 #_@@@
 #_
 
-article id=43 dt=Text ctime=0 mtime=3851869097 nm=editor.SetPosition
-#_result = editor.SetPosition (PosData)
+article id=43 dt=Text ctime=0 mtime=3889634482 nm=editor.SetPosition
+#_result = editor.SetPosition (EditorId, PosData)
 #_  or
-#_result = editor.SetPosition (CurLine, CurPos, CurTabPos,
-#_                          TopScreenLine, LeftPos, Overtype)
+#_result = editor.SetPosition (EditorId, CurLine, CurPos, CurTabPos,
+#_                             TopScreenLine, LeftPos, Overtype)
 #_
 #_**Parameters:**
-#_  PosData: table
+#_  EditorId: integer, or nil
+#_  PosData:  table
 #_    fields of PosData:
 #_      CurLine:       integer, 1-based
 #_      CurPos:        integer, 1-based
@@ -1115,10 +1126,11 @@ article id=43 dt=Text ctime=0 mtime=3851869097 nm=editor.SetPosition
 #_@@@
 #_
 
-article id=44 dt=Text ctime=0 mtime=3851869148 nm=editor.SetString
-#_result = editor.SetString (StringNumber, StringText, StringEOL)
+article id=44 dt=Text ctime=0 mtime=3889634494 nm=editor.SetString
+#_result = editor.SetString (EditorId, StringNumber, StringText, StringEOL)
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer, 1-based (default=0)
 #_  StringText:   string
 #_  StringEOL:    string, or nil
@@ -1132,11 +1144,12 @@ article id=44 dt=Text ctime=0 mtime=3851869148 nm=editor.SetString
 #_@@@
 #_
 
-article id=45 dt=Text ctime=0 mtime=3480964976 nm=editor.SetTitle
-#_result = editor.SetTitle ([Title])
+article id=45 dt=Text ctime=0 mtime=3889634504 nm=editor.SetTitle
+#_result = editor.SetTitle (EditorId, [Title])
 #_
 #_**Parameters:**
-#_  Title: string, or nil
+#_  EditorId: integer, or nil
+#_  Title:    string, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -1148,10 +1161,11 @@ article id=45 dt=Text ctime=0 mtime=3480964976 nm=editor.SetTitle
 #_
 #_
 
-article id=48 dt=Text ctime=0 mtime=3851869191 nm=editor.TabToReal
-#_result = editor.TabToReal (StringNumber, SrcPos)
+article id=48 dt=Text ctime=0 mtime=3889634510 nm=editor.TabToReal
+#_result = editor.TabToReal (EditorId, StringNumber, SrcPos)
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer (1-based), or nil
 #_  SrcPos:       integer (1-based)
 #_
@@ -2477,11 +2491,11 @@ article id=130 dt=Text ctime=0 mtime=3883317286 nm=LF_RunDefaultScript
 
 article id=131 dt=Text ctime=0 mtime=0 nm=LuaFAR Far libraries
 
-article id=132 dt=Text ctime=0 mtime=3851877307 nm=viewer.GetInfo
-#_Info = viewer.GetInfo ()
+article id=132 dt=Text ctime=0 mtime=3889634653 nm=viewer.GetInfo
+#_Info = viewer.GetInfo (ViewerId)
 #_
 #_**Parameters:**
-#_  none
+#_  ViewerId: integer, or nil
 #_
 #_**Returns:**
 #_  Info: table, or nil
@@ -2515,11 +2529,11 @@ article id=133 dt=Text ctime=0 mtime=3878661339 nm=ViewerInfo.CurMode
 #_      Processed:      boolean
 #_
 
-article id=134 dt=Text ctime=0 mtime=0 nm=viewer.Quit
-#_viewer.Quit ()
+article id=134 dt=Text ctime=0 mtime=3889634656 nm=viewer.Quit
+#_viewer.Quit (ViewerId)
 #_
 #_**Parameters:**
-#_  none
+#_  ViewerId: integer, or nil
 #_
 #_**Returns:**
 #_  nothing
@@ -2530,11 +2544,11 @@ article id=134 dt=Text ctime=0 mtime=0 nm=viewer.Quit
 #_@@@
 #_
 
-article id=135 dt=Text ctime=0 mtime=0 nm=viewer.Redraw
-#_viewer.Redraw ()
+article id=135 dt=Text ctime=0 mtime=3889634660 nm=viewer.Redraw
+#_viewer.Redraw (ViewerId)
 #_
 #_**Parameters:**
-#_  none
+#_  ViewerId: integer, or nil
 #_
 #_**Returns:**
 #_  nothing
@@ -2545,11 +2559,11 @@ article id=135 dt=Text ctime=0 mtime=0 nm=viewer.Redraw
 #_@@@
 #_
 
-article id=136 dt=Text ctime=0 mtime=0 nm=editor.GetBookmarks
-#_bookmarks = editor.GetBookmarks ()
+article id=136 dt=Text ctime=0 mtime=3889634204 nm=editor.GetBookmarks
+#_bookmarks = editor.GetBookmarks (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  bookmarks: table (array of "bookmark tables"), or nil
@@ -2570,11 +2584,11 @@ article id=136 dt=Text ctime=0 mtime=0 nm=editor.GetBookmarks
 #_@@@
 #_
 
-article id=137 dt=Text ctime=0 mtime=0 nm=editor.TurnOffMarkingBlock
-#_editor.TurnOffMarkingBlock ()
+article id=137 dt=Text ctime=0 mtime=3889634514 nm=editor.TurnOffMarkingBlock
+#_editor.TurnOffMarkingBlock (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId: integer, or nil
 #_
 #_**Returns:**
 #_  nothing
@@ -2586,10 +2600,11 @@ article id=137 dt=Text ctime=0 mtime=0 nm=editor.TurnOffMarkingBlock
 #_@@@
 #_
 
-article id=138 dt=Text ctime=0 mtime=3854223043 nm=editor.ProcessKey
-#_editor.ProcessKey (key)
+article id=138 dt=Text ctime=0 mtime=3889634331 nm=editor.ProcessKey
+#_editor.ProcessKey (EditorId, key)
 #_
 #_**Parameters:**
+#_  EditorId: integer, or nil
 #_  key: integer
 #_
 #_**Returns:**
@@ -2607,10 +2622,11 @@ article id=138 dt=Text ctime=0 mtime=3854223043 nm=editor.ProcessKey
 #_
 #_
 
-article id=139 dt=Text ctime=0 mtime=0 nm=editor.SetKeyBar
-#_result = editor.SetKeyBar (param)
+article id=139 dt=Text ctime=0 mtime=3889634462 nm=editor.SetKeyBar
+#_result = editor.SetKeyBar (EditorId, param)
 #_
 #_**Parameters:**
+#_  EditorId: integer, or nil
 #_  param, either of:
 #_      - string "redraw":  redraw the key bar titles;
 #_      - string "restore": restore the original titles;
@@ -2635,13 +2651,14 @@ article id=139 dt=Text ctime=0 mtime=0 nm=editor.SetKeyBar
 #_@@@
 #_
 
-article id=140 dt=Text ctime=0 mtime=3488478395 nm=editor.SetParam
-#_res1 [, res2] = editor.SetParam (Type, Param [, Flags])
+article id=140 dt=Text ctime=0 mtime=3889634469 nm=editor.SetParam
+#_res1 [, res2] = editor.SetParam (EditorId, Type, Param [, Flags])
 #_
 #_**Parameters:**
-#_  Type:  flag
-#_  Param: integer, boolean, or string
-#_  Flags: flags combination, or nil
+#_  EditorId: integer, or nil
+#_  Type:     flag
+#_  Param:    integer, boolean, or string
+#_  Flags:    flags combination, or nil
 #_
 #_**Returns:**
 #_  res1: boolean
@@ -2653,8 +2670,8 @@ article id=140 dt=Text ctime=0 mtime=3488478395 nm=editor.SetParam
 #_@@@
 #_
 
-article id=141 dt=Text ctime=0 mtime=0 nm=viewer.SetKeyBar
-#_result = viewer.SetKeyBar (param)
+article id=141 dt=Text ctime=0 mtime=3889634674 nm=viewer.SetKeyBar
+#_result = viewer.SetKeyBar (ViewerId, param)
 #_
 #_**Parameters:**
 #_  same as in editor.SetKeyBar
@@ -2669,13 +2686,14 @@ article id=141 dt=Text ctime=0 mtime=0 nm=viewer.SetKeyBar
 #_<lua> Links = { ["editor.SetKeyBar"]="139.html" } </lua>
 #_
 
-article id=142 dt=Text ctime=0 mtime=3851877803 nm=viewer.SetPosition
-#_pos = viewer.SetPosition (PosData)
+article id=142 dt=Text ctime=0 mtime=3889634696 nm=viewer.SetPosition
+#_pos = viewer.SetPosition (ViewerId, PosData)
 #_  or
-#_pos = viewer.SetPosition (StartPos, LeftPos, Flags)
+#_pos = viewer.SetPosition (ViewerId, StartPos, LeftPos, Flags)
 #_
 #_**Parameters:**
-#_  PosData: table
+#_  ViewerId: integer, or nil
+#_  PosData:  table
 #_    fields of PosData:
 #_      StartPos:  number, 0-based
 #_      LeftPos:   number, 1-based
@@ -2693,10 +2711,11 @@ article id=142 dt=Text ctime=0 mtime=3851877803 nm=viewer.SetPosition
 #_@@@
 #_
 
-article id=144 dt=Text ctime=0 mtime=0 nm=viewer.Select
-#_result = viewer.Select (BlockStartPos, BlockLen)
+article id=144 dt=Text ctime=0 mtime=3889634668 nm=viewer.Select
+#_result = viewer.Select (ViewerId, BlockStartPos, BlockLen)
 #_
 #_**Parameters:**
+#_  ViewerId:      integer, or nil
 #_  BlockStartPos: number
 #_  BlockLen:      integer
 #_
@@ -3915,19 +3934,20 @@ article id=207 dt=Text ctime=0 mtime=0 nm=far.MkTemp
 #_@@@
 #_
 
-article id=208 dt=Text ctime=0 mtime=3480263878 nm=far.MkLink
-#_result = far.MkLink (Src, Dest, Flags)
+article id=208 dt=Text ctime=0 mtime=3890420002 nm=far.MkLink
+#_result = far.MkLink (Src, Dest, Type, Flags)
 #_
 #_**Parameters:**
 #_  Src:    string
 #_  Dest:   string
-#_  Flags:  flags combination
+#_  Type:   flags (default=FLINK_SYMLINK)
+#_  Flags:  flags (default=0)
 #_
 #_**Returns:**
 #_  result: boolean
 #_
 #_**Far API used:**
-#_  FSF.MkLink
+#_  MkLink
 #_
 #_@@@
 #_
@@ -4167,11 +4187,11 @@ article id=222 dt=Text ctime=0 mtime=3480188287 nm=LF_ProcessDialogEvent
 #_@@@
 #_
 
-article id=223 dt=Text ctime=0 mtime=0 nm=editor.AddStackBookmark
-#_result = editor.AddStackBookmark ()
+article id=223 dt=Text ctime=0 mtime=3889634139 nm=editor.AddStackBookmark
+#_result = editor.AddStackBookmark (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId : integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -4181,11 +4201,11 @@ article id=223 dt=Text ctime=0 mtime=0 nm=editor.AddStackBookmark
 #_
 #_
 
-article id=224 dt=Text ctime=0 mtime=0 nm=editor.ClearStackBookmarks
-#_result = editor.ClearStackBookmarks ()
+article id=224 dt=Text ctime=0 mtime=3889634148 nm=editor.ClearStackBookmarks
+#_result = editor.ClearStackBookmarks (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId : integer, or nil
 #_
 #_**Returns:**
 #_  result: integer
@@ -4195,10 +4215,11 @@ article id=224 dt=Text ctime=0 mtime=0 nm=editor.ClearStackBookmarks
 #_
 #_
 
-article id=225 dt=Text ctime=0 mtime=0 nm=editor.DeleteStackBookmark
-#_result = editor.DeleteStackBookmark ([position])
+article id=225 dt=Text ctime=0 mtime=3889634184 nm=editor.DeleteStackBookmark
+#_result = editor.DeleteStackBookmark (EditorId, [position])
 #_
 #_**Parameters:**
+#_  EditorId: integer, or nil
 #_  position: integer, or nil (nil = current position)
 #_
 #_**Returns:**
@@ -4209,11 +4230,11 @@ article id=225 dt=Text ctime=0 mtime=0 nm=editor.DeleteStackBookmark
 #_
 #_
 
-article id=226 dt=Text ctime=0 mtime=0 nm=editor.PrevStackBookmark
-#_result = editor.PrevStackBookmark ()
+article id=226 dt=Text ctime=0 mtime=3889634299 nm=editor.PrevStackBookmark
+#_result = editor.PrevStackBookmark (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId: integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -4223,11 +4244,11 @@ article id=226 dt=Text ctime=0 mtime=0 nm=editor.PrevStackBookmark
 #_
 #_
 
-article id=227 dt=Text ctime=0 mtime=0 nm=editor.NextStackBookmark
-#_result = editor.NextStackBookmark ()
+article id=227 dt=Text ctime=0 mtime=3889634296 nm=editor.NextStackBookmark
+#_result = editor.NextStackBookmark (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId: integer, or nil
 #_
 #_**Returns:**
 #_  result: boolean
@@ -4253,10 +4274,11 @@ article id=228 dt=Text ctime=0 mtime=3853512521 nm=panel.GetUserScreen
 #_
 #_
 
-article id=229 dt=Text ctime=0 mtime=3480263244 nm=viewer.SetMode
-#_result = viewer.SetMode (ModeData)
+article id=229 dt=Text ctime=0 mtime=3889634682 nm=viewer.SetMode
+#_result = viewer.SetMode (ViewerId, ModeData)
 #_
 #_**Parameters:**
+#_  ViewerId: integer, or nil
 #_  ModeData: table
 #_    fields of ModeData:
 #_      Type:      flag
@@ -4270,11 +4292,11 @@ article id=229 dt=Text ctime=0 mtime=3480263244 nm=viewer.SetMode
 #_  ViewerControl, VCTL_SETMODE
 #_
 
-article id=230 dt=Text ctime=0 mtime=0 nm=editor.GetStackBookmarks
-#_bookmarks = editor.GetStackBookmarks ()
+article id=230 dt=Text ctime=0 mtime=3889634234 nm=editor.GetStackBookmarks
+#_bookmarks = editor.GetStackBookmarks (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  bookmarks: table (array of "bookmark tables"), or nil
@@ -4442,11 +4464,11 @@ article id=260 dt=Text ctime=0 mtime=3855072295 nm=panel.GetPanelDirectory
 #_
 #_
 
-article id=261 dt=Text ctime=0 mtime=0 nm=editor.GetFileName
-#_FileName = editor.GetFileName ()
+article id=261 dt=Text ctime=0 mtime=3889634219 nm=editor.GetFileName
+#_FileName = editor.GetFileName (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  FileName: string
@@ -4798,11 +4820,12 @@ article id=282 dt=Text ctime=3476617735 mtime=3853248750 nm=far.Show
 #_@@@
 #_
 
-article id=283 dt=Text ctime=3476902749 mtime=3480263116 nm=editor.UndoRedo
-#_result = editor.UndoRedo (Command)
+article id=283 dt=Text ctime=3476902749 mtime=3889634519 nm=editor.UndoRedo
+#_result = editor.UndoRedo (EditorId, Command)
 #_
 #_**Parameters:**
-#_  Command: flag
+#_  EditorId: integer, or nil
+#_  Command:  flag
 #_
 #_**Returns:**
 #_  result:  boolean
@@ -7127,10 +7150,11 @@ article id=465 dt=Text ctime=3856361840 mtime=3856361940 nm=win.FileTimeToLocalF
 #_  FileTimeToLocalFileTime
 #_
 
-article id=466 dt=Text ctime=3859993119 mtime=3859993309 nm=editor.DelColor
-#_result = editor.DelColor (StringNumber [, StartPos])
+article id=466 dt=Text ctime=3859993119 mtime=3889634161 nm=editor.DelColor
+#_result = editor.DelColor (EditorId, StringNumber [, StartPos])
 #_
 #_**Parameters:**
+#_  EditorId:     integer, or nil
 #_  StringNumber: integer, or nil
 #_  StartPos:     integer (1-based); default=0
 #_
@@ -7162,11 +7186,11 @@ article id=467 dt=Text ctime=3861011876 mtime=3877053584 nm=GetGlobalInfoW
 #_@@@
 #_
 
-article id=468 dt=Text ctime=3861166983 mtime=3861167038 nm=viewer.GetFileName
-#_FileName = viewer.GetFileName ()
+article id=468 dt=Text ctime=3861166983 mtime=3889634649 nm=viewer.GetFileName
+#_FileName = viewer.GetFileName (ViewerId)
 #_
 #_**Parameters:**
-#_  none
+#_  ViewerId: integer, or nil
 #_
 #_**Returns:**
 #_  FileName: string
@@ -7691,11 +7715,11 @@ article id=495 dt=Text ctime=3869370435 mtime=3879499470 nm=far.GenerateName
 
 article id=496 dt=Text ctime=3870880710 mtime=3870923343 nm=Far2L-specific functions
 
-article id=497 dt=Text ctime=3871192568 mtime=3871192627 nm=editor.GetTitle
-#_Title = editor.GetTitle()
+article id=497 dt=Text ctime=3871192568 mtime=3889634268 nm=editor.GetTitle
+#_Title = editor.GetTitle (EditorId)
 #_
 #_**Parameters:**
-#_  none
+#_  EditorId     : integer, or nil
 #_
 #_**Returns:**
 #_  Title:    string
@@ -7776,12 +7800,13 @@ article id=501 dt=Text ctime=3872013561 mtime=3875699045 nm=far.GetFileEncoding
 #_
 #_
 
-article id=502 dt=Text ctime=3872589307 mtime=3872589620 nm=editor.InsertTextW
-#_result = editor.InsertTextW (text [, redraw])
+article id=502 dt=Text ctime=3872589307 mtime=3889634293 nm=editor.InsertTextW
+#_result = editor.InsertTextW (EditorId, text [, redraw])
 #_
 #_**Parameters:**
-#_  text:    string (in UTF-32LE encoding)
-#_  redraw:  boolean (default=false)
+#_  EditorId: integer, or nil
+#_  text:     string (in UTF-32LE encoding)
+#_  redraw:   boolean (default=false)
 #_
 #_**Returns:**
 #_  result:  boolean
