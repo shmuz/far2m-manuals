@@ -103,12 +103,12 @@ node lv=2 id=291 art=291 nm=DN_MOUSEEVENT
 node lv=2 id=292 art=292 nm=DN_RESIZECONSOLE
 node lv=1 id=79 art=79 nm=Editor functions
 node lv=2 id=22 art=22 nm=editor.AddColor
-node lv=2 id=223 art=223 nm=editor.AddStackBookmark
-node lv=2 id=224 art=224 nm=editor.ClearStackBookmarks
+node lv=2 id=223 art=223 nm=editor.AddSessionBookmark
+node lv=2 id=224 art=224 nm=editor.ClearSessionBookmarks
 node lv=2 id=466 art=466 nm=editor.DelColor
 node lv=2 id=23 art=23 nm=editor.DeleteBlock
 node lv=2 id=24 art=24 nm=editor.DeleteChar
-node lv=2 id=225 art=225 nm=editor.DeleteStackBookmark
+node lv=2 id=225 art=225 nm=editor.DeleteSessionBookmark
 node lv=2 id=25 art=25 nm=editor.DeleteString
 node lv=2 id=21 art=21 nm=editor.Editor
 node lv=2 id=27 art=27 nm=editor.ExpandTabs
@@ -117,15 +117,15 @@ node lv=2 id=28 art=28 nm=editor.GetColor
 node lv=2 id=261 art=261 nm=editor.GetFileName
 node lv=2 id=29 art=29 nm=editor.GetInfo
 node lv=2 id=30 art=30 nm=editor.GetSelection
-node lv=2 id=230 art=230 nm=editor.GetStackBookmarks
+node lv=2 id=230 art=230 nm=editor.GetSessionBookmarks
 node lv=2 id=31 art=31 nm=editor.GetString
 node lv=2 id=481 art=481 nm=editor.GetStringW
 node lv=2 id=497 art=497 nm=editor.GetTitle
 node lv=2 id=32 art=32 nm=editor.InsertString
 node lv=2 id=33 art=33 nm=editor.InsertText
 node lv=2 id=502 art=502 nm=editor.InsertTextW
-node lv=2 id=227 art=227 nm=editor.NextStackBookmark
-node lv=2 id=226 art=226 nm=editor.PrevStackBookmark
+node lv=2 id=227 art=227 nm=editor.NextSessionBookmark
+node lv=2 id=226 art=226 nm=editor.PrevSessionBookmark
 node lv=2 id=36 art=36 nm=editor.ProcessInput
 node lv=2 id=138 art=138 nm=editor.ProcessKey
 node lv=2 id=37 art=37 nm=editor.Quit
@@ -250,6 +250,7 @@ node lv=2 id=209 art=209 nm=far.TruncPathStr
 node lv=2 id=210 art=210 nm=far.TruncStr
 node lv=2 id=335 art=335 nm=far.XLat
 node lv=1 id=496 art=496 nm=Far2L-specific functions
+node lv=2 id=527 art=525 nm=actl.WinPortBackend
 node lv=2 id=453 art=453 nm=far.BackgroundTask
 node lv=2 id=509 art=505 nm=far.ClearPluginCache
 node lv=2 id=452 art=452 nm=far.DispatchInterThreadCalls
@@ -344,6 +345,7 @@ node lv=3 id=257 art=257 nm=win.Utf8ToOem
 node lv=3 id=265 art=265 nm=win.Utf8ToUtf32
 node lv=3 id=275 art=275 nm=win.wcscmp
 node lv=3 id=500 art=500 nm=win.WideCharToMultiByte
+node lv=3 id=526 art=524 nm=win.WriteConsole
 node lv=2 id=422 art=422 nm=Time related functions
 node lv=3 id=464 art=464 nm=win.Clock
 node lv=3 id=465 art=465 nm=win.FileTimeToLocalFileTime
@@ -2828,7 +2830,7 @@ article id=152 dt=Text ctime=0 mtime=0 nm=win.GetEnv
 #_@@@
 #_
 
-article id=153 dt=Text ctime=0 mtime=3862853420 nm=far.AdvControl
+article id=153 dt=Text ctime=0 mtime=3890764823 nm=far.AdvControl
 #_Result = far.AdvControl (Command, Param [, Param2])
 #_
 #_**Parameters:**
@@ -2875,7 +2877,8 @@ article id=153 dt=Text ctime=0 mtime=3862853420 nm=far.AdvControl
 #_    Param:   flag (optional; default=0)
 #_    Result:  integer
 #_
-#_@ACTL_GETSYSWORDDIV:
+#_@ACTL_GETSYSWORDDIV,
+#_@ACTL_WINPORTBACKEND:
 #_    Param:   none
 #_    Result:  string
 #_    
@@ -4187,8 +4190,8 @@ article id=222 dt=Text ctime=0 mtime=3480188287 nm=LF_ProcessDialogEvent
 #_@@@
 #_
 
-article id=223 dt=Text ctime=0 mtime=3889634139 nm=editor.AddStackBookmark
-#_result = editor.AddStackBookmark (EditorId)
+article id=223 dt=Text ctime=0 mtime=3889634139 nm=editor.AddSessionBookmark
+#_result = editor.AddSessionBookmark (EditorId)
 #_
 #_**Parameters:**
 #_  EditorId : integer, or nil
@@ -4201,8 +4204,8 @@ article id=223 dt=Text ctime=0 mtime=3889634139 nm=editor.AddStackBookmark
 #_
 #_
 
-article id=224 dt=Text ctime=0 mtime=3889634148 nm=editor.ClearStackBookmarks
-#_result = editor.ClearStackBookmarks (EditorId)
+article id=224 dt=Text ctime=0 mtime=3889634148 nm=editor.ClearSessionBookmarks
+#_result = editor.ClearSessionBookmarks (EditorId)
 #_
 #_**Parameters:**
 #_  EditorId : integer, or nil
@@ -4215,8 +4218,8 @@ article id=224 dt=Text ctime=0 mtime=3889634148 nm=editor.ClearStackBookmarks
 #_
 #_
 
-article id=225 dt=Text ctime=0 mtime=3889634184 nm=editor.DeleteStackBookmark
-#_result = editor.DeleteStackBookmark (EditorId, [position])
+article id=225 dt=Text ctime=0 mtime=3889634184 nm=editor.DeleteSessionBookmark
+#_result = editor.DeleteSessionBookmark (EditorId, [position])
 #_
 #_**Parameters:**
 #_  EditorId: integer, or nil
@@ -4230,8 +4233,8 @@ article id=225 dt=Text ctime=0 mtime=3889634184 nm=editor.DeleteStackBookmark
 #_
 #_
 
-article id=226 dt=Text ctime=0 mtime=3889634299 nm=editor.PrevStackBookmark
-#_result = editor.PrevStackBookmark (EditorId)
+article id=226 dt=Text ctime=0 mtime=3889634299 nm=editor.PrevSessionBookmark
+#_result = editor.PrevSessionBookmark (EditorId)
 #_
 #_**Parameters:**
 #_  EditorId: integer, or nil
@@ -4244,8 +4247,8 @@ article id=226 dt=Text ctime=0 mtime=3889634299 nm=editor.PrevStackBookmark
 #_
 #_
 
-article id=227 dt=Text ctime=0 mtime=3889634296 nm=editor.NextStackBookmark
-#_result = editor.NextStackBookmark (EditorId)
+article id=227 dt=Text ctime=0 mtime=3889634296 nm=editor.NextSessionBookmark
+#_result = editor.NextSessionBookmark (EditorId)
 #_
 #_**Parameters:**
 #_  EditorId: integer, or nil
@@ -4292,8 +4295,8 @@ article id=229 dt=Text ctime=0 mtime=3889634682 nm=viewer.SetMode
 #_  ViewerControl, VCTL_SETMODE
 #_
 
-article id=230 dt=Text ctime=0 mtime=3889634234 nm=editor.GetStackBookmarks
-#_bookmarks = editor.GetStackBookmarks (EditorId)
+article id=230 dt=Text ctime=0 mtime=3889634234 nm=editor.GetSessionBookmarks
+#_bookmarks = editor.GetSessionBookmarks (EditorId)
 #_
 #_**Parameters:**
 #_  EditorId     : integer, or nil
@@ -7074,7 +7077,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3853817758 nm=Methods of dialog ha
 #_<lua> Links = { ["far.SendDlgMessage"]="71.html"; } </lua>
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3884099602 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3890764912 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7113,6 +7116,7 @@ article id=463 dt=Text ctime=3853931289 mtime=3884099602 nm=actl namespace
 #_  SetProgressState        ACTL_SETPROGRESSSTATE
 #_  SetProgressValue        ACTL_SETPROGRESSVALUE
 #_  WaitKey                 ACTL_WAITKEY
+#_  WinPortBackend          ACTL_WINPORTBACKEND
 #_
 #_@@@
 #_<lua> Links = { ["far.SendDlgMessage"]="71.html"; } </lua>
@@ -8182,5 +8186,39 @@ article id=523 dt=Text ctime=3889374043 mtime=3889374092 nm=win.GetLocalTime
 #_<lua> Links = { SystemTime="218.html" } </lua>
 #_
 #_
+#_
+
+article id=524 dt=Text ctime=3890758314 mtime=3890758348 nm=win.WriteConsole
+#_result = win.WriteConsole (...)
+#_
+#_**Parameters:**
+#_  ...   : arbitrary number of arguments of any Lua type;
+#_          strings must be in UTF-8 encoding;
+#_
+#_**Returns:**
+#_  result  : either *true* (success)
+#_            or *nil* [, <error_message>]
+#_
+#_**Description:**
+#_  1. The function writes its arguments to the console.
+#_  2. No delimiter is inserted between the arguments (do it yourself).
+#_  3. When using this function in LuaFAR plugins and macros place its calls
+#_     in a code block wrapped in
+#_     `panel.GetUserScreen`() ... `panel.SetUserScreen`().
+#_
+#_**Windows API used:**
+#_  GetStdHandle, WriteConsoleW
+#_
+#_@@@
+#_
+
+article id=525 dt=Text ctime=3890765803 mtime=3890766070 nm=actl.WinPortBackend
+#_See far.AdvControl and actl namespace.
+#_
+#_@@@
+#_<lua> Links = { 
+#_["far.AdvControl"]="153.html";
+#_["actl namespace"]="463.html";
+#_} </lua>
 #_
 
