@@ -1,6 +1,6 @@
 <TreeSpice version 4.0>
 
-node lv=0 id=91 art=91 nm=Manual of LuaFAR 2L
+node lv=0 id=91 art=91 nm=Manual of LuaFAR
 node lv=1 id=329 art=329 nm=Flags
 node lv=1 id=214 art=214 nm=Generic LuaFAR plugin
 node lv=2 id=425 art=425 nm=Customizing the generic plugin
@@ -1304,7 +1304,7 @@ article id=60 dt=Text ctime=0 mtime=3884103754 nm=far.GetPluginDirList
 #_<lua> Links = { PluginPanelItem="85.html" } </lua>
 #_
 
-article id=62 dt=Text ctime=0 mtime=3885840278 nm=far.InputBox
+article id=62 dt=Text ctime=0 mtime=3890940945 nm=far.InputBox
 #_result = far.InputBox (Id, Title, Prompt, HistoryName, SrcText,
 #_                       DestLength, HelpTopic, Flags)
 #_
@@ -1316,7 +1316,7 @@ article id=62 dt=Text ctime=0 mtime=3885840278 nm=far.InputBox
 #_  SrcText:     string, or nil
 #_  DestLength:  integer, or nil
 #_  HelpTopic:   string, or nil
-#_  Flags:       integer, or nil
+#_  Flags:       flags combination, or nil
 #_    (default = FIB_ENABLEEMPTY|FIB_BUTTONS|FIB_NOAMPERSAND)
 #_
 #_**Returns:**
@@ -1936,7 +1936,7 @@ article id=90 dt=Text ctime=0 mtime=3878651744 nm=FindData
 #_
 #_
 
-article id=91 dt=Text ctime=0 mtime=3884072921 nm=Manual of LuaFAR 2L
+article id=91 dt=Text ctime=0 mtime=3891620203 nm=Manual of LuaFAR
 #_<markdown>
 #_## This manual describes the LuaFAR variant intended for work with [far2l](https://github.com/shmuz/far2l) (Linux fork of FAR Manager v2).
 #_
@@ -1944,7 +1944,7 @@ article id=91 dt=Text ctime=0 mtime=3884072921 nm=Manual of LuaFAR 2L
 #_
 #_This package allows writing Far Manager plugins in
 #_[Lua](https://www.lua.org/) 5.1 programming language.
-#_The package provides source code for `luafar2l.so` (a runtime library)
+#_The package provides source code for `luafar.so` (a runtime library)
 #_and `luaplug.c` (a generic plugin).
 #_
 #_* The functions exported by the plugin are found in the `export` global Lua table
@@ -1960,7 +1960,7 @@ article id=91 dt=Text ctime=0 mtime=3884072921 nm=Manual of LuaFAR 2L
 #_string arguments and string return values to be in the **UTF-8**
 #_encoding (unless they are meant to hold binary data).
 #_ 
-#_One instance of `luafar2l.so` can serve arbitrary number of LuaFAR plugins at the same time.
+#_One instance of `luafar.so` can serve arbitrary number of LuaFAR plugins at the same time.
 #_ 
 #_The starting (or "default") Lua script is searched in the plugin's
 #_directories as described in [`LF_RunDefaultScript`](130.html) article.
@@ -2103,7 +2103,7 @@ article id=103 dt=Text ctime=0 mtime=3866133117 nm=GetMinFarVersionW
 #_int GetMinFarVersionW()
 #_
 
-article id=104 dt=Text ctime=0 mtime=3878653174 nm=export.GetOpenPluginInfo
+article id=104 dt=Text ctime=0 mtime=3890940753 nm=export.GetOpenPluginInfo
 #_OpenPluginInfo = export.GetOpenPluginInfo (object, handle)
 #_
 #_**Parameters:**
@@ -2113,7 +2113,7 @@ article id=104 dt=Text ctime=0 mtime=3878653174 nm=export.GetOpenPluginInfo
 #_**Returns:**
 #_  OpenPluginInfo: table
 #_    fields of OpenPluginInfo (most are optional):
-#_      Flags:            integer
+#_      Flags:            flags combination
 #_      HostFile:         string
 #_      CurDir:           string
 #_      Format:           string
@@ -2140,7 +2140,7 @@ article id=104 dt=Text ctime=0 mtime=3878653174 nm=export.GetOpenPluginInfo
 #_
 #_
 
-article id=105 dt=Text ctime=0 mtime=3883979276 nm=export.GetPluginInfo
+article id=105 dt=Text ctime=0 mtime=3890940578 nm=export.GetPluginInfo
 #_PluginInfo = export.GetPluginInfo ()
 #_
 #_**Parameters:**
@@ -2149,7 +2149,7 @@ article id=105 dt=Text ctime=0 mtime=3883979276 nm=export.GetPluginInfo
 #_**Returns:**
 #_  PluginInfo: table
 #_    fields of PluginInfo:
-#_      Flags:               integer
+#_      Flags:               flags combination
 #_      DiskMenuStrings:     table (array of strings)
 #_      PluginMenuStrings:   table (array of strings)
 #_      PluginConfigStrings: table (array of strings)
@@ -2688,7 +2688,7 @@ article id=141 dt=Text ctime=0 mtime=3889634674 nm=viewer.SetKeyBar
 #_<lua> Links = { ["editor.SetKeyBar"]="139.html" } </lua>
 #_
 
-article id=142 dt=Text ctime=0 mtime=3889634696 nm=viewer.SetPosition
+article id=142 dt=Text ctime=0 mtime=3890941284 nm=viewer.SetPosition
 #_pos = viewer.SetPosition (ViewerId, PosData)
 #_  or
 #_pos = viewer.SetPosition (ViewerId, StartPos, LeftPos, Flags)
@@ -2699,7 +2699,7 @@ article id=142 dt=Text ctime=0 mtime=3889634696 nm=viewer.SetPosition
 #_    fields of PosData:
 #_      StartPos:  number, 0-based
 #_      LeftPos:   number, 1-based
-#_      Flags:     integer
+#_      Flags:     flags combination
 #_
 #_  Parameters of the 2-nd function variant correspond to fields
 #_  of the *PosData* table.

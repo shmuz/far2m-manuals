@@ -79,11 +79,11 @@ node lv=2 id=88 art=88 nm=MoonScript
 node lv=1 id=70 art=70 nm=Articles
 node lv=2 id=71 art=71 nm=FAR Manager. Macros and whatnot.
 
-article id=1 dt=Text ctime=3551829092 mtime=3868110127 nm=Far Manager macro system manual
+article id=1 dt=Text ctime=3551829092 mtime=3891620494 nm=Far Manager macro system manual
 #_<markdown>
 #_
 #_### This is a manual for a Linux version which requires the following [Far2L fork][4].
-#_This fork containing *luafar2l.so* library and *LuaMacro* plugin has a Lua-based macro system very similar to that used in Far3.0 Windows version.
+#_This fork containing *luafar.so* library and *LuaMacro* plugin has a Lua-based macro system very similar to that used in Far3.0 Windows version.
 #_
 #_## Some history
 #_
@@ -173,9 +173,9 @@ article id=4 dt=Text ctime=3551902602 mtime=3717266590 nm=Keys
 
 article id=5 dt=Text ctime=3551990771 mtime=3551990771 nm=Misc
 
-article id=7 dt=Text ctime=3551991405 mtime=3867646596 nm=LuaMacro plugin
+article id=7 dt=Text ctime=3551991405 mtime=3891620580 nm=LuaMacro plugin
 #_<markdown>
-#_This plugin is necessary for macros to work, therefore it should be installed. The same is true regarding the runtime (*lua5.1.so* and *luafar2l.so*) that is necessary for plugin's work.
+#_This plugin is necessary for macros to work, therefore it should be installed. The same is true regarding the runtime (*liblua5.1.so* and *luafar.so*) that is necessary for plugin's work.
 #_
 #_When Far Manager exits the LuaMacro plugin is unloaded after all other plugins, in order to be able to process `MCTL_XXX` requests from `ExitFARW` functions of other plugins.
 #_
