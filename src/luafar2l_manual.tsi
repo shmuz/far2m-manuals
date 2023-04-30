@@ -249,7 +249,7 @@ node lv=2 id=211 art=211 nm=far.RecursiveSearch
 node lv=2 id=209 art=209 nm=far.TruncPathStr
 node lv=2 id=210 art=210 nm=far.TruncStr
 node lv=2 id=335 art=335 nm=far.XLat
-node lv=1 id=496 art=496 nm=Far2L-specific functions
+node lv=1 id=496 art=496 nm=Far2M-specific functions
 node lv=2 id=527 art=525 nm=actl.WinPortBackend
 node lv=2 id=453 art=453 nm=far.BackgroundTask
 node lv=2 id=509 art=505 nm=far.ClearPluginCache
@@ -1233,13 +1233,13 @@ article id=56 dt=Text ctime=0 mtime=0 nm=far.GetFileOwner
 #_@@@
 #_
 
-article id=57 dt=Text ctime=0 mtime=3853579897 nm=far.Flags
+article id=57 dt=Text ctime=0 mtime=3891885012 nm=far.Flags
 #_far.Flags
 #_
 #_**Description:**
 #_  A table containing values of various FAR and Windows console
 #_  constants keyed by their string names. It includes constants
-#_  defined in the following Far2L files:
+#_  defined in the following Far2M files:
 #_  - farplug-wide.h
 #_  - farcolor.h
 #_  - farkeys.h
@@ -1344,7 +1344,7 @@ article id=63 dt=Text ctime=0 mtime=0 nm=far.KeyToName
 #_@@@
 #_
 
-article id=64 dt=Text ctime=0 mtime=3878734279 nm=far.Menu
+article id=64 dt=Text ctime=0 mtime=3892050591 nm=far.Menu
 #_Item, Position = far.Menu (Properties, Items [, BreakKeys])
 #_
 #_**Parameters:**
@@ -1412,7 +1412,7 @@ article id=64 dt=Text ctime=0 mtime=3878734279 nm=far.Menu
 #_
 #_@@@
 #_<lua> Links = {
-#_  ["virtual key"]="http://api.farmanager.com/ru/winapi/virtualkeycodes.html";
+#_  ["virtual key"]="https://api.farmanager.com/ru/winapi/virtualkeycodes.html";
 #_} </lua>
 #_
 
@@ -1936,9 +1936,9 @@ article id=90 dt=Text ctime=0 mtime=3878651744 nm=FindData
 #_
 #_
 
-article id=91 dt=Text ctime=0 mtime=3891620203 nm=Manual of LuaFAR
+article id=91 dt=Text ctime=0 mtime=3891884882 nm=Manual of LuaFAR
 #_<markdown>
-#_## This manual describes the LuaFAR variant intended for work with [far2l](https://github.com/shmuz/far2l) (Linux fork of FAR Manager v2).
+#_## This manual describes the LuaFAR variant intended for work with [far2m](https://github.com/shmuz/far2m) (Linux fork of FAR Manager v2).
 #_
 #_### Brief description of LuaFAR package
 #_
@@ -3758,12 +3758,11 @@ article id=192 dt=Text ctime=0 mtime=0 nm=win.SetEnv
 #_@@@
 #_
 
-article id=194 dt=Text ctime=0 mtime=3851367970 nm=Third party software used
+article id=194 dt=Text ctime=0 mtime=3892052411 nm=Third party software used
 #_<markdown>
 #_The following third party software is used as part of LuaFAR:
 #_
 #_1. [Lua 5.1](196.html)
-#_1. [Lua BitOp](197.html)
 #_1. [LuaUtf8](251.html)
 #_
 #_Many thanks to the authors for making their great software available!
@@ -4555,7 +4554,7 @@ article id=266 dt=Text ctime=0 mtime=3867736171 nm=regex.new
 #_  gsub="386.html";
 #_  match="268.html",
 #_  tfind="484.html";
-#_  RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html",
+#_  RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html",
 #_} </lua>
 #_
 
@@ -4580,7 +4579,7 @@ article id=267 dt=Text ctime=0 mtime=3867736527 nm=methods find, findW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=268 dt=Text ctime=0 mtime=3867736585 nm=methods match, matchW
@@ -4602,7 +4601,7 @@ article id=268 dt=Text ctime=0 mtime=3867736585 nm=methods match, matchW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=269 dt=Text ctime=0 mtime=3867736328 nm=regex.gmatch, gmatchW
@@ -4632,7 +4631,7 @@ article id=269 dt=Text ctime=0 mtime=3867736328 nm=regex.gmatch, gmatchW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=270 dt=Text ctime=0 mtime=3867736358 nm=regex.gsub, gsubW
@@ -4664,7 +4663,7 @@ article id=270 dt=Text ctime=0 mtime=3867736358 nm=regex.gsub, gsubW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=271 dt=Text ctime=0 mtime=3867736301 nm=regex.find, findW
@@ -4695,7 +4694,7 @@ article id=271 dt=Text ctime=0 mtime=3867736301 nm=regex.find, findW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=272 dt=Text ctime=0 mtime=3867736390 nm=regex.match, matchW
@@ -4724,7 +4723,7 @@ article id=272 dt=Text ctime=0 mtime=3867736390 nm=regex.match, matchW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=273 dt=Text ctime=0 mtime=0 nm=Regular expression functions
@@ -5913,7 +5912,7 @@ article id=377 dt=Text ctime=3489988958 mtime=3867735907 nm=method bracketscount
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=378 dt=Text ctime=3490426716 mtime=3853271662 nm=far.DialogInit
@@ -6072,7 +6071,7 @@ article id=386 dt=Text ctime=3497976622 mtime=3867736556 nm=methods gsub, gsubW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=391 dt=Text ctime=3500653631 mtime=3500653738 nm=win.GetACP
@@ -6579,9 +6578,9 @@ article id=429 dt=Text ctime=3851440061 mtime=3861762920 nm=far.MacroCheck
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_SENDSTRING = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_SENDSTRING";
-#_MSSC_CHECK = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MSSC_CHECK";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_SENDSTRING = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_SENDSTRING";
+#_MSSC_CHECK = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MSSC_CHECK";
 #_} </lua>
 #_
 
@@ -6599,8 +6598,8 @@ article id=430 dt=Text ctime=3851440090 mtime=3861763339 nm=far.MacroGetArea
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_GETAREA = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_GETAREA";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_GETAREA = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_GETAREA";
 #_} </lua>
 #_
 
@@ -6618,8 +6617,8 @@ article id=431 dt=Text ctime=3851440130 mtime=3861763425 nm=far.MacroGetState
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_GETSTATE = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_GETSTATE";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_GETSTATE = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_GETSTATE";
 #_} </lua>
 #_
 
@@ -6638,8 +6637,8 @@ article id=432 dt=Text ctime=3851440174 mtime=3861763454 nm=far.MacroLoadAll
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_LOADALL = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_LOADALL";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_LOADALL = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_LOADALL";
 #_} </lua>
 #_
 
@@ -6659,9 +6658,9 @@ article id=433 dt=Text ctime=3851440284 mtime=3861763545 nm=far.MacroPost
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_SENDSTRING = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_SENDSTRING";
-#_MSSC_POST = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MSSC_POST";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_SENDSTRING = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_SENDSTRING";
+#_MSSC_POST = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MSSC_POST";
 #_} </lua>
 #_
 
@@ -6679,8 +6678,8 @@ article id=434 dt=Text ctime=3851440306 mtime=3861763723 nm=far.MacroSaveAll
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_SAVEALL = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_SAVEALL";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_SAVEALL = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_SAVEALL";
 #_} </lua>
 #_
 
@@ -6739,7 +6738,7 @@ article id=438 dt=Text ctime=3852117934 mtime=3852120740 nm=far.CreateUserContro
 #_    far.Dialog (-1,-1,12,12,nil,items)
 #_
 #_@@@
-#_{di_usercontrol}: http://api.farmanager.com/ru/dialogapi/controls/di_usercontrol.html
+#_{di_usercontrol}: https://api.farmanager.com/ru/dialogapi/controls/di_usercontrol.html
 #_
 
 article id=447 dt=Text ctime=3852492345 mtime=3883979361 nm=export.MayExitFAR
@@ -7171,7 +7170,7 @@ article id=466 dt=Text ctime=3859993119 mtime=3889634161 nm=editor.DelColor
 #_@@@
 #_
 
-article id=467 dt=Text ctime=3861011876 mtime=3877053584 nm=GetGlobalInfoW
+article id=467 dt=Text ctime=3861011876 mtime=3891884929 nm=GetGlobalInfoW
 #_<markdown>
 #_`void GetGlobalInfoW(struct GlobalInfo *Info)`
 #_
@@ -7179,7 +7178,7 @@ article id=467 dt=Text ctime=3861011876 mtime=3877053584 nm=GetGlobalInfoW
 #_  The function sets `Info->SysID` (the plugin's identifier; a 32-bit unsigned int)
 #_
 #_### Notes:
-#_  1. `GetGlobalInfoW` is supported only with a modified Far2L version.
+#_  1. `GetGlobalInfoW` is supported only with Far2M.
 #_     Plugins are not required to export this function.
 #_  1. If the generic LuaFAR plugin (*luaplug.c*) is used then `GetGlobalInfoW`
 #_     is exported and `SYS_ID` value must be defined as a compilation flag.
@@ -7348,8 +7347,8 @@ article id=474 dt=Text ctime=3861727323 mtime=3865959595 nm=far.MacroExecute
 #_@@@
 #_<lua> Links = {
 #_  bit64 = "471.html";
-#_  MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_  MCTL_EXECSTRING = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_EXECSTRING";
+#_  MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_  MCTL_EXECSTRING = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_EXECSTRING";
 #_} </lua>
 #_
 
@@ -7371,8 +7370,8 @@ article id=475 dt=Text ctime=3861727416 mtime=3861763383 nm=far.MacroGetLastErro
 #_
 #_@@@
 #_<lua> Links = {
-#_MacroControl = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_MCTL_GETLASTERROR = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_GETLASTERROR";
+#_MacroControl = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_MCTL_GETLASTERROR = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_GETLASTERROR";
 #_} </lua>
 #_
 
@@ -7425,8 +7424,8 @@ article id=477 dt=Text ctime=3862320428 mtime=3862320801 nm=far.MacroAdd
 #_@@@
 #_<lua> Links = {
 #_  ["far.MacroDelete"]="478.html";
-#_  ["MacroControl"] = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_  ["MCTL_ADDMACRO"] = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_ADDMACRO";
+#_  ["MacroControl"] = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_  ["MCTL_ADDMACRO"] = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_ADDMACRO";
 #_} </lua>
 #_
 
@@ -7445,8 +7444,8 @@ article id=478 dt=Text ctime=3862320437 mtime=3862320979 nm=far.MacroDelete
 #_@@@
 #_<lua> Links = {
 #_  ["far.MacroAdd"]="477.html";
-#_  ["MacroControl"] = "http://api.farmanager.com/ru/service_functions/macrocontrol.html";
-#_  ["MCTL_DELMACRO"] = "http://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_DELMACRO";
+#_  ["MacroControl"] = "https://api.farmanager.com/ru/service_functions/macrocontrol.html";
+#_  ["MCTL_DELMACRO"] = "https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_DELMACRO";
 #_} </lua>
 #_
 
@@ -7516,7 +7515,7 @@ article id=483 dt=Text ctime=3864718897 mtime=3867736447 nm=regex.tfind, tfindW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=484 dt=Text ctime=3864719159 mtime=3867736618 nm=methods tfind, tfindW
@@ -7543,7 +7542,7 @@ article id=484 dt=Text ctime=3864719159 mtime=3867736618 nm=methods tfind, tfind
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=485 dt=Text ctime=3866071840 mtime=3866074560 nm=export.ProcessConsoleInput
@@ -7596,7 +7595,7 @@ article id=488 dt=Text ctime=3867734456 mtime=3867735676 nm=regex.exec, execW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=489 dt=Text ctime=3867734783 mtime=3867736489 nm=methods exec, execW
@@ -7624,7 +7623,7 @@ article id=489 dt=Text ctime=3867734783 mtime=3867736489 nm=methods exec, execW
 #_  RegExpControl
 #_
 #_@@@
-#_<lua> Links = { RegExpControl="http://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
+#_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
 article id=490 dt=Text ctime=3867751767 mtime=3867751916 nm=editor.SetStringW
@@ -7717,7 +7716,7 @@ article id=495 dt=Text ctime=3869370435 mtime=3879499470 nm=far.GenerateName
 #_@@@
 #_
 
-article id=496 dt=Text ctime=3870880710 mtime=3870923343 nm=Far2L-specific functions
+article id=496 dt=Text ctime=3870880710 mtime=3870923343 nm=Far2M-specific functions
 
 article id=497 dt=Text ctime=3871192568 mtime=3889634268 nm=editor.GetTitle
 #_Title = editor.GetTitle (EditorId)
@@ -7784,7 +7783,7 @@ article id=500 dt=Text ctime=3871827136 mtime=3871827165 nm=win.WideCharToMultiB
 #_  WideCharToMultiByte
 #_
 
-article id=501 dt=Text ctime=3872013561 mtime=3875699045 nm=far.GetFileEncoding
+article id=501 dt=Text ctime=3872013561 mtime=3891884971 nm=far.GetFileEncoding
 #_codepage = far.GetFileEncoding (FileName)
 #_
 #_**Parameters:**
@@ -7794,7 +7793,7 @@ article id=501 dt=Text ctime=3872013561 mtime=3875699045 nm=far.GetFileEncoding
 #_  codepage:   integer (or nil)
 #_
 #_**Note:**
-#_  If Far2L was built with **-DUSEUCD=no** option then
+#_  If Far2M was built with **-DUSEUCD=no** option then
 #_  the detection accuracy would be greatly reduced.
 #_
 #_**Far API used:**
@@ -7983,7 +7982,7 @@ article id=513 dt=Text ctime=3881311938 mtime=3883485189 nm=Lua engine
 #_If the environment variable `FARPLAINLUA` is set then the order is reversed.
 #_
 
-article id=514 dt=Text ctime=3881479361 mtime=3881480702 nm=far.InMyConfig
+article id=514 dt=Text ctime=3881479361 mtime=3891885000 nm=far.InMyConfig
 #_Path = far.InMyConfig(subpath, create_path)
 #_
 #_**Parameters:**
@@ -8000,12 +7999,12 @@ article id=514 dt=Text ctime=3881479361 mtime=3881480702 nm=far.InMyConfig
 #_
 #_**Note:**
 #_  The function is not part of Far API.
-#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
 #_@@@
 #_
 
-article id=515 dt=Text ctime=3881479376 mtime=3881480692 nm=far.InMyCache
+article id=515 dt=Text ctime=3881479376 mtime=3891884993 nm=far.InMyCache
 #_Path = far.InMyCache(subpath, create_path)
 #_
 #_**Parameters:**
@@ -8022,12 +8021,12 @@ article id=515 dt=Text ctime=3881479376 mtime=3881480692 nm=far.InMyCache
 #_
 #_**Note:**
 #_  The function is not part of Far API.
-#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
 #_@@@
 #_
 
-article id=516 dt=Text ctime=3881479391 mtime=3881480673 nm=far.InMyTemp
+article id=516 dt=Text ctime=3881479391 mtime=3891885004 nm=far.InMyTemp
 #_Path = far.InMyTemp(subpath)
 #_
 #_**Parameters:**
@@ -8041,12 +8040,12 @@ article id=516 dt=Text ctime=3881479391 mtime=3881480673 nm=far.InMyTemp
 #_
 #_**Note:**
 #_  The function is not part of Far API.
-#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
 #_@@@
 #_
 
-article id=517 dt=Text ctime=3881479399 mtime=3881480682 nm=far.GetMyHome
+article id=517 dt=Text ctime=3881479399 mtime=3891884985 nm=far.GetMyHome
 #_Dir = far.GetMyHome()
 #_
 #_**Parameters:**
@@ -8060,7 +8059,7 @@ article id=517 dt=Text ctime=3881479399 mtime=3881480682 nm=far.GetMyHome
 #_
 #_**Note:**
 #_  The function is not part of Far API.
-#_  It uses the undocumented *utils* library which is part of far2l sources.
+#_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
 #_@@@
 #_
