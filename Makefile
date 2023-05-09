@@ -8,7 +8,7 @@ LUA_PATH  = ./?.lua;./?/init.lua
 LUA_CPATH = ./?.dll
 
 # LuaFAR manual
-lf: FILE_SRC = src\luafar2l_manual.tsi
+lf: FILE_SRC = src\luafar2m_manual.tsi
 lf: DIR_OUT = out\luafar_unicode
 lf: TP2HH = tp2hh_old.lua
 

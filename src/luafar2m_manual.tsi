@@ -54,8 +54,6 @@ node lv=2 id=319 art=319 nm=ProcessSynchroEventW
 node lv=2 id=118 art=118 nm=SetStartupInfoW
 node lv=0 id=131 art=131 nm=LuaFAR Far libraries
 node lv=1 id=78 art=78 nm=Common functions
-node lv=2 id=153 art=153 nm=far.AdvControl
-node lv=3 id=463 art=463 nm=actl namespace
 node lv=2 id=524 art=522 nm=far.FreeScreen
 node lv=2 id=53 art=53 nm=far.GetDirList
 node lv=2 id=58 art=58 nm=far.GetMsg
@@ -65,6 +63,40 @@ node lv=2 id=69 art=69 nm=far.RestoreScreen
 node lv=2 id=70 art=70 nm=far.SaveScreen
 node lv=2 id=74 art=74 nm=far.ShowHelp
 node lv=2 id=76 art=76 nm=far.Text
+node lv=1 id=561 art=559 nm=Advanced Control
+node lv=2 id=153 art=153 nm=far.AdvControl
+node lv=3 id=530 art=528 nm=ACTL_COMMIT
+node lv=3 id=531 art=529 nm=ACTL_EJECTMEDIA
+node lv=3 id=532 art=530 nm=ACTL_GETARRAYCOLOR
+node lv=3 id=533 art=531 nm=ACTL_GETCOLOR
+node lv=3 id=534 art=532 nm=ACTL_GETCONFIRMATIONS
+node lv=3 id=535 art=533 nm=ACTL_GETCURSORPOS
+node lv=3 id=536 art=534 nm=ACTL_GETDESCSETTINGS
+node lv=3 id=537 art=535 nm=ACTL_GETDIALOGSETTINGS
+node lv=3 id=538 art=536 nm=ACTL_GETFARHWND
+node lv=3 id=539 art=537 nm=ACTL_GETFARRECT
+node lv=3 id=540 art=538 nm=ACTL_GETFARVERSION
+node lv=3 id=541 art=539 nm=ACTL_GETINTERFACESETTINGS
+node lv=3 id=542 art=540 nm=ACTL_GETPANELSETTINGS
+node lv=3 id=543 art=541 nm=ACTL_GETPLUGINMAXREADDATA
+node lv=3 id=544 art=542 nm=ACTL_GETSHORTWINDOWINFO
+node lv=3 id=545 art=543 nm=ACTL_GETSYSTEMSETTINGS
+node lv=3 id=546 art=544 nm=ACTL_GETSYSWORDDIV
+node lv=3 id=547 art=545 nm=ACTL_GETWINDOWCOUNT
+node lv=3 id=548 art=546 nm=ACTL_GETWINDOWINFO
+node lv=3 id=549 art=547 nm=ACTL_KEYMACRO
+node lv=3 id=550 art=548 nm=ACTL_PROGRESSNOTIFY
+node lv=3 id=551 art=549 nm=ACTL_QUIT
+node lv=3 id=552 art=550 nm=ACTL_REDRAWALL
+node lv=3 id=553 art=551 nm=ACTL_SETARRAYCOLOR
+node lv=3 id=554 art=552 nm=ACTL_SETCURRENTWINDOW
+node lv=3 id=555 art=553 nm=ACTL_SETCURSORPOS
+node lv=3 id=556 art=554 nm=ACTL_SETPROGRESSSTATE
+node lv=3 id=557 art=555 nm=ACTL_SETPROGRESSVALUE
+node lv=3 id=558 art=556 nm=ACTL_SYNCHRO
+node lv=3 id=559 art=557 nm=ACTL_WAITKEY
+node lv=3 id=560 art=558 nm=ACTL_WINPORTBACKEND
+node lv=2 id=463 art=463 nm=actl namespace
 node lv=1 id=81 art=81 nm=Dialog functions
 node lv=2 id=479 art=479 nm=far.ColorDialog
 node lv=2 id=438 art=438 nm=far.CreateUserControl
@@ -2831,133 +2863,7 @@ article id=152 dt=Text ctime=0 mtime=0 nm=win.GetEnv
 #_@@@
 #_
 
-article id=153 dt=Text ctime=0 mtime=3890764823 nm=far.AdvControl
-#_Result = far.AdvControl (Command, Param [, Param2])
-#_
-#_**Parameters:**
-#_  Command:  flag (integer or string)
-#_  Param:    *(depends on Command)*
-#_
-#_**Returns:**
-#_  Result:   *(depends on Command)*
-#_
-#_**Details:**
-#_
-#_@ACTL_GETFARHWND
-#_    Param:   none
-#_    Result:  light userdata
-#_
-#_@ACTL_GETCONFIRMATIONS,
-#_@ACTL_GETDESCSETTINGS,
-#_@ACTL_GETDIALOGSETTINGS,
-#_@ACTL_GETINTERFACESETTINGS,
-#_@ACTL_GETPANELSETTINGS,
-#_@ACTL_GETPLUGINMAXREADDATA,
-#_@ACTL_GETSYSTEMSETTINGS,
-#_@ACTL_GETWINDOWCOUNT:
-#_    Param:   none
-#_    Result:  integer
-#_
-#_@ACTL_COMMIT,
-#_@ACTL_PROGRESSNOTIFY,
-#_@ACTL_QUIT,
-#_@ACTL_REDRAWALL:
-#_    Param:   none
-#_    Result:  boolean
-#_
-#_@ACTL_GETCOLOR:
-#_    Param:   flag
-#_    Result:  integer or nil
-#_
-#_@ACTL_SETCURRENTWINDOW:
-#_    Param:   integer (1-based)
-#_    Param2:  boolean (if true then ACTL_COMMIT is called after ACTL_SETCURRENTWINDOW)
-#_    Result:  boolean
-#_
-#_@ACTL_WAITKEY:
-#_    Param:   flag (optional; default=0)
-#_    Result:  integer
-#_
-#_@ACTL_GETSYSWORDDIV,
-#_@ACTL_WINPORTBACKEND:
-#_    Param:   none
-#_    Result:  string
-#_    
-#_@ACTL_EJECTMEDIA:
-#_    Param:   table (see its fields below)
-#_        Letter:  string (only the first character matters)
-#_        Flags:   flags combination
-#_    Result:  boolean
-#_
-#_@ACTL_KEYMACRO: not supported, replaced by Macro Control functions
-#_
-#_@ACTL_SYNCHRO: not supported as it is used internally in far.Timer
-#_
-#_@ACTL_GETARRAYCOLOR:
-#_    Param:   none
-#_    Result:  table (array of integers)
-#_
-#_@ACTL_GETFARVERSION:
-#_    Param:   boolean (optional)
-#_    Result:  string (e.g. "2.4"), if Param==false;
-#_             2 numbers (e.g. 2,4), if Param==true;
-#_
-#_@ACTL_GETWINDOWINFO:
-#_    Param1:  window number; 1-based integer (optional; default=0)
-#_    Result:  table (see its fields below), or nil
-#_        Type:      integer
-#_        Pos:       integer (1-based)
-#_        Modified:  boolean
-#_        Current:   boolean
-#_        TypeName:  string
-#_        Name:      string
-#_
-#_@ACTL_GETSHORTWINDOWINFO:
-#_    Param1:  window number; 1-based integer (optional; default=0)
-#_    Result:  table (see its fields below), or nil
-#_        Type:      integer
-#_        Pos:       integer (1-based)
-#_        Modified:  boolean
-#_        Current:   boolean
-#_
-#_@ACTL_SETARRAYCOLOR:
-#_    Param:   table (see its fields below;
-#_             its array part contains integers)
-#_        Flags:       flags combination
-#_        StartIndex:  integer
-#_    Result:  boolean
-#_
-#_@ACTL_SETPROGRESSSTATE:
-#_    Param:   flag
-#_    Result:  boolean
-#_
-#_@ACTL_SETPROGRESSVALUE:
-#_    Param:   table (see its fields below)
-#_        Completed, Total:  numbers
-#_    Result:  boolean
-#_
-#_@ACTL_GETFARRECT:
-#_    Param:   none
-#_    Result:  table (see its fields below), or nil
-#_        Left, Top, Right, Bottom: integers
-#_
-#_@ACTL_GETCURSORPOS:
-#_    Param:   none
-#_    Result:  table (see its fields below), or nil
-#_        X, Y: integers
-#_
-#_@ACTL_SETCURSORPOS:
-#_    Param:   table (see its fields below)
-#_        X, Y: integers
-#_    Result:  boolean
-#_
-#_**Far API used:**
-#_  AdvControl
-#_
-#_@@@
-#_<lua> Links = { MacroControl="428.html", } </lua>
-#_
-#_
+article id=153 dt=Text ctime=0 mtime=3892837090 nm=far.AdvControl
 
 article id=155 dt=Text ctime=0 mtime=3883247920 nm=LF_LuaClose
 #_<markdown>
@@ -8224,4 +8130,356 @@ article id=526 dt=Text ctime=3892753646 mtime=3892753730 nm=far.GetFileGroup
 #_
 #_@@@
 #_
+
+article id=528 dt=Text ctime=3892829915 mtime=3892838141 nm=ACTL_COMMIT
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_COMMIT
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=529 dt=Text ctime=3892829915 mtime=3892838150 nm=ACTL_EJECTMEDIA
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_EJECTMEDIA
+#_  Param:    table (see its fields below)
+#_              Letter:  string (only the first character matters)
+#_              Flags:   flags combination
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=530 dt=Text ctime=3892829915 mtime=3892838157 nm=ACTL_GETARRAYCOLOR
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETARRAYCOLOR
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   table (array of integers)
+#_
+
+article id=531 dt=Text ctime=3892829915 mtime=3892838169 nm=ACTL_GETCOLOR
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETCOLOR
+#_  Param:    flag
+#_
+#_**Returns:**
+#_  Result:   integer or nil
+#_
+
+article id=532 dt=Text ctime=3892829915 mtime=3892838180 nm=ACTL_GETCONFIRMATIONS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETCONFIRMATIONS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=533 dt=Text ctime=3892829915 mtime=3892838186 nm=ACTL_GETCURSORPOS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETCURSORPOS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   table (see its fields below), or nil
+#_              X, Y: integers
+#_
+
+article id=534 dt=Text ctime=3892829915 mtime=3892838199 nm=ACTL_GETDESCSETTINGS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETDESCSETTINGS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=535 dt=Text ctime=3892829915 mtime=3892838204 nm=ACTL_GETDIALOGSETTINGS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETDIALOGSETTINGS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=536 dt=Text ctime=3892829915 mtime=3892838210 nm=ACTL_GETFARHWND
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETFARHWND
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   light userdata
+#_
+
+article id=537 dt=Text ctime=3892829915 mtime=3892838217 nm=ACTL_GETFARRECT
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETFARRECT
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:  table (see its fields below), or nil
+#_             Left, Top, Right, Bottom: integers
+#_
+
+article id=538 dt=Text ctime=3892829915 mtime=3892838223 nm=ACTL_GETFARVERSION
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETFARVERSION
+#_  Param:    boolean (optional)
+#_
+#_**Returns:**
+#_  Result:  string (e.g. "2.4"), if Param==false;
+#_           two numbers (e.g. 2,4), if Param==true;
+#_
+
+article id=539 dt=Text ctime=3892829915 mtime=3892838229 nm=ACTL_GETINTERFACESETTINGS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETINTERFACESETTINGS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=540 dt=Text ctime=3892829915 mtime=3892838235 nm=ACTL_GETPANELSETTINGS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETPANELSETTINGS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=541 dt=Text ctime=3892829915 mtime=3892838241 nm=ACTL_GETPLUGINMAXREADDATA
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETPLUGINMAXREADDATA
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=542 dt=Text ctime=3892829915 mtime=3892838247 nm=ACTL_GETSHORTWINDOWINFO
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETSHORTWINDOWINFO
+#_  Param:    window number; 1-based integer (optional; default=0)
+#_
+#_**Returns:**
+#_  Result:   table (see its fields below), or nil
+#_              Type:      integer
+#_              Pos:       integer (1-based)
+#_              Modified:  boolean
+#_              Current:   boolean
+#_
+#_
+
+article id=543 dt=Text ctime=3892829915 mtime=3892838253 nm=ACTL_GETSYSTEMSETTINGS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETSYSTEMSETTINGS
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=544 dt=Text ctime=3892829915 mtime=3892838258 nm=ACTL_GETSYSWORDDIV
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETSYSWORDDIV
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   string
+#_
+
+article id=545 dt=Text ctime=3892829915 mtime=3892838263 nm=ACTL_GETWINDOWCOUNT
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETWINDOWCOUNT
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=546 dt=Text ctime=3892829915 mtime=3892838271 nm=ACTL_GETWINDOWINFO
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_GETWINDOWINFO
+#_  Param:    window number; 1-based integer (optional; default=0)
+#_
+#_**Returns:**
+#_  Result:   table (see its fields below), or nil
+#_              Type:      integer
+#_              Pos:       integer (1-based)
+#_              Modified:  boolean
+#_              Current:   boolean
+#_              TypeName:  string
+#_              Name:      string
+#_
+
+article id=547 dt=Text ctime=3892829915 mtime=3892835008 nm=ACTL_KEYMACRO
+#_Not supported, replaced by Macro Control functions.
+#_
+
+article id=548 dt=Text ctime=3892829915 mtime=3892838281 nm=ACTL_PROGRESSNOTIFY
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_PROGRESSNOTIFY
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=549 dt=Text ctime=3892829915 mtime=3892838288 nm=ACTL_QUIT
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_QUIT
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=550 dt=Text ctime=3892829915 mtime=3892838294 nm=ACTL_REDRAWALL
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_REDRAWALL
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=551 dt=Text ctime=3892829915 mtime=3892838300 nm=ACTL_SETARRAYCOLOR
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_SETARRAYCOLOR
+#_  Param:    table (see its fields below):
+#_              Flags:       flags combination
+#_              StartIndex:  integer
+#_            Its array part contains integers.
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=552 dt=Text ctime=3892829915 mtime=3892835367 nm=ACTL_SETCURRENTWINDOW
+#_Result = far.AdvControl (Command, Param [, Param2])
+#_
+#_**Parameters:**
+#_  Command:  ACTL_SETCURRENTWINDOW
+#_  Param:    integer (1-based)
+#_  Param2:   boolean (if true then ACTL_COMMIT is called after ACTL_SETCURRENTWINDOW)
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=553 dt=Text ctime=3892829915 mtime=3892838312 nm=ACTL_SETCURSORPOS
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_SETCURSORPOS
+#_  Param:    table (see its fields below)
+#_              X, Y: integers
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=554 dt=Text ctime=3892829915 mtime=3892838318 nm=ACTL_SETPROGRESSSTATE
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_SETPROGRESSSTATE
+#_  Param:    flag
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=555 dt=Text ctime=3892829915 mtime=3892838325 nm=ACTL_SETPROGRESSVALUE
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_SETPROGRESSVALUE
+#_  Param:    table (see its fields below)
+#_              Completed, Total:  numbers
+#_
+#_**Returns:**
+#_  Result:   boolean
+#_
+
+article id=556 dt=Text ctime=3892829915 mtime=3892835829 nm=ACTL_SYNCHRO
+#_Not supported as it is used internally in far.Timer.
+#_
+
+article id=557 dt=Text ctime=3892829915 mtime=3892838333 nm=ACTL_WAITKEY
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_WAITKEY
+#_  Param:    flag (optional; default=0)
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+
+article id=558 dt=Text ctime=3892829915 mtime=3892838339 nm=ACTL_WINPORTBACKEND
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_WINPORTBACKEND
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   string
+#_            (either of "GUI", "TTY", "TTY|F", "TTY|X", "TTY|Xi")
+#_
+
+article id=559 dt=Text ctime=3892837992 mtime=3892837992 nm=Advanced Control
 
