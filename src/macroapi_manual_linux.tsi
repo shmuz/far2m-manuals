@@ -1820,7 +1820,7 @@ article id=77 dt=Text ctime=3580139041 mtime=3891885560 nm=External modules
 #_`$HOME/.config/far2m/Macros/lib64` and their subdirectories as those paths are automatically added to `package.cpath`.
 #_
 
-article id=78 dt=Text ctime=3580139337 mtime=3891885512 nm=Event handlers
+article id=78 dt=Text ctime=3580139337 mtime=3893867563 nm=Event handlers
 #_<markdown>
 #_
 #_Like [regular macros][1], event handlers are loaded from macrofiles (extensions `*.lua` and `*.moon`), residing in the directory `$HOME/.config/far2m/Macros/scripts` and its subdirectories. Each macrofile may contain both macros and event handlers.
@@ -1840,7 +1840,8 @@ article id=78 dt=Text ctime=3580139337 mtime=3891885512 nm=Event handlers
 #_```
 #_
 #_The field `group` can have one of the following values:<br>
-#_`"DialogEvent", "EditorEvent", "EditorInput", "ExitFAR", "ViewerEvent", "ConsoleInput"`.<br>
+#_`"ConsoleInput", "DialogEvent", "EditorEvent", "EditorInput", "ExitFAR",
+#_"MayExitFAR", "ViewerEvent"`.<br>
 #_These names are derived from names of the corresponding functions, exported by the plugin, e.g.:<br>
 #_        export.ProcessDialogEvent -> DialogEvent
 #_The functions `condition` and `action` are called with the same parameters as the corresponding exported functions are called (see LuaFAR manual).

@@ -7868,9 +7868,9 @@ article id=512 dt=Text ctime=3878637011 mtime=3878637382 nm=far.Host.SetDirector
 #_@@@
 #_
 
-article id=513 dt=Text ctime=3881311938 mtime=3883485189 nm=Lua engine
+article id=513 dt=Text ctime=3881311938 mtime=3892907665 nm=Lua engine
 #_<markdown>
-#_By default LuaFAR tries to load either of `libluajit-5.1.so`
+#_By default far2m tries to load either of `libluajit-5.1.so`
 #_or `liblua5.1.so`, in this order.
 #_
 #_If the environment variable `FARPLAINLUA` is set then the order is reversed.
