@@ -292,6 +292,7 @@ node lv=2 id=450 art=450 nm=far.ExecuteLibrary
 node lv=2 id=501 art=501 nm=far.GetFileEncoding
 node lv=2 id=519 art=517 nm=far.GetMyHome
 node lv=2 id=476 art=476 nm=far.GetPluginId
+node lv=2 id=563 art=561 nm=far.GetPluginGlobalInfo
 node lv=2 id=517 art=515 nm=far.InMyCache
 node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
@@ -342,6 +343,7 @@ node lv=2 id=120 art=120 nm=InfoLine
 node lv=2 id=187 art=187 nm=InputRecord
 node lv=2 id=313 art=313 nm=MouseEventRecord
 node lv=2 id=121 art=121 nm=PanelMode
+node lv=2 id=562 art=560 nm=PluginMenuItem
 node lv=2 id=85 art=85 nm=PluginPanelItem
 node lv=2 id=218 art=218 nm=SystemTime
 node lv=2 id=133 art=133 nm=ViewerInfo.CurMode
@@ -7063,18 +7065,25 @@ article id=466 dt=Text ctime=3859993119 mtime=3889634161 nm=editor.DelColor
 #_@@@
 #_
 
-article id=467 dt=Text ctime=3861011876 mtime=3891884929 nm=GetGlobalInfoW
+article id=467 dt=Text ctime=3861011876 mtime=3894872741 nm=GetGlobalInfoW
 #_<markdown>
 #_`void GetGlobalInfoW(struct GlobalInfo *Info)`
 #_
 #_### Description:
 #_  The function sets `Info->SysID` (the plugin's identifier; a 32-bit unsigned int)
+#_  and other fields with information about the plugin.
 #_
 #_### Notes:
 #_  1. `GetGlobalInfoW` is supported only with Far2M.
 #_     Plugins are not required to export this function.
 #_  1. If the generic LuaFAR plugin (*luaplug.c*) is used then `GetGlobalInfoW`
-#_     is exported and `SYS_ID` value must be defined as a compilation flag.
+#_     is exported and the following values must be defined as compilation flags:
+#_     - `SYS_ID`
+#_     - `PLUG_MINFARVERSION`
+#_     - `PLUG_VERSION`
+#_     - `PLUG_TITLE`
+#_     - `PLUG_DESCRIPTION`
+#_     - `PLUG_AUTHOR`
 #_  1. `GetGlobalInfoW` is called by Far prior to [`SetStartupInfoW()`](118.html)
 #_     and Far Manager fills the `Private` field of `StartupInfo` struct
 #_     if `SysID` identifies one of the "known plugins".
@@ -7796,7 +7805,7 @@ article id=507 dt=Text ctime=3876937531 mtime=3877053602 nm=far.FindPlugin
 #_@@@
 #_
 
-article id=508 dt=Text ctime=3877053707 mtime=3877053959 nm=far.GetPluginInformation
+article id=508 dt=Text ctime=3877053707 mtime=3894726094 nm=far.GetPluginInformation
 #_Info = far.GetPluginInformation (Handle)
 #_
 #_**Parameters:**
@@ -7808,17 +7817,26 @@ article id=508 dt=Text ctime=3877053707 mtime=3877053959 nm=far.GetPluginInforma
 #_    Flags:      flags
 #_    PInfo:      table
 #_      Flags:         flags
-#_      DiskMenu:      table (array of strings)
-#_      PluginMenu:    table (array of strings)
-#_      PluginConfig:  table (array of strings)
+#_      DiskMenu:      table PluginMenuItem
+#_      PluginMenu:    table PluginMenuItem
+#_      PluginConfig:  table PluginMenuItem
 #_      CommandPrefix: string, or nil
 #_    GInfo:      table
+#_      StructSize:    integer
 #_      SysID:         integer
+#_      MinFarVersion: integer
+#_      Version:       integer
+#_      Title:         string
+#_      Description:   string
+#_      Author:        string
 #_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_GETPLUGININFORMATION
 #_
 #_@@@
+#_<lua> Links = {
+#_  PluginMenuItem="560.html",
+#_} </lua>
 #_
 
 article id=509 dt=Text ctime=3878636920 mtime=3878637139 nm=far.Host.GetFiles
@@ -8482,4 +8500,31 @@ article id=558 dt=Text ctime=3892829915 mtime=3892838339 nm=ACTL_WINPORTBACKEND
 #_
 
 article id=559 dt=Text ctime=3892837992 mtime=3892837992 nm=Advanced Control
+
+article id=560 dt=Text ctime=3894691937 mtime=3894692005 nm=PluginMenuItem
+#_<markdown>
+#_**`PluginMenuItem`** is a table with the following predefined fields:
+#_
+#_      Count:    integer
+#_      Strings:  array of strings
+#_
+#_
+
+article id=561 dt=Text ctime=3894870504 mtime=3894870832 nm=far.GetPluginGlobalInfo
+#_Info = far.GetPluginGlobalInfo()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Info:  table
+#_    SysID:          integer
+#_    MinFarVersion:  integer
+#_    Version:        integer
+#_    Title:          string
+#_    Description:    string
+#_    Author:         string
+#_
+#_@@@
+#_
 

@@ -373,7 +373,7 @@ article id=30 dt=Text ctime=3552222560 mtime=3867681850 nm=Select files newer th
 #_{panel.select}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/panels.html#panel.select
 #_
 
-article id=36 dt=Text ctime=3552736839 mtime=3867679230 nm=Area
+article id=36 dt=Text ctime=3552736839 mtime=3894395707 nm=Area
 #_**Area** - a table with the following fields:
 #_
 #_**Properties:**
@@ -394,7 +394,9 @@ article id=36 dt=Text ctime=3552736839 mtime=3867679230 nm=Area
 #_  Tree:                  boolean
 #_  FindFolder:            boolean
 #_  UserMenu:              boolean
-#_  AutoCompletion:        boolean
+#_  ShellAutoCompletion:   boolean
+#_  DialogAutoCompletion:  boolean
+#_  Grabber:               boolean
 #_
 #_**Functions:**
 #_
