@@ -599,7 +599,7 @@ article id=42 dt=Text ctime=3553243413 mtime=3717182713 nm=Libraries of macro fu
 #_
 #_
 
-article id=44 dt=Text ctime=3553243522 mtime=3833370824 nm=mf
+article id=44 dt=Text ctime=3553243522 mtime=3895237757 nm=mf
 #_**Properties:** none.
 #_
 #_**Functions:**
@@ -615,7 +615,7 @@ article id=44 dt=Text ctime=3553243522 mtime=3833370824 nm=mf
 #_  clip               msgbox
 #_  date               `postmacro`
 #_  `deserialize`        print
-#_  `EnumScrips`         `printconsole`
+#_  `EnumScripts`        `printconsole`
 #_  env                prompt
 #_  `eval`               replace
 #_  `exit`               rindex
@@ -649,6 +649,7 @@ article id=44 dt=Text ctime=3553243522 mtime=3833370824 nm=mf
 #_[AddExitHandler]: 100.html
 #_[printconsole]: 101.html
 #_[serialize]: 105.html
+#_[EnumScripts]: 106.html
 #_
 #_{abs}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#abs
 #_{akey}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#akey

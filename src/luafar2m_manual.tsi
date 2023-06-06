@@ -7805,7 +7805,7 @@ article id=507 dt=Text ctime=3876937531 mtime=3877053602 nm=far.FindPlugin
 #_@@@
 #_
 
-article id=508 dt=Text ctime=3877053707 mtime=3894726094 nm=far.GetPluginInformation
+article id=508 dt=Text ctime=3877053707 mtime=3895043709 nm=far.GetPluginInformation
 #_Info = far.GetPluginInformation (Handle)
 #_
 #_**Parameters:**
@@ -7824,8 +7824,7 @@ article id=508 dt=Text ctime=3877053707 mtime=3894726094 nm=far.GetPluginInforma
 #_    GInfo:      table
 #_      StructSize:    integer
 #_      SysID:         integer
-#_      MinFarVersion: integer
-#_      Version:       integer
+#_      Version:       table (array of 4 integers)
 #_      Title:         string
 #_      Description:   string
 #_      Author:        string
@@ -8510,7 +8509,7 @@ article id=560 dt=Text ctime=3894691937 mtime=3894692005 nm=PluginMenuItem
 #_
 #_
 
-article id=561 dt=Text ctime=3894870504 mtime=3894870832 nm=far.GetPluginGlobalInfo
+article id=561 dt=Text ctime=3894870504 mtime=3895043731 nm=far.GetPluginGlobalInfo
 #_Info = far.GetPluginGlobalInfo()
 #_
 #_**Parameters:**
@@ -8519,8 +8518,7 @@ article id=561 dt=Text ctime=3894870504 mtime=3894870832 nm=far.GetPluginGlobalI
 #_**Returns:**
 #_  Info:  table
 #_    SysID:          integer
-#_    MinFarVersion:  integer
-#_    Version:        integer
+#_    Version:        table (array of 4 integers)
 #_    Title:          string
 #_    Description:    string
 #_    Author:         string
