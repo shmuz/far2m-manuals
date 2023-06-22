@@ -85,14 +85,11 @@ node lv=3 id=546 art=544 nm=ACTL_GETSYSWORDDIV
 node lv=3 id=547 art=545 nm=ACTL_GETWINDOWCOUNT
 node lv=3 id=548 art=546 nm=ACTL_GETWINDOWINFO
 node lv=3 id=549 art=547 nm=ACTL_KEYMACRO
-node lv=3 id=550 art=548 nm=ACTL_PROGRESSNOTIFY
 node lv=3 id=551 art=549 nm=ACTL_QUIT
 node lv=3 id=552 art=550 nm=ACTL_REDRAWALL
 node lv=3 id=553 art=551 nm=ACTL_SETARRAYCOLOR
 node lv=3 id=554 art=552 nm=ACTL_SETCURRENTWINDOW
 node lv=3 id=555 art=553 nm=ACTL_SETCURSORPOS
-node lv=3 id=556 art=554 nm=ACTL_SETPROGRESSSTATE
-node lv=3 id=557 art=555 nm=ACTL_SETPROGRESSVALUE
 node lv=3 id=558 art=556 nm=ACTL_SYNCHRO
 node lv=3 id=559 art=557 nm=ACTL_WAITKEY
 node lv=3 id=560 art=558 nm=ACTL_WINPORTBACKEND
@@ -297,6 +294,7 @@ node lv=2 id=517 art=515 nm=far.InMyCache
 node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
 node lv=2 id=459 art=459 nm=far.Log
+node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=273 art=273 nm=Regular expression functions
 node lv=2 id=488 art=488 nm=regex.exec, execW
 node lv=2 id=271 art=271 nm=regex.find, findW
@@ -357,7 +355,6 @@ node lv=3 id=480 art=480 nm=win.CopyFile
 node lv=3 id=372 art=372 nm=win.CreateDir
 node lv=3 id=361 art=361 nm=win.DeleteFile
 node lv=3 id=436 art=436 nm=win.GetCurrentDir
-node lv=3 id=398 art=398 nm=win.GetDriveType
 node lv=3 id=460 art=460 nm=win.GetFileAttr
 node lv=3 id=213 art=213 nm=win.GetFileInfo
 node lv=3 id=362 art=362 nm=win.MoveFile
@@ -379,7 +376,6 @@ node lv=3 id=257 art=257 nm=win.Utf8ToOem
 node lv=3 id=265 art=265 nm=win.Utf8ToUtf32
 node lv=3 id=275 art=275 nm=win.wcscmp
 node lv=3 id=500 art=500 nm=win.WideCharToMultiByte
-node lv=3 id=526 art=524 nm=win.WriteConsole
 node lv=2 id=422 art=422 nm=Time related functions
 node lv=3 id=464 art=464 nm=win.Clock
 node lv=3 id=465 art=465 nm=win.FileTimeToLocalFileTime
@@ -6055,29 +6051,6 @@ article id=395 dt=Text ctime=3501391498 mtime=3853513307 nm=panel.SetCaseSensiti
 #_@@@
 #_
 
-article id=398 dt=Text ctime=3504253206 mtime=3504253386 nm=win.GetDriveType
-#_type = win.GetDriveType ([root])
-#_
-#_**Parameters:**
-#_  root : string
-#_
-#_**Returns:**
-#_  type : one of the following strings:
-#_           "unknown type"
-#_           "no root directory"
-#_           "removable"
-#_           "fixed"
-#_           "remote"
-#_           "cdrom"
-#_           "ramdisk"
-#_
-#_**Windows API used:**
-#_  GetDriveTypeW
-#_
-#_@@@
-#_
-#_
-
 article id=403 dt=Text ctime=3851349067 mtime=3853513022 nm=Panel functions
 #_<markdown>
 #_All functions having their 1-st parameter named `handle` accept it in either of 2 variants:
@@ -6971,7 +6944,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3853817758 nm=Methods of dialog ha
 #_<lua> Links = { ["far.SendDlgMessage"]="71.html"; } </lua>
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3890764912 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3895333101 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7001,14 +6974,11 @@ article id=463 dt=Text ctime=3853931289 mtime=3890764912 nm=actl namespace
 #_  GetSysWordDiv           ACTL_GETSYSWORDDIV
 #_  GetWindowCount          ACTL_GETWINDOWCOUNT
 #_  GetWindowInfo           ACTL_GETWINDOWINFO
-#_  ProgressNotify          ACTL_PROGRESSNOTIFY
 #_  Quit                    ACTL_QUIT
 #_  RedrawAll               ACTL_REDRAWALL
 #_  SetArrayColor           ACTL_SETARRAYCOLOR
 #_  SetCurrentWindow        ACTL_SETCURRENTWINDOW
 #_  SetCursorPos            ACTL_SETCURSORPOS
-#_  SetProgressState        ACTL_SETPROGRESSSTATE
-#_  SetProgressValue        ACTL_SETPROGRESSVALUE
 #_  WaitKey                 ACTL_WAITKEY
 #_  WinPortBackend          ACTL_WINPORTBACKEND
 #_
@@ -8098,30 +8068,6 @@ article id=523 dt=Text ctime=3889374043 mtime=3889374092 nm=win.GetLocalTime
 #_
 #_
 
-article id=524 dt=Text ctime=3890758314 mtime=3890758348 nm=win.WriteConsole
-#_result = win.WriteConsole (...)
-#_
-#_**Parameters:**
-#_  ...   : arbitrary number of arguments of any Lua type;
-#_          strings must be in UTF-8 encoding;
-#_
-#_**Returns:**
-#_  result  : either *true* (success)
-#_            or *nil* [, <error_message>]
-#_
-#_**Description:**
-#_  1. The function writes its arguments to the console.
-#_  2. No delimiter is inserted between the arguments (do it yourself).
-#_  3. When using this function in LuaFAR plugins and macros place its calls
-#_     in a code block wrapped in
-#_     `panel.GetUserScreen`() ... `panel.SetUserScreen`().
-#_
-#_**Windows API used:**
-#_  GetStdHandle, WriteConsoleW
-#_
-#_@@@
-#_
-
 article id=525 dt=Text ctime=3890765803 mtime=3890766070 nm=actl.WinPortBackend
 #_See far.AdvControl and actl namespace.
 #_
@@ -8377,17 +8323,6 @@ article id=547 dt=Text ctime=3892829915 mtime=3892835008 nm=ACTL_KEYMACRO
 #_Not supported, replaced by Macro Control functions.
 #_
 
-article id=548 dt=Text ctime=3892829915 mtime=3892838281 nm=ACTL_PROGRESSNOTIFY
-#_Result = far.AdvControl (Command, Param)
-#_
-#_**Parameters:**
-#_  Command:  ACTL_PROGRESSNOTIFY
-#_  Param:    none
-#_
-#_**Returns:**
-#_  Result:   boolean
-#_
-
 article id=549 dt=Text ctime=3892829915 mtime=3892838288 nm=ACTL_QUIT
 #_Result = far.AdvControl (Command, Param)
 #_
@@ -8448,29 +8383,6 @@ article id=553 dt=Text ctime=3892829915 mtime=3892838312 nm=ACTL_SETCURSORPOS
 #_  Result:   boolean
 #_
 
-article id=554 dt=Text ctime=3892829915 mtime=3892838318 nm=ACTL_SETPROGRESSSTATE
-#_Result = far.AdvControl (Command, Param)
-#_
-#_**Parameters:**
-#_  Command:  ACTL_SETPROGRESSSTATE
-#_  Param:    flag
-#_
-#_**Returns:**
-#_  Result:   boolean
-#_
-
-article id=555 dt=Text ctime=3892829915 mtime=3892838325 nm=ACTL_SETPROGRESSVALUE
-#_Result = far.AdvControl (Command, Param)
-#_
-#_**Parameters:**
-#_  Command:  ACTL_SETPROGRESSVALUE
-#_  Param:    table (see its fields below)
-#_              Completed, Total:  numbers
-#_
-#_**Returns:**
-#_  Result:   boolean
-#_
-
 article id=556 dt=Text ctime=3892829915 mtime=3892835829 nm=ACTL_SYNCHRO
 #_Not supported as it is used internally in far.Timer.
 #_
@@ -8522,6 +8434,24 @@ article id=561 dt=Text ctime=3894870504 mtime=3895043731 nm=far.GetPluginGlobalI
 #_    Title:          string
 #_    Description:    string
 #_    Author:         string
+#_
+#_@@@
+#_
+
+article id=562 dt=Text ctime=3896535740 mtime=3896536081 nm=far.WriteConsole
+#_Result = far.WriteConsole ([str])
+#_
+#_**Parameters:**
+#_  str    : string (defaults to "")
+#_
+#_**Returns:**
+#_  Result : boolean
+#_
+#_**Description:**
+#_  Writes the given string to Far console
+#_
+#_**Note:**
+#_  The function is not part of Far API.
 #_
 #_@@@
 #_
