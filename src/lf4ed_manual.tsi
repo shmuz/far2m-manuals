@@ -10,7 +10,6 @@ node lv=2 id=34 art=34 nm=AddUserFile
 node lv=2 id=35 art=35 nm=AutoInstall
 node lv=1 id=73 art=73 nm=Input data of installed scripts
 node lv=1 id=37 art=37 nm=Packets of scripts
-node lv=1 id=68 art=68 nm=Utility for localization
 node lv=1 id=38 art=38 nm=Binary modules
 node lv=1 id=14 art=14 nm=Example of use
 node lv=0 id=59 art=59 nm=Command line and macro calls
@@ -427,34 +426,6 @@ article id=59 dt=Text ctime=0 mtime=3862201278 nm=Command line and macro calls
 #_
 #_####Example of macro call
 #_      Plugin.Call(0x6F332978, "-a calc 2+2")
-#_
-
-article id=68 dt=Text ctime=3485729339 mtime=3486625193 nm=Utility for localization
-#_<markdown>
-#_
-#_The plugin contains a utility for adding localization to user packets of scripts. The utility consists of two files:
-#_<plugin_directory>/**`lf4ed_lang.lua`** and **`far2/makelang.lua`**.
-#_
-#_(1) Create a "language template" file (similar to **`lf4ed_lang.templ`** file in the plugin directory), let's assume it is *scripts/my_package/lang.templ*.
-#_
-#_   * The exact syntax of "language template" files is described in the file **`far2/makelang.lua`**. The template file should be in UTF-8 encoding, with or without BOM.
-#_
-#_   * Choose some prefix for all your message identifiers (e.g. "mp"), to avoid conflicts with the existing message identifiers (if conflicts occur, they are detected by the program).
-#_
-#_   * Every script using this message system should **`require "lf4ed_message"`**. This returns a table that can be accessed for retrieving localized messages.
-#_
-#_(2) Run the following command from the plugin's directory:<br>
-#_        lua lf4ed_lang.lua scripts/my_package/lang.templ
-#_If no errors occured, this will extend **`*.lng`** files and **`lf4ed_message.lua`** file with the localized messages of your script package.
-#_
-#_(3) Restart Far.
-#_
-#_
-#_**Example of use:**
-#_        local M = require "lf4ed_message"
-#_        ........
-#_        far.Message(M.mpSomeMsgText, M.mpSomeMsgTitle, M.mpSomeMsgButtons)
-#_
 #_
 
 article id=73 dt=Text ctime=3491725586 mtime=3859823590 nm=Input data of installed scripts

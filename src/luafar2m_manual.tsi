@@ -522,7 +522,7 @@ article id=6 dt=Text ctime=0 mtime=3853512036 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3878153525 nm=panel.GetPanelInfo
+article id=7 dt=Text ctime=0 mtime=3896642056 nm=panel.GetPanelInfo
 #_PanelInfo = panel.GetPanelInfo (handle)
 #_
 #_**Parameters:**
@@ -545,6 +545,7 @@ article id=7 dt=Text ctime=0 mtime=3878153525 nm=panel.GetPanelInfo
 #_      Flags:               integer
 #_      PluginHandle:        userdata, or nil (as PCTL_FINDPLUGIN returns)
 #_      PanelHandle:         userdata, or nil (as OpenPluginW returns)
+#_      PluginID:            integer (SysID of the plugin)
 #_
 #_**Far API used:**
 #_  Control, FCTL_GETPANELINFO
@@ -1584,7 +1585,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3855157810 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3896897457 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1628,7 +1629,8 @@ article id=71 dt=Text ctime=0 mtime=3855157810 nm=far.SendDlgMessage
 #_    Result:  boolean
 #_
 #_@DM_ENABLEREDRAW:
-#_    Param2:  boolean or integer
+#_    Param1:  boolean or integer (default = -1)
+#_    Param2:  ignored
 #_    Result:  integer
 #_
 #_@DM_SETCHECK:
