@@ -385,6 +385,7 @@ node lv=3 id=503 art=503 nm=win.GetSystemTime
 node lv=3 id=217 art=217 nm=win.GetSystemTimeAsFileTime
 node lv=3 id=216 art=216 nm=win.SystemTimeToFileTime
 node lv=2 id=423 art=423 nm=Various functions
+node lv=3 id=565 art=563 nm=win.ExpandEnv
 node lv=3 id=51 art=51 nm=win.ExtractKey
 node lv=3 id=359 art=359 nm=win.GetConsoleScreenBufferInfo
 node lv=3 id=393 art=393 nm=win.GetCPInfo
@@ -706,8 +707,8 @@ article id=17 dt=Text ctime=0 mtime=3853512944 nm=panel.UpdatePanel
 #_@@@
 #_
 
-article id=20 dt=Text ctime=0 mtime=3853813215 nm=far.Dialog
-#_result = far.Dialog (X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc)
+article id=20 dt=Text ctime=0 mtime=3900064479 nm=far.Dialog
+#_result = far.Dialog (Guid,X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc)
 #_
 #_**Parameters:**
 #_  Same parameters as in far.DialogInit
@@ -1585,7 +1586,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3896897457 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3899472337 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1633,7 +1634,8 @@ article id=71 dt=Text ctime=0 mtime=3896897457 nm=far.SendDlgMessage
 #_    Param2:  ignored
 #_    Result:  integer
 #_
-#_@DM_SETCHECK:
+#_@DM_SETCHECK,
+#_@DM_SETREADONLY:
 #_    Param2:  boolean or integer
 #_    Result:  integer
 #_
@@ -4750,7 +4752,7 @@ article id=284 dt=Text ctime=3476911603 mtime=3480263797 nm=far.ConvertPath
 #_
 #_
 
-article id=285 dt=Text ctime=3477040474 mtime=3851945406 nm=Dialog Events
+article id=285 dt=Text ctime=3477040474 mtime=3900064658 nm=Dialog Events
 #_<markdown>
 #_
 #_### Common information
@@ -4776,8 +4778,7 @@ article id=285 dt=Text ctime=3477040474 mtime=3851945406 nm=Dialog Events
 #_
 #_1. Return value of **nil** (or no value) causes **`DefDlgProc`**
 #_   to be called. Its return value is returned to Far.
-#_1. For some events ([`DN_CTLCOLORDLGLIST`](286.html),
-#_   [`DN_GETDIALOGINFO`](305.html), [`DN_HELP`](289.html)),
+#_1. For some events ([`DN_CTLCOLORDLGLIST`](286.html), [`DN_HELP`](289.html)),
 #_   see the return values and their meaning in the article describing
 #_   that event.
 #_1. If the return value is **number**, then that number is returned
@@ -4903,7 +4904,7 @@ article id=293 dt=Text ctime=3477043729 mtime=3477044041 nm=FarListColors
 #_Color count can be obtained via the operator `#`.
 #_
 
-article id=295 dt=Text ctime=3477054110 mtime=3492019028 nm=FarDialogItem
+article id=295 dt=Text ctime=3477054110 mtime=3900232917 nm=FarDialogItem
 #_<markdown>
 #_**`FarDialogItem`** is a table (array)
 #_
@@ -4914,19 +4915,17 @@ article id=295 dt=Text ctime=3477054110 mtime=3492019028 nm=FarDialogItem
 #_      [3]  Y1:               integer
 #_      [4]  X2:               integer
 #_      [5]  Y2:               integer
-#_      [6]  Focus:            integer
-#_      [7]  Selected/History/ListItems: integer/string/table
+#_      [6]  Selected/ListItems: integer/table
 #_             When table, its array part is a table per item:
 #_               ListItems[i]:
-#_                 Flags : flags combination
+#_                 Flags : flags
 #_                 Text  : string
 #_             Its hash part has a field:
 #_               SelectIndex : integer
-#_      [8]  Flags             flags combination
-#_      [9]  DefaultButton:    integer
+#_      [7]  History:          string
+#_      [8]  Mask:             string
+#_      [9]  Flags             flags
 #_      [10] Data:             string
-#_
-#_
 #_
 
 article id=297 dt=Text ctime=3477111575 mtime=3477128221 nm=DN_BTNCLICK
@@ -5040,17 +5039,9 @@ article id=304 dt=Text ctime=3477111575 mtime=3477135407 nm=DN_ENTERIDLE
 #_<lua>Links = { description="285.html" }</lua>
 #_
 
-article id=305 dt=Text ctime=3477111575 mtime=3477137614 nm=DN_GETDIALOGINFO
-#_**Param1**
-#_    integer; according to Far API 
-#_
-#_**Param2**
-#_    integer; according to Far API 
-#_
-#_**Return**
-#_    If the function returned a string >= 16 byte long (a GUID),
-#_    1 is returned to Far, otherwise 0.
-#_
+article id=305 dt=Text ctime=3477111575 mtime=3900064582 nm=DN_GETDIALOGINFO
+#_This message does not come into the dialog procedure,
+#_it is handled internally by luafar library.
 
 article id=306 dt=Text ctime=3477111575 mtime=3477137091 nm=DN_GOTFOCUS
 #_**Param1**
@@ -5371,7 +5362,7 @@ article id=327 dt=Text ctime=3480243336 mtime=3853777078 nm=IsFileInFilter
 #_<lua> Links = { FindData="90.html", } </lua>
 #_
 
-article id=329 dt=Text ctime=3480257526 mtime=3884073167 nm=Flags
+article id=329 dt=Text ctime=3480257526 mtime=3900231136 nm=Flags
 #_<markdown>
 #_
 #_Far API makes wide use of named integer constants. Most of these
@@ -5381,25 +5372,24 @@ article id=329 dt=Text ctime=3480257526 mtime=3884073167 nm=Flags
 #_and the term **flags combination** for the bitwise OR of one or
 #_more such constants.
 #_
-#_When some function parameter in this manual is denoted as *flag*,
-#_it can be supplied from Lua as either an integer, or a string.
-#_
-#_When some function parameter in this manual is denoted as *flag
-#_combination*, it can be supplied from Lua as either an integer,
-#_a string (when a combination consists of one flag), or a table,
+#_When some function parameter in this manual is denoted as *flag*
+#_or *flag combination*, it can be supplied from Lua as either an integer,
+#_a string (space and '+' may be used to combine several flags), or a table,
 #_with keys corresponding to constants' names and having non-false
 #_values.
 #_
 #_#### Example 1 (single flag)
-#_The following 2 calls are equivalent:
+#_The following calls are equivalent:
 #_        (1)  editor.UndoRedo(F.EUR_UNDO) -- where F=far.Flags
 #_        (2)  editor.UndoRedo("EUR_UNDO")
+#_        (3)  editor.UndoRedo{EUR_UNDO=1}
 #_
 #_#### Example 2 (flags combination)
 #_The 7-th parameter to function [`editor.Editor`](21.html) can be
 #_supplied from Lua in the following equivalent forms:
 #_        (1)  bit.bor(F.EF_NONMODAL, F.EF_IMMEDIATERETURN, ....)
-#_        (2)  { EF_NONMODAL=1, EF_IMMEDIATERETURN=1, .... }
+#_        (2)  "EF_NONMODAL EF_IMMEDIATERETURN ...."
+#_        (3)  { EF_NONMODAL=1, EF_IMMEDIATERETURN=1, .... }
 #_
 #_
 
@@ -5808,10 +5798,11 @@ article id=377 dt=Text ctime=3489988958 mtime=3867735907 nm=method bracketscount
 #_<lua> Links = { RegExpControl="https://api.farmanager.com/ru/service_functions/regexpcontrol.html" } </lua>
 #_
 
-article id=378 dt=Text ctime=3490426716 mtime=3853271662 nm=far.DialogInit
-#_hDlg = far.DialogInit (X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc)
+article id=378 dt=Text ctime=3490426716 mtime=3900064424 nm=far.DialogInit
+#_hDlg = far.DialogInit (Guid,X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc)
 #_
 #_**Parameters:**
+#_  Guid:      string, or nil
 #_  X1:        integer
 #_  Y1:        integer
 #_  X2:        integer
@@ -6066,11 +6057,12 @@ article id=404 dt=Text ctime=3851356343 mtime=3851357415 nm=Additional libraries
 
 article id=405 dt=Text ctime=3851356361 mtime=3851357406 nm=win
 
-article id=406 dt=Text ctime=3851357353 mtime=3851357555 nm=luautf8
+article id=406 dt=Text ctime=3851357353 mtime=3900003496 nm=luautf8
 #_<markdown>
 #_
 #_UTF-8 module for Lua 5.x
 #_========================
+#_
 #_This module adds UTF-8 support to Lua.
 #_
 #_It use data extracted from
@@ -6083,11 +6075,12 @@ article id=406 dt=Text ctime=3851357353 mtime=3851357555 nm=luautf8
 #_It mainly used to compatible with Lua's own string module, it passed all
 #_string and pattern matching test in lua test suite[2].
 #_
-#_It also add some useful routines against UTF-8 features, some like:
+#_It also adds some useful routines against UTF-8 features, such as:
 #_- a convenient interface to escape Unicode sequence in string. 
 #_- string insert/remove, since UTF-8 substring extract may expensive.
 #_- calculate Unicode width, useful when implement e.g. console emulator.
 #_- a useful interface to translate Unicode offset and byte offset.
+#_- checking UTF-8 strings for validity and removing invalid byte sequences.
 #_
 #_Note that to avoid conflict with the Lua5.3's buitin library 'utf8',
 #_this library produce a file like lua-utf8.dll or lua-utf8.so. so use
@@ -6160,11 +6153,10 @@ article id=406 dt=Text ctime=3851357353 mtime=3851357555 nm=luautf8
 #_ * `%?` - '?' stands for any other character: escape this character.
 #_
 #_#### Examples:
-#_```lua
-#_local u = utf8.escape
-#_print(u"%123%u123%{123}%u{123}%xABC%x{ABC}")
-#_print(u"%%123%?%d%%u")
-#_```
+#_    local u = utf8.escape
+#_    print(u"%123%u123%{123}%u{123}%xABC%x{ABC}")
+#_    print(u"%%123%?%d%%u")
+#_
 #_
 #_### utf8.charpos(s[[, charpos], index]) -> charpos, code point
 #_convert UTF-8 position to byte offset.
@@ -6177,11 +6169,10 @@ article id=406 dt=Text ctime=3851357353 mtime=3851357555 nm=luautf8
 #_### utf8.next(s[, charpos[, index]]) -> charpos, code point
 #_iterate though the UTF-8 string s.
 #_If only s is given, it can used as a iterator:
-#_```lua
-#_for pos, code in utf8.next, "utf8-string" do
-#_   -- ...
-#_end
-#_```
+#_    for pos, code in utf8.next, "utf8-string" do
+#_       -- ...
+#_    end
+#_
 #_if only `charpos` is given, return the next byte offset of in string.
 #_if `charpos` and `index` is given, a new `charpos` will be calculated, by
 #_add/subtract UTF-8 char offset to current charpos.
@@ -6228,6 +6219,24 @@ article id=406 dt=Text ctime=3851357353 mtime=3851357555 nm=luautf8
 #_
 #_### utf8.ncasecmp(a, b) -> [-1,0,1]
 #_compare a and b without case, -1 means a < b, 0 means a == b and 1 means a > b.
+#_
+#_
+#_### utf8.isvalid(s) -> boolean
+#_check whether s is a valid UTF-8 string or not.
+#_
+#_
+#_### utf8.clean(s[, replacement_string]) -> cleaned_string, was_valid
+#_replace any invalid UTF-8 byte sequences in s with the replacement string.
+#_if no replacement string is provided, the default is "?" (REPLACEMENT CHARACTER U+FFFD).
+#_note that *any* number of consecutive invalid bytes will be replaced by a single copy of the replacement string.
+#_the 2nd return value is true if the original string was already valid (meaning no replacements were made).
+#_
+#_
+#_### utf8.invalidoffset(s[, init]) -> offset
+#_return the byte offset within s of the first invalid UTF-8 byte sequence.
+#_(1 is the first byte of the string.)
+#_if s is a valid UTF-8 string, return nil.
+#_the optional numeric argument init specifies where to start the search; its default value is 1 and can be negative.
 #_
 #_
 #_Improvement needed
@@ -6863,7 +6872,7 @@ article id=461 dt=Text ctime=3853775362 mtime=3853776891 nm=far.InputRecordToNam
 #_<lua> Links = { InputRecord="187.html" } </lua>
 #_
 
-article id=462 dt=Text ctime=3853816798 mtime=3853817758 nm=Methods of dialog handle
+article id=462 dt=Text ctime=3853816798 mtime=3899472241 nm=Methods of dialog handle
 #_Besides passing the dialog handle as a parameter to far.SendDlgMessage
 #_there is an alternative way: using dialog handle methods. The latter
 #_is shorter and more expressive, e.g. the following 2 calls do the same
@@ -6935,6 +6944,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3853817758 nm=Methods of dialog ha
 #_  SetItemPosition         DM_SETITEMPOSITION
 #_  SetMaxTextLength        DM_SETMAXTEXTLENGTH
 #_  SetMouseEventNotify     DM_SETMOUSEEVENTNOTIFY
+#_  SetReadOnly             DM_SETREADONLY
 #_  SetSelection            DM_SETSELECTION
 #_  SetText                 DM_SETTEXT
 #_  SetTextPtr              DM_SETTEXTPTR
@@ -8454,6 +8464,31 @@ article id=562 dt=Text ctime=3896535740 mtime=3896536081 nm=far.WriteConsole
 #_
 #_**Note:**
 #_  The function is not part of Far API.
+#_
+#_@@@
+#_
+
+article id=563 dt=Text ctime=3899430803 mtime=3899432491 nm=win.ExpandEnv
+#_result = win.ExpandEnv (str [, remove])
+#_
+#_**Parameters:**
+#_  str:     string
+#_  remove:  boolean (default=false)
+#_
+#_**Returns:**
+#_  result:  string
+#_
+#_**Description:**
+#_  Replaces all occurrences of *$(var)* in *str* with the current value
+#_  of environment variable *var* and returns the resulting string.
+#_  
+#_  *var* may be any string not containing character *)*
+#_  
+#_  If an environment variable *var* does not exist then *$(var)*
+#_  is either left intact or removed (when *remove* is true).
+#_
+#_**Example:**
+#_  win.ExpandEnv("-$(HOME)-$(SHELL)-") --> -/home/shmuel-/bin/bash-
 #_
 #_@@@
 #_
