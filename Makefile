@@ -10,17 +10,15 @@ TP2HH     = tp2hh_new.lua
 
 # LuaFAR manual
 lf: FILE_SRC = src\luafar2m_manual.tsi
-lf: DIR_OUT = out\luafar_unicode
 
 # LuaMacro manual
 lm: FILE_SRC = src\macroapi_manual_linux.tsi
-lm: DIR_OUT = out\luamacro
 
 # LF4Ed manual
 l4: FILE_SRC = src\lf4ed_manual.tsi
-l4: DIR_OUT = out\lf4ed
 
 name = $(basename $(notdir $(FILE_SRC)))
+DIR_OUT = out\$(name)
 CHM = $(DIR_OUT)\$(name).chm
 HHP = $(DIR_OUT)\$(name).hhp
 
