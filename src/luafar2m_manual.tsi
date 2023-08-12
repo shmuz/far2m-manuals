@@ -102,10 +102,12 @@ node lv=2 id=20 art=20 nm=far.Dialog
 node lv=2 id=380 art=380 nm=far.DialogFree
 node lv=2 id=378 art=378 nm=far.DialogInit
 node lv=2 id=379 art=379 nm=far.DialogRun
+node lv=2 id=566 art=564 nm=far.GetDlgItem
 node lv=2 id=62 art=62 nm=far.InputBox
 node lv=2 id=65 art=65 nm=far.Message
 node lv=2 id=71 art=71 nm=far.SendDlgMessage
 node lv=3 id=462 art=462 nm=Methods of dialog handle
+node lv=2 id=567 art=565 nm=far.SetDlgItem
 node lv=1 id=285 art=285 nm=Dialog Events
 node lv=2 id=297 art=297 nm=DN_BTNCLICK
 node lv=2 id=298 art=298 nm=DN_CLOSE
@@ -8438,5 +8440,55 @@ article id=563 dt=Text ctime=3899430803 mtime=3899432491 nm=win.ExpandEnv
 #_  win.ExpandEnv("-$(HOME)-$(SHELL)-") --> -/home/shmuel-/bin/bash-
 #_
 #_@@@
+#_
+
+article id=564 dt=Text ctime=3901029765 mtime=3901029939 nm=far.GetDlgItem
+#_result = far.GetDlgItem (hDlg, numitem [,item])
+#_
+#_**Parameters:**
+#_  hDlg:    userdata
+#_  numitem: integer (1-based)
+#_  item:    table, or nil
+#_
+#_**Returns:**
+#_  result: table, or nil
+#_
+#_**Note:**
+#_  This function is equivalent to
+#_    `far.SendDlgMessage`(hDlg, "DM_GETDLGITEM", numitem, item)
+#_
+#_**Far API used:**
+#_  SendDlgMessage, DM_GETDLGITEM
+#_
+#_@@@
+#_[far.SendDlgMessage]: 71.html
+#_
+#_{dm_getdlgitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdlgitem.html
+#_{senddlgmessage}: http://api.farmanager.com/ru/service_functions/senddlgmessage.html
+#_
+
+article id=565 dt=Text ctime=3901029786 mtime=3901029815 nm=far.SetDlgItem
+#_result = far.SetDlgItem (hDlg, numitem, item)
+#_
+#_**Parameters:**
+#_  hDlg:    userdata
+#_  numitem: integer (1-based)
+#_  item:    table
+#_
+#_**Returns:**
+#_  result: boolean
+#_
+#_**Note:**
+#_  This function is equivalent to
+#_    `far.SendDlgMessage`(hDlg, "DM_SETDLGITEM", numitem, item)
+#_
+#_**Far API used:**
+#_  SendDlgMessage, DM_SETDLGITEM
+#_
+#_@@@
+#_[far.SendDlgMessage]: 71.html
+#_
+#_{dm_setdlgitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setdlgitem.html
+#_{senddlgmessage}: http://api.farmanager.com/ru/service_functions/senddlgmessage.html
 #_
 
