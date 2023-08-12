@@ -6,21 +6,19 @@ PATH := $(APPDIR);$(PATH)
 LUA_INIT  =
 LUA_PATH  = ./?.lua;./?/init.lua
 LUA_CPATH = ./?.dll
+TP2HH     = tp2hh_new.lua
 
 # LuaFAR manual
 lf: FILE_SRC = src\luafar2m_manual.tsi
 lf: DIR_OUT = out\luafar_unicode
-lf: TP2HH = tp2hh_old.lua
 
 # LuaMacro manual
 lm: FILE_SRC = src\macroapi_manual_linux.tsi
 lm: DIR_OUT = out\luamacro
-lm: TP2HH = tp2hh_new.lua
 
 # LF4Ed manual
 l4: FILE_SRC = src\lf4ed_manual.tsi
 l4: DIR_OUT = out\lf4ed
-l4: TP2HH = tp2hh_old.lua
 
 name = $(basename $(notdir $(FILE_SRC)))
 CHM = $(DIR_OUT)\$(name).chm

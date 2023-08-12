@@ -428,7 +428,7 @@ article id=59 dt=Text ctime=0 mtime=3862201278 nm=Command line and macro calls
 #_      Plugin.Call(0x6F332978, "-a calc 2+2")
 #_
 
-article id=73 dt=Text ctime=3491725586 mtime=3859823590 nm=Input data of installed scripts
+article id=73 dt=Text ctime=3491725586 mtime=3900954803 nm=Input data of installed scripts
 #_<markdown>
 #_
 #_### Scripts installed via `AddToMenu` call (run from plugin menu or shortcut)
@@ -440,6 +440,7 @@ article id=73 dt=Text ctime=3491725586 mtime=3859823590 nm=Input data of install
 #_* The invoked function receives all the arguments (if any) specified after the command name.
 #_
 #_*Example:*
+#_
 #_      local function fShow(...) far.Show(...) end
 #_      AddCommand("Show", fShow)
 #_      ...
@@ -548,9 +549,7 @@ article id=84 dt=Text ctime=3854196154 mtime=3854196918 nm=deserialize
 #_  `serialize`
 #_
 #_@@@
-#_<lua> Links = {
-#_  serialize="85.html"
-#_} </lua>
+#_[serialize]: 85.html
 #_
 
 article id=85 dt=Text ctime=3854196167 mtime=3854196934 nm=serialize
@@ -577,9 +576,7 @@ article id=85 dt=Text ctime=3854196167 mtime=3854196934 nm=serialize
 #_  `deserialize`
 #_
 #_@@@
-#_<lua> Links = {
-#_  deserialize="84.html"
-#_} </lua>
+#_[deserialize]: 84.html
 #_
 
 article id=86 dt=Text ctime=3854197468 mtime=3854199354 nm=field
