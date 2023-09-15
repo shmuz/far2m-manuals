@@ -958,7 +958,7 @@ article id=52 dt=Text ctime=3553252733 mtime=3607106345 nm=Editor
 #_{undo}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/editor.html#editor.undo
 #_
 
-article id=53 dt=Text ctime=3553252746 mtime=3888577331 nm=Menu
+article id=53 dt=Text ctime=3553252746 mtime=3903963243 nm=Menu
 #_**Menu** - a table with the following fields:
 #_
 #_**Properties:**
@@ -975,7 +975,7 @@ article id=53 dt=Text ctime=3553252746 mtime=3888577331 nm=Menu
 #_  Select
 #_  
 #_  Show
-#_    - only flag bits **0x8**, **0x10** and **0x80** are supported
+#_    - only flag bits **0x8**, **0x10**, **0x20**, **0x40** and **0x80** are supported
 #_    - other flag bits are treated as being set to 0
 #_
 #_@@@
@@ -2377,14 +2377,14 @@ article id=97 dt=Text ctime=3639831305 mtime=3868112974 nm=File luafar_init.lua
 #_Plugin LuaMacro runs the file `$FARHOME/Plugins/luafar/luafar_init.lua` (if it exists) before running its default script.
 #_See description of this feature in LuaFAR manual.
 
-article id=98 dt=Text ctime=3730113272 mtime=3883939215 nm=Adding panel modules
+article id=98 dt=Text ctime=3730113272 mtime=3902600293 nm=Adding panel modules
 #_<markdown>
 #_
 #_"Panel module" is a set of Lua functions placed in a table and loaded with `PanelModule` function.
 #_
 #_- Names of those functions and their parameter sets coincide with functions from `export` table (see LuaFAR manual).
 #_- Here is the list of module-exported functions that are supported by the plugin:<br>
-#_`ClosePlugin`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPluginInfo`, `MakeDirectory`, `OpenFilePlugin`, `OpenPlugin`, `OpenShortcut`, `ProcessHostFile`, `ProcessEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
+#_`ClosePanel`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPanelInfo`, `MakeDirectory`, `Open`, `OpenFilePlugin`, `ProcessHostFile`, `ProcessEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
 #_- Every panel module must contain a table `Info` with a mandatory field `Guid`. Other fields are optional.
 #_
 #_```
@@ -2400,7 +2400,7 @@ article id=98 dt=Text ctime=3730113272 mtime=3883939215 nm=Adding panel modules
 #_
 #_-- Add only those "exported" functions that are needed for this panel module
 #_mod.OpenFilePlugin = function(...) ...... end
-#_mod.OpenPlugin     = function(...) ...... end
+#_mod.Open           = function(...) ...... end
 #_mod.GetFindData    = function(...) ...... end
 #_......
 #_
@@ -2411,13 +2411,13 @@ article id=98 dt=Text ctime=3730113272 mtime=3883939215 nm=Adding panel modules
 #_**Notes:**
 #_
 #_1. To create a panel from the command line or from the plugins menu, the existing function [`CommandLine`](96.html) and [`MenuItem`](90.html) should be used. Their `action()` should return 2 values: (1) the module table and (2) the panel object (any non-false Lua value).
-#_1. Function `mod.OpenPlugin` is called by the plugin only with the following values of `OpenFrom` parameter:<br>
-#_`OPEN_FINDLIST`.
+#_1. Function `mod.Open` is called by the plugin only with the following values of `OpenFrom` parameter:<br>
+#_`OPEN_FINDLIST` and `OPEN_SHORTCUT`.
 #_
 #_See also: [Demo Example](99.html)
 #_
 
-article id=99 dt=Text ctime=3730114449 mtime=3867597452 nm=Demo example
+article id=99 dt=Text ctime=3730114449 mtime=3902600507 nm=Demo example
 #_<markdown>
 #_```
 #_local F = far.Flags
@@ -2432,6 +2432,8 @@ article id=99 dt=Text ctime=3730114449 mtime=3867597452 nm=Demo example
 #_
 #_local function FileToObject(FileName)
 #_  FileName = far.ConvertPath(FileName, "CPM_FULL")
+#_  local attr = win.GetFileAttr(FileName)
+#_  if not attr or attr:find("d") then return end -- in Linux fopen may "open" a directory
 #_  local fp = io.open(FileName)
 #_  if fp then
 #_    local obj = { HostFile=FileName; List={} }
@@ -2450,13 +2452,14 @@ article id=99 dt=Text ctime=3730114449 mtime=3867597452 nm=Demo example
 #_  end
 #_end
 #_
-#_function mod.OpenPlugin(OpenFrom, Item)
+#_function mod.Open(OpenFrom, Item)
 #_  if OpenFrom == F.OPEN_SHORTCUT then
 #_    return FileToObject(Item.HostFile)
+#_
 #_  elseif OpenFrom == F.OPEN_FINDLIST then -- luacheck: ignore
-#_    -- If we uncomment the line "return {}", then this module will be
+#_    -- If we uncomment the line "return true", then this module will be
 #_    -- used instead of TmpPanel for displaying search results.
-#_    ---- return {}
+#_    ---- return true
 #_  end
 #_end
 #_
@@ -2464,7 +2467,7 @@ article id=99 dt=Text ctime=3730114449 mtime=3867597452 nm=Demo example
 #_  return object.List
 #_end
 #_
-#_function mod.GetOpenPluginInfo(object, handle)
+#_function mod.GetOpenPanelInfo(object, handle)
 #_  return {
 #_    HostFile = object.HostFile;
 #_    PanelTitle = Title;
@@ -2478,6 +2481,24 @@ article id=99 dt=Text ctime=3730114449 mtime=3867597452 nm=Demo example
 #_function mod.SetFindList (object, handle, Items)
 #_  object.List = Items
 #_  return true
+#_end
+#_
+#_if false then
+#_  function mod.ProcessPanelInput (object, handle, Rec)
+#_    if not (Rec.EventType==F.KEY_EVENT and Rec.KeyDown) then return; end
+#_    local vcode  = Rec.VirtualKeyCode
+#_    local cstate = Rec.ControlKeyState
+#_    local nomods = cstate == 0 -- luacheck: no unused
+#_  --local alt    = cstate == F.LEFT_ALT_PRESSED  or cstate == F.RIGHT_ALT_PRESSED
+#_    local ctrl   = cstate == F.LEFT_CTRL_PRESSED or cstate == F.RIGHT_CTRL_PRESSED
+#_    local shift  = cstate == F.SHIFT_PRESSED
+#_
+#_    local Name = far.InputRecordToName(Rec)
+#_    --if Name == "ShiftF2" then return true; end
+#_    --if Name == "F11" then return true; end
+#_
+#_    far.Show(vcode,cstate,ctrl,shift,Name)
+#_  end
 #_end
 #_
 #_MenuItem {

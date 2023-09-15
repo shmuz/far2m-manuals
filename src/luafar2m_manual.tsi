@@ -12,14 +12,10 @@ node lv=2 id=96 art=96 nm=export.Configure
 node lv=2 id=98 art=98 nm=export.ExitFAR
 node lv=2 id=105 art=105 nm=export.GetPluginInfo
 node lv=2 id=447 art=447 nm=export.MayExitFAR
-node lv=2 id=520 art=518 nm=export.OpenCommandLine
-node lv=2 id=523 art=521 nm=export.OpenDialog
-node lv=2 id=522 art=520 nm=export.OpenFromMacro
-node lv=2 id=109 art=109 nm=export.OpenPlugin
-node lv=2 id=521 art=519 nm=export.OpenShortcut
+node lv=2 id=109 art=109 nm=export.Open
 node lv=2 id=485 art=485 nm=export.ProcessConsoleInput
 node lv=1 id=123 art=123 nm=Panel functions
-node lv=2 id=94 art=94 nm=export.ClosePlugin
+node lv=2 id=94 art=94 nm=export.ClosePanel
 node lv=2 id=95 art=95 nm=export.Compare
 node lv=2 id=97 art=97 nm=export.DeleteFiles
 node lv=2 id=365 art=365 nm=export.FreeCustomData
@@ -28,7 +24,7 @@ node lv=2 id=100 art=100 nm=export.FreeVirtualFindData
 node lv=2 id=364 art=364 nm=export.GetCustomData
 node lv=2 id=101 art=101 nm=export.GetFiles
 node lv=2 id=102 art=102 nm=export.GetFindData
-node lv=2 id=104 art=104 nm=export.GetOpenPluginInfo
+node lv=2 id=104 art=104 nm=export.GetOpenPanelInfo
 node lv=2 id=106 art=106 nm=export.GetVirtualFindData
 node lv=2 id=107 art=107 nm=export.MakeDirectory
 node lv=2 id=108 art=108 nm=export.OpenFilePlugin
@@ -97,7 +93,6 @@ node lv=2 id=463 art=463 nm=actl namespace
 node lv=1 id=81 art=81 nm=Dialog functions
 node lv=2 id=479 art=479 nm=far.ColorDialog
 node lv=2 id=438 art=438 nm=far.CreateUserControl
-node lv=2 id=219 art=219 nm=far.DefDlgProc
 node lv=2 id=20 art=20 nm=far.Dialog
 node lv=2 id=380 art=380 nm=far.DialogFree
 node lv=2 id=378 art=378 nm=far.DialogInit
@@ -178,7 +173,7 @@ node lv=1 id=403 art=403 nm=Panel functions
 node lv=2 id=457 art=457 nm=panel.BeginSelection
 node lv=2 id=145 art=145 nm=panel.CheckPanelsExist
 node lv=2 id=330 art=330 nm=panel.ClearSelection
-node lv=2 id=4 art=4 nm=panel.ClosePlugin
+node lv=2 id=4 art=4 nm=panel.ClosePanel
 node lv=2 id=458 art=458 nm=panel.EndSelection
 node lv=2 id=5 art=5 nm=panel.GetCmdLine
 node lv=2 id=6 art=6 nm=panel.GetCmdLinePos
@@ -289,6 +284,8 @@ node lv=2 id=451 art=451 nm=far.DisplayNotification
 node lv=2 id=449 art=449 nm=far.Execute
 node lv=2 id=450 art=450 nm=far.ExecuteLibrary
 node lv=2 id=501 art=501 nm=far.GetFileEncoding
+node lv=2 id=569 art=526 nm=far.GetFileGroup
+node lv=2 id=570 art=56 nm=far.GetFileOwner
 node lv=2 id=519 art=517 nm=far.GetMyHome
 node lv=2 id=476 art=476 nm=far.GetPluginId
 node lv=2 id=563 art=561 nm=far.GetPluginGlobalInfo
@@ -396,6 +393,7 @@ node lv=3 id=315 art=315 nm=win.GetVirtualKeys
 node lv=3 id=456 art=456 nm=win.IsProcess64bit
 node lv=3 id=192 art=192 nm=win.SetEnv
 node lv=3 id=435 art=435 nm=win.Sleep
+node lv=3 id=568 art=566 nm=win.system
 node lv=3 id=424 art=424 nm=win.Uuid
 node lv=1 id=406 art=406 nm=luautf8
 node lv=2 id=407 art=407 nm=utf8.dump
@@ -404,7 +402,7 @@ node lv=2 id=409 art=409 nm=utf8.rep
 node lv=2 id=410 art=410 nm=utf8.utf8valid
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
-node lv=2 id=158 art=158 nm=LF_ClosePlugin
+node lv=2 id=158 art=158 nm=LF_ClosePanel
 node lv=2 id=159 art=159 nm=LF_Compare
 node lv=2 id=160 art=160 nm=LF_Configure
 node lv=2 id=161 art=161 nm=LF_DeleteFiles
@@ -415,13 +413,13 @@ node lv=2 id=164 art=164 nm=LF_FreeVirtualFindData
 node lv=2 id=366 art=366 nm=LF_GetCustomData
 node lv=2 id=165 art=165 nm=LF_GetFiles
 node lv=2 id=166 art=166 nm=LF_GetFindData
-node lv=2 id=168 art=168 nm=LF_GetOpenPluginInfo
+node lv=2 id=168 art=168 nm=LF_GetOpenPanelInfo
 node lv=2 id=169 art=169 nm=LF_GetPluginInfo
 node lv=2 id=170 art=170 nm=LF_GetVirtualFindData
 node lv=2 id=171 art=171 nm=LF_MakeDirectory
 node lv=2 id=448 art=448 nm=LF_MayExitFAR
+node lv=2 id=173 art=173 nm=LF_Open
 node lv=2 id=172 art=172 nm=LF_OpenFilePlugin
-node lv=2 id=173 art=173 nm=LF_OpenPlugin
 node lv=2 id=222 art=222 nm=LF_ProcessDialogEvent
 node lv=2 id=174 art=174 nm=LF_ProcessEditorEvent
 node lv=2 id=175 art=175 nm=LF_ProcessEditorInput
@@ -478,15 +476,15 @@ article id=3 dt=Text ctime=0 mtime=0 nm=far.CopyToClipboard
 #_@@@
 #_
 
-article id=4 dt=Text ctime=0 mtime=3853511972 nm=panel.ClosePlugin
-#_result = panel.ClosePlugin (handle [, dir])
+article id=4 dt=Text ctime=0 mtime=3902575538 nm=panel.ClosePanel
+#_result = panel.ClosePanel (handle [, dir])
 #_
 #_**Parameters:**
 #_  handle:  panel handle
 #_  dir:     string (defaults to ".")
 #_
 #_**Returns:**
-#_  result: boolean
+#_  result:  boolean
 #_
 #_**Far API used:**
 #_  Control, FCTL_CLOSEPLUGIN
@@ -708,8 +706,8 @@ article id=17 dt=Text ctime=0 mtime=3853512944 nm=panel.UpdatePanel
 #_@@@
 #_
 
-article id=20 dt=Text ctime=0 mtime=3900064479 nm=far.Dialog
-#_result = far.Dialog (Guid,X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc)
+article id=20 dt=Text ctime=0 mtime=3901550710 nm=far.Dialog
+#_result = far.Dialog (Guid,X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc,Param)
 #_
 #_**Parameters:**
 #_  Same parameters as in `far.DialogInit`
@@ -722,7 +720,7 @@ article id=20 dt=Text ctime=0 mtime=3900064479 nm=far.Dialog
 #_  the dialog items have at the moment of dialog closing.
 #_
 #_**Far API used:**
-#_  DialogInit, DialogRun, DialogFree
+#_  DialogInitV3, DialogRun, DialogFree
 #_
 #_@@@
 #_[tFarDialogItem]: 295.html
@@ -1580,7 +1578,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3900691377 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3901549094 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1596,101 +1594,100 @@ article id=71 dt=Text ctime=0 mtime=3900691377 nm=far.SendDlgMessage
 #_
 #_**Details:**
 #_
-#_@DM_CLOSE,
-#_@DM_EDITUNCHANGEDFLAG,
-#_@DM_GETCURSORSIZE,
-#_@DM_GETDROPDOWNOPENED,
-#_@DM_GETFOCUS,
-#_@DM_GETITEMDATA,
-#_@DM_GETTEXTLENGTH,
-#_@DM_LISTGETDATASIZE,
-#_@DM_LISTSORT,
-#_@DM_REDRAW,
-#_@DM_SET3STATE,
-#_@DM_SETCURSORSIZE,
-#_@DM_SETDROPDOWNOPENED,
-#_@DM_SETFOCUS,
-#_@DM_SETITEMDATA,
-#_@DM_SETMAXTEXTLENGTH,
-#_@DM_SETMOUSEEVENTNOTIFY,
-#_@DM_SHOWDIALOG,
-#_@DM_SHOWITEM,
-#_@DM_USER:
+#_DM_CLOSE,
+#_DM_EDITUNCHANGEDFLAG,
+#_DM_GETCURSORSIZE,
+#_DM_GETDROPDOWNOPENED,
+#_DM_GETFOCUS,
+#_DM_GETITEMDATA,
+#_DM_LISTGETDATASIZE,
+#_DM_LISTSORT,
+#_DM_REDRAW,
+#_DM_SET3STATE,
+#_DM_SETCURSORSIZE,
+#_DM_SETDROPDOWNOPENED,
+#_DM_SETFOCUS,
+#_DM_SETITEMDATA,
+#_DM_SETMAXTEXTLENGTH,
+#_DM_SETMOUSEEVENTNOTIFY,
+#_DM_SHOWDIALOG,
+#_DM_SHOWITEM,
+#_DM_USER:
 #_    Param2:  integer
 #_    Result:  integer
 #_
-#_@DM_ENABLE:
+#_DM_ENABLE:
 #_    Param2:  boolean or integer
 #_    Result:  boolean
 #_
-#_@DM_ENABLEREDRAW:
+#_DM_ENABLEREDRAW:
 #_    Param1:  boolean or integer (default = -1)
 #_    Param2:  ignored
 #_    Result:  integer
 #_
-#_@DM_SETCHECK,
-#_@DM_SETREADONLY:
+#_DM_SETCHECK,
+#_DM_SETREADONLY:
 #_    Param2:  boolean or integer
 #_    Result:  integer
 #_
-#_@DM_GETCHECK:
+#_DM_GETCHECK:
 #_    Param2:  ignored
 #_    Result:  false (means BSTATE_UNCHECKED)
 #_              true (means BSTATE_CHECKED)
 #_                 2 (means BSTATE_3STATE)
 #_
-#_@DM_ADDHISTORY,
-#_@DM_LISTADDSTR,
-#_@DM_SETTEXT,
-#_@DM_SETTEXTPTR:
+#_DM_ADDHISTORY,
+#_DM_LISTADDSTR,
+#_DM_SETTEXT,
+#_DM_SETTEXTPTR:
 #_    Param2:  string
 #_    Result:  integer
 #_
-#_@DM_SETHISTORY:
+#_DM_SETHISTORY:
 #_    Param2:  string (optional; nil causes passing NULL to FAR)
 #_    Result:  integer
 #_
-#_@DM_LISTSETMOUSEREACTION:
+#_DM_LISTSETMOUSEREACTION:
 #_    Param2:  flag
 #_    Result:  integer
 #_
-#_@DM_GETDIALOGINFO:
+#_DM_GETDIALOGINFO:
 #_    Param2:  none
 #_    Result:  table (field Id: string)
 #_
-#_@DM_GETDLGRECT,
-#_@DM_GETEDITPOSITION,
-#_@DM_GETITEMPOSITION,
-#_@DM_GETSELECTION,
-#_@DM_LISTGETCURPOS,
-#_@DM_LISTGETTITLES,
-#_@DM_LISTINFO:
+#_DM_GETDLGRECT,
+#_DM_GETEDITPOSITION,
+#_DM_GETITEMPOSITION,
+#_DM_GETSELECTION,
+#_DM_LISTGETCURPOS,
+#_DM_LISTGETTITLES,
+#_DM_LISTINFO:
 #_    Param2:  none
 #_    Result:  table
 #_
-#_@DM_GETCURSORPOS:
+#_DM_GETCURSORPOS:
 #_    Param2:  none
 #_    Result:  table (fields X,Y; 1-based), or nil
 #_
-#_@DM_GETTEXT,
-#_@DM_GETCONSTTEXTPTR:
+#_DM_GETTEXT,
+#_DM_GETCONSTTEXTPTR:
 #_    Param2:  none
 #_    Result:  string
 #_
-#_@DM_GETCOLOR:
+#_DM_GETCOLOR:
 #_    Param2:  none
 #_    Result:  integer
 #_
-#_@DM_SETCOLOR:
+#_DM_SETCOLOR:
 #_    Param2:  integer
 #_    Result:  integer
 #_
-#_@DM_KEY:
+#_DM_KEY:
 #_    Param2:  table (array of integers)
 #_    Result:  integer
 #_
-#_@DM_LISTADD,
-#_@DM_LISTSET:
+#_DM_LISTADD,
+#_DM_LISTSET:
 #_    Param2:  table (array of tables)
 #_    Result:  integer
 #_    *Example:*
@@ -1698,39 +1695,39 @@ article id=71 dt=Text ctime=0 mtime=3900691377 nm=far.SendDlgMessage
 #_        { { Text="added line 1" },
 #_          { Text="added line 2", Flags="LIF_CHECKED" } })
 #_
-#_@DM_LISTDELETE:
+#_DM_LISTDELETE:
 #_    Param2:  table, or nil
 #_    Result:  integer
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_LISTDELETE", id,
 #_        { StartIndex=1, Count=2 })
 #_
-#_@DM_LISTFINDSTRING:
+#_DM_LISTFINDSTRING:
 #_    Param2:  table
 #_    Result:  integer, or nil
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_FINDSTRING", id,
 #_        { StartIndex=1, Pattern="File??.txt" })
 #_
-#_@DM_LISTGETITEM:
+#_DM_LISTGETITEM:
 #_    Param2:  integer (ItemIndex)
 #_    Result:  table, or nil
 #_
-#_@DM_LISTINSERT,
+#_DM_LISTINSERT,
 #_    Param2:  table
 #_    Result:  integer, or nil
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_LISTINSERT", id,
 #_        { Index=2, Text="Hello World", Flags="LIF_CHECKED" })
 #_
-#_@DM_LISTUPDATE:
+#_DM_LISTUPDATE:
 #_    Param2:  table
 #_    Result:  boolean
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_LISTUPDATE", id,
 #_        { Index=2, Text="Hello World", Flags="LIF_CHECKED" })
 #_
-#_@DM_LISTSETCURPOS:
+#_DM_LISTSETCURPOS:
 #_    Param2:  table
 #_    Result:  integer
 #_    *Example:*
@@ -1739,82 +1736,86 @@ article id=71 dt=Text ctime=0 mtime=3900691377 nm=far.SendDlgMessage
 #_    *Note:*
 #_      Elements numbering is 1-based.
 #_
-#_@DM_LISTSETTITLES:
+#_DM_LISTSETTITLES:
 #_    Param2:  table
 #_    Result:  integer
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_LISTSETTITLES", id,
 #_        { Title="hello", Bottom="goodbye" })
 #_
-#_@DM_LISTGETDATA:
+#_DM_LISTGETDATA:
 #_    Param2:  integer (1-based list index)
 #_    Result:  either of
 #_               - nil - if Far returned 0
 #_               - light userdata (raw data pointer) - if alien data detected
 #_               - value passed by the last DM_LISTSETDATA call
 #_
-#_@DM_LISTSETDATA:
+#_DM_LISTSETDATA:
 #_    Param2:  table
 #_               ["Index"] - integer (1-based list index)
 #_               ["Data"]  - any Lua value except nil
 #_    Result:  integer (returned from Far)
 #_
-#_@DM_GETDLGITEM:
+#_DM_GETDLGITEM:
 #_    Param2:  table, or nil
 #_    Result:  table
 #_    *Note:*
 #_      If Param2 is a table then it will be reused as an output table,
 #_      i.e. its content will be modified.
 #_
-#_@DM_SETDLGITEM:
+#_DM_SETDLGITEM:
 #_    Param2:  table
 #_    Result:  boolean
+#_    *Note:*
+#_      res = far.SendDlgMessage(hDlg, "DM_SETDLGITEM", numitem, item)
+#_          *is equivalent to*
+#_      res = `far.SetDlgItem`(hDlg, numitem, item)
 #_
-#_@DM_MOVEDIALOG:
+#_DM_MOVEDIALOG:
 #_    Param1:  integer (0=relative, otherwise absolute coordinates)
 #_    Param2:  table (fields X,Y; 0-based if Param1==0 otherwise 1-based)
 #_    Result:  table (fields X,Y; 1-based)
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_MOVEDIALOG", 0, { X=5, Y=-2 })
 #_
-#_@DM_RESIZEDIALOG:
+#_DM_RESIZEDIALOG:
 #_    Param1:  0
 #_    Param2:  table (fields X,Y; 0-based)
 #_    Result:  table (fields X,Y; 0-based)
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_RESIZEDIALOG", 0, { X=70, Y=20 })
 #_
-#_@DM_SETCURSORPOS:
+#_DM_SETCURSORPOS:
 #_    Param2:  table (fields X,Y; 1-based)
 #_    Result:  boolean
 #_
-#_@DM_SETITEMPOSITION:
+#_DM_SETITEMPOSITION:
 #_    Param2:  table
 #_    Result:  integer
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_SETITEMPOSITION", id,
 #_        { Left=3, Top=3, Right=20, Bottom=5 })
 #_
-#_@DM_SETSELECTION:
+#_DM_SETSELECTION:
 #_    Param2:  table
 #_    Result:  integer
 #_    *Note:* this function has much in common with `editor.Select`
 #_
-#_@DM_SETCOMBOBOXEVENT:
+#_DM_SETCOMBOBOXEVENT:
 #_    Param2:  flags combination
 #_    Result:  integer
 #_
-#_@DM_SETEDITPOSITION:
+#_DM_SETEDITPOSITION:
 #_    Param2:  table
 #_    Result:  integer
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_SETEDITPOSITION", id,
 #_        { CurPos=3, Overtype=0 })
 #_
-#_@DM_GETTRUECOLOR:
+#_DM_GETTRUECOLOR:
 #_    returns a table (as in DM_SETTRUECOLOR)
 #_
-#_@DM_SETTRUECOLOR:
+#_DM_SETTRUECOLOR:
 #_    Param2:  table
 #_      {
 #_        Normal    = { Fore = { R=<n>; G=<n>; B=<n>; Flags=<n> };
@@ -1826,16 +1827,93 @@ article id=71 dt=Text ctime=0 mtime=3900691377 nm=far.SendDlgMessage
 #_      }
 #_      where <n> stands for optional integer.
 #_
-#_@DM_GETDLGDATA,
-#_@DM_SETDLGDATA:
-#_    Not supported (used internally by LuaFAR)
+#_DM_GETDLGDATA:
+#_    Result: the dialog data (can be any Lua value)
 #_
+#_DM_SETDLGDATA:
+#_    Param1: any Lua value
+#_    Result: nothing
 #_
 #_**Far API used:**
 #_  SendDlgMessage
 #_
 #_@@@
+#_[far.GetDlgItem]: 564.html
+#_[far.SetDlgItem]: 565.html
 #_[editor.Select]: 42.html
+#_[tInputRecord]: 187.html
+#_
+#_{dm_addhistory}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_addhistory.html
+#_{dm_close}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_close.html
+#_{dm_editunchangedflag}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_editunchangedflag.html
+#_{dm_enableredraw}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_enableredraw.html
+#_{dm_enable}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_enable.html
+#_{dm_getcheck}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getcheck.html
+#_{dm_getconsttextptr}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getconsttextptr.html
+#_{dm_getcursorpos}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getcursorpos.html
+#_{dm_getcursorsize}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getcursorsize.html
+#_{dm_getdialoginfo}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdialoginfo.html
+#_{dm_getdialogtitle}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdialogtitle.html
+#_{dm_getdlgdata}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdlgdata.html
+#_{dm_getdlgitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdlgitem.html
+#_{dm_getdlgrect}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdlgrect.html
+#_{dm_getdropdownopened}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getdropdownopened.html
+#_{dm_geteditposition}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_geteditposition.html
+#_{dm_getfocus}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getfocus.html
+#_{dm_getitemdata}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getitemdata.html
+#_{dm_getitemposition}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getitemposition.html
+#_{dm_getselection}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_getselection.html
+#_{dm_gettext}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_gettext.html
+#_{dm_key}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_key.html
+#_{dm_listaddstr}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listaddstr.html
+#_{dm_listadd}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listadd.html
+#_{dm_listdelete}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listdelete.html
+#_{dm_listfindstring}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listfindstring.html
+#_{dm_listgetcurpos}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgetcurpos.html
+#_{dm_listgetdatasize}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgetdatasize.html
+#_{dm_listgetdata}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgetdata.html
+#_{dm_listgetitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgetitem.html
+#_{dm_listgettitles}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgettitles.html
+#_{dm_listinfo}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listinfo.html
+#_{dm_listinsert}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listinsert.html
+#_{dm_listsetcurpos}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listsetcurpos.html
+#_{dm_listsetdata}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listsetdata.html
+#_{dm_listsettitles}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listsettitles.html
+#_{dm_listset}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listset.html
+#_{dm_listsort}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listsort.html
+#_{dm_listupdate}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listupdate.html
+#_{dm_movedialog}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_movedialog.html
+#_{dm_redraw}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_redraw.html
+#_{dm_resizedialog}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_resizedialog.html
+#_{dm_set3state}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_set3state.html
+#_{dm_setcheck}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setcheck.html
+#_{dm_setcomboboxevent}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setcomboboxevent.html
+#_{dm_setcursorpos}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setcursorpos.html
+#_{dm_setcursorsize}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setcursorsize.html
+#_{dm_setdlgdata}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setdlgdata.html
+#_{dm_setdlgitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setdlgitem.html
+#_{dm_setdropdownopened}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setdropdownopened.html
+#_{dm_seteditposition}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_seteditposition.html
+#_{dm_setfocus}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setfocus.html
+#_{dm_sethistory}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_sethistory.html
+#_{dm_setitemdata}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setitemdata.html
+#_{dm_setitemposition}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setitemposition.html
+#_{dm_setmaxtextlength}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setmaxtextlength.html
+#_{dm_setinputnotify}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setmouseeventnotify.html
+#_{dm_setmouseeventnotify}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setmouseeventnotify.html
+#_{dm_setselection}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setselection.html
+#_{dm_settextptr}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_settextptr.html
+#_{dm_settext}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_settext.html
+#_{dm_showdialog}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_showdialog.html
+#_{dm_showitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_showitem.html
+#_{dm_user}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_user.html
+#_{senddlgmessage}: http://api.farmanager.com/ru/service_functions/senddlgmessage.html
+#_{dn_btnclick}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_btnclick.html
+#_{dn_dragged}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_dragged.html
+#_{dn_drawdialog}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_drawdialog.html
+#_{dn_drawdialogdone}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_drawdialogdone.html
+#_{dn_dropdownopened}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_dropdownopened.html
+#_{dn_controlinput}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_controlinput.html
 #_
 
 article id=74 dt=Text ctime=0 mtime=3480262815 nm=far.ShowHelp
@@ -1942,7 +2020,7 @@ article id=85 dt=Text ctime=0 mtime=3878636786 nm=tPluginPanelItem
 #_@@@
 #_
 
-article id=90 dt=Text ctime=0 mtime=3878651744 nm=tFindData
+article id=90 dt=Text ctime=0 mtime=3901963867 nm=tFindData
 #_<markdown>
 #_**`tFindData`** is a table with the following predefined fields:
 #_
@@ -1963,16 +2041,21 @@ article id=90 dt=Text ctime=0 mtime=3878651744 nm=tFindData
 #_is set, otherwise it is not.
 #_
 #_          a - archive
+#_          b - broken
 #_          c - compressed
 #_          d - directory
 #_          e - reparse point
+#_          f - device_fifo
+#_          g - device_char
 #_          h - hidden
+#_          k - device_sock
 #_          n - encrypted
 #_          o - offline
 #_          r - read only
 #_          s - system file
 #_          t - temporary
 #_          v - virtual
+#_          x - executable
 #_
 #_1. **`LastWriteTime`**, **`LastAccessTime`** and **`CreationTime`**
 #_are values measured in number of milliseconds elapsed since
@@ -2015,15 +2098,18 @@ article id=91 dt=Text ctime=0 mtime=3891884882 nm=Manual of LuaFAR 2M
 
 article id=92 dt=Text ctime=0 mtime=0 nm=LuaFAR plugin-exported functions
 
-article id=94 dt=Text ctime=0 mtime=0 nm=export.ClosePlugin
-#_export.ClosePlugin (object, handle)
+article id=94 dt=Text ctime=0 mtime=3902581778 nm=export.ClosePanel
+#_export.ClosePanel (object, handle)
 #_
 #_**Parameters:**
-#_  object: plugin object
-#_  handle: plugin handle
+#_  object:  plugin object
+#_  handle:  panel handle
 #_
 #_**Returns:**
 #_  nothing
+#_
+#_**Far API used:**
+#_  ClosePluginW
 #_
 #_@@@
 #_
@@ -2141,16 +2227,16 @@ article id=103 dt=Text ctime=0 mtime=3866133117 nm=GetMinFarVersionW
 #_int GetMinFarVersionW()
 #_
 
-article id=104 dt=Text ctime=0 mtime=3890940753 nm=export.GetOpenPluginInfo
-#_OpenPluginInfo = export.GetOpenPluginInfo (object, handle)
+article id=104 dt=Text ctime=0 mtime=3902593908 nm=export.GetOpenPanelInfo
+#_OpenPanelInfo = export.GetOpenPanelInfo (object, handle)
 #_
 #_**Parameters:**
 #_  object: plugin object
 #_  handle: plugin handle
 #_
 #_**Returns:**
-#_  OpenPluginInfo: table
-#_    fields of OpenPluginInfo (most are optional):
+#_  OpenPanelInfo: table
+#_    fields of OpenPanelInfo (most are optional):
 #_      Flags:            flags combination
 #_      HostFile:         string
 #_      CurDir:           string
@@ -2250,26 +2336,58 @@ article id=108 dt=Text ctime=0 mtime=3480348469 nm=export.OpenFilePlugin
 #_
 #_
 
-article id=109 dt=Text ctime=0 mtime=3883980172 nm=export.OpenPlugin
-#_object = export.OpenPlugin (OpenFrom, Item)
+article id=109 dt=Text ctime=0 mtime=3902594941 nm=export.Open
+#_ret = export.Open (OpenFrom, Item)
+#_
+#_**Definitions:**
+#_  **"int64"**
+#_    Type of userdata, produced by `bit64` library.
+#_  **"binary"**
+#_    By convention, it is a string enclosed in a table as its first element.
+#_    The string is intended to be passed to and from without conversions UTF-8 <-> UTF-16LE.
+#_  **"panel"**
+#_    By convention, it is a panel handle (any non-false Lua value) enclosed in a table
+#_    as its first element. The table must contain the field ["type"]="panel".
 #_
 #_**Parameters:**
-#_  OpenFrom: integer (either of OPEN_DISKMENU, OPEN_EDITOR,
-#_                     OPEN_FILEPANEL, OPEN_FINDLIST,
-#_                     OPEN_PLUGINSMENU, OPEN_VIEWER)
-#_  Item:     integer
+#_  OpenFrom: integer
+#_  Item:
+#_    if OpenFrom == OPEN_FROMMACRO:
+#_      table (array of arguments):
+#_      - each argument can be either of:
+#_        string, nil, boolean, number, "int64", or "binary"
+#_      - field *n* of the table holds the length of the array
+#_    if OpenFrom == OPEN_COMMANDLINE:
+#_      string
+#_    if OpenFrom == OPEN_SHORTCUT:
+#_      string
+#_    if OpenFrom == OPEN_DIALOG:
+#_      2 parameters:
+#_        ItemNumber : integer
+#_        hDlg       : userdata
+#_    if OpenFrom == something else:
+#_      integer
 #_
 #_**Returns:**
-#_  object: plugin object (any Lua value)
-#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
-#_    - Number 0 (zero) tells Far to unload the plugin.
-#_    - The plugin object is passed to other exported functions
-#_      when they are called by Far.
+#_  if OpenFrom == OPEN_FROMMACRO:
+#_    0 or more Lua values.
+#_    Currently, values of the following types are supported:
+#_        string, nil, boolean, number, "int64", "binary", or "panel".
+#_    To open a panel, return a "panel" value as the first return value.
+#_  if OpenFrom == something else:
+#_    ret: any Lua value; it is processed by LuaFAR as follows:
+#_    - Nil and false: INVALID_HANDLE_VALUE is returned to Far.
+#_    - Number -1: PANEL_STOP is returned to Far.
+#_    - Otherwise: *ret* is considered a panel object, stored in the Lua
+#_      registry, its registry reference is returned to Far.
+#_      The object is passed to other exported functions when they are
+#_      called by Far.
 #_
 #_**Far API used:**
 #_  OpenPluginW
 #_
 #_@@@
+#_[bit64]: 471.html
 #_
 
 article id=110 dt=Text ctime=0 mtime=3862213220 nm=export.ProcessEditorEvent
@@ -2917,21 +3035,21 @@ article id=156 dt=Text ctime=0 mtime=0 nm=LF_Message
 #_@@@
 #_
 
-article id=158 dt=Text ctime=0 mtime=3480187996 nm=LF_ClosePlugin
+article id=158 dt=Text ctime=0 mtime=3902577814 nm=LF_ClosePanel
 #_<markdown>
-#_    void LF_ClosePlugin(lua_State* L, HANDLE hPlugin)
+#_    void LF_ClosePanel(lua_State* L, HANDLE hPanel)
 #_
 #_#### Parameters:
 #_      L:       Lua state
-#_      hPlugin: Plugin handle
+#_      hPanel:  panel handle
 #_
 #_#### Returns:
 #_      nothing
 #_
 #_#### Description:
 #_
-#_If Lua function [`export.ClosePlugin`](94.html) exists, it is called.
-#_Then, the resources associated with the plugin are freed.
+#_If Lua function [`export.ClosePanel`](94.html) exists, it is called.
+#_Then, the resources associated with the panel are freed.
 #_
 #_@@@
 #_
@@ -3121,9 +3239,9 @@ article id=166 dt=Text ctime=0 mtime=3480187787 nm=LF_GetFindData
 #_@@@
 #_
 
-article id=168 dt=Text ctime=0 mtime=3480187959 nm=LF_GetOpenPluginInfo
+article id=168 dt=Text ctime=0 mtime=3902595357 nm=LF_GetOpenPanelInfo
 #_<markdown>
-#_    void LF_GetOpenPluginInfo(
+#_    void LF_GetOpenPanelInfo(
 #_        lua_State* L,
 #_        HANDLE hPlugin,
 #_        OpenPluginInfo *aInfo)
@@ -3137,7 +3255,7 @@ article id=168 dt=Text ctime=0 mtime=3480187959 nm=LF_GetOpenPluginInfo
 #_      nothing
 #_
 #_#### Description:
-#_If Lua function [`export.GetOpenPluginInfo`](104.html) exists, it is called.
+#_If Lua function [`export.GetOpenPanelInfo`](104.html) exists, it is called.
 #_
 #_@@@
 #_
@@ -3234,12 +3352,9 @@ article id=172 dt=Text ctime=0 mtime=0 nm=LF_OpenFilePlugin
 #_@@@
 #_
 
-article id=173 dt=Text ctime=0 mtime=3883239616 nm=LF_OpenPlugin
+article id=173 dt=Text ctime=0 mtime=3902595222 nm=LF_Open
 #_<markdown>
-#_    HANDLE LF_OpenPlugin(
-#_        lua_State* L,
-#_        int OpenFrom,
-#_        INT_PTR Item)
+#_    HANDLE LF_Open (lua_State* L, int OpenFrom, INT_PTR Item)
 #_
 #_#### Parameters:
 #_      L:       Lua state
@@ -3251,7 +3366,7 @@ article id=173 dt=Text ctime=0 mtime=3883239616 nm=LF_OpenPlugin
 #_#### Description:
 #_If `far.ReloadDefaultScript` is true, then the function runs
 #_the default script (see [`LF_RunDefaultScript`](130.html)).
-#_Then, if Lua function [`export.OpenPlugin`](109.html) exists,
+#_Then, if Lua function [`export.Open`](109.html) exists,
 #_it is called. Else, `INVALID_HANDLE_VALUE` is returned to FAR.
 #_
 #_@@@
@@ -3460,7 +3575,7 @@ article id=182 dt=Text ctime=0 mtime=3480188161 nm=LF_SetFindList
 #_@@@
 #_
 
-article id=183 dt=Text ctime=0 mtime=0 nm=Mediator functions
+article id=183 dt=Text ctime=0 mtime=3902595115 nm=Mediator functions
 #_<markdown>
 #_Functions in this sections act as mediators between the plugin's
 #_exported functions and their counterparts written in Lua.
@@ -3475,14 +3590,14 @@ article id=183 dt=Text ctime=0 mtime=0 nm=Mediator functions
 #_them to its caller (the exported function).
 #_
 #_#### Example:
-#_1) FAR calls the exported function `OpenPlugin`:<br>
-#_`HANDLE OpenPlugin (int OpenFrom, int Item)`
+#_1) FAR calls the exported function `OpenPluginW`:<br>
+#_`HANDLE OpenPluginW (int OpenFrom, int Item)`
 #_
-#_2) `OpenPlugin` calls the mediator function [`LF_OpenPlugin`](173.html):<br>
-#_`HANDLE LF_OpenPlugin (lua_State* L, int OpenFrom, int Item)`
+#_2) `OpenPluginW` calls the mediator function [`LF_Open`](173.html):<br>
+#_`HANDLE LF_Open (lua_State* L, int OpenFrom, int Item)`
 #_
-#_3) `LF_OpenPlugin` calls the Lua function [`export.OpenPlugin`](109.html):<br>
-#_`export.OpenPlugin (OpenFrom, Item)`
+#_3) `LF_Open` calls the Lua function [`export.Open`](109.html):<br>
+#_`export.Open (OpenFrom, Item)`
 #_
 #_
 
@@ -4004,22 +4119,6 @@ article id=218 dt=Text ctime=0 mtime=0 nm=tSystemTime
 #_      wMinute:        number
 #_      wSecond:        number
 #_      wMilliseconds:  number
-#_
-
-article id=219 dt=Text ctime=0 mtime=3492005369 nm=far.DefDlgProc
-#_result = far.DefDlgProc (hDlg, Msg, Param1, Param2)
-#_
-#_**Parameters:**
-#_  hDlg   : userdata
-#_  Msg    : flag
-#_  Param1 : integer
-#_  Param2 : integer
-#_
-#_**Returns:**
-#_  result : integer 
-#_
-#_**Far API used:**
-#_  DefDlgProc
 #_
 
 article id=220 dt=Text ctime=0 mtime=0 nm=Dialog functions
@@ -5778,8 +5877,8 @@ article id=377 dt=Text ctime=3489988958 mtime=3867735907 nm=method bracketscount
 #_[RegExpControl]: https://api.farmanager.com/ru/service_functions/regexpcontrol.html
 #_
 
-article id=378 dt=Text ctime=3490426716 mtime=3900064424 nm=far.DialogInit
-#_hDlg = far.DialogInit (Guid,X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc)
+article id=378 dt=Text ctime=3490426716 mtime=3901548733 nm=far.DialogInit
+#_hDlg = far.DialogInit (Guid,X1,Y1,X2,Y2,HelpTopic,Items,Flags,DlgProc,Param)
 #_
 #_**Parameters:**
 #_  Guid:      string, or nil
@@ -5799,6 +5898,7 @@ article id=378 dt=Text ctime=3490426716 mtime=3900064424 nm=far.DialogInit
 #_        Param2 : depends on *Msg*
 #_      Returns:
 #_        ret    : depends on *Msg*
+#_  Param:     any Lua value (optional)
 #_
 #_**Returns:**
 #_  hDlg:      userdata (or nil in case of failure)
@@ -5815,7 +5915,7 @@ article id=378 dt=Text ctime=3490426716 mtime=3900064424 nm=far.DialogInit
 #_    is equivalent to `far.SendDlgMessage`(hDlg, ...)
 #_
 #_**Far API used:**
-#_  DialogInit
+#_  DialogInitV3
 #_
 #_@@@
 #_[tFarDialogItem]: 295.html
@@ -6786,17 +6886,18 @@ article id=458 dt=Text ctime=3853444404 mtime=3853511995 nm=panel.EndSelection
 #_@@@
 #_
 
-article id=459 dt=Text ctime=3853503608 mtime=3853503949 nm=far.Log
-#_far.Log (message)
+article id=459 dt=Text ctime=3853503608 mtime=3903193155 nm=far.Log
+#_count = far.Log (message)
 #_
 #_**Parameters:**
 #_  message : string
 #_
 #_**Returns:**
-#_  nothing
+#_  count   : integer
 #_
 #_**Description:**
-#_  Writes <message> into the file **$HOME/luafar_log.txt**
+#_  Appends <message> into the file **$HOME/luafar_log.txt**
+#_  Returns count of the internal Log calls in the current Far session.
 #_
 #_@@@
 #_
@@ -6837,7 +6938,7 @@ article id=461 dt=Text ctime=3853775362 mtime=3853776891 nm=far.InputRecordToNam
 #_[tInputRecord]: 187.html
 #_
 
-article id=462 dt=Text ctime=3853816798 mtime=3900674966 nm=Methods of dialog handle
+article id=462 dt=Text ctime=3853816798 mtime=3901549246 nm=Methods of dialog handle
 #_Besides passing the dialog handle as a parameter to `far.SendDlgMessage`
 #_there is an alternative way: using dialog handle methods. The latter
 #_is shorter and more expressive, e.g. the following 2 calls do the same
@@ -6861,6 +6962,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3900674966 nm=Methods of dialog ha
 #_  GetCursorPos            DM_GETCURSORPOS
 #_  GetCursorSize           DM_GETCURSORSIZE
 #_  GetDialogInfo           DM_GETDIALOGINFO
+#_  GetDlgData              DM_GETDLGDATA
 #_  GetDlgItem              DM_GETDLGITEM
 #_  GetDlgRect              DM_GETDLGRECT
 #_  GetDropdownOpened       DM_GETDROPDOWNOPENED
@@ -6870,8 +6972,6 @@ article id=462 dt=Text ctime=3853816798 mtime=3900674966 nm=Methods of dialog ha
 #_  GetItemPosition         DM_GETITEMPOSITION
 #_  GetSelection            DM_GETSELECTION
 #_  GetText                 DM_GETTEXT
-#_  GetTextLength           DM_GETTEXTLENGTH
-#_  GetTextPtr              DM_GETTEXTPTR
 #_  GetTrueColor            DM_GETTRUECOLOR
 #_  Key                     DM_KEY
 #_  ListAdd                 DM_LISTADD
@@ -6901,6 +7001,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3900674966 nm=Methods of dialog ha
 #_  SetComboboxEvent        DM_SETCOMBOBOXEVENT
 #_  SetCursorPos            DM_SETCURSORPOS
 #_  SetCursorSize           DM_SETCURSORSIZE
+#_  SetDlgData              DM_SETDLGDATA
 #_  SetDlgItem              DM_SETDLGITEM
 #_  SetDropdownOpened       DM_SETDROPDOWNOPENED
 #_  SetEditPosition         DM_SETEDITPOSITION
@@ -7910,96 +8011,6 @@ article id=517 dt=Text ctime=3881479399 mtime=3891884985 nm=far.GetMyHome
 #_@@@
 #_
 
-article id=518 dt=Text ctime=3883938040 mtime=3883980380 nm=export.OpenCommandLine
-#_object = export.OpenCommandLine (Item)
-#_
-#_**Parameters:**
-#_  Item:   string
-#_
-#_**Returns:**
-#_  object: plugin object (any Lua value)
-#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
-#_    - Number 0 (zero) tells Far to unload the plugin.
-#_    - The plugin object is passed to other exported functions
-#_      when they are called by Far.
-#_
-#_**Far API used:**
-#_  OpenPluginW (OPEN_COMMANDLINE)
-#_
-#_@@@
-#_
-
-article id=519 dt=Text ctime=3883938053 mtime=3883980424 nm=export.OpenShortcut
-#_object = export.OpenShortcut (Item)
-#_
-#_**Parameters:**
-#_  Item:   string
-#_
-#_**Returns:**
-#_  object: plugin object (any Lua value)
-#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
-#_    - Number 0 (zero) tells Far to unload the plugin.
-#_    - The plugin object is passed to other exported functions
-#_      when they are called by Far.
-#_
-#_**Far API used:**
-#_  OpenPluginW (OPEN_SHORTCUT)
-#_
-#_@@@
-#_
-
-article id=520 dt=Text ctime=3883938065 mtime=3883980618 nm=export.OpenFromMacro
-#_object = export.OpenFromMacro (Item)
-#_
-#_**Parameters:**
-#_  Item: table (array of arguments):
-#_        - each argument can be either of:
-#_          string, nil, boolean, number, "int64", or "binary"
-#_        - field *n* of the table holds the length of the array
-#_
-#_**Returns:**
-#_  0 or more Lua values.
-#_  Currently, values of the following types are supported:
-#_      string, nil, boolean, number, "int64", "binary", or "panel".
-#_  To open a panel, return a "panel" value as the first return value.
-#_
-#_**Definitions:**
-#_  **"int64"**
-#_    Type of userdata, produced by `bit64` library.
-#_  **"binary"**
-#_    By convention, it is a string enclosed in a table as its first element.
-#_    The string is passed to and from without code page conversions.
-#_  **"panel"**
-#_    By convention, it is a panel handle (any non-false Lua value) enclosed in a table
-#_    as its first element. The table must contain the field ["type"]="panel".
-#_
-#_**Far API used:**
-#_  OpenPluginW (OPEN_FROMMACRO)
-#_
-#_@@@
-#_[bit64]: 471.html
-#_
-
-article id=521 dt=Text ctime=3883938743 mtime=3883981566 nm=export.OpenDialog
-#_object = export.OpenDialog (ItemNumber, hDlg)
-#_
-#_**Parameters:**
-#_  ItemNumber : integer
-#_  hDlg       : userdata
-#_
-#_**Returns:**
-#_  object: plugin object (any Lua value)
-#_    - Nil and false result in returning INVALID_HANDLE_VALUE to FAR.
-#_    - Number 0 (zero) tells Far to unload the plugin.
-#_    - The plugin object is passed to other exported functions
-#_      when they are called by Far.
-#_
-#_**Far API used:**
-#_  OpenPluginW (OPEN_DIALOG)
-#_
-#_@@@
-#_
-
 article id=522 dt=Text ctime=3884191334 mtime=3884191369 nm=far.FreeScreen
 #_far.FreeScreen (handle)
 #_
@@ -8490,5 +8501,23 @@ article id=565 dt=Text ctime=3901029786 mtime=3901029815 nm=far.SetDlgItem
 #_
 #_{dm_setdlgitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_setdlgitem.html
 #_{senddlgmessage}: http://api.farmanager.com/ru/service_functions/senddlgmessage.html
+#_
+
+article id=566 dt=Text ctime=3902554961 mtime=3902555013 nm=win.system
+#_result = win.system ([command])
+#_
+#_**Parameters:**
+#_  command:  string, or nil
+#_            (when command==nil or no arguments are passed, the underlying
+#_            function *system* is called with a NULL argument)
+#_
+#_**Returns:**
+#_  result:   integer
+#_
+#_**Description:**
+#_  Executes a command.
+#_
+#_**API used:**
+#_  system
 #_
 

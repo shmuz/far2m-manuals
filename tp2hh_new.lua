@@ -110,7 +110,7 @@ local searchPattern = rex.new( [[
   (\w+(?:\.\w+)*)
 ]], "ix")
 
-local function postprocess_article (part1, part2, is_markdown)
+local function postprocess_article (part1, part2, is_markdown, LocalLinks)
   if part2 then
     local links, links2 = {}, {}
     for line in part2:gmatch("[^\n]+") do
@@ -129,7 +129,8 @@ local function postprocess_article (part1, part2, is_markdown)
     if not is_markdown then
       part1 = part1:gsub("`([^`\n]+)`",
         function(c)
-          return links[c] and ('<a href="%s">%s</a>'):format(links[c], c)
+          local url = links[c] or LocalLinks[c]
+          return url and ('<a href="%s">%s</a>'):format(url, c)
         end)
     end
 
@@ -159,7 +160,7 @@ end
 -- very beginning of each such article, to let this program know that these
 -- articles should go to the output "as they are" (with no added header, no
 -- added footer and no conversion).
-local function process_article (article)
+local function process_article (article, LocalLinks)
   local line, start = article:match "^([^\n]*)\n()"
   if line == "<!--HTML-->" then
     return article, true
@@ -186,7 +187,7 @@ local function process_article (article)
                c3                                      -- literal asterisks
       end, nil, "x")
   end
-  return postprocess_article(part1, part2, is_markdown), false
+  return postprocess_article(part1, part2, is_markdown, LocalLinks), false
 end
 
 local function path_join(path1, path2)
@@ -210,13 +211,18 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
   local ProjectFiles = {}
   local tNodes, tArticles = assert( tsi4.ReadFile(DataFile) )
 
+  local LocalLinks = {}
   for _, art in ipairs(tArticles) do
     if art.datatype ~= "Text" then
       error(art.name .. ": article must be pure text type")
     end
+    LocalLinks[art.name] = ("%d.html"):format(art.id)
+  end
+
+  for _, art in ipairs(tArticles) do
     local filename = ("%d.html"):format(art.id)
     local fCurrent = assert( io.open(path_join(out_dir,filename), "wt") )
-    local article, ready = process_article(art.content)
+    local article, ready = process_article(art.content, LocalLinks)
     if ready then
       fCurrent:write(article)
     else
