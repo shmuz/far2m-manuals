@@ -30,6 +30,7 @@ node lv=3 id=104 art=104 nm=deserialize
 node lv=3 id=106 art=106 nm=EnumScripts
 node lv=3 id=79 art=79 nm=eval
 node lv=3 id=72 art=72 nm=GetMacroCopy
+node lv=3 id=111 art=111 nm=GetPersistent
 node lv=3 id=15 art=15 nm=mdelete
 node lv=3 id=13 art=13 nm=mload
 node lv=3 id=12 art=12 nm=msave
@@ -599,40 +600,40 @@ article id=42 dt=Text ctime=3553243413 mtime=3717182713 nm=Libraries of macro fu
 #_
 #_
 
-article id=44 dt=Text ctime=3553243522 mtime=3895237757 nm=mf
+article id=44 dt=Text ctime=3553243522 mtime=3904408723 nm=mf
 #_**Properties:** none.
 #_
 #_**Functions:**
 #_
-#_  abs                len
-#_  `acall`              max
-#_  `AddExitHandler`     `mdelete`
-#_  akey               min
-#_  asc                `mload`
-#_  atoi               mmode
-#_  beep               mod
-#_  chr                `msave`
-#_  clip               msgbox
-#_  date               `postmacro`
-#_  `deserialize`        print
-#_  `EnumScripts`        `printconsole`
-#_  env                prompt
-#_  `eval`               replace
-#_  `exit`               rindex
-#_  fattr              `serialize`
-#_  fexist             size2str
-#_  float              sleep
-#_  flock              string
-#_  fmatch             strpad
-#_  fsplit             strwrap
-#_  `GetMacroCopy`       substr
-#_  iif                testfolder
-#_  index              trim
-#_  int                ucase
-#_  itoa               `usermenu`
-#_  key                waitkey
-#_  `Keys`               xlat
-#_  lcase
+#_  abs                lcase
+#_  `acall`              len             
+#_  `AddExitHandler`     max           
+#_  akey               `mdelete`     
+#_  asc                min             
+#_  atoi               `mload`         
+#_  beep               mmode           
+#_  chr                mod             
+#_  clip               `msave`         
+#_  date               msgbox          
+#_  `deserialize`        `postmacro`     
+#_  `EnumScripts`        print         
+#_  env                `printconsole`
+#_  `eval`               prompt          
+#_  `exit`               replace       
+#_  fattr              rindex        
+#_  fexist             `serialize`     
+#_  float              size2str        
+#_  flock              sleep           
+#_  fmatch             string          
+#_  fsplit             strpad          
+#_  `GetMacroCopy`       strwrap         
+#_  `GetPersistent`      substr        
+#_  iif                testfolder      
+#_  index              trim            
+#_  int                ucase           
+#_  itoa               `usermenu`      
+#_  key                waitkey         
+#_  `Keys`               xlat          
 #_
 #_@@@
 #_[acall]: 91.html
@@ -640,6 +641,7 @@ article id=44 dt=Text ctime=3553243522 mtime=3895237757 nm=mf
 #_[eval]: 79.html
 #_[exit]: 61.html
 #_[GetMacroCopy]: 72.html
+#_[GetMacroPersistent]: 111.html
 #_[Keys]: 4.html
 #_[mdelete]: 15.html
 #_[mload]: 13.html
@@ -958,7 +960,7 @@ article id=52 dt=Text ctime=3553252733 mtime=3607106345 nm=Editor
 #_{undo}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/editor.html#editor.undo
 #_
 
-article id=53 dt=Text ctime=3553252746 mtime=3903963243 nm=Menu
+article id=53 dt=Text ctime=3553252746 mtime=3903968771 nm=Menu
 #_**Menu** - a table with the following fields:
 #_
 #_**Properties:**
@@ -972,11 +974,10 @@ article id=53 dt=Text ctime=3553252746 mtime=3903963243 nm=Menu
 #_  FilterStr
 #_  GetValue
 #_  ItemStatus
-#_  Select
-#_  
+#_  Select  
 #_  Show
-#_    - only flag bits **0x8**, **0x10**, **0x20**, **0x40** and **0x80** are supported
-#_    - other flag bits are treated as being set to 0
+#_    - flag bits **0x8**, **0x10**, **0x20**, **0x40**, **0x80** and **0x200** are supported
+#_    - other flag bits are treated as set to 0
 #_
 #_@@@
 #_{filterstr}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/menus.html#Menu.FilterStr
@@ -2377,14 +2378,14 @@ article id=97 dt=Text ctime=3639831305 mtime=3868112974 nm=File luafar_init.lua
 #_Plugin LuaMacro runs the file `$FARHOME/Plugins/luafar/luafar_init.lua` (if it exists) before running its default script.
 #_See description of this feature in LuaFAR manual.
 
-article id=98 dt=Text ctime=3730113272 mtime=3902600293 nm=Adding panel modules
+article id=98 dt=Text ctime=3730113272 mtime=3904044471 nm=Adding panel modules
 #_<markdown>
 #_
 #_"Panel module" is a set of Lua functions placed in a table and loaded with `PanelModule` function.
 #_
 #_- Names of those functions and their parameter sets coincide with functions from `export` table (see LuaFAR manual).
 #_- Here is the list of module-exported functions that are supported by the plugin:<br>
-#_`ClosePanel`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPanelInfo`, `MakeDirectory`, `Open`, `OpenFilePlugin`, `ProcessHostFile`, `ProcessEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
+#_`ClosePanel`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPanelInfo`, `MakeDirectory`, `Open`, `OpenFilePlugin`, `ProcessHostFile`, `ProcessPanelEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
 #_- Every panel module must contain a table `Info` with a mandatory field `Guid`. Other fields are optional.
 #_
 #_```
@@ -2773,4 +2774,23 @@ article id=109 dt=Text ctime=3882879741 mtime=3883070653 nm=mf.udlsplit
 #_  s1,...  : either sequence of strings or *false*
 #_
 #_
+
+article id=111 dt=Text ctime=3904408526 mtime=3904409583 nm=GetPersistent
+#_data = mf.GetPersistent (strkey)
+#_
+#_**Parameters:**
+#_  strkey:  string
+#_
+#_**Returns:**
+#_  data:    table
+#_
+#_**Description:**
+#_  **GetPersistent** returns a table that is created initially empty
+#_  by the plugin. This table may be used by macros, event handlers, etc.
+#_  for keeping data that should not be affected by reloading macrofiles.
+#_  The returned tables have a one-to-one correspondence with *strkey*
+#_  argument values.
+#_
+#_**Example:**
+#_  local data = mf.GetPersistent("ED32D291-C69C-4111-BBBA-277DE00887D9")
 

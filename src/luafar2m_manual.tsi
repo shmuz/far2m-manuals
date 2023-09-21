@@ -28,9 +28,9 @@ node lv=2 id=104 art=104 nm=export.GetOpenPanelInfo
 node lv=2 id=106 art=106 nm=export.GetVirtualFindData
 node lv=2 id=107 art=107 nm=export.MakeDirectory
 node lv=2 id=108 art=108 nm=export.OpenFilePlugin
-node lv=2 id=112 art=112 nm=export.ProcessEvent
 node lv=2 id=113 art=113 nm=export.ProcessHostFile
 node lv=2 id=114 art=114 nm=export.ProcessKey
+node lv=2 id=112 art=112 nm=export.ProcessPanelEvent
 node lv=2 id=115 art=115 nm=export.PutFiles
 node lv=2 id=116 art=116 nm=export.SetDirectory
 node lv=2 id=117 art=117 nm=export.SetFindList
@@ -423,7 +423,7 @@ node lv=2 id=172 art=172 nm=LF_OpenFilePlugin
 node lv=2 id=222 art=222 nm=LF_ProcessDialogEvent
 node lv=2 id=174 art=174 nm=LF_ProcessEditorEvent
 node lv=2 id=175 art=175 nm=LF_ProcessEditorInput
-node lv=2 id=176 art=176 nm=LF_ProcessEvent
+node lv=2 id=176 art=176 nm=LF_ProcessPanelEvent
 node lv=2 id=177 art=177 nm=LF_ProcessHostFile
 node lv=2 id=178 art=178 nm=LF_ProcessKey
 node lv=2 id=318 art=318 nm=LF_ProcessSynchroEvent
@@ -2443,8 +2443,8 @@ article id=111 dt=Text ctime=0 mtime=3851626638 nm=export.ProcessEditorInput
 #_@@@
 #_
 
-article id=112 dt=Text ctime=0 mtime=0 nm=export.ProcessEvent
-#_result = export.ProcessEvent (object, handle, Event, Param)
+article id=112 dt=Text ctime=0 mtime=3904041814 nm=export.ProcessPanelEvent
+#_result = export.ProcessPanelEvent (object, handle, Event, Param)
 #_
 #_**Parameters:**
 #_  object: plugin object
@@ -3412,9 +3412,9 @@ article id=175 dt=Text ctime=0 mtime=3480188235 nm=LF_ProcessEditorInput
 #_@@@
 #_
 
-article id=176 dt=Text ctime=0 mtime=3480188078 nm=LF_ProcessEvent
+article id=176 dt=Text ctime=0 mtime=3904041970 nm=LF_ProcessPanelEvent
 #_<markdown>
-#_    int LF_ProcessEvent(
+#_    int LF_ProcessPanelEvent(
 #_        lua_State* L,
 #_        HANDLE hPlugin,
 #_        int Event,
@@ -3429,7 +3429,7 @@ article id=176 dt=Text ctime=0 mtime=3480188078 nm=LF_ProcessEvent
 #_      Value, according to FAR Plugins API.
 #_
 #_#### Description:
-#_If Lua function [`export.ProcessEvent`](112.html) exists, it is called.
+#_If Lua function [`export.ProcessPanelEvent`](112.html) exists, it is called.
 #_Else, `0` is returned.
 #_
 #_@@@
