@@ -1,10 +1,10 @@
 <TreeSpice version 4.0>
 
 node lv=0 id=91 art=91 nm=Manual of LuaFAR 2M
-node lv=1 id=329 art=329 nm=Flags
 node lv=1 id=214 art=214 nm=Generic LuaFAR plugin
 node lv=2 id=425 art=425 nm=Customizing the generic plugin
 node lv=2 id=426 art=426 nm=Extra exported functions
+node lv=1 id=329 art=329 nm=Flags
 node lv=1 id=515 art=513 nm=Lua engine
 node lv=0 id=92 art=92 nm=LuaFAR plugin-exported functions
 node lv=1 id=122 art=122 nm=Common functions
@@ -18,9 +18,6 @@ node lv=1 id=123 art=123 nm=Panel functions
 node lv=2 id=94 art=94 nm=export.ClosePanel
 node lv=2 id=95 art=95 nm=export.Compare
 node lv=2 id=97 art=97 nm=export.DeleteFiles
-node lv=2 id=365 art=365 nm=export.FreeCustomData
-node lv=2 id=99 art=99 nm=export.FreeFindData
-node lv=2 id=100 art=100 nm=export.FreeVirtualFindData
 node lv=2 id=364 art=364 nm=export.GetCustomData
 node lv=2 id=101 art=101 nm=export.GetFiles
 node lv=2 id=102 art=102 nm=export.GetFindData
@@ -62,14 +59,12 @@ node lv=2 id=76 art=76 nm=far.Text
 node lv=1 id=561 art=559 nm=Advanced Control
 node lv=2 id=153 art=153 nm=far.AdvControl
 node lv=3 id=530 art=528 nm=ACTL_COMMIT
-node lv=3 id=531 art=529 nm=ACTL_EJECTMEDIA
 node lv=3 id=532 art=530 nm=ACTL_GETARRAYCOLOR
 node lv=3 id=533 art=531 nm=ACTL_GETCOLOR
 node lv=3 id=534 art=532 nm=ACTL_GETCONFIRMATIONS
 node lv=3 id=535 art=533 nm=ACTL_GETCURSORPOS
 node lv=3 id=536 art=534 nm=ACTL_GETDESCSETTINGS
 node lv=3 id=537 art=535 nm=ACTL_GETDIALOGSETTINGS
-node lv=3 id=538 art=536 nm=ACTL_GETFARHWND
 node lv=3 id=539 art=537 nm=ACTL_GETFARRECT
 node lv=3 id=540 art=538 nm=ACTL_GETFARVERSION
 node lv=3 id=541 art=539 nm=ACTL_GETINTERFACESETTINGS
@@ -103,6 +98,7 @@ node lv=2 id=65 art=65 nm=far.Message
 node lv=2 id=71 art=71 nm=far.SendDlgMessage
 node lv=3 id=462 art=462 nm=Methods of dialog handle
 node lv=2 id=567 art=565 nm=far.SetDlgItem
+node lv=2 id=573 art=568 nm=far.SubscribeDialogDrawEvents
 node lv=1 id=285 art=285 nm=Dialog Events
 node lv=2 id=297 art=297 nm=DN_BTNCLICK
 node lv=2 id=298 art=298 nm=DN_CLOSE
@@ -525,33 +521,30 @@ article id=6 dt=Text ctime=0 mtime=3853512036 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3896642056 nm=panel.GetPanelInfo
-#_PanelInfo = panel.GetPanelInfo (handle)
+article id=7 dt=Text ctime=0 mtime=3907564385 nm=panel.GetPanelInfo
+#_tPanelInfo = panel.GetPanelInfo (handle)
 #_
 #_**Parameters:**
 #_  handle:    panel handle
 #_
 #_**Returns:**
-#_  PanelInfo: table, or nil
-#_    fields of PanelInfo:
+#_  tPanelInfo: table, or nil
+#_    fields of tPanelInfo:
+#_      OwnerID:             integer (SysID of the plugin)
+#_      PluginHandle:        light userdata, or nil
 #_      PanelType:           integer
-#_      Plugin:              boolean
 #_      PanelRect:           table (fields: left, top, right, bottom)
 #_      ItemsNumber:         integer
 #_      SelectedItemsNumber: integer
 #_      CurrentItem:         1-based integer
 #_      TopPanelItem:        1-based integer
-#_      Visible:             boolean
-#_      Focus:               boolean
 #_      ViewMode:            integer
 #_      SortMode:            integer
-#_      Flags:               integer
-#_      PluginHandle:        userdata, or nil (as PCTL_FINDPLUGIN returns)
-#_      PanelHandle:         userdata, or nil (as OpenPluginW returns)
-#_      PluginID:            integer (SysID of the plugin)
+#_      Flags:               flags
+#_      OwnerHandle:         light userdata, or nil
 #_
 #_**Far API used:**
-#_  Control, FCTL_GETPANELINFO
+#_  Control, FCTL_GETPANELINFO, PanelInfo
 #_
 #_@@@
 #_[tPluginPanelItem]: 85.html
@@ -1286,14 +1279,18 @@ article id=57 dt=Text ctime=0 mtime=3891885012 nm=far.Flags
 #_  editor.ProcessKey (F.KEY_CTRLEND)
 #_
 
-article id=58 dt=Text ctime=0 mtime=3884102418 nm=far.GetMsg
-#_msg = far.GetMsg (MsgId)
+article id=58 dt=Text ctime=0 mtime=3907444598 nm=far.GetMsg
+#_msg = far.GetMsg (MsgId [, SysID])
 #_
 #_**Parameters:**
-#_  MsgId: integer
+#_  MsgId:  integer
+#_  SysID:  integer (plugin ID; default: calling plugin ID)
 #_
 #_**Returns:**
-#_  msg:   string
+#_  msg:    string, or nil
+#_
+#_**Note:**
+#_  For OEM plugins nil is returned even if MsgId is valid.
 #_
 #_**Far API used:**
 #_  GetMsg
@@ -1316,12 +1313,11 @@ article id=59 dt=Text ctime=0 mtime=0 nm=far.GetNumberOfLinks
 #_@@@
 #_
 
-article id=60 dt=Text ctime=0 mtime=3884103754 nm=far.GetPluginDirList
-#_list = far.GetPluginDirList (PluginNumber, handle, Dir)
+article id=60 dt=Text ctime=0 mtime=3907597121 nm=far.GetPluginDirList
+#_list = far.GetPluginDirList (handle, Dir)
 #_
 #_**Parameters:**
-#_  PluginNumber: light userdata, or nil
-#_  handle:       plugin handle, or nil
+#_  handle:       panel handle
 #_  Dir:          string
 #_
 #_**Returns:**
@@ -2066,7 +2062,7 @@ article id=90 dt=Text ctime=0 mtime=3901963867 nm=tFindData
 #_
 #_
 
-article id=91 dt=Text ctime=0 mtime=3891884882 nm=Manual of LuaFAR 2M
+article id=91 dt=Text ctime=0 mtime=3907771674 nm=Manual of LuaFAR 2M
 #_<markdown>
 #_## This manual describes the LuaFAR variant intended for work with [far2m](https://github.com/shmuz/far2m) (Linux fork of FAR Manager v2).
 #_
@@ -2075,7 +2071,7 @@ article id=91 dt=Text ctime=0 mtime=3891884882 nm=Manual of LuaFAR 2M
 #_This package allows writing Far Manager plugins in
 #_[Lua](https://www.lua.org/) 5.1 programming language.
 #_The package provides source code for `luafar.so` (a runtime library)
-#_and `luaplug.c` (a generic plugin).
+#_and `luaplug.c` (a [generic plugin](214.html)).
 #_
 #_* The functions exported by the plugin are found in the `export` global Lua table
 #_and are mostly named after their C-function callers, e.g., `ConfigureW` calls
@@ -2117,7 +2113,7 @@ article id=94 dt=Text ctime=0 mtime=3902581778 nm=export.ClosePanel
 #_@@@
 #_
 
-article id=95 dt=Text ctime=0 mtime=0 nm=export.Compare
+article id=95 dt=Text ctime=0 mtime=3907314920 nm=export.Compare
 #_result = export.Compare (object, handle, PanelItem1, PanelItem2, Mode)
 #_
 #_**Parameters:**
@@ -2130,15 +2126,25 @@ article id=95 dt=Text ctime=0 mtime=0 nm=export.Compare
 #_**Returns:**
 #_  result:     integer
 #_
+#_**Note:**
+#_  As this function is usually called in loops the arguments'
+#_  conversion from C to Lua becomes too expensive.
+#_  A way to get faster sorting is to implement **CompareW** in C
+#_  and only call into Lua once (just before the sorting loop starts)
+#_  in order to obtain some values for **CompareW** customization.
+#_
+#_**Far API used:**
+#_  CompareW
+#_
 #_@@@
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=96 dt=Text ctime=0 mtime=3907257773 nm=export.Configure
+article id=96 dt=Text ctime=0 mtime=3907389159 nm=export.Configure
 #_result = export.Configure (ItemNumber)
 #_
 #_**Parameters:**
-#_  ItemNumber: integer (1-based)
+#_  ItemNumber: integer (0-based)
 #_
 #_**Returns:**
 #_  result:     boolean
@@ -2149,7 +2155,7 @@ article id=96 dt=Text ctime=0 mtime=3907257773 nm=export.Configure
 #_@@@
 #_
 
-article id=97 dt=Text ctime=0 mtime=0 nm=export.DeleteFiles
+article id=97 dt=Text ctime=0 mtime=3907327146 nm=export.DeleteFiles
 #_result = export.DeleteFiles (object, handle, PanelItems, OpMode)
 #_
 #_**Parameters:**
@@ -2160,6 +2166,9 @@ article id=97 dt=Text ctime=0 mtime=0 nm=export.DeleteFiles
 #_
 #_**Returns:**
 #_  result:     boolean
+#_
+#_**Far API used:**
+#_  DeleteFilesW
 #_
 #_@@@
 #_[tPluginPanelItem]: 85.html
@@ -2180,38 +2189,30 @@ article id=98 dt=Text ctime=0 mtime=3883979252 nm=export.ExitFAR
 #_@@@
 #_
 
-article id=99 dt=Text ctime=0 mtime=0 nm=export.FreeFindData
-#_**This function is not called by LuaFAR**
-#_
-#_@@@
-#_
-
-article id=100 dt=Text ctime=0 mtime=0 nm=export.FreeVirtualFindData
-#_**This function is not called by LuaFAR**
-#_
-#_@@@
-#_
-
-article id=101 dt=Text ctime=0 mtime=0 nm=export.GetFiles
-#_result = export.GetFiles (object, handle, PanelItems, Move,
-#_                       DestPath, OpMode)
+article id=101 dt=Text ctime=0 mtime=3907316235 nm=export.GetFiles
+#_result [, newDestPath] = export.GetFiles(
+#_    object, handle, PanelItems, Move, DestPath, OpMode)
 #_
 #_**Parameters:**
-#_  object:     plugin object
-#_  handle:     plugin handle
-#_  PanelItems: table (array of `tPluginPanelItem`)
-#_  Move:       boolean
-#_  DestPath:   string
-#_  OpMode:     integer
+#_  object:      plugin object
+#_  handle:      plugin handle
+#_  PanelItems:  table (array of `tPluginPanelItem`)
+#_  Move:        boolean
+#_  DestPath:    string
+#_  OpMode:      integer
 #_
 #_**Returns:**
-#_  result:     integer
+#_  result:      integer
+#_  newDestPath: string (optional)
+#_
+#_**Far API used:**
+#_  GetFilesW
 #_
 #_@@@
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=102 dt=Text ctime=0 mtime=0 nm=export.GetFindData
+article id=102 dt=Text ctime=0 mtime=3907325790 nm=export.GetFindData
 #_Items = export.GetFindData (object, handle, OpMode)
 #_
 #_**Parameters:**
@@ -2222,6 +2223,12 @@ article id=102 dt=Text ctime=0 mtime=0 nm=export.GetFindData
 #_**Returns:**
 #_  Items:   table (array of `tPluginPanelItem`)
 #_
+#_**Note:**
+#_  FreeFindDataW is provided internally by LuaFAR.
+#_
+#_**Far API used:**
+#_  GetFindDataW, FreeFindDataW
+#_
 #_@@@
 #_[tPluginPanelItem]: 85.html
 #_
@@ -2230,7 +2237,7 @@ article id=103 dt=Text ctime=0 mtime=3866133117 nm=GetMinFarVersionW
 #_int GetMinFarVersionW()
 #_
 
-article id=104 dt=Text ctime=0 mtime=3902593908 nm=export.GetOpenPanelInfo
+article id=104 dt=Text ctime=0 mtime=3907326847 nm=export.GetOpenPanelInfo
 #_OpenPanelInfo = export.GetOpenPanelInfo (object, handle)
 #_
 #_**Parameters:**
@@ -2238,8 +2245,8 @@ article id=104 dt=Text ctime=0 mtime=3902593908 nm=export.GetOpenPanelInfo
 #_  handle: plugin handle
 #_
 #_**Returns:**
-#_  OpenPanelInfo: table
-#_    fields of OpenPanelInfo (most are optional):
+#_  OPInfo: table
+#_    fields of OPInfo (most are optional):
 #_      Flags:            flags combination
 #_      HostFile:         string
 #_      CurDir:           string
@@ -2261,6 +2268,9 @@ article id=104 dt=Text ctime=0 mtime=3902593908 nm=export.GetOpenPanelInfo
 #_      "Titles", "CtrlTitles", "AltTitles", "ShiftTitles",
 #_      "CtrlShiftTitles", "AltShiftTitles",  "CtrlAltTitles".
 #_  Each of these arrays may contain up to 12 strings.
+#_
+#_**Far API used:**
+#_  GetOpenPluginInfoW
 #_
 #_@@@
 #_[tInfoLine]: 120.html
@@ -2288,7 +2298,7 @@ article id=105 dt=Text ctime=0 mtime=3890940578 nm=export.GetPluginInfo
 #_@@@
 #_
 
-article id=106 dt=Text ctime=0 mtime=0 nm=export.GetVirtualFindData
+article id=106 dt=Text ctime=0 mtime=3907325807 nm=export.GetVirtualFindData
 #_Items = export.GetVirtualFindData (object, handle, Path)
 #_
 #_**Parameters:**
@@ -2299,11 +2309,17 @@ article id=106 dt=Text ctime=0 mtime=0 nm=export.GetVirtualFindData
 #_**Returns:**
 #_  Items:   table (array of `tPluginPanelItem`)
 #_
+#_**Note:**
+#_  FreeVirtualFindDataW is provided internally by LuaFAR.
+#_
+#_**Far API used:**
+#_  GetVirtualFindDataW, FreeVirtualFindDataW
+#_
 #_@@@
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=107 dt=Text ctime=0 mtime=0 nm=export.MakeDirectory
+article id=107 dt=Text ctime=0 mtime=3907314502 nm=export.MakeDirectory
 #_Status [, NewName] = export.MakeDirectory (object, handle, Name, OpMode)
 #_
 #_**Parameters:**
@@ -2316,10 +2332,13 @@ article id=107 dt=Text ctime=0 mtime=0 nm=export.MakeDirectory
 #_  Status:  integer (in accordance with FAR API)
 #_  NewName: string
 #_
+#_**Far API used:**
+#_  MakeDirectoryW
+#_
 #_@@@
 #_
 
-article id=108 dt=Text ctime=0 mtime=3480348469 nm=export.OpenFilePlugin
+article id=108 dt=Text ctime=0 mtime=3907314793 nm=export.OpenFilePlugin
 #_object = export.OpenFilePlugin (Name, Data, OpMode)
 #_
 #_**Parameters:**
@@ -2335,11 +2354,14 @@ article id=108 dt=Text ctime=0 mtime=3480348469 nm=export.OpenFilePlugin
 #_    - The plugin object is passed to other exported functions
 #_      when they are called by Far.
 #_
+#_**Far API used:**
+#_  OpenFilePluginW
+#_
 #_@@@
 #_
 #_
 
-article id=109 dt=Text ctime=0 mtime=3907262347 nm=export.Open
+article id=109 dt=Text ctime=0 mtime=3907389202 nm=export.Open
 #_ret = export.Open (OpenFrom, Item, hDlg)
 #_
 #_**Parameters:**
@@ -2355,10 +2377,8 @@ article id=109 dt=Text ctime=0 mtime=3907262347 nm=export.Open
 #_          string
 #_      if OpenFrom == OPEN_SHORTCUT:
 #_          string
-#_      if OpenFrom == OPEN_DIALOG:
-#_          integer (1-based)
 #_      if OpenFrom == something else:
-#_          integer (1-based)
+#_          integer (0-based)
 #_  hDlg:
 #_      userdata (only when OpenFrom == OPEN_DIALOG)
 #_
@@ -2421,22 +2441,25 @@ article id=111 dt=Text ctime=0 mtime=3907298499 nm=export.ProcessEditorInput
 #_[tInputRecord]: 187.html
 #_
 
-article id=112 dt=Text ctime=0 mtime=3904041814 nm=export.ProcessPanelEvent
+article id=112 dt=Text ctime=0 mtime=3907340445 nm=export.ProcessPanelEvent
 #_result = export.ProcessPanelEvent (object, handle, Event, Param)
 #_
 #_**Parameters:**
 #_  object: plugin object
 #_  handle: plugin handle
 #_  Event:  integer
-#_  Param:  string, or nil
+#_  Param:  string (for FE_CHANGEVIEWMODE and FE_COMMAND), or nil
 #_
 #_**Returns:**
 #_  result: boolean
 #_
+#_**Far API used:**
+#_  ProcessEventW
+#_
 #_@@@
 #_
 
-article id=113 dt=Text ctime=0 mtime=0 nm=export.ProcessHostFile
+article id=113 dt=Text ctime=0 mtime=3907314653 nm=export.ProcessHostFile
 #_result = export.ProcessHostFile (object, handle, Items, OpMode)
 #_
 #_**Parameters:**
@@ -2448,11 +2471,14 @@ article id=113 dt=Text ctime=0 mtime=0 nm=export.ProcessHostFile
 #_**Returns:**
 #_  result: boolean
 #_
+#_**Far API used:**
+#_  ProcessHostFileW
+#_
 #_@@@
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=114 dt=Text ctime=0 mtime=3480360622 nm=export.ProcessKey
+article id=114 dt=Text ctime=0 mtime=3907314670 nm=export.ProcessKey
 #_result = export.ProcessKey (object, handle, Key, ControlState)
 #_
 #_**Parameters:**
@@ -2464,27 +2490,34 @@ article id=114 dt=Text ctime=0 mtime=3480360622 nm=export.ProcessKey
 #_**Returns:**
 #_  result:       boolean
 #_
+#_**Far API used:**
+#_  ProcessKeyW
+#_
 #_@@@
 #_
 
-article id=115 dt=Text ctime=0 mtime=0 nm=export.PutFiles
-#_result = export.PutFiles (object, handle, Items, Move, OpMode)
+article id=115 dt=Text ctime=0 mtime=3907329596 nm=export.PutFiles
+#_result = export.PutFiles (object, handle, Items, Move, SrcPath, OpMode)
 #_
 #_**Parameters:**
-#_  object: plugin object
-#_  handle: plugin handle
-#_  Items:  table (array of `tPluginPanelItem`)
-#_  Move:   boolean
-#_  OpMode: integer
+#_  object:   plugin object
+#_  handle:   plugin handle
+#_  Items:    table (array of `tPluginPanelItem`)
+#_  Move:     boolean
+#_  SrcPath:  string
+#_  OpMode:   integer
 #_
 #_**Returns:**
-#_  result: integer
+#_  result:   integer
+#_
+#_**Far API used:**
+#_  PutFilesW
 #_
 #_@@@
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=116 dt=Text ctime=0 mtime=0 nm=export.SetDirectory
+article id=116 dt=Text ctime=0 mtime=3907314714 nm=export.SetDirectory
 #_result = export.SetDirectory (object, handle, Dir, OpMode)
 #_
 #_**Parameters:**
@@ -2496,10 +2529,13 @@ article id=116 dt=Text ctime=0 mtime=0 nm=export.SetDirectory
 #_**Returns:**
 #_  result: boolean
 #_
+#_**Far API used:**
+#_  SetDirectoryW
+#_
 #_@@@
 #_
 
-article id=117 dt=Text ctime=0 mtime=0 nm=export.SetFindList
+article id=117 dt=Text ctime=0 mtime=3907314731 nm=export.SetFindList
 #_result = export.SetFindList (object, handle, Items)
 #_
 #_**Parameters:**
@@ -2509,6 +2545,9 @@ article id=117 dt=Text ctime=0 mtime=0 nm=export.SetFindList
 #_
 #_**Returns:**
 #_  result: boolean
+#_
+#_**Far API used:**
+#_  SetFindListW
 #_
 #_@@@
 #_[tPluginPanelItem]: 85.html
@@ -5721,7 +5760,7 @@ article id=363 dt=Text ctime=3484723553 mtime=3484723622 nm=win.RenameFile
 #_This function is an alias to [`win.MoveFile`](362.html).
 #_
 
-article id=364 dt=Text ctime=3485765841 mtime=3485773753 nm=export.GetCustomData
+article id=364 dt=Text ctime=3485765841 mtime=3907325775 nm=export.GetCustomData
 #_Data = export.GetCustomData (FilePath)
 #_
 #_**Parameters:**
@@ -5730,15 +5769,11 @@ article id=364 dt=Text ctime=3485765841 mtime=3485773753 nm=export.GetCustomData
 #_**Returns:**
 #_  Data:       string, or nil
 #_
-#_**WARNING:**
-#_  As of time of this writing, this function exploits an experimental
-#_  feature of Far, introduced in Far 2.0 build 1588.
+#_**Note:**
+#_  FreeCustomDataW is provided internally by LuaFAR.
 #_
-#_@@@
-#_
-
-article id=365 dt=Text ctime=3485765946 mtime=3485765967 nm=export.FreeCustomData
-#_**This function is not called by LuaFAR**
+#_**Far API used:**
+#_  GetCustomDataW, FreeCustomDataW
 #_
 #_@@@
 #_
@@ -6450,7 +6485,7 @@ article id=424 dt=Text ctime=3851400447 mtime=3906818038 nm=win.Uuid
 #_  from text representation to binary one.
 #_
 
-article id=425 dt=Text ctime=3851409449 mtime=3906309503 nm=Customizing the generic plugin
+article id=425 dt=Text ctime=3851409449 mtime=3907308531 nm=Customizing the generic plugin
 #_<markdown>
 #_
 #_<a name="customizing"></a>
@@ -6513,7 +6548,19 @@ article id=427 dt=Text ctime=3851421218 mtime=3851421394 nm=far.Guids
 #_@@@
 #_
 
-article id=428 dt=Text ctime=3851439608 mtime=3851439608 nm=Macro Control
+article id=428 dt=Text ctime=3851439608 mtime=3907828207 nm=Macro Control
+#_<markdown>
+#_- [`far.MacroAdd`]           (477.html)
+#_- [`far.MacroCheck`]         (429.html)
+#_- [`far.MacroDelete`]        (478.html)
+#_- [`far.MacroExecute`]       (474.html)
+#_- [`far.MacroGetArea`]       (430.html)
+#_- [`far.MacroGetLastError`]  (475.html)
+#_- [`far.MacroGetState`]      (431.html)
+#_- [`far.MacroLoadAll`]       (432.html)
+#_- [`far.MacroPost`]          (433.html)
+#_- [`far.MacroSaveAll`]       (434.html)
+#_
 
 article id=429 dt=Text ctime=3851440061 mtime=3861762920 nm=far.MacroCheck
 #_result = far.MacroCheck (SequenceText, Flags)
@@ -7021,7 +7068,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3901549246 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3895333101 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3907782164 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7033,14 +7080,12 @@ article id=463 dt=Text ctime=3853931289 mtime=3895333101 nm=actl namespace
 #_and functions from the **actl** table:
 #_
 #_  Commit                  ACTL_COMMIT
-#_  EjectMedia              ACTL_EJECTMEDIA
 #_  GetArrayColor           ACTL_GETARRAYCOLOR
 #_  GetColor                ACTL_GETCOLOR
 #_  GetConfirmations        ACTL_GETCONFIRMATIONS
 #_  GetCursorPos            ACTL_GETCURSORPOS
 #_  GetDescSettings         ACTL_GETDESCSETTINGS
 #_  GetDialogSettings       ACTL_GETDIALOGSETTINGS
-#_  GetFarHwnd              ACTL_GETFARHWND
 #_  GetFarRect              ACTL_GETFARRECT
 #_  GetFarVersion           ACTL_GETFARVERSION
 #_  GetInterfaceSettings    ACTL_GETINTERFACESETTINGS
@@ -7918,10 +7963,10 @@ article id=512 dt=Text ctime=3878637011 mtime=3878637382 nm=far.Host.SetDirector
 #_@@@
 #_
 
-article id=513 dt=Text ctime=3881311938 mtime=3907256800 nm=Lua engine
+article id=513 dt=Text ctime=3881311938 mtime=3907772125 nm=Lua engine
 #_<markdown>
-#_By default far2m tries to load either of `libluajit-5.1.so`
-#_or `liblua5.1.so`, in this order.
+#_By default far2m tries to load either `libluajit-5.1.so`
+#_or `liblua5.1.so`, in that order.
 #_
 #_If the environment variable `FARPLAINLUA` is defined then the order is reversed.
 #_
@@ -8074,19 +8119,6 @@ article id=528 dt=Text ctime=3892829915 mtime=3892838141 nm=ACTL_COMMIT
 #_  Result:   boolean
 #_
 
-article id=529 dt=Text ctime=3892829915 mtime=3892838150 nm=ACTL_EJECTMEDIA
-#_Result = far.AdvControl (Command, Param)
-#_
-#_**Parameters:**
-#_  Command:  ACTL_EJECTMEDIA
-#_  Param:    table (see its fields below)
-#_              Letter:  string (only the first character matters)
-#_              Flags:   flags combination
-#_
-#_**Returns:**
-#_  Result:   boolean
-#_
-
 article id=530 dt=Text ctime=3892829915 mtime=3892838157 nm=ACTL_GETARRAYCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
@@ -8098,7 +8130,7 @@ article id=530 dt=Text ctime=3892829915 mtime=3892838157 nm=ACTL_GETARRAYCOLOR
 #_  Result:   table (array of integers)
 #_
 
-article id=531 dt=Text ctime=3892829915 mtime=3892838169 nm=ACTL_GETCOLOR
+article id=531 dt=Text ctime=3892829915 mtime=3907780089 nm=ACTL_GETCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8108,8 +8140,10 @@ article id=531 dt=Text ctime=3892829915 mtime=3892838169 nm=ACTL_GETCOLOR
 #_**Returns:**
 #_  Result:   integer or nil
 #_
+#_**Example:**
+#_  color = actl.GetColor("COL_EDITORTEXT")
 
-article id=532 dt=Text ctime=3892829915 mtime=3892838180 nm=ACTL_GETCONFIRMATIONS
+article id=532 dt=Text ctime=3892829915 mtime=3907826203 nm=ACTL_GETCONFIRMATIONS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8117,7 +8151,7 @@ article id=532 dt=Text ctime=3892829915 mtime=3892838180 nm=ACTL_GETCONFIRMATION
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   integer
+#_  Result:   integer (flags combination)
 #_
 
 article id=533 dt=Text ctime=3892829915 mtime=3892838186 nm=ACTL_GETCURSORPOS
@@ -8132,7 +8166,7 @@ article id=533 dt=Text ctime=3892829915 mtime=3892838186 nm=ACTL_GETCURSORPOS
 #_              X, Y: integers
 #_
 
-article id=534 dt=Text ctime=3892829915 mtime=3892838199 nm=ACTL_GETDESCSETTINGS
+article id=534 dt=Text ctime=3892829915 mtime=3907826230 nm=ACTL_GETDESCSETTINGS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8140,10 +8174,11 @@ article id=534 dt=Text ctime=3892829915 mtime=3892838199 nm=ACTL_GETDESCSETTINGS
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   integer
+#_  Result:   integer (flags combination)
+#_
 #_
 
-article id=535 dt=Text ctime=3892829915 mtime=3892838204 nm=ACTL_GETDIALOGSETTINGS
+article id=535 dt=Text ctime=3892829915 mtime=3907826240 nm=ACTL_GETDIALOGSETTINGS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8151,18 +8186,7 @@ article id=535 dt=Text ctime=3892829915 mtime=3892838204 nm=ACTL_GETDIALOGSETTIN
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   integer
-#_
-
-article id=536 dt=Text ctime=3892829915 mtime=3892838210 nm=ACTL_GETFARHWND
-#_Result = far.AdvControl (Command, Param)
-#_
-#_**Parameters:**
-#_  Command:  ACTL_GETFARHWND
-#_  Param:    none
-#_
-#_**Returns:**
-#_  Result:   light userdata
+#_  Result:   integer (flags combination)
 #_
 
 article id=537 dt=Text ctime=3892829915 mtime=3892838217 nm=ACTL_GETFARRECT
@@ -8189,7 +8213,7 @@ article id=538 dt=Text ctime=3892829915 mtime=3892838223 nm=ACTL_GETFARVERSION
 #_           two numbers (e.g. 2,4), if Param==true;
 #_
 
-article id=539 dt=Text ctime=3892829915 mtime=3892838229 nm=ACTL_GETINTERFACESETTINGS
+article id=539 dt=Text ctime=3892829915 mtime=3907826250 nm=ACTL_GETINTERFACESETTINGS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8197,10 +8221,10 @@ article id=539 dt=Text ctime=3892829915 mtime=3892838229 nm=ACTL_GETINTERFACESET
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   integer
+#_  Result:   integer (flags combination)
 #_
 
-article id=540 dt=Text ctime=3892829915 mtime=3892838235 nm=ACTL_GETPANELSETTINGS
+article id=540 dt=Text ctime=3892829915 mtime=3907826261 nm=ACTL_GETPANELSETTINGS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8208,7 +8232,7 @@ article id=540 dt=Text ctime=3892829915 mtime=3892838235 nm=ACTL_GETPANELSETTING
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   integer
+#_  Result:   integer (flags combination)
 #_
 
 article id=541 dt=Text ctime=3892829915 mtime=3892838241 nm=ACTL_GETPLUGINMAXREADDATA
@@ -8238,7 +8262,7 @@ article id=542 dt=Text ctime=3892829915 mtime=3892838247 nm=ACTL_GETSHORTWINDOWI
 #_
 #_
 
-article id=543 dt=Text ctime=3892829915 mtime=3892838253 nm=ACTL_GETSYSTEMSETTINGS
+article id=543 dt=Text ctime=3892829915 mtime=3907826274 nm=ACTL_GETSYSTEMSETTINGS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8246,7 +8270,7 @@ article id=543 dt=Text ctime=3892829915 mtime=3892838253 nm=ACTL_GETSYSTEMSETTIN
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   integer
+#_  Result:   integer (flags combination)
 #_
 
 article id=544 dt=Text ctime=3892829915 mtime=3892838258 nm=ACTL_GETSYSWORDDIV
@@ -8288,19 +8312,20 @@ article id=546 dt=Text ctime=3892829915 mtime=3892838271 nm=ACTL_GETWINDOWINFO
 #_              Name:      string
 #_
 
-article id=547 dt=Text ctime=3892829915 mtime=3892835008 nm=ACTL_KEYMACRO
-#_Not supported, replaced by Macro Control functions.
+article id=547 dt=Text ctime=3892829915 mtime=3907827257 nm=ACTL_KEYMACRO
+#_<markdown>
+#_Not supported, replaced by [Macro Control](428.html) functions.
 #_
 
-article id=549 dt=Text ctime=3892829915 mtime=3892838288 nm=ACTL_QUIT
-#_Result = far.AdvControl (Command, Param)
+article id=549 dt=Text ctime=3892829915 mtime=3907829357 nm=ACTL_QUIT
+#_far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
 #_  Command:  ACTL_QUIT
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   boolean
+#_  The function does not return
 #_
 
 article id=550 dt=Text ctime=3892829915 mtime=3892838294 nm=ACTL_REDRAWALL
@@ -8356,7 +8381,7 @@ article id=556 dt=Text ctime=3892829915 mtime=3892835829 nm=ACTL_SYNCHRO
 #_Not supported as it is used internally in far.Timer.
 #_
 
-article id=557 dt=Text ctime=3892829915 mtime=3892838333 nm=ACTL_WAITKEY
+article id=557 dt=Text ctime=3892829915 mtime=3907830939 nm=ACTL_WAITKEY
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8365,6 +8390,9 @@ article id=557 dt=Text ctime=3892829915 mtime=3892838333 nm=ACTL_WAITKEY
 #_
 #_**Returns:**
 #_  Result:   integer
+#_
+#_**Example:**
+#_  actl.WaitKey("KEY_F5")
 #_
 
 article id=558 dt=Text ctime=3892829915 mtime=3892838339 nm=ACTL_WINPORTBACKEND
@@ -8534,6 +8562,39 @@ article id=567 dt=Text ctime=3906133864 mtime=3906134273 nm=panel.SetPanelLocati
 #_
 #_**Far API used:**
 #_  PanelControl, FCTL_SETPANELLOCATION
+#_
+#_@@@
+#_
+
+article id=568 dt=Text ctime=3907582185 mtime=3907582267 nm=far.SubscribeDialogDrawEvents
+#_far.SubscribeDialogDrawEvents ()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  nothing
+#_
+#_**Description:**
+#_  This function affects the action of `export.ProcessDialogEvent`.
+#_
+#_  There is a group of frequently called events that slow down the processing.
+#_  This occurs due to conversion of arguments between C and Lua.
+#_
+#_  For each new dialog, `export.ProcessDialogEvent` will **not** be called for the following
+#_  values of *Param.Msg*:
+#_      `DN_CTLCOLORDIALOG`
+#_      `DN_CTLCOLORDLGITEM`
+#_      `DN_CTLCOLORDLGLIST`
+#_      `DN_DRAWDIALOG`
+#_      `DN_DRAWDIALOGDONE`
+#_      `DN_DRAWDLGITEM`
+#_
+#_  In order to start receiving this group of messages, call far.SubscribeDialogDrawEvents()
+#_  after the dialog creation, e.g. when `DN_INITDIALOG` comes.
+#_
+#_**Far API used:**
+#_  none
 #_
 #_@@@
 #_
