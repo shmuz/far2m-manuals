@@ -4,6 +4,8 @@ node lv=0 id=91 art=91 nm=Manual of LuaFAR 2M
 node lv=1 id=214 art=214 nm=Generic LuaFAR plugin
 node lv=2 id=425 art=425 nm=Customizing the generic plugin
 node lv=2 id=426 art=426 nm=Extra exported functions
+node lv=3 id=577 art=571 nm=GetLuaState
+node lv=3 id=578 art=572 nm=luaopen_luaplug
 node lv=1 id=329 art=329 nm=Flags
 node lv=1 id=515 art=513 nm=Lua engine
 node lv=0 id=92 art=92 nm=LuaFAR plugin-exported functions
@@ -14,6 +16,7 @@ node lv=2 id=105 art=105 nm=export.GetPluginInfo
 node lv=2 id=447 art=447 nm=export.MayExitFAR
 node lv=2 id=109 art=109 nm=export.Open
 node lv=2 id=485 art=485 nm=export.ProcessConsoleInput
+node lv=2 id=580 art=574 nm=export.ProcessSynchroEvent
 node lv=1 id=123 art=123 nm=Panel functions
 node lv=2 id=94 art=94 nm=export.ClosePanel
 node lv=2 id=95 art=95 nm=export.Compare
@@ -246,6 +249,7 @@ node lv=2 id=2 art=2 nm=far.CmpName
 node lv=2 id=493 art=493 nm=far.CmpNameList
 node lv=2 id=284 art=284 nm=far.ConvertPath
 node lv=2 id=3 art=3 nm=far.CopyToClipboard
+node lv=2 id=576 art=570 nm=far.FormatFileSize
 node lv=2 id=495 art=495 nm=far.GenerateName
 node lv=2 id=262 art=262 nm=far.GetCurrentDirectory
 node lv=2 id=528 art=526 nm=far.GetFileGroup
@@ -292,6 +296,7 @@ node lv=2 id=518 art=516 nm=far.InMyTemp
 node lv=2 id=459 art=459 nm=far.Log
 node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
+node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
 node lv=1 id=273 art=273 nm=Regular expression functions
 node lv=2 id=488 art=488 nm=regex.exec, execW
 node lv=2 id=271 art=271 nm=regex.find, findW
@@ -303,6 +308,7 @@ node lv=2 id=266 art=266 nm=regex.new
 node lv=3 id=377 art=377 nm=method bracketscount
 node lv=3 id=489 art=489 nm=methods exec, execW
 node lv=3 id=267 art=267 nm=methods find, findW
+node lv=3 id=581 art=575 nm=methods gmatch, gmatchW
 node lv=3 id=386 art=386 nm=methods gsub, gsubW
 node lv=3 id=268 art=268 nm=methods match, matchW
 node lv=3 id=484 art=484 nm=methods tfind, tfindW
@@ -333,6 +339,7 @@ node lv=1 id=84 art=84 nm="Structures"
 node lv=2 id=314 art=314 nm=tCoord
 node lv=2 id=295 art=295 nm=tFarDialogItem
 node lv=2 id=293 art=293 nm=tFarListColors
+node lv=2 id=579 art=573 nm=tFarTrueColorForeAndBack
 node lv=2 id=90 art=90 nm=tFindData
 node lv=2 id=120 art=120 nm=tInfoLine
 node lv=2 id=187 art=187 nm=tInputRecord
@@ -382,6 +389,7 @@ node lv=3 id=503 art=503 nm=win.GetSystemTime
 node lv=3 id=217 art=217 nm=win.GetSystemTimeAsFileTime
 node lv=3 id=216 art=216 nm=win.SystemTimeToFileTime
 node lv=2 id=423 art=423 nm=Various functions
+node lv=3 id=574 art=569 nm=win.EnsureColorsAreInverted
 node lv=3 id=565 art=563 nm=win.ExpandEnv
 node lv=3 id=51 art=51 nm=win.ExtractKey
 node lv=3 id=359 art=359 nm=win.GetConsoleScreenBufferInfo
@@ -1577,7 +1585,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3901549094 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1817,14 +1825,10 @@ article id=71 dt=Text ctime=0 mtime=3901549094 nm=far.SendDlgMessage
 #_DM_SETTRUECOLOR:
 #_    Param2:  table
 #_      {
-#_        Normal    = { Fore = { R=<n>; G=<n>; B=<n>; Flags=<n> };
-#_                      Back = { R=<n>; G=<n>; B=<n>; Flags=<n> }; };
-#_        Hilighted = { Fore = { R=<n>; G=<n>; B=<n>; Flags=<n> };
-#_                      Back = { R=<n>; G=<n>; B=<n>; Flags=<n> }; };
-#_        Frame     = { Fore = { R=<n>; G=<n>; B=<n>; Flags=<n> };
-#_                      Back = { R=<n>; G=<n>; B=<n>; Flags=<n> }; };
+#_        Normal    = `tFarTrueColorForeAndBack`;
+#_        Hilighted = `tFarTrueColorForeAndBack`;
+#_        Frame     = `tFarTrueColorForeAndBack`;
 #_      }
-#_      where <n> stands for optional integer.
 #_
 #_DM_GETDLGDATA:
 #_    Result: the dialog data (can be any Lua value)
@@ -1933,13 +1937,13 @@ article id=74 dt=Text ctime=0 mtime=3480262815 nm=far.ShowHelp
 #_@@@
 #_
 
-article id=76 dt=Text ctime=0 mtime=3853087975 nm=far.Text
+article id=76 dt=Text ctime=0 mtime=3910514944 nm=far.Text
 #_far.Text (X, Y, Color, Str)
 #_
 #_**Parameters:**
 #_  X:     integer
 #_  Y:     integer
-#_  Color: integer
+#_  Color: integer, or `tFarTrueColorForeAndBack` table
 #_  Str:   string, or nil (if nil, NULL is passed to Far)
 #_
 #_**Returns:**
@@ -2361,12 +2365,12 @@ article id=108 dt=Text ctime=0 mtime=3907314793 nm=export.OpenFilePlugin
 #_
 #_
 
-article id=109 dt=Text ctime=0 mtime=3907389202 nm=export.Open
-#_ret = export.Open (OpenFrom, Item, hDlg)
+article id=109 dt=Text ctime=0 mtime=3910450800 nm=export.Open
+#_ret = export.Open (OpenFrom, ItemNumber, Item)
 #_
 #_**Parameters:**
-#_  OpenFrom:
-#_      flag (integer)
+#_  OpenFrom:    integer
+#_  ItemNumber:  integer (0-based)
 #_  Item:
 #_      if OpenFrom == OPEN_FROMMACRO:
 #_          table (array of arguments):
@@ -2377,10 +2381,11 @@ article id=109 dt=Text ctime=0 mtime=3907389202 nm=export.Open
 #_          string
 #_      if OpenFrom == OPEN_SHORTCUT:
 #_          string
+#_      if OpenFrom == OPEN_DIALOG:
+#_          table:
+#_            *hDlg*: userdata
 #_      if OpenFrom == something else:
-#_          integer (0-based)
-#_  hDlg:
-#_      userdata (only when OpenFrom == OPEN_DIALOG)
+#_          integer
 #_
 #_**Returns:**
 #_  if OpenFrom == OPEN_FROMMACRO:
@@ -5576,12 +5581,13 @@ article id=341 dt=Text ctime=3481108972 mtime=3481109785 nm=LF_Gsub
 #_
 #_
 
-article id=346 dt=Text ctime=3482124061 mtime=3905692449 nm=far.Timer
-#_timer = far.Timer (interval, handler)
+article id=346 dt=Text ctime=3482124061 mtime=3911307022 nm=far.Timer
+#_timer = far.Timer (interval, handler [, ...])
 #_
 #_**Parameters:**
 #_  interval : integer (milliseconds)
 #_  handler  : function
+#_  ...      : additional arguments (any Lua types)
 #_
 #_**Returns:**
 #_  timer    : userdata (timer object), or nil
@@ -5589,7 +5595,8 @@ article id=346 dt=Text ctime=3482124061 mtime=3905692449 nm=far.Timer
 #_**Description:**
 #_  The function creates a periodic timer. Every time the next
 #_  *interval* milliseconds are elapsed, the *handler* is called
-#_  with the timer object as its argument.
+#_  with the timer object as its first argument followed by all
+#_  the additional arguments (if any) passed to far.Timer.
 #_
 #_  The returned "timer object" can be used to query or modify
 #_  the timer parameters. The object has an API similar to Delphi
@@ -6349,13 +6356,12 @@ article id=406 dt=Text ctime=3851357353 mtime=3907256660 nm=luautf8
 #_It use same license with Lua: http://www.lua.org/license.html
 #_
 
-article id=407 dt=Text ctime=3851357426 mtime=3851357582 nm=utf8.dump
-#_**Note:**
-#_  This is an added function, not present in the original luautf8 library.
-#_  See `string.dump` for reference.
+article id=407 dt=Text ctime=3851357426 mtime=3910985783 nm=utf8.dump
+#_This is the same function as `string.dump`.
 #_
 #_@@@
 #_[string.dump]: http://www.lua.org/manual/5.1/manual.html#pdf-string.dump
+#_
 #_
 
 article id=408 dt=Text ctime=3851357445 mtime=3851357597 nm=utf8.format
@@ -6367,13 +6373,12 @@ article id=408 dt=Text ctime=3851357445 mtime=3851357597 nm=utf8.format
 #_[string.format]: http://www.lua.org/manual/5.1/manual.html#pdf-string.format
 #_
 
-article id=409 dt=Text ctime=3851357454 mtime=3851357605 nm=utf8.rep
-#_**Note:**
-#_  This is an added function, not present in the original luautf8 library.
-#_  See `string.rep` for reference.
+article id=409 dt=Text ctime=3851357454 mtime=3910985819 nm=utf8.rep
+#_This is the same function as `string.rep`.
 #_
 #_@@@
 #_[string.rep]: http://www.lua.org/manual/5.1/manual.html#pdf-string.rep
+#_
 #_
 
 article id=410 dt=Text ctime=3851357461 mtime=3851357620 nm=utf8.utf8valid
@@ -6517,24 +6522,7 @@ article id=425 dt=Text ctime=3851409449 mtime=3907308531 nm=Customizing the gene
 #_@@@
 #_
 
-article id=426 dt=Text ctime=3851409469 mtime=3907256618 nm=Extra exported functions
-#_<markdown>
-#_
-#_<a name="luaopen_luaplug"></a>
-#_### Extra exported function: `luaopen_luaplug`
-#_Some libraries (e.g. `rings`) can create additional `lua_State` instances from Lua scripts. To initialize those instances with libraries included in LuaFAR (`far`, `panel`, `editor`, etc.), call `luaopen_luaplug`. The function must be loaded via `package.loadlib`. Internally, it calls [`LF_InitOtherLuaState`](385.html).
-#_
-#_### Example:
-#_```
-#_  local rings = require "rings"
-#_  local r1 = rings.new()
-#_  r1:dostring([[
-#_    local modname = ...
-#_    assert(package.loadlib(modname, "luaopen_luaplug"))()
-#_    far.Message ("Hello world", "Called from a ring")
-#_  ]], far.PluginStartupInfo().ModuleName)
-#_```
-#_
+article id=426 dt=Text ctime=3851409469 mtime=3910446154 nm=Extra exported functions
 
 article id=427 dt=Text ctime=3851421218 mtime=3851421394 nm=far.Guids
 #_far.Guids
@@ -7068,7 +7056,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3901549246 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3907782164 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3911294676 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7101,6 +7089,7 @@ article id=463 dt=Text ctime=3853931289 mtime=3907782164 nm=actl namespace
 #_  SetArrayColor           ACTL_SETARRAYCOLOR
 #_  SetCurrentWindow        ACTL_SETCURRENTWINDOW
 #_  SetCursorPos            ACTL_SETCURSORPOS
+#_  Synchro                 ACTL_SYNCHRO
 #_  WaitKey                 ACTL_WAITKEY
 #_  WinPortBackend          ACTL_WINPORTBACKEND
 #_
@@ -7435,15 +7424,25 @@ article id=478 dt=Text ctime=3862320437 mtime=3862320979 nm=far.MacroDelete
 #_[MCTL_DELMACRO]: https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_DELMACRO
 #_
 
-article id=479 dt=Text ctime=3862762502 mtime=3862762644 nm=far.ColorDialog
-#_OutColor = far.ColorDialog (InColor, Transparent)
+article id=479 dt=Text ctime=3862762502 mtime=3910652287 nm=far.ColorDialog
+#_OutColor = far.ColorDialog (InColor, Flags)
 #_
 #_**Parameters:**
-#_  InColor:      integer (optional; default=0x0F)
-#_  Transparent:  boolean (optional; default=false)
+#_  InColor:      table or integer (optional; default = 0x0F)
+#_  Flags:        flags
 #_
 #_**Returns:**
-#_  OutColor:     integer, or nil
+#_  OutColor:     table, or nil
+#_
+#_**Description:**
+#_  The input table may and the output one will have the following fields:
+#_    ForegroundColor:  integer (24 bits), default = 0
+#_    BackgroundColor:  integer (24 bits), default = 0
+#_    PaletteColor:     integer (8 bits),  default = 0x0F
+#_    Transparency:     integer (8 bits),  default = 0
+#_
+#_  The input table may specify integer indexes [1] to [4]
+#_  rather than string fields.
 #_
 #_**Far API used:**
 #_  ColorDialog
@@ -8377,8 +8376,16 @@ article id=553 dt=Text ctime=3892829915 mtime=3892838312 nm=ACTL_SETCURSORPOS
 #_  Result:   boolean
 #_
 
-article id=556 dt=Text ctime=3892829915 mtime=3892835829 nm=ACTL_SYNCHRO
-#_Not supported as it is used internally in far.Timer.
+article id=556 dt=Text ctime=3892829915 mtime=3911294802 nm=ACTL_SYNCHRO
+#_Result = far.AdvControl (Command, Param)
+#_
+#_**Parameters:**
+#_  Command:  ACTL_SYNCHRO
+#_  Param:    integer
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
 #_
 
 article id=557 dt=Text ctime=3892829915 mtime=3907830939 nm=ACTL_WAITKEY
@@ -8597,5 +8604,131 @@ article id=568 dt=Text ctime=3907582185 mtime=3907582267 nm=far.SubscribeDialogD
 #_  none
 #_
 #_@@@
+#_
+
+article id=569 dt=Text ctime=3909482400 mtime=3909482621 nm=win.EnsureColorsAreInverted
+#_win.EnsureColorsAreInverted (X, Y)
+#_
+#_**Parameters:**
+#_  X:  integer
+#_  Y:  integer
+#_
+#_**Returns:**
+#_  nothing
+#_
+#_**Note:**
+#_  This function is used in the Lua implementation of ColorDialog.
+#_
+#_@@@
+#_
+
+article id=570 dt=Text ctime=3910123429 mtime=3910123464 nm=far.FormatFileSize
+#_result = far.FormatFileSize (Size, Width, Flags [, MinSizeIndex])
+#_
+#_**Parameters:**
+#_  Size:         number
+#_  Width:        integer
+#_  Flags:        flags
+#_  MinSizeIndex: integer (only takes effect when *Flags* contain FFFS_MINSIZEINDEX)
+#_
+#_**Returns:**
+#_  result:       string
+#_
+#_**Far API used:**
+#_  FormatFileSize
+#_
+#_@@@
+#_{fffs_minsizeindex}: http://api.farmanager.com/ru/fsf/formatfilesize.html#FFFS_MINSIZEINDEX
+#_{formatfilesize}: http://api.farmanager.com/ru/fsf/formatfilesize.html
+#_
+
+article id=571 dt=Text ctime=3910446119 mtime=3910446219 nm=GetLuaState
+#_<markdown>
+#_
+#_`lua_State* GetLuaState()`
+#_
+#_Returns the current main `lua_State` of the plugin.
+#_
+#_Do not store the returned value for further use, as it may be invalidated
+#_by reloading the plugin. Instead, call this function again whenever needed.
+#_
+#_[1]: 495.html
+#_
+
+article id=572 dt=Text ctime=3910446132 mtime=3910446158 nm=luaopen_luaplug
+#_<markdown>
+#_
+#_<a name="luaopen_luaplug"></a>
+#_### Extra exported function: `luaopen_luaplug`
+#_Some libraries (e.g. `rings`) can create additional `lua_State` instances from Lua scripts. To initialize those instances with libraries included in LuaFAR (`far`, `panel`, `editor`, etc.), call `luaopen_luaplug`. The function must be loaded via `package.loadlib`. Internally, it calls [`LF_InitOtherLuaState`](385.html).
+#_
+#_### Example:
+#_```
+#_  local rings = require "rings"
+#_  local r1 = rings.new()
+#_  r1:dostring([[
+#_    local modname = ...
+#_    assert(package.loadlib(modname, "luaopen_luaplug"))()
+#_    far.Message ("Hello world", "Called from a ring")
+#_  ]], far.PluginStartupInfo().ModuleName)
+#_```
+#_
+
+article id=573 dt=Text ctime=3910513952 mtime=3910516051 nm=tFarTrueColorForeAndBack
+#_<markdown>
+#_**`tFarTrueColorForAndBack`** is a table with the following predefined fields:
+#_
+#_      ForegroundColor:  integer
+#_      BackgroundColor:  integer
+#_
+#_When passing data to Far it is also possible to use integer keys
+#_1 and 2 instead of the string keys, i.e., the following tables A
+#_and B are equivalent in the sense of defining a color:
+#_
+#_      A = { ForegroundColor=0x123456; BackgroundColor=0x789ABC; }
+#_      B = { 0x123456; 0x789ABC; }
+#_
+#_If both string and integer keys are present the string key has higher priority.
+#_
+#_When the data comes from Far the string keys are always used.
+#_
+
+article id=574 dt=Text ctime=3911294479 mtime=3911294514 nm=export.ProcessSynchroEvent
+#_ret = export.ProcessSynchroEvent (event, param)
+#_
+#_**Parameters:**
+#_  event: integer
+#_  param: integer
+#_
+#_**Returns:**
+#_  ret:   integer
+#_
+#_**Far API used:**
+#_  ProcessSynchroEventW
+#_
+#_@@@
+#_
+
+article id=575 dt=Text ctime=3911500947 mtime=3911501132 nm=methods gmatch, gmatchW
+#_for c1 [,c2 ...] in regex_object:gmatch (s) do
+#_  ......
+#_end
+#_
+#_**Parameters:**
+#_  s       :  string
+#_
+#_**Returns:**
+#_  c1,...  :  strings (there can be *false* in place of captures
+#_                     not participated in the match)
+#_
+#_**Note:**
+#_*regex_object:gmatchW* receives its 1-st argument
+#_and returns captures in UTF-32LE encoding.
+#_
+#_**Far API used:**
+#_  `RegExpControl`
+#_
+#_@@@
+#_[RegExpControl]: https://api.farmanager.com/ru/service_functions/regexpcontrol.html
 #_
 
