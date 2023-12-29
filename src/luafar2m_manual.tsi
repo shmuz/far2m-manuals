@@ -276,27 +276,6 @@ node lv=2 id=211 art=211 nm=far.RecursiveSearch
 node lv=2 id=209 art=209 nm=far.TruncPathStr
 node lv=2 id=210 art=210 nm=far.TruncStr
 node lv=2 id=335 art=335 nm=far.XLat
-node lv=1 id=496 art=496 nm=Far2M-specific functions
-node lv=2 id=527 art=525 nm=actl.WinPortBackend
-node lv=2 id=453 art=453 nm=far.BackgroundTask
-node lv=2 id=509 art=505 nm=far.ClearPluginCache
-node lv=2 id=452 art=452 nm=far.DispatchInterThreadCalls
-node lv=2 id=451 art=451 nm=far.DisplayNotification
-node lv=2 id=449 art=449 nm=far.Execute
-node lv=2 id=450 art=450 nm=far.ExecuteLibrary
-node lv=2 id=501 art=501 nm=far.GetFileEncoding
-node lv=2 id=569 art=526 nm=far.GetFileGroup
-node lv=2 id=570 art=56 nm=far.GetFileOwner
-node lv=2 id=519 art=517 nm=far.GetMyHome
-node lv=2 id=476 art=476 nm=far.GetPluginId
-node lv=2 id=563 art=561 nm=far.GetPluginGlobalInfo
-node lv=2 id=517 art=515 nm=far.InMyCache
-node lv=2 id=516 art=514 nm=far.InMyConfig
-node lv=2 id=518 art=516 nm=far.InMyTemp
-node lv=2 id=459 art=459 nm=far.Log
-node lv=2 id=564 art=562 nm=far.WriteConsole
-node lv=2 id=572 art=567 nm=panel.SetPanelLocation
-node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
 node lv=1 id=273 art=273 nm=Regular expression functions
 node lv=2 id=488 art=488 nm=regex.exec, execW
 node lv=2 id=271 art=271 nm=regex.find, findW
@@ -322,7 +301,9 @@ node lv=2 id=461 art=461 nm=far.InputRecordToName
 node lv=2 id=191 art=191 nm=far.LuafarVersion
 node lv=2 id=280 art=280 nm=far.MakeMenuItems
 node lv=2 id=68 art=68 nm=far.PluginStartupInfo
+node lv=2 id=588 art=582 nm=far.RunDefaultScript
 node lv=2 id=282 art=282 nm=far.Show
+node lv=2 id=589 art=583 nm=far.SplitCmdLine
 node lv=2 id=346 art=346 nm=far.Timer
 node lv=3 id=352 art=352 nm=Properties
 node lv=4 id=354 art=354 nm=Closed
@@ -406,6 +387,34 @@ node lv=2 id=407 art=407 nm=utf8.dump
 node lv=2 id=408 art=408 nm=utf8.format
 node lv=2 id=409 art=409 nm=utf8.rep
 node lv=2 id=410 art=410 nm=utf8.utf8valid
+node lv=0 id=496 art=496 nm=Far2M-specific functions
+node lv=1 id=583 art=577 nm=actl
+node lv=2 id=527 art=525 nm=actl.WinPortBackend
+node lv=1 id=584 art=578 nm=export
+node lv=2 id=582 art=447 nm=export.MayExitFAR
+node lv=1 id=585 art=579 nm=far
+node lv=2 id=453 art=453 nm=far.BackgroundTask
+node lv=2 id=509 art=505 nm=far.ClearPluginCache
+node lv=2 id=452 art=452 nm=far.DispatchInterThreadCalls
+node lv=2 id=451 art=451 nm=far.DisplayNotification
+node lv=2 id=449 art=449 nm=far.Execute
+node lv=2 id=450 art=450 nm=far.ExecuteLibrary
+node lv=2 id=501 art=501 nm=far.GetFileEncoding
+node lv=2 id=569 art=526 nm=far.GetFileGroup
+node lv=2 id=570 art=56 nm=far.GetFileOwner
+node lv=2 id=519 art=517 nm=far.GetMyHome
+node lv=2 id=476 art=476 nm=far.GetPluginId
+node lv=2 id=563 art=561 nm=far.GetPluginGlobalInfo
+node lv=2 id=517 art=515 nm=far.InMyCache
+node lv=2 id=516 art=514 nm=far.InMyConfig
+node lv=2 id=518 art=516 nm=far.InMyTemp
+node lv=2 id=459 art=459 nm=far.Log
+node lv=2 id=590 art=583 nm=far.SplitCmdLine
+node lv=2 id=564 art=562 nm=far.WriteConsole
+node lv=1 id=586 art=580 nm=panel
+node lv=2 id=572 art=567 nm=panel.SetPanelLocation
+node lv=1 id=587 art=581 nm=win
+node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
 node lv=2 id=158 art=158 nm=LF_ClosePanel
@@ -529,7 +538,7 @@ article id=6 dt=Text ctime=0 mtime=3853512036 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3907564385 nm=panel.GetPanelInfo
+article id=7 dt=Text ctime=0 mtime=3912017591 nm=panel.GetPanelInfo
 #_tPanelInfo = panel.GetPanelInfo (handle)
 #_
 #_**Parameters:**
@@ -550,6 +559,10 @@ article id=7 dt=Text ctime=0 mtime=3907564385 nm=panel.GetPanelInfo
 #_      SortMode:            integer
 #_      Flags:               flags
 #_      OwnerHandle:         light userdata, or nil
+#_
+#_**Note 1:**
+#_  For plugin panels *OwnerHandle* is a handle of the plugin that owns
+#_  the panel. It can be used e.g. in `far.GetPluginInformation`.
 #_
 #_**Far API used:**
 #_  Control, FCTL_GETPANELINFO, PanelInfo
@@ -6490,7 +6503,7 @@ article id=424 dt=Text ctime=3851400447 mtime=3906818038 nm=win.Uuid
 #_  from text representation to binary one.
 #_
 
-article id=425 dt=Text ctime=3851409449 mtime=3907308531 nm=Customizing the generic plugin
+article id=425 dt=Text ctime=3851409449 mtime=3912828710 nm=Customizing the generic plugin
 #_<markdown>
 #_
 #_<a name="customizing"></a>
@@ -6503,21 +6516,12 @@ article id=425 dt=Text ctime=3851409449 mtime=3907308531 nm=Customizing the gene
 #_  `project(hello)`            <br>
 #_  will result in `hello.far-plug-wide` DLL.
 #_
-#_- **`SYS_ID`**<br>
-#_  the plugin's identifier, a 32-bit unsigned integer, e.g.:<br>
-#_  `-DSYS_ID=0x6F332978`
-#_
 #_- **`EXP_NAMES`**<br>
 #_  list of functions that should be exported by the plugin
 #_  (in uppercase, whitespace-separated), e.g.:<br>
 #_  `set(EXP_NAMES OPENPLUGIN EXITFAR)`        <br>
 #_(The functions `SetStartupInfoW`, `GetGlobalInfoW`, `GetPluginInfoW` and `ProcessSynchroEventW`
 #_are always exported, so there's no need to include them in the list.)
-#_
-#_- **`PLUG_MINFARVERSION`**<br>
-#_  the minimum FAR version to be accepted by the plugin, e.g.:<br>
-#_  `-DPLUG_MINFARVERSION=MAKEFARVERSION(2,5)`<br>
-#_(This setting is used only if `EXP_NAMES` includes `GETMINFARVERSION`.)
 #_
 #_@@@
 #_
@@ -7146,7 +7150,7 @@ article id=466 dt=Text ctime=3859993119 mtime=3889634161 nm=editor.DelColor
 #_@@@
 #_
 
-article id=467 dt=Text ctime=3861011876 mtime=3894872741 nm=GetGlobalInfoW
+article id=467 dt=Text ctime=3861011876 mtime=3912828916 nm=GetGlobalInfoW
 #_<markdown>
 #_`void GetGlobalInfoW(struct GlobalInfo *Info)`
 #_
@@ -7155,16 +7159,7 @@ article id=467 dt=Text ctime=3861011876 mtime=3894872741 nm=GetGlobalInfoW
 #_  and other fields with information about the plugin.
 #_
 #_### Notes:
-#_  1. `GetGlobalInfoW` is supported only with Far2M.
-#_     Plugins are not required to export this function.
-#_  1. If the generic LuaFAR plugin (*luaplug.c*) is used then `GetGlobalInfoW`
-#_     is exported and the following values must be defined as compilation flags:
-#_     - `SYS_ID`
-#_     - `PLUG_MINFARVERSION`
-#_     - `PLUG_VERSION`
-#_     - `PLUG_TITLE`
-#_     - `PLUG_DESCRIPTION`
-#_     - `PLUG_AUTHOR`
+#_  1. LuaFAR plugins are required to export this function.
 #_  1. `GetGlobalInfoW` is called by Far prior to [`SetStartupInfoW()`](118.html)
 #_     and Far Manager fills the `Private` field of `StartupInfo` struct
 #_     if `SysID` identifies one of the "known plugins".
@@ -8730,5 +8725,61 @@ article id=575 dt=Text ctime=3911500947 mtime=3911501132 nm=methods gmatch, gmat
 #_
 #_@@@
 #_[RegExpControl]: https://api.farmanager.com/ru/service_functions/regexpcontrol.html
+#_
+
+article id=577 dt=Text ctime=3912014683 mtime=3912014683 nm=actl
+
+article id=578 dt=Text ctime=3912014694 mtime=3912014694 nm=export
+
+article id=579 dt=Text ctime=3912014705 mtime=3912014705 nm=far
+
+article id=580 dt=Text ctime=3912014756 mtime=3912014756 nm=panel
+
+article id=581 dt=Text ctime=3912014765 mtime=3912014765 nm=win
+
+article id=582 dt=Text ctime=3912631426 mtime=3912631486 nm=far.RunDefaultScript
+#_Result = far.RunDefaultScript ()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Result: boolean (true = success)
+#_
+#_**Description:**
+#_  Runs the default script of the plugin.
+#_  This usually means that all plugin's code is **immediately** reloaded.
+#_  This is different from setting *far.ReloadDefaultScript = true* which causes
+#_  a deferred reload (that occurs when `export.Open` is called the next time).
+#_
+#_**See also:**
+#_  `LF_RunDefaultScript`
+#_  `far.ReloadDefaultScript`
+#_
+#_@@@
+#_[LF_RunDefaultScript]: 130.html
+#_[far.ReloadDefaultScript]: 173.html
+#_[export.Open]: 109.html
+#_
+
+article id=583 dt=Text ctime=3912956918 mtime=3913010668 nm=far.SplitCmdLine
+#_... = far.SplitCmdLine (str)
+#_
+#_**Parameters:**
+#_  str : string
+#_
+#_**Returns:**
+#_  ... : 0 or more strings (up to 64)
+#_
+#_**Description:**
+#_  The function treats its parameter as consisting of space-delimitered
+#_  parts and those parts are returned.
+#_
+#_  A part can contain spaces if it is either enclosed in double quotes
+#_  or if those spaces are escaped with backslashes.
+#_
+#_  A part can contain double quotes if they are escaped with backslashes.
+#_
+#_  Unescaped backslashes are skipped.
 #_
 
