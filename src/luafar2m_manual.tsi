@@ -24,6 +24,7 @@ node lv=2 id=97 art=97 nm=export.DeleteFiles
 node lv=2 id=364 art=364 nm=export.GetCustomData
 node lv=2 id=101 art=101 nm=export.GetFiles
 node lv=2 id=102 art=102 nm=export.GetFindData
+node lv=2 id=591 art=584 nm=export.GetLinkTarget
 node lv=2 id=104 art=104 nm=export.GetOpenPanelInfo
 node lv=2 id=106 art=106 nm=export.GetVirtualFindData
 node lv=2 id=107 art=107 nm=export.MakeDirectory
@@ -391,6 +392,7 @@ node lv=0 id=496 art=496 nm=Far2M-specific functions
 node lv=1 id=583 art=577 nm=actl
 node lv=2 id=527 art=525 nm=actl.WinPortBackend
 node lv=1 id=584 art=578 nm=export
+node lv=2 id=592 art=584 nm=export.GetLinkTarget
 node lv=2 id=582 art=447 nm=export.MayExitFAR
 node lv=1 id=585 art=579 nm=far
 node lv=2 id=453 art=453 nm=far.BackgroundTask
@@ -769,31 +771,32 @@ article id=21 dt=Text ctime=0 mtime=3851868780 nm=editor.Editor
 #_
 #_
 
-article id=22 dt=Text ctime=0 mtime=3906996511 nm=editor.AddColor
-#_result = editor.AddColor (EditorId, StringNumber, StartPos, EndPos, Flags, Color)
+article id=22 dt=Text ctime=0 mtime=3914784647 nm=editor.AddColor
+#_result = editor.AddColor (EditorId, StringNumber, StartPos, EndPos, Flags,
+#_                          Color)
 #_
 #_**Parameters:**
 #_  EditorId     : integer, or nil
 #_  StringNumber : integer, or nil
 #_  StartPos     : integer (1-based)
 #_  EndPos       : integer (1-based)
-#_  Flags        : flags combination (defaults to 0)
-#_  Color        : integer, or table
+#_  Flags        : flags (defaults to 0)
+#_  Color        : table or integer
 #_
 #_**Returns:**
 #_  result : boolean
 #_
 #_**Note 1:**
 #_  If *Color* parameter is a table, it may have the following fields:
-#_    BaseColor : integer 
 #_    TrueFore  : integer (foreground RGB color)
 #_    TrueBack  : integer (background RGB color)
 #_
 #_**Note 2:**
-#_  If Color (or Color.BaseColor) is nil or zero then the function fails
+#_  If *Color* is nil or zero then the function does nothing
+#_  and returns *false*.
 #_
 #_**Far API used:**
-#_  EditorControl, ECTL_ADDTRUECOLOR
+#_  EditorControl, ECTL_ADDCOLOR, ECTL_ADDTRUECOLOR
 #_
 #_@@@
 #_
@@ -8781,5 +8784,24 @@ article id=583 dt=Text ctime=3912956918 mtime=3913010668 nm=far.SplitCmdLine
 #_  A part can contain double quotes if they are escaped with backslashes.
 #_
 #_  Unescaped backslashes are skipped.
+#_
+
+article id=584 dt=Text ctime=3914307387 mtime=3914307646 nm=export.GetLinkTarget
+#_Target = export.GetLinkTarget (object, handle, Item, OpMode)
+#_
+#_**Parameters:**
+#_  object:  plugin object
+#_  handle:  plugin handle
+#_  Item  :  table (`tPluginPanelItem`)
+#_  OpMode:  integer
+#_
+#_**Returns:**
+#_  Target:  string, or nil
+#_
+#_**Far API used:**
+#_  GetLinkTargetW
+#_
+#_@@@
+#_[tPluginPanelItem]: 85.html
 #_
 
