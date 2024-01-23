@@ -50,6 +50,8 @@ node lv=2 id=51 art=51 nm=Dlg
 node lv=2 id=48 art=48 nm=Drv
 node lv=2 id=52 art=52 nm=Editor
 node lv=2 id=54 art=54 nm=Far
+node lv=3 id=111 art=111 nm=Cfg_Get
+node lv=3 id=112 art=112 nm=Cfg_Set
 node lv=3 id=95 art=95 nm=GetConfig
 node lv=2 id=49 art=49 nm=Help
 node lv=2 id=53 art=53 nm=Menu
@@ -990,7 +992,7 @@ article id=53 dt=Text ctime=3553252746 mtime=3903968771 nm=Menu
 #_
 #_
 
-article id=54 dt=Text ctime=3553252749 mtime=3909679350 nm=Far
+article id=54 dt=Text ctime=3553252749 mtime=3915208064 nm=Far
 #_**Far** - a table with the following fields:
 #_
 #_**Properties:**
@@ -1005,7 +1007,8 @@ article id=54 dt=Text ctime=3553252749 mtime=3909679350 nm=Far
 #_
 #_**Functions:**
 #_
-#_  Cfg_Get (not implemented)
+#_  `Cfg_Get`
+#_  `Cfg_Set`
 #_  DisableHistory
 #_  `GetConfig`
 #_  KbdLayout
@@ -1013,9 +1016,6 @@ article id=54 dt=Text ctime=3553252749 mtime=3909679350 nm=Far
 #_  Window_Scroll
 #_
 #_@@@
-#_[GetConfig]: 95.html
-#_
-#_{cfg_get}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#Far.Cfg.Get
 #_{disablehistory}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#history.disable
 #_{fullscreen}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#Fullscreen
 #_{height}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#Far.Height
@@ -2774,5 +2774,40 @@ article id=110 dt=Text ctime=3910196314 mtime=3910196845 nm=size2str
 #_  The value of *Flags* is the combination of the same bits
 #_  as in the function *FormatFileSize*
 #_  (see *FARFORMATFILESIZEFLAGS* in farplug-wide.h).
+#_
+
+article id=111 dt=Text ctime=3915204276 mtime=3915205936 nm=Cfg_Get
+#_key, name, tp, val0, val = Far.Cfg_Get (index)
+#_
+#_**Parameters:**
+#_  index:   integer (1-based)
+#_
+#_**Returns:**
+#_  key:     string (e.g. "Editor")
+#_  name:    string (e.g. "ShowTitleBar")
+#_  tp:      string; either of: "integer", "boolean", "3-state",
+#_                              "string" or "binary"
+#_  val0:    integer or string (the default value of this Far option)
+#_  val:     integer or string (the current value of this Far option)
+#_
+#_The function returns *false* when parameter *index* is out of range.
+#_
+#_**Note**:
+#_  This function is different from and not API-compatible with
+#_  the Far3 function having the same name.
+#_
+
+article id=112 dt=Text ctime=3915204297 mtime=3915207754 nm=Cfg_Set
+#_result = Far.Cfg_Set (index, value)
+#_
+#_**Parameters:**
+#_  index:   integer (1-based)
+#_  value:   integer or string
+#_
+#_**Returns:**
+#_  result:  boolean
+#_
+#_The function returns *false* when parameter *index* is out of range
+#_or when the type of parameter *value* differs from the expected one.
 #_
 
