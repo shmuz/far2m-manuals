@@ -50,9 +50,8 @@ node lv=2 id=51 art=51 nm=Dlg
 node lv=2 id=48 art=48 nm=Drv
 node lv=2 id=52 art=52 nm=Editor
 node lv=2 id=54 art=54 nm=Far
-node lv=3 id=111 art=111 nm=Cfg_Get
-node lv=3 id=112 art=112 nm=Cfg_Set
-node lv=3 id=95 art=95 nm=GetConfig
+node lv=3 id=111 art=111 nm=GetConfig
+node lv=3 id=112 art=112 nm=SetConfig
 node lv=2 id=49 art=49 nm=Help
 node lv=2 id=53 art=53 nm=Menu
 node lv=2 id=59 art=59 nm=Mouse
@@ -992,7 +991,7 @@ article id=53 dt=Text ctime=3553252746 mtime=3903968771 nm=Menu
 #_
 #_
 
-article id=54 dt=Text ctime=3553252749 mtime=3915208064 nm=Far
+article id=54 dt=Text ctime=3553252749 mtime=3915632400 nm=Far
 #_**Far** - a table with the following fields:
 #_
 #_**Properties:**
@@ -1007,12 +1006,11 @@ article id=54 dt=Text ctime=3553252749 mtime=3915208064 nm=Far
 #_
 #_**Functions:**
 #_
-#_  `Cfg_Get`
-#_  `Cfg_Set`
 #_  DisableHistory
 #_  `GetConfig`
 #_  KbdLayout
 #_  KeyBar_Show
+#_  `SetConfig`
 #_  Window_Scroll
 #_
 #_@@@
@@ -2322,26 +2320,6 @@ article id=94 dt=Text ctime=3618592117 mtime=3891885480 nm=Loading macrofiles
 #_@@@
 #_
 
-article id=95 dt=Text ctime=3618906297 mtime=3909679562 nm=GetConfig
-#_val, tp = Far.GetConfig (keyname)
-#_
-#_**Parameters:**
-#_  keyname: string (e.g. "Editor.ShowTitleBar")
-#_
-#_**Returns:**
-#_  val:     integer, string (UTF-8), or binary string
-#_           This is the value of the queried configuration setting.
-#_
-#_  tp:      string ("integer", "string", "binary")
-#_           This is the type of the original value in Far Manager.
-#_
-#_**Note:**
-#_  In cases of failure (e.g an invalid argument, or Far Manager did not find
-#_  the specified option) this function raises an error.
-#_
-#_@@@
-#_
-
 article id=96 dt=Text ctime=3636459316 mtime=3891885526 nm=Adding command line prefixes
 #_<markdown>
 #_
@@ -2776,38 +2754,39 @@ article id=110 dt=Text ctime=3910196314 mtime=3910196845 nm=size2str
 #_  (see *FARFORMATFILESIZEFLAGS* in farplug-wide.h).
 #_
 
-article id=111 dt=Text ctime=3915204276 mtime=3915205936 nm=Cfg_Get
-#_key, name, tp, val0, val = Far.Cfg_Get (index)
+article id=111 dt=Text ctime=3915204276 mtime=3915633105 nm=GetConfig
+#_val, type, val0, key, name, saved = Far.GetConfig (index)
 #_
 #_**Parameters:**
-#_  index:   integer (1-based)
+#_  index:   integer (1-based), or string (e.g. "Editor.ShowTitleBar")
 #_
 #_**Returns:**
+#_  val:     integer or string (the current value of this option)
+#_  type:    string; either of: "integer", "boolean", "3-state",
+#_                              "string" or "binary"
+#_  val0:    integer or string (the default value of this option)
 #_  key:     string (e.g. "Editor")
 #_  name:    string (e.g. "ShowTitleBar")
-#_  tp:      string; either of: "integer", "boolean", "3-state",
-#_                              "string" or "binary"
-#_  val0:    integer or string (the default value of this Far option)
-#_  val:     integer or string (the current value of this Far option)
+#_  saved:   boolean (saved when Far configuration is saved)
 #_
-#_The function returns *false* when parameter *index* is out of range.
+#_The function returns *false* when parameter *index* is invalid.
 #_
 #_**Note**:
 #_  This function is different from and not API-compatible with
 #_  the Far3 function having the same name.
 #_
 
-article id=112 dt=Text ctime=3915204297 mtime=3915207754 nm=Cfg_Set
-#_result = Far.Cfg_Set (index, value)
+article id=112 dt=Text ctime=3915204297 mtime=3915632428 nm=SetConfig
+#_result = Far.SetConfig (index, value)
 #_
 #_**Parameters:**
-#_  index:   integer (1-based)
-#_  value:   integer or string
+#_  index:   integer (1-based), or string (e.g. "Editor.ShowTitleBar")
+#_  value:   integer, string (UTF-8) or binary { [1]=string }
 #_
 #_**Returns:**
 #_  result:  boolean
 #_
-#_The function returns *false* when parameter *index* is out of range
-#_or when the type of parameter *value* differs from the expected one.
+#_The function returns *false* when parameter *index* is invalid
+#_or when the parameter *value* has incorrect type.
 #_
 
