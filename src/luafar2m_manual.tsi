@@ -253,6 +253,7 @@ node lv=2 id=3 art=3 nm=far.CopyToClipboard
 node lv=2 id=576 art=570 nm=far.FormatFileSize
 node lv=2 id=495 art=495 nm=far.GenerateName
 node lv=2 id=262 art=262 nm=far.GetCurrentDirectory
+node lv=2 id=593 art=501 nm=far.GetFileEncoding
 node lv=2 id=528 art=526 nm=far.GetFileGroup
 node lv=2 id=56 art=56 nm=far.GetFileOwner
 node lv=2 id=59 art=59 nm=far.GetNumberOfLinks

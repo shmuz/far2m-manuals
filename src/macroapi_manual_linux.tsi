@@ -1315,9 +1315,7 @@ article id=67 dt=Text ctime=3568746613 mtime=3600517601 nm=Format of macros and 
 #_At the stage of loading macros all regular and keyboard macro files are run one by one.
 #_
 
-article id=69 dt=Text ctime=3571243204 mtime=3868113239 nm=usermenu
-#_**== Not yet implemented ==**
-#_
+article id=69 dt=Text ctime=3571243204 mtime=3915713550 nm=usermenu
 #_mf.usermenu (mode, filename)
 #_
 #_**Parameters:**
