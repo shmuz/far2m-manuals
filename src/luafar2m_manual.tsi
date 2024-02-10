@@ -510,11 +510,11 @@ article id=4 dt=Text ctime=0 mtime=3902575538 nm=panel.ClosePanel
 #_@@@
 #_
 
-article id=5 dt=Text ctime=0 mtime=3853512018 nm=panel.GetCmdLine
-#_result = panel.GetCmdLine ()
+article id=5 dt=Text ctime=0 mtime=3916571718 nm=panel.GetCmdLine
+#_result = panel.GetCmdLine ([handle])
 #_
 #_**Parameters:**
-#_  none
+#_  handle: panel handle
 #_
 #_**Returns:**
 #_  result: string (or nil)
@@ -526,11 +526,11 @@ article id=5 dt=Text ctime=0 mtime=3853512018 nm=panel.GetCmdLine
 #_@@@
 #_
 
-article id=6 dt=Text ctime=0 mtime=3853512036 nm=panel.GetCmdLinePos
-#_pos = panel.GetCmdLinePos ()
+article id=6 dt=Text ctime=0 mtime=3916571742 nm=panel.GetCmdLinePos
+#_pos = panel.GetCmdLinePos ([handle])
 #_
 #_**Parameters:**
-#_  none
+#_  handle: panel handle
 #_
 #_**Returns:**
 #_  pos: 1-based position (or nil)
@@ -541,11 +541,12 @@ article id=6 dt=Text ctime=0 mtime=3853512036 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3912017591 nm=panel.GetPanelInfo
-#_tPanelInfo = panel.GetPanelInfo (handle)
+article id=7 dt=Text ctime=0 mtime=3916571945 nm=panel.GetPanelInfo
+#_tPanelInfo = panel.GetPanelInfo (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  tPanelInfo: table, or nil
@@ -574,10 +575,11 @@ article id=7 dt=Text ctime=0 mtime=3912017591 nm=panel.GetPanelInfo
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=9 dt=Text ctime=0 mtime=3853512583 nm=panel.InsertCmdLine
-#_result = panel.InsertCmdLine (str)
+article id=9 dt=Text ctime=0 mtime=3916572173 nm=panel.InsertCmdLine
+#_result = panel.InsertCmdLine (handle, str)
 #_
 #_**Parameters:**
+#_  handle: panel handle, or nil
 #_  str:    string
 #_
 #_**Returns:**
@@ -590,11 +592,12 @@ article id=9 dt=Text ctime=0 mtime=3853512583 nm=panel.InsertCmdLine
 #_@@@
 #_
 
-article id=10 dt=Text ctime=0 mtime=3853512643 nm=panel.RedrawPanel
-#_result = panel.RedrawPanel (handle [, redrawinfo])
+article id=10 dt=Text ctime=0 mtime=3916572229 nm=panel.RedrawPanel
+#_result = panel.RedrawPanel (handle, whatpanel [, redrawinfo])
 #_
 #_**Parameters:**
-#_  handle:     panel handle
+#_  handle:     panel handle, or nil
+#_  whatpanel:  1=active panel; 0=passive panel;
 #_  redrawinfo: table with the following fields:
 #_                CurrentItem  : integer (1-based)
 #_                TopPanelItem : integer (1-based)
@@ -609,10 +612,11 @@ article id=10 dt=Text ctime=0 mtime=3853512643 nm=panel.RedrawPanel
 #_@@@
 #_
 
-article id=11 dt=Text ctime=0 mtime=3853512699 nm=panel.SetCmdLine
-#_result = panel.SetCmdLine (str)
+article id=11 dt=Text ctime=0 mtime=3916572339 nm=panel.SetCmdLine
+#_result = panel.SetCmdLine (handle, str)
 #_
 #_**Parameters:**
+#_  handle: panel handle, or nil
 #_  str:    string
 #_
 #_**Returns:**
@@ -625,10 +629,11 @@ article id=11 dt=Text ctime=0 mtime=3853512699 nm=panel.SetCmdLine
 #_@@@
 #_
 
-article id=12 dt=Text ctime=0 mtime=3853512711 nm=panel.SetCmdLinePos
-#_result = panel.SetCmdLinePos (pos)
+article id=12 dt=Text ctime=0 mtime=3916572361 nm=panel.SetCmdLinePos
+#_result = panel.SetCmdLinePos (handle, pos)
 #_
 #_**Parameters:**
+#_  handle: panel handle, or nil
 #_  pos:    1-based integer
 #_
 #_**Returns:**
@@ -640,11 +645,12 @@ article id=12 dt=Text ctime=0 mtime=3853512711 nm=panel.SetCmdLinePos
 #_@@@
 #_
 
-article id=13 dt=Text ctime=0 mtime=3853512789 nm=panel.SetPanelDirectory
-#_result = panel.SetPanelDirectory (handle, dir)
+article id=13 dt=Text ctime=0 mtime=3916572489 nm=panel.SetPanelDirectory
+#_result = panel.SetPanelDirectory (handle, whatpanel, dir)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  dir:       string
 #_
 #_**Returns:**
@@ -656,11 +662,12 @@ article id=13 dt=Text ctime=0 mtime=3853512789 nm=panel.SetPanelDirectory
 #_@@@
 #_
 
-article id=14 dt=Text ctime=0 mtime=3853512829 nm=panel.SetSelection
-#_result = panel.SetSelection (handle, items, selection)
+article id=14 dt=Text ctime=0 mtime=3916572584 nm=panel.SetSelection
+#_result = panel.SetSelection (handle, whatpanel, items, selection)
 #_
 #_**Parameters:**
-#_  handle:       panel handle
+#_  handle:       panel handle, or nil
+#_  whatpanel:    1=active_panel, 0=inactive_panel
 #_  items:        integer (1-based item index),
 #_                or table (array of item indexes)
 #_  selection:    boolean
@@ -691,11 +698,12 @@ article id=15 dt=Text ctime=0 mtime=3853512537 nm=panel.SetUserScreen
 #_@@@
 #_
 
-article id=16 dt=Text ctime=0 mtime=3853512920 nm=panel.SetViewMode
-#_result = panel.SetViewMode (handle, mode)
+article id=16 dt=Text ctime=0 mtime=3916572684 nm=panel.SetViewMode
+#_result = panel.SetViewMode (handle, whatpanel, mode)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  mode:      integer (0...9)
 #_
 #_**Returns:**
@@ -708,11 +716,12 @@ article id=16 dt=Text ctime=0 mtime=3853512920 nm=panel.SetViewMode
 #_@@@
 #_
 
-article id=17 dt=Text ctime=0 mtime=3853512944 nm=panel.UpdatePanel
-#_result = panel.UpdatePanel (handle [, keepselection])
+article id=17 dt=Text ctime=0 mtime=3916572705 nm=panel.UpdatePanel
+#_result = panel.UpdatePanel (handle, whatpanel [, keepselection])
 #_
 #_**Parameters:**
-#_  handle:         panel handle
+#_  handle:         panel handle, or nil
+#_  whatpanel:      1=active panel; 0=passive panel;
 #_  keepselection:  boolean, defaults to false
 #_
 #_**Returns:**
@@ -1468,8 +1477,8 @@ article id=64 dt=Text ctime=0 mtime=3892050591 nm=far.Menu
 #_[virtual key]: https://api.farmanager.com/ru/winapi/virtualkeycodes.html
 #_
 
-article id=65 dt=Text ctime=0 mtime=3853248148 nm=far.Message
-#_result = far.Message (Msg, [Title], [Buttons], [Flags], [HelpTopic])
+article id=65 dt=Text ctime=0 mtime=3916511554 nm=far.Message
+#_result = far.Message (Msg, [Title], [Buttons], [Flags], [HelpTopic], [Id])
 #_
 #_**Parameters:**
 #_  *Msg:*       any type (usually: string)
@@ -1495,6 +1504,8 @@ article id=65 dt=Text ctime=0 mtime=3853248148 nm=far.Message
 #_
 #_  *HelpTopic:* string
 #_
+#_  *Id:*        string (GUID); default=all zero GUID
+#_
 #_**Returns:**
 #_  *result:* integer (1-based)
 #_
@@ -1509,7 +1520,7 @@ article id=65 dt=Text ctime=0 mtime=3853248148 nm=far.Message
 #_  a line starting with \2 as a double delimiter line.
 #_
 #_**Far API used:**
-#_  `Message`
+#_  MessageV3
 #_
 #_@@@
 #_
@@ -2923,11 +2934,11 @@ article id=144 dt=Text ctime=0 mtime=3889634668 nm=viewer.Select
 #_@@@
 #_
 
-article id=145 dt=Text ctime=0 mtime=3853511531 nm=panel.CheckPanelsExist
-#_result = panel.CheckPanelsExist ()
+article id=145 dt=Text ctime=0 mtime=3916571536 nm=panel.CheckPanelsExist
+#_result = panel.CheckPanelsExist ([handle])
 #_
 #_**Parameters:**
-#_  none
+#_  handle: panel handle
 #_
 #_**Returns:**
 #_  result: boolean
@@ -2938,11 +2949,12 @@ article id=145 dt=Text ctime=0 mtime=3853511531 nm=panel.CheckPanelsExist
 #_@@@
 #_
 
-article id=146 dt=Text ctime=0 mtime=3853512765 nm=panel.SetNumericSort
-#_result = panel.SetNumericSort (handle [, set])
+article id=146 dt=Text ctime=0 mtime=3916572448 nm=panel.SetNumericSort
+#_result = panel.SetNumericSort (handle, whatpanel [, set])
 #_
 #_**Parameters:**
 #_  handle:    panel handle
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  set:       boolean, defaults to false
 #_
 #_**Returns:**
@@ -2954,11 +2966,12 @@ article id=146 dt=Text ctime=0 mtime=3853512765 nm=panel.SetNumericSort
 #_@@@
 #_
 
-article id=147 dt=Text ctime=0 mtime=3853512871 nm=panel.SetSortMode
-#_result = panel.SetSortMode (handle, mode)
+article id=147 dt=Text ctime=0 mtime=3916572626 nm=panel.SetSortMode
+#_result = panel.SetSortMode (handle, whatpanel, mode)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  mode:      flag (integer or string)
 #_
 #_**Returns:**
@@ -2970,11 +2983,12 @@ article id=147 dt=Text ctime=0 mtime=3853512871 nm=panel.SetSortMode
 #_@@@
 #_
 
-article id=148 dt=Text ctime=0 mtime=3853512890 nm=panel.SetSortOrder
-#_result = panel.SetSortOrder (handle [, order])
+article id=148 dt=Text ctime=0 mtime=3916572653 nm=panel.SetSortOrder
+#_result = panel.SetSortOrder (handle, whatpanel [, order])
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  order:     boolean (false=direct order; true=reverse order;
 #_                      defaults to false)
 #_
@@ -4368,11 +4382,12 @@ article id=251 dt=Text ctime=0 mtime=3851362213 nm=LuaUtf8
 #_SOFTWARE.
 #_
 
-article id=252 dt=Text ctime=0 mtime=3853512132 nm=panel.GetCurrentPanelItem
-#_item = panel.GetCurrentPanelItem (handle)
+article id=252 dt=Text ctime=0 mtime=3916571839 nm=panel.GetCurrentPanelItem
+#_item = panel.GetCurrentPanelItem (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  item:      `tPluginPanelItem`
@@ -4384,11 +4399,12 @@ article id=252 dt=Text ctime=0 mtime=3853512132 nm=panel.GetCurrentPanelItem
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=253 dt=Text ctime=0 mtime=3853512251 nm=panel.GetPanelItem
-#_item = panel.GetPanelItem (handle, itemindex)
+article id=253 dt=Text ctime=0 mtime=3916571973 nm=panel.GetPanelItem
+#_item = panel.GetPanelItem (handle, whatpanel, itemindex)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  itemindex: integer (1-based)
 #_
 #_**Returns:**
@@ -4401,11 +4417,12 @@ article id=253 dt=Text ctime=0 mtime=3853512251 nm=panel.GetPanelItem
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=254 dt=Text ctime=0 mtime=3853512338 nm=panel.GetSelectedPanelItem
-#_item = panel.GetSelectedPanelItem (handle, itemindex)
+article id=254 dt=Text ctime=0 mtime=3916572114 nm=panel.GetSelectedPanelItem
+#_item = panel.GetSelectedPanelItem (handle, whatpanel, itemindex)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  itemindex: integer (1-based)
 #_
 #_**Returns:**
@@ -4443,11 +4460,12 @@ article id=257 dt=Text ctime=0 mtime=0 nm=win.Utf8ToOem
 #_
 #_
 
-article id=258 dt=Text ctime=0 mtime=3853512078 nm=panel.GetColumnTypes
-#_ColumnTypes = panel.GetColumnTypes (handle)
+article id=258 dt=Text ctime=0 mtime=3916571791 nm=panel.GetColumnTypes
+#_ColumnTypes = panel.GetColumnTypes (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:      panel handle
+#_  handle:      panel handle, or nil
+#_  whatpanel:   1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  ColumnTypes: string
@@ -4458,11 +4476,12 @@ article id=258 dt=Text ctime=0 mtime=3853512078 nm=panel.GetColumnTypes
 #_@@@
 #_
 
-article id=259 dt=Text ctime=0 mtime=3853512110 nm=panel.GetColumnWidths
-#_ColumnWidths = panel.GetColumnWidths (handle)
+article id=259 dt=Text ctime=0 mtime=3916571816 nm=panel.GetColumnWidths
+#_ColumnWidths = panel.GetColumnWidths (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:       panel handle
+#_  handle:       panel handle, or nil
+#_  whatpanel:    1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  ColumnWidths: string
@@ -4473,11 +4492,12 @@ article id=259 dt=Text ctime=0 mtime=3853512110 nm=panel.GetColumnWidths
 #_@@@
 #_
 
-article id=260 dt=Text ctime=0 mtime=3855072295 nm=panel.GetPanelDirectory
-#_PanelDir = panel.GetPanelDirectory (handle)
+article id=260 dt=Text ctime=0 mtime=3916571872 nm=panel.GetPanelDirectory
+#_PanelDir = panel.GetPanelDirectory (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  PanelDir:  string
@@ -5518,13 +5538,14 @@ article id=329 dt=Text ctime=3480257526 mtime=3907255844 nm=Flags
 #_
 #_
 
-article id=330 dt=Text ctime=3480322277 mtime=3853511941 nm=panel.ClearSelection
-#_result = panel.ClearSelection (handle, items)
+article id=330 dt=Text ctime=3480322277 mtime=3916571625 nm=panel.ClearSelection
+#_result = panel.ClearSelection (handle, whatpanel, items)
 #_
 #_**Parameters:**
-#_  handle:  panel handle
-#_  items:   integer (1-based item index),
-#_           or table (array of item indexes)
+#_  handle:       panel handle, or nil
+#_  whatpanel:    1=active_panel, 0=inactive_panel
+#_  items:        integer (1-based item index),
+#_                or table (array of item indexes)
 #_
 #_**Returns:**
 #_  result: boolean
@@ -5537,11 +5558,11 @@ article id=330 dt=Text ctime=3480322277 mtime=3853511941 nm=panel.ClearSelection
 #_@@@
 #_
 
-article id=331 dt=Text ctime=3480326038 mtime=3853512053 nm=panel.GetCmdLineSelection
-#_SelStart, SelEnd = panel.GetCmdLineSelection ()
+article id=331 dt=Text ctime=3480326038 mtime=3916571769 nm=panel.GetCmdLineSelection
+#_SelStart, SelEnd = panel.GetCmdLineSelection ([handle])
 #_
 #_**Parameters:**
-#_  none
+#_  handle: panel handle
 #_
 #_**Returns:**
 #_  SelStart: integer (1-based)
@@ -5553,10 +5574,11 @@ article id=331 dt=Text ctime=3480326038 mtime=3853512053 nm=panel.GetCmdLineSele
 #_@@@
 #_
 
-article id=332 dt=Text ctime=3480326063 mtime=3853512722 nm=panel.SetCmdLineSelection
-#_result = panel.SetCmdLineSelection (selStart, selEnd)
+article id=332 dt=Text ctime=3480326063 mtime=3916572384 nm=panel.SetCmdLineSelection
+#_result = panel.SetCmdLineSelection (handle, selStart, selEnd)
 #_
 #_**Parameters:**
+#_  handle:   panel handle, or nil
 #_  selStart: integer (1-based)
 #_  selEnd:   integer
 #_
@@ -6001,11 +6023,12 @@ article id=380 dt=Text ctime=3490426732 mtime=3490521200 nm=far.DialogFree
 #_[far.DialogInit]: 378.html
 #_
 
-article id=381 dt=Text ctime=3492068593 mtime=3853513155 nm=panel.GetPanelFormat
-#_PanelFormat = panel.GetPanelFormat (handle)
+article id=381 dt=Text ctime=3492068593 mtime=3916571895 nm=panel.GetPanelFormat
+#_PanelFormat = panel.GetPanelFormat (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:       panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  PanelFormat:  string
@@ -6017,11 +6040,12 @@ article id=381 dt=Text ctime=3492068593 mtime=3853513155 nm=panel.GetPanelFormat
 #_
 #_
 
-article id=382 dt=Text ctime=3492068606 mtime=3853512200 nm=panel.GetPanelHostFile
-#_HostFile = panel.GetPanelHostFile (handle)
+article id=382 dt=Text ctime=3492068606 mtime=3916571919 nm=panel.GetPanelHostFile
+#_HostFile = panel.GetPanelHostFile (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:    panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  HostFile:  string
@@ -6151,11 +6175,12 @@ article id=394 dt=Text ctime=3500809326 mtime=3500809371 nm=win.EnumSystemCodePa
 #_@@@
 #_
 
-article id=395 dt=Text ctime=3501391498 mtime=3853513307 nm=panel.SetCaseSensitiveSort
-#_result = panel.SetCaseSensitiveSort (handle [, set])
+article id=395 dt=Text ctime=3501391498 mtime=3916572301 nm=panel.SetCaseSensitiveSort
+#_result = panel.SetCaseSensitiveSort (handle, whatpanel [, set])
 #_
 #_**Parameters:**
 #_  handle:    panel handle
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  set:       boolean, defaults to false
 #_
 #_**Returns:**
@@ -6854,13 +6879,14 @@ article id=453 dt=Text ctime=3852954289 mtime=3852954473 nm=far.BackgroundTask
 #_@@@
 #_
 
-article id=454 dt=Text ctime=3853224715 mtime=3853512744 nm=panel.SetDirectoriesFirst
-#_result = panel.SetDirectoriesFirst (handle [, setfirst])
+article id=454 dt=Text ctime=3853224715 mtime=3916572407 nm=panel.SetDirectoriesFirst
+#_result = panel.SetDirectoriesFirst (handle, whatpanel [, setfirst])
 #_
 #_**Parameters:**
-#_  handle:     panel handle
-#_  setfirst:   boolean (false=don't set directories first; true=set first;
-#_                       defaults to false)
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
+#_  setfirst:  boolean (false=don't set directories first; true=set first;
+#_                      defaults to false)
 #_
 #_**Returns:**
 #_  result: boolean
@@ -6871,11 +6897,12 @@ article id=454 dt=Text ctime=3853224715 mtime=3853512744 nm=panel.SetDirectories
 #_@@@
 #_
 
-article id=455 dt=Text ctime=3853322264 mtime=3853513277 nm=panel.GetPanelPluginHandle
-#_panel_handle = panel.GetPanelPluginHandle (handle)
+article id=455 dt=Text ctime=3853322264 mtime=3916572046 nm=panel.GetPanelPluginHandle
+#_panel_handle = panel.GetPanelPluginHandle (handle, whatpanel)
 #_
 #_**Parameters:**
 #_  handle:        panel handle
+#_  whatpanel:     1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  panel_handle:  lightuserdata, or nil
@@ -6899,11 +6926,12 @@ article id=456 dt=Text ctime=3853330590 mtime=3853330626 nm=win.IsProcess64bit
 #_  Returns **true** if called from FAR x64, **false** otherwise.
 #_
 
-article id=457 dt=Text ctime=3853444384 mtime=3853511949 nm=panel.BeginSelection
-#_result = panel.BeginSelection (handle)
+article id=457 dt=Text ctime=3853444384 mtime=3916571490 nm=panel.BeginSelection
+#_result = panel.BeginSelection (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:  panel handle
+#_  handle:       panel handle, or nil
+#_  whatpanel:    1=active_panel, 0=inactive_panel
 #_
 #_**Returns:**
 #_  result: boolean
@@ -6914,11 +6942,12 @@ article id=457 dt=Text ctime=3853444384 mtime=3853511949 nm=panel.BeginSelection
 #_@@@
 #_
 
-article id=458 dt=Text ctime=3853444404 mtime=3853511995 nm=panel.EndSelection
-#_result = panel.EndSelection (handle)
+article id=458 dt=Text ctime=3853444404 mtime=3916571690 nm=panel.EndSelection
+#_result = panel.EndSelection (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:  panel handle
+#_  handle:       panel handle, or nil
+#_  whatpanel:    1=active_panel, 0=inactive_panel
 #_
 #_**Returns:**
 #_  result: boolean
@@ -7719,11 +7748,12 @@ article id=497 dt=Text ctime=3871192568 mtime=3889634268 nm=editor.GetTitle
 #_@@@
 #_
 
-article id=498 dt=Text ctime=3871200318 mtime=3871200417 nm=panel.GetPanelPrefix
-#_Prefix = panel.GetPanelPrefix (handle)
+article id=498 dt=Text ctime=3871200318 mtime=3916572080 nm=panel.GetPanelPrefix
+#_Prefix = panel.GetPanelPrefix (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:  panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  Prefix:  string
@@ -7734,11 +7764,12 @@ article id=498 dt=Text ctime=3871200318 mtime=3871200417 nm=panel.GetPanelPrefix
 #_@@@
 #_
 
-article id=499 dt=Text ctime=3871203571 mtime=3871203615 nm=panel.SetActivePanel
-#_result = panel.SetActivePanel (handle)
+article id=499 dt=Text ctime=3871203571 mtime=3916572249 nm=panel.SetActivePanel
+#_result = panel.SetActivePanel (handle, whatpanel)
 #_
 #_**Parameters:**
-#_  handle:  panel handle
+#_  handle:    panel handle, or nil
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
 #_  result:  boolean
@@ -7964,12 +7995,12 @@ article id=512 dt=Text ctime=3878637011 mtime=3878637382 nm=far.Host.SetDirector
 #_@@@
 #_
 
-article id=513 dt=Text ctime=3881311938 mtime=3907772125 nm=Lua engine
+article id=513 dt=Text ctime=3881311938 mtime=3915952467 nm=Lua engine
 #_<markdown>
 #_By default far2m tries to load either `libluajit-5.1.so`
 #_or `liblua5.1.so`, in that order.
 #_
-#_If the environment variable `FARPLAINLUA` is defined then the order is reversed.
+#_If the environment variable `FARPLAINLUA` is set to 1 then the order is reversed.
 #_
 
 article id=514 dt=Text ctime=3881479361 mtime=3891885000 nm=far.InMyConfig
@@ -8555,11 +8586,12 @@ article id=566 dt=Text ctime=3902554961 mtime=3902555013 nm=win.system
 #_  system
 #_
 
-article id=567 dt=Text ctime=3906133864 mtime=3906134273 nm=panel.SetPanelLocation
-#_result = panel.SetPanelLocation (handle, location)
+article id=567 dt=Text ctime=3906133864 mtime=3916572540 nm=panel.SetPanelLocation
+#_result = panel.SetPanelLocation (handle, whatpanel, location)
 #_
 #_**Parameters:**
 #_  handle:    panel handle
+#_  whatpanel: 1=active panel; 0=passive panel;
 #_  location:  table
 #_               PluginName : string  (optional)
 #_               HostFile   : string  (optional)
