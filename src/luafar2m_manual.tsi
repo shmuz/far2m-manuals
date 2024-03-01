@@ -241,6 +241,7 @@ node lv=2 id=507 art=507 nm=far.FindPlugin
 node lv=2 id=416 art=416 nm=far.ForcedLoadPlugin
 node lv=2 id=508 art=508 nm=far.GetPluginInformation
 node lv=2 id=506 art=506 nm=far.GetPlugins
+node lv=2 id=594 art=585 nm=far.IsPluginLoaded
 node lv=2 id=417 art=417 nm=far.LoadPlugin
 node lv=2 id=418 art=418 nm=far.UnloadPlugin
 node lv=1 id=82 art=82 nm=Far Standard Functions
@@ -375,6 +376,7 @@ node lv=2 id=423 art=423 nm=Various functions
 node lv=3 id=574 art=569 nm=win.EnsureColorsAreInverted
 node lv=3 id=565 art=563 nm=win.ExpandEnv
 node lv=3 id=51 art=51 nm=win.ExtractKey
+node lv=3 id=595 art=586 nm=win.ExtractKeyEx
 node lv=3 id=359 art=359 nm=win.GetConsoleScreenBufferInfo
 node lv=3 id=393 art=393 nm=win.GetCPInfo
 node lv=3 id=152 art=152 nm=win.GetEnv
@@ -667,7 +669,7 @@ article id=14 dt=Text ctime=0 mtime=3916572584 nm=panel.SetSelection
 #_
 #_**Parameters:**
 #_  handle:       panel handle, or nil
-#_  whatpanel:    1=active_panel, 0=inactive_panel
+#_  whatpanel:    1=active panel, 0=passive panel
 #_  items:        integer (1-based item index),
 #_                or table (array of item indexes)
 #_  selection:    boolean
@@ -2054,7 +2056,7 @@ article id=85 dt=Text ctime=0 mtime=3878636786 nm=tPluginPanelItem
 #_@@@
 #_
 
-article id=90 dt=Text ctime=0 mtime=3901963867 nm=tFindData
+article id=90 dt=Text ctime=0 mtime=3917635109 nm=tFindData
 #_<markdown>
 #_**`tFindData`** is a table with the following predefined fields:
 #_
@@ -2082,12 +2084,16 @@ article id=90 dt=Text ctime=0 mtime=3901963867 nm=tFindData
 #_          f - device_fifo
 #_          g - device_char
 #_          h - hidden
+#_          i - not_content_indexed
+#_          j - device_block
 #_          k - device_sock
 #_          n - encrypted
 #_          o - offline
+#_          p - sparse_file
 #_          r - read only
 #_          s - system file
 #_          t - temporary
+#_          u - no_scrub_data
 #_          v - virtual
 #_          x - executable
 #_
@@ -3699,12 +3705,7 @@ article id=186 dt=Text ctime=0 mtime=3853777092 nm=far.InputRecordToKey
 #_[tInputRecord]: 187.html
 #_
 
-article id=187 dt=Text ctime=0 mtime=3907300682 nm=tInputRecord
-#_This table is used in the functions:
-#_`export.ProcessConsoleInput`, `export.ProcessEditorInput`,
-#_`editor.ProcessInput`, `editor.ReadInput`,
-#_`far.InputRecordToKey`, `far.NameToInputRecord`.
-#_
+article id=187 dt=Text ctime=0 mtime=3917348136 nm=tInputRecord
 #_**The table has the following fields:**
 #_
 #_  EventType:         integer (from Far) or flag (to Far)
@@ -5543,7 +5544,7 @@ article id=330 dt=Text ctime=3480322277 mtime=3916571625 nm=panel.ClearSelection
 #_
 #_**Parameters:**
 #_  handle:       panel handle, or nil
-#_  whatpanel:    1=active_panel, 0=inactive_panel
+#_  whatpanel:    1=active panel, 0=passive panel
 #_  items:        integer (1-based item index),
 #_                or table (array of item indexes)
 #_
@@ -6931,7 +6932,7 @@ article id=457 dt=Text ctime=3853444384 mtime=3916571490 nm=panel.BeginSelection
 #_
 #_**Parameters:**
 #_  handle:       panel handle, or nil
-#_  whatpanel:    1=active_panel, 0=inactive_panel
+#_  whatpanel:    1=active panel, 0=passive panel
 #_
 #_**Returns:**
 #_  result: boolean
@@ -6947,7 +6948,7 @@ article id=458 dt=Text ctime=3853444404 mtime=3916571690 nm=panel.EndSelection
 #_
 #_**Parameters:**
 #_  handle:       panel handle, or nil
-#_  whatpanel:    1=active_panel, 0=inactive_panel
+#_  whatpanel:    1=active panel, 0=passive panel
 #_
 #_**Returns:**
 #_  result: boolean
@@ -7096,7 +7097,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3901549246 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3911294676 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3917242568 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7131,7 +7132,7 @@ article id=463 dt=Text ctime=3853931289 mtime=3911294676 nm=actl namespace
 #_  SetCursorPos            ACTL_SETCURSORPOS
 #_  Synchro                 ACTL_SYNCHRO
 #_  WaitKey                 ACTL_WAITKEY
-#_  WinPortBackend          ACTL_WINPORTBACKEND
+#_  WinPortBackEnd          ACTL_WINPORTBACKEND
 #_
 #_@@@
 #_[far.SendDlgMessage]: 71.html
@@ -8349,15 +8350,15 @@ article id=547 dt=Text ctime=3892829915 mtime=3907827257 nm=ACTL_KEYMACRO
 #_Not supported, replaced by [Macro Control](428.html) functions.
 #_
 
-article id=549 dt=Text ctime=3892829915 mtime=3907829357 nm=ACTL_QUIT
+article id=549 dt=Text ctime=3892829915 mtime=3918451996 nm=ACTL_QUIT
 #_far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
 #_  Command:  ACTL_QUIT
-#_  Param:    none
+#_  Param:    integer (default=0)
 #_
 #_**Returns:**
-#_  The function does not return
+#_  The function either returns integer or does not return.
 #_
 
 article id=550 dt=Text ctime=3892829915 mtime=3892838294 nm=ACTL_REDRAWALL
@@ -8839,5 +8840,46 @@ article id=584 dt=Text ctime=3914307387 mtime=3914307646 nm=export.GetLinkTarget
 #_
 #_@@@
 #_[tPluginPanelItem]: 85.html
+#_
+
+article id=585 dt=Text ctime=3916822129 mtime=3916822250 nm=far.IsPluginLoaded
+#_result = far.IsPluginLoaded (SysId)
+#_
+#_**Parameters:**
+#_  SysId:   integer
+#_
+#_**Returns:**
+#_  result:  boolean
+#_
+#_**Description:**
+#_  Returns *true* if the plugin is loaded in memory.
+#_
+#_**Far API used:**
+#_  PluginsControl: PCTL_FINDPLUGIN, PCTL_GETPLUGININFORMATION
+#_
+#_@@@
+#_
+
+article id=586 dt=Text ctime=3917348005 mtime=3917348041 nm=win.ExtractKeyEx
+#_result = win.ExtractKeyEx ()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  result: table `tInputRecord`, or nil
+#_
+#_**Description:**
+#_  If a key was pressed or released, the input record is returned.
+#_  Otherwise, a nil is returned.
+#_
+#_**Windows API used:**
+#_  PeekConsoleInput, ReadConsoleInput
+#_
+#_@@@
+#_[tInputRecord]: 187.html
+#_
+#_{peekconsoleinput}: http://api.farmanager.com/ru/winapi/peekconsoleinput.html
+#_{readconsoleinput}: http://api.farmanager.com/ru/winapi/readconsoleinput.html
 #_
 
