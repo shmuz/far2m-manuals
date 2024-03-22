@@ -44,6 +44,7 @@ node lv=2 id=57 art=57 nm=Panel
 node lv=3 id=82 art=82 nm=CustomSortMenu
 node lv=3 id=80 art=80 nm=LoadCustomSortMode
 node lv=3 id=81 art=81 nm=SetCustomSortMode
+node lv=3 id=113 art=113 nm=SetPluginPath
 node lv=2 id=58 art=58 nm=BM
 node lv=2 id=47 art=47 nm=CmdLine
 node lv=2 id=51 art=51 nm=Dlg
@@ -1059,7 +1060,7 @@ article id=56 dt=Text ctime=3553252766 mtime=3607110286 nm=Plugin
 #_
 #_
 
-article id=57 dt=Text ctime=3553252776 mtime=3607096893 nm=Panel
+article id=57 dt=Text ctime=3553252776 mtime=3918663904 nm=Panel
 #_**Panel** - a table with the following fields:
 #_
 #_**Properties:**
@@ -1073,6 +1074,7 @@ article id=57 dt=Text ctime=3553252776 mtime=3607096893 nm=Panel
 #_  Item
 #_  Select
 #_  SetPath
+#_  SetPluginPath
 #_  SetPos
 #_  SetPosIdx
 #_  `CustomSortMenu`
@@ -2788,5 +2790,17 @@ article id=112 dt=Text ctime=3915204297 mtime=3915632428 nm=SetConfig
 #_
 #_The function returns *false* when parameter *index* is invalid
 #_or when the parameter *value* has incorrect type.
+#_
+
+article id=113 dt=Text ctime=3918663874 mtime=3918664105 nm=SetPluginPath
+#_result = Panel.SetPluginPath (paneltype, path [, file])
+#_
+#_**Parameters:**
+#_  paneltype:  0=active panel, 1=passive panel
+#_  path:       path in the plugin's file system
+#_  file:       file to position cursor at
+#_
+#_**Returns:**
+#_  result:     boolean
 #_
 

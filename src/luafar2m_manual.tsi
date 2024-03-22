@@ -251,10 +251,10 @@ node lv=2 id=2 art=2 nm=far.CmpName
 node lv=2 id=493 art=493 nm=far.CmpNameList
 node lv=2 id=284 art=284 nm=far.ConvertPath
 node lv=2 id=3 art=3 nm=far.CopyToClipboard
+node lv=2 id=593 art=501 nm=far.DetectCodePage
 node lv=2 id=576 art=570 nm=far.FormatFileSize
 node lv=2 id=495 art=495 nm=far.GenerateName
 node lv=2 id=262 art=262 nm=far.GetCurrentDirectory
-node lv=2 id=593 art=501 nm=far.GetFileEncoding
 node lv=2 id=528 art=526 nm=far.GetFileGroup
 node lv=2 id=56 art=56 nm=far.GetFileOwner
 node lv=2 id=59 art=59 nm=far.GetNumberOfLinks
@@ -346,6 +346,11 @@ node lv=3 id=436 art=436 nm=win.GetCurrentDir
 node lv=3 id=460 art=460 nm=win.GetFileAttr
 node lv=3 id=213 art=213 nm=win.GetFileInfo
 node lv=3 id=362 art=362 nm=win.MoveFile
+node lv=3 id=598 art=589 nm=win.OpenFile
+node lv=4 id=602 art=593 nm=close
+node lv=4 id=599 art=590 nm=read
+node lv=4 id=600 art=591 nm=seek
+node lv=4 id=601 art=592 nm=write
 node lv=3 id=373 art=373 nm=win.RemoveDir
 node lv=3 id=363 art=363 nm=win.RenameFile
 node lv=3 id=437 art=437 nm=win.SetCurrentDir
@@ -415,6 +420,8 @@ node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
 node lv=2 id=459 art=459 nm=far.Log
 node lv=2 id=590 art=583 nm=far.SplitCmdLine
+node lv=2 id=596 art=587 nm=far.SudoClientRegion
+node lv=2 id=597 art=588 nm=far.SudoCRCall
 node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=586 art=580 nm=panel
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
@@ -7801,11 +7808,11 @@ article id=500 dt=Text ctime=3871827136 mtime=3907258200 nm=win.WideCharToMultiB
 #_  WideCharToMultiByte
 #_
 
-article id=501 dt=Text ctime=3872013561 mtime=3891884971 nm=far.GetFileEncoding
-#_codepage = far.GetFileEncoding (FileName)
+article id=501 dt=Text ctime=3872013561 mtime=3919797331 nm=far.DetectCodePage
+#_codepage = far.DetectCodePage (filename)
 #_
 #_**Parameters:**
-#_  FileName:   string
+#_  filename:   string
 #_
 #_**Returns:**
 #_  codepage:   integer (or nil)
@@ -7815,7 +7822,7 @@ article id=501 dt=Text ctime=3872013561 mtime=3891884971 nm=far.GetFileEncoding
 #_  the detection accuracy would be greatly reduced.
 #_
 #_**Far API used:**
-#_  FSF.GetFileEncoding
+#_  FSF.DetectCodePage
 #_
 #_@@@
 #_
@@ -8881,5 +8888,121 @@ article id=586 dt=Text ctime=3917348005 mtime=3917348041 nm=win.ExtractKeyEx
 #_
 #_{peekconsoleinput}: http://api.farmanager.com/ru/winapi/peekconsoleinput.html
 #_{readconsoleinput}: http://api.farmanager.com/ru/winapi/readconsoleinput.html
+#_
+
+article id=587 dt=Text ctime=3919271201 mtime=3919651540 nm=far.SudoClientRegion
+#_object = far.SudoClientRegion()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  object : userdata
+#_
+#_**Description:**
+#_  The function creates a "sudo client region" object (userdata in Lua).
+#_  The object has the following methods: __gc, __tostring, Close.
+#_
+#_@@@
+#_
+
+article id=588 dt=Text ctime=3919692575 mtime=3919693411 nm=far.SudoCRCall
+#_OK, ... = far.SudoCRCall (func, ...)
+#_
+#_**Parameters:**
+#_  func : function
+#_  ...  : arguments (0 or more values)
+#_
+#_**Returns:**
+#_  OK   : boolean
+#_  ...  : return values
+#_           on success : 0 or more values
+#_           on failure : string (error message)
+#_
+#_**Description:**
+#_  This function is similar to *pcall* except that it creates
+#_  internally a *SudoClientRegion* object that is guaranteed
+#_  to be destroyed on both normal and error returns.
+#_
+#_@@@
+#_
+
+article id=589 dt=Text ctime=3920101177 mtime=3920256599 nm=win.OpenFile
+#_Handle = win.OpenFile (FileName [, Mode])
+#_
+#_**Parameters:**
+#_  FileName  : string
+#_  Mode      : string ("r", "w", "a") default = "r";
+#_              it may also contain 'b' at the end which is ignored
+#_
+#_**Returns:**
+#_  Handle    : userdata (success) or nil (failure)
+#_
+#_**Windows API used:**
+#_  CreateFileW
+#_
+#_@@@
+#_
+
+article id=590 dt=Text ctime=3920102364 mtime=3920104176 nm=read
+#_str = Handle:read (numbytes)
+#_
+#_**Parameters:**
+#_  numbytes : integer
+#_
+#_**Returns:**
+#_  str      : string or nil
+#_
+#_**Windows API used:**
+#_  ReadFile
+#_
+#_@@@
+#_
+
+article id=591 dt=Text ctime=3920102372 mtime=3920104221 nm=seek
+#_pos = Handle:seek (whence, offset)
+#_
+#_**Parameters:**
+#_  whence :  string ("set", "cur", "end"; defaults to "cur")
+#_  offset :  integer (defaults to 0)
+#_
+#_**Returns:**
+#_  pos    :  integer or nil
+#_
+#_**Windows API used:**
+#_  SetFilePointer
+#_
+#_@@@
+#_
+
+article id=592 dt=Text ctime=3920102377 mtime=3920105148 nm=write
+#_Handle:write (str1 [, ...])
+#_
+#_**Parameters:**
+#_  str1 : string
+#_  ...  : zero or more strings
+#_
+#_**Returns:**
+#_  nothing
+#_
+#_**Windows API used:**
+#_  WriteFile
+#_
+#_@@@
+#_
+
+article id=593 dt=Text ctime=3920104990 mtime=3920105194 nm=close
+#_Handle:close()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  true or nil
+#_
+#_**Windows API used:**
+#_  CloseHandle
+#_
+#_@@@
 #_
 
