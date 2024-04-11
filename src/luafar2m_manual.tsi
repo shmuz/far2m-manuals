@@ -301,7 +301,6 @@ node lv=2 id=513 art=512 nm=far.Host.SetDirectory
 node lv=1 id=83 art=83 nm=Other functions
 node lv=2 id=185 art=185 nm=far.CPluginStartupInfo
 node lv=2 id=461 art=461 nm=far.InputRecordToName
-node lv=2 id=191 art=191 nm=far.LuafarVersion
 node lv=2 id=280 art=280 nm=far.MakeMenuItems
 node lv=2 id=68 art=68 nm=far.PluginStartupInfo
 node lv=2 id=588 art=582 nm=far.RunDefaultScript
@@ -420,7 +419,6 @@ node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
 node lv=2 id=459 art=459 nm=far.Log
 node lv=2 id=590 art=583 nm=far.SplitCmdLine
-node lv=2 id=596 art=587 nm=far.SudoClientRegion
 node lv=2 id=597 art=588 nm=far.SudoCRCall
 node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=586 art=580 nm=panel
@@ -964,7 +962,7 @@ article id=30 dt=Text ctime=0 mtime=3889634229 nm=editor.GetSelection
 #_
 #_
 
-article id=31 dt=Text ctime=0 mtime=3889634254 nm=editor.GetString
+article id=31 dt=Text ctime=0 mtime=3921834327 nm=editor.GetString
 #_**Note:**
 #_  This function is an extension over its prototype in Far API.
 #_
@@ -989,10 +987,11 @@ article id=31 dt=Text ctime=0 mtime=3889634254 nm=editor.GetString
 #_
 #_**Description:**
 #_  The function's behavior depends on its *Mode* argument:
-#_  Mode:  0 = returns: table LineInfo;        changes current position: no
-#_         1 = returns: table LineInfo;        changes current position: yes
-#_         2 = returns: StringText,StringEOL;  changes current position: yes
-#_         3 = returns: StringText,StringEOL;  changes current position: no
+#_  Mode:  0 = returns: table LineInfo;            changes current position: no
+#_         1 = returns: table LineInfo;            changes current position: yes
+#_         2 = returns: StringText,StringEOL;      changes current position: yes
+#_         3 = returns: StringText,StringEOL;      changes current position: no
+#_         4 = returns: SelStart,SelEnd,StringLength; changes cur. position: no
 #_
 #_  Modes 1 and 2 have a side effect: the current line position in the Editor
 #_  is set to *StringNumber*.
@@ -1625,7 +1624,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3921262307 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1700,7 +1699,7 @@ article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
 #_
 #_DM_GETDIALOGINFO:
 #_    Param2:  none
-#_    Result:  table (field Id: string)
+#_    Result:  table (Id: string, Owner: integer)
 #_
 #_DM_GETDLGRECT,
 #_DM_GETEDITPOSITION,
@@ -1714,7 +1713,7 @@ article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
 #_
 #_DM_GETCURSORPOS:
 #_    Param2:  none
-#_    Result:  table (fields X,Y; 1-based), or nil
+#_    Result:  table (fields X,Y; 0-based), or nil
 #_
 #_DM_GETTEXT,
 #_DM_GETCONSTTEXTPTR:
@@ -1821,7 +1820,7 @@ article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
 #_DM_MOVEDIALOG:
 #_    Param1:  integer (0=relative, otherwise absolute coordinates)
 #_    Param2:  table (fields X,Y; 0-based if Param1==0 otherwise 1-based)
-#_    Result:  table (fields X,Y; 1-based)
+#_    Result:  table (fields X,Y; 0-based)
 #_    *Example:*
 #_      res = far.SendDlgMessage(hDlg, "DM_MOVEDIALOG", 0, { X=5, Y=-2 })
 #_
@@ -1833,7 +1832,7 @@ article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
 #_      res = far.SendDlgMessage(hDlg, "DM_RESIZEDIALOG", 0, { X=70, Y=20 })
 #_
 #_DM_SETCURSORPOS:
-#_    Param2:  table (fields X,Y; 1-based)
+#_    Param2:  table (fields X,Y; 0-based)
 #_    Result:  boolean
 #_
 #_DM_SETITEMPOSITION:
@@ -1875,7 +1874,7 @@ article id=71 dt=Text ctime=0 mtime=3910515666 nm=far.SendDlgMessage
 #_
 #_DM_SETDLGDATA:
 #_    Param1: any Lua value
-#_    Result: nothing
+#_    Result: any Lua value (the previous data)
 #_
 #_**Far API used:**
 #_  SendDlgMessage
@@ -2036,7 +2035,7 @@ article id=83 dt=Text ctime=0 mtime=0 nm=Other functions
 
 article id=84 dt=Text ctime=0 mtime=0 nm="Structures"
 
-article id=85 dt=Text ctime=0 mtime=3878636786 nm=tPluginPanelItem
+article id=85 dt=Text ctime=0 mtime=3921745261 nm=tPluginPanelItem
 #_<markdown>
 #_**`tPluginPanelItem`** is a table with the following predefined fields:
 #_
@@ -2056,6 +2055,7 @@ article id=85 dt=Text ctime=0 mtime=3878636786 nm=tPluginPanelItem
 #_      Flags:              integer
 #_      NumberOfLinks:      integer
 #_      UnixMode:           integer
+#_      CRC32:              integer
 #_
 #_      CustomColumnData:   table, or nil
 #_      UserData:           any Lua value
@@ -3797,35 +3797,6 @@ article id=190 dt=Text ctime=0 mtime=3892648974 nm=far.ProcessName
 #_@@@
 #_
 
-article id=191 dt=Text ctime=0 mtime=3851360056 nm=far.LuafarVersion
-#_version = far.LuafarVersion ([mode])
-#_
-#_**Parameters:**
-#_  mode   : boolean
-#_
-#_**Returns:**
-#_  version: string, if mode==false;
-#_           3 numbers (MAJOR,MINOR,MICRO), if mode==true;
-#_
-#_**Description:**
-#_  Returns version of the LuaFAR library, e.g.:
-#_    "1.2.3" - string representation, or
-#_    1, 2, 3 - three number representation.
-#_
-#_**Notes:**
-#_  1. LuaFAR versions prior to 1.0 did not have parameter *mode*.
-#_  2. LuaFAR versions prior to 0.8 did not have this function.
-#_
-#_**Extra:**
-#_  The version of Far SDK used *in building LuaFAR* can be
-#_  determined as follows:
-#_    local F = far.Flags
-#_    far.Show(F.FARMANAGERVERSION_MAJOR, F.FARMANAGERVERSION_MINOR,
-#_             F.FARMANAGERVERSION_BUILD)
-#_
-#_@@@
-#_
-
 article id=192 dt=Text ctime=0 mtime=0 nm=win.SetEnv
 #_result = win.SetEnv (var [,value])
 #_
@@ -5515,27 +5486,19 @@ article id=327 dt=Text ctime=3480243336 mtime=3853777078 nm=IsFileInFilter
 #_[tFindData]: 90.html
 #_
 
-article id=329 dt=Text ctime=3480257526 mtime=3907255844 nm=Flags
+article id=329 dt=Text ctime=3480257526 mtime=3921354862 nm=Flags
 #_<markdown>
 #_
-#_Far API makes wide use of named integer constants. Most of these
-#_constants are found in the Lua table [`far.Flags`](57.html).
+#_As Far API makes wide use of named integer constants, there is a necessity to represent those constants in Lua. LuaFAR keeps the names and values of the constants in tables. Most constants are embedded into LuaFAR, in the table [`far.Flags`](57.html).
 #_
-#_This manual uses the term **flag** for a single named constant
-#_and the term **flags combination** for the bitwise OR of one or
-#_more such constants.
+#_This manual uses the term **flags** for both a single constant contained in the table `far.Flags`, and for the [bitwise OR](471.html) of two or more such constants.
 #_
-#_When some function parameter in this manual is denoted as *flag*
-#_or *flag combination*, it can be supplied from Lua as either an integer,
-#_a string (space and '+' may be used to combine several flags), or a table,
-#_with keys corresponding to constants' names and having non-false
-#_values.
+#_When some function parameter in this manual is denoted as *flags*, it can be supplied from Lua as either an integer, a string (space-delimitered flags), or a table, with keys corresponding to constants' names and having non-false values.
 #_
 #_#### Example 1 (single flag)
-#_The following calls are equivalent:
-#_        (1)  editor.UndoRedo(F.EUR_UNDO) -- where F=far.Flags
-#_        (2)  editor.UndoRedo("EUR_UNDO")
-#_        (3)  editor.UndoRedo{EUR_UNDO=1}
+#_The following 2 calls are equivalent:
+#_        (1)  editor.UndoRedo(nil, F.EUR_UNDO) -- where F=far.Flags
+#_        (2)  editor.UndoRedo(nil, "EUR_UNDO")
 #_
 #_#### Example 2 (flags combination)
 #_The 7-th parameter to function [`editor.Editor`](21.html) can be
@@ -5544,6 +5507,9 @@ article id=329 dt=Text ctime=3480257526 mtime=3907255844 nm=Flags
 #_        (2)  "EF_NONMODAL EF_IMMEDIATERETURN ...."
 #_        (3)  { EF_NONMODAL=1, EF_IMMEDIATERETURN=1, .... }
 #_
+#_@@@
+#_{ef_immediatereturn}: http://api.farmanager.com/ru/service_functions/editor.html#EF_IMMEDIATERETURN
+#_{ef_nonmodal}: http://api.farmanager.com/ru/service_functions/editor.html#EF_NONMODAL
 #_
 
 article id=330 dt=Text ctime=3480322277 mtime=3916571625 nm=panel.ClearSelection
@@ -8888,22 +8854,6 @@ article id=586 dt=Text ctime=3917348005 mtime=3917348041 nm=win.ExtractKeyEx
 #_
 #_{peekconsoleinput}: http://api.farmanager.com/ru/winapi/peekconsoleinput.html
 #_{readconsoleinput}: http://api.farmanager.com/ru/winapi/readconsoleinput.html
-#_
-
-article id=587 dt=Text ctime=3919271201 mtime=3919651540 nm=far.SudoClientRegion
-#_object = far.SudoClientRegion()
-#_
-#_**Parameters:**
-#_  none
-#_
-#_**Returns:**
-#_  object : userdata
-#_
-#_**Description:**
-#_  The function creates a "sudo client region" object (userdata in Lua).
-#_  The object has the following methods: __gc, __tostring, Close.
-#_
-#_@@@
 #_
 
 article id=588 dt=Text ctime=3919692575 mtime=3919693411 nm=far.SudoCRCall
