@@ -344,6 +344,7 @@ node lv=3 id=361 art=361 nm=win.DeleteFile
 node lv=3 id=436 art=436 nm=win.GetCurrentDir
 node lv=3 id=460 art=460 nm=win.GetFileAttr
 node lv=3 id=213 art=213 nm=win.GetFileInfo
+node lv=3 id=603 art=594 nm=win.JoinPath
 node lv=3 id=362 art=362 nm=win.MoveFile
 node lv=3 id=598 art=589 nm=win.OpenFile
 node lv=4 id=602 art=593 nm=close
@@ -425,6 +426,7 @@ node lv=1 id=586 art=580 nm=panel
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
 node lv=1 id=587 art=581 nm=win
 node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
+node lv=2 id=604 art=594 nm=win.JoinPath
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
 node lv=2 id=158 art=158 nm=LF_ClosePanel
@@ -1976,17 +1978,34 @@ article id=74 dt=Text ctime=0 mtime=3480262815 nm=far.ShowHelp
 #_@@@
 #_
 
-article id=76 dt=Text ctime=0 mtime=3910514944 nm=far.Text
+article id=76 dt=Text ctime=0 mtime=3922804396 nm=far.Text
 #_far.Text (X, Y, Color, Str)
 #_
 #_**Parameters:**
 #_  X:     integer
 #_  Y:     integer
-#_  Color: integer, or `tFarTrueColorForeAndBack` table
+#_  Color: integer, or table
 #_  Str:   string, or nil (if nil, NULL is passed to Far)
 #_
 #_**Returns:**
 #_  nothing
+#_
+#_**Description:**
+#_  1. The *Color* table may have the following fields:
+#_       ForegroundColor:  integer (24 bits), default = 0
+#_       BackgroundColor:  integer (24 bits), default = 0
+#_       PaletteColor:     integer (8 bits),  default = 0x0F
+#_       Flags:            integer (8 bits),  default = 0
+#_
+#_     The *Color* table may specify integer indexes [1] to [4]
+#_     rather than string fields.
+#_
+#_     *Flags* may contain the following bits:
+#_       0x01 : FOREGROUND_TRUECOLOR
+#_       0x02 : BACKGROUND_TRUECOLOR
+#_       0x20 : COMMON_LVB_STRIKEOUT
+#_       0x40 : COMMON_LVB_REVERSE_VIDEO
+#_       0x80 : COMMON_LVB_UNDERSCORE
 #_
 #_**Note:**
 #_  All parameters are optional.
@@ -7429,25 +7448,38 @@ article id=478 dt=Text ctime=3862320437 mtime=3862320979 nm=far.MacroDelete
 #_[MCTL_DELMACRO]: https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_DELMACRO
 #_
 
-article id=479 dt=Text ctime=3862762502 mtime=3910652287 nm=far.ColorDialog
-#_OutColor = far.ColorDialog (InColor, Flags)
+article id=479 dt=Text ctime=3862762502 mtime=3922804160 nm=far.ColorDialog
+#_OutColor = far.ColorDialog (aInColor, aFlags)
 #_
 #_**Parameters:**
-#_  InColor:      table or integer (optional; default = 0x0F)
-#_  Flags:        flags
+#_  aInColor:     table or integer (optional; default = 0x0F)
+#_  aFlags:       flags
 #_
 #_**Returns:**
 #_  OutColor:     table, or nil
 #_
 #_**Description:**
-#_  The input table may and the output one will have the following fields:
-#_    ForegroundColor:  integer (24 bits), default = 0
-#_    BackgroundColor:  integer (24 bits), default = 0
-#_    PaletteColor:     integer (8 bits),  default = 0x0F
-#_    Transparency:     integer (8 bits),  default = 0
+#_  1. *aInColor* may and *OutColor* will have the following fields:
+#_     ForegroundColor:  integer (24 bits), default = 0
+#_     BackgroundColor:  integer (24 bits), default = 0
+#_     PaletteColor:     integer (8 bits),  default = 0x0F
+#_     Flags:            integer (8 bits),  default = 0
+#_     Mask:             integer
 #_
-#_  The input table may specify integer indexes [1] to [4]
-#_  rather than string fields.
+#_     -- *aInColor* may specify integer indexes [1] to [4]
+#_        rather than string fields.
+#_
+#_     -- *Flags* may contain the following bits:
+#_        0x01 : FOREGROUND_TRUECOLOR
+#_        0x02 : BACKGROUND_TRUECOLOR
+#_        0x20 : COMMON_LVB_STRIKEOUT
+#_        0x40 : COMMON_LVB_REVERSE_VIDEO
+#_        0x80 : COMMON_LVB_UNDERSCORE
+#_
+#_    -- *Mask* is ignored if *aFlags* doesn't contain *FCD_USEMASK*.
+#_
+#_  2. *aFlags*: any combination of zero or more of
+#_     FCD_RGB, FCD_FONTSTYLES, FCD_USEMASK.
 #_
 #_**Far API used:**
 #_  ColorDialog
@@ -8952,6 +8984,18 @@ article id=593 dt=Text ctime=3920104990 mtime=3920105194 nm=close
 #_
 #_**Windows API used:**
 #_  CloseHandle
+#_
+#_@@@
+#_
+
+article id=594 dt=Text ctime=3922386679 mtime=3922386816 nm=win.JoinPath
+#_path = win.JoinPath (...)
+#_
+#_**Parameters:**
+#_  ...:   0 or more strings (nils allowed)
+#_
+#_**Returns:**
+#_  path:  string
 #_
 #_@@@
 #_
