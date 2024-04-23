@@ -394,6 +394,7 @@ node lv=3 id=424 art=424 nm=win.Uuid
 node lv=1 id=406 art=406 nm=luautf8
 node lv=2 id=407 art=407 nm=utf8.dump
 node lv=2 id=408 art=408 nm=utf8.format
+node lv=2 id=605 art=595 nm=utf8.reformat
 node lv=2 id=409 art=409 nm=utf8.rep
 node lv=2 id=410 art=410 nm=utf8.utf8valid
 node lv=0 id=496 art=496 nm=Far2M-specific functions
@@ -8998,5 +8999,39 @@ article id=594 dt=Text ctime=3922386679 mtime=3922386816 nm=win.JoinPath
 #_  path:  string
 #_
 #_@@@
+#_
+
+article id=595 dt=Text ctime=3923024901 mtime=3923026824 nm=utf8.reformat
+#_result = utf8.reformat (pattern, ...)
+#_
+#_**Parameters:**
+#_  pattern : string
+#_  ...     : 0 or more additional arguments
+#_
+#_**Returns:**
+#_  result  : string
+#_
+#_**Description:**
+#_  This function is similar to utf8.format except for char '{' which must
+#_  be written as '%{'.
+#_  
+#_  {1}, {2}, etc. in the pattern are substituted by values corresponding
+#_  to parameters' numbers in the '%s' format.
+#_
+#_  If the number in curly braces is followed by a ':' then this part becomes
+#_  a "%" in the format string. E.g. {3:04d} is replaced by value of the 3-rd
+#_  parameter in the '%04d' format.
+#_
+#_**Note:**
+#_  This is an added function, not present in the original luautf8 library.
+#_
+#_**Example:**
+#_  far.Show(
+#_  reformat('Wrong count: {3:10} {1} {3} and {2:.4f}. Ok: %{ %06d %s and %s }',
+#_           111, 222, 'three'))
+#_
+#_@@@
+#_This function was taken from https://t.me/FarManager/11224
+#_with almost no modifications.
 #_
 
