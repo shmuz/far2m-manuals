@@ -399,7 +399,7 @@ node lv=2 id=409 art=409 nm=utf8.rep
 node lv=2 id=410 art=410 nm=utf8.utf8valid
 node lv=0 id=496 art=496 nm=Far2M-specific functions
 node lv=1 id=583 art=577 nm=actl
-node lv=2 id=527 art=525 nm=actl.WinPortBackend
+node lv=2 id=527 art=525 nm=actl.WinPortBackEnd
 node lv=1 id=584 art=578 nm=export
 node lv=2 id=592 art=584 nm=export.GetLinkTarget
 node lv=2 id=582 art=447 nm=export.MayExitFAR
@@ -1418,8 +1418,8 @@ article id=63 dt=Text ctime=0 mtime=0 nm=far.KeyToName
 #_@@@
 #_
 
-article id=64 dt=Text ctime=0 mtime=3892050591 nm=far.Menu
-#_Item, Position = far.Menu (Properties, Items [, BreakKeys])
+article id=64 dt=Text ctime=0 mtime=3925217398 nm=far.Menu
+#_Item, Position = far.Menu (Properties, Items [, BreakKeys] [, Callback] [,...])
 #_
 #_**Parameters:**
 #_  Properties: table
@@ -1432,6 +1432,7 @@ article id=64 dt=Text ctime=0 mtime=3892050591 nm=far.Menu
 #_      Bottom:       string
 #_      HelpTopic:    string
 #_      SelectIndex:  integer (1-based)
+#_      Id:           string  (GUID)
 #_
 #_  Items: table (array of menu items)
 #_      a menu item is a table;
@@ -1452,6 +1453,20 @@ article id=64 dt=Text ctime=0 mtime=3892050591 nm=far.Menu
 #_          BreakKey:     string (see **NOTE 2**)
 #_      Or **string** (space delimited sequence of keys)
 #_
+#_  Callback:
+#_      A function (optional); called only on keyboard events
+#_      Ret = Callback (Pos, KeyName [, ...])
+#_        Pos     :  integer (position in the menu; 1-based)
+#_        KeyName :  string
+#_        ...     :  optional extra arguments (any types)
+#_        Ret     :  -1          -> cancel the menu
+#_                   0/nil/false -> continue processing the key
+#_                   1           -> don't process the key
+#_                   2           -> close the menu as if Enter was pressed
+#_
+#_  ...:
+#_      Optional extra arguments (any types) for passing to Callback
+#_     
 #_**Returns:**
 #_  Item:     table   Either the selected element of *Items* array (if *Enter* was pressed)
 #_                    or an element of *BreakKeys* array (if a corresponding break key was
@@ -1482,7 +1497,7 @@ article id=64 dt=Text ctime=0 mtime=3892050591 nm=far.Menu
 #_  can be "action", "filename", etc.
 #_
 #_**Far API used:**
-#_  `Menu`
+#_  Menu
 #_
 #_@@@
 #_[virtual key]: https://api.farmanager.com/ru/winapi/virtualkeycodes.html
@@ -1627,7 +1642,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3921262307 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3923131839 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1681,14 +1696,16 @@ article id=71 dt=Text ctime=0 mtime=3921262307 nm=far.SendDlgMessage
 #_
 #_DM_GETCHECK:
 #_    Param2:  ignored
-#_    Result:  false (means BSTATE_UNCHECKED)
-#_              true (means BSTATE_CHECKED)
-#_                 2 (means BSTATE_3STATE)
+#_    Result:  integer
 #_
 #_DM_ADDHISTORY,
 #_DM_LISTADDSTR,
 #_DM_SETTEXT,
 #_DM_SETTEXTPTR:
+#_    Param2:  string
+#_    Result:  integer
+#_
+#_DM_SETTEXTPTRSILENT: (does not generate DN_EDITCHANGE)
 #_    Param2:  string
 #_    Result:  integer
 #_
@@ -7004,7 +7021,7 @@ article id=461 dt=Text ctime=3853775362 mtime=3853776891 nm=far.InputRecordToNam
 #_[tInputRecord]: 187.html
 #_
 
-article id=462 dt=Text ctime=3853816798 mtime=3901549246 nm=Methods of dialog handle
+article id=462 dt=Text ctime=3853816798 mtime=3923057636 nm=Methods of dialog handle
 #_Besides passing the dialog handle as a parameter to `far.SendDlgMessage`
 #_there is an alternative way: using dialog handle methods. The latter
 #_is shorter and more expressive, e.g. the following 2 calls do the same
@@ -7081,6 +7098,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3901549246 nm=Methods of dialog ha
 #_  SetSelection            DM_SETSELECTION
 #_  SetText                 DM_SETTEXT
 #_  SetTextPtr              DM_SETTEXTPTR
+#_  SetTextPtrSilent        DM_SETTEXTPTRSILENT
 #_  SetTrueColor            DM_SETTRUECOLOR
 #_  ShowDialog              DM_SHOWDIALOG
 #_  ShowItem                DM_SHOWITEM
@@ -8123,7 +8141,7 @@ article id=523 dt=Text ctime=3889374043 mtime=3889374092 nm=win.GetLocalTime
 #_[tSystemTime]: 218.html
 #_
 
-article id=525 dt=Text ctime=3890765803 mtime=3890766070 nm=actl.WinPortBackend
+article id=525 dt=Text ctime=3890765803 mtime=3890766070 nm=actl.WinPortBackEnd
 #_See `far.AdvControl` and `actl namespace`.
 #_
 #_@@@
@@ -8147,7 +8165,7 @@ article id=526 dt=Text ctime=3892753646 mtime=3892753730 nm=far.GetFileGroup
 #_@@@
 #_
 
-article id=528 dt=Text ctime=3892829915 mtime=3892838141 nm=ACTL_COMMIT
+article id=528 dt=Text ctime=3892829915 mtime=3925813894 nm=ACTL_COMMIT
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8155,7 +8173,7 @@ article id=528 dt=Text ctime=3892829915 mtime=3892838141 nm=ACTL_COMMIT
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   boolean
+#_  Result:   integer
 #_
 
 article id=530 dt=Text ctime=3892829915 mtime=3892838157 nm=ACTL_GETARRAYCOLOR
@@ -8367,7 +8385,7 @@ article id=549 dt=Text ctime=3892829915 mtime=3918451996 nm=ACTL_QUIT
 #_  The function either returns integer or does not return.
 #_
 
-article id=550 dt=Text ctime=3892829915 mtime=3892838294 nm=ACTL_REDRAWALL
+article id=550 dt=Text ctime=3892829915 mtime=3925813908 nm=ACTL_REDRAWALL
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8375,10 +8393,10 @@ article id=550 dt=Text ctime=3892829915 mtime=3892838294 nm=ACTL_REDRAWALL
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   boolean
+#_  Result:   integer
 #_
 
-article id=551 dt=Text ctime=3892829915 mtime=3892838300 nm=ACTL_SETARRAYCOLOR
+article id=551 dt=Text ctime=3892829915 mtime=3925814006 nm=ACTL_SETARRAYCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8389,10 +8407,10 @@ article id=551 dt=Text ctime=3892829915 mtime=3892838300 nm=ACTL_SETARRAYCOLOR
 #_            Its array part contains integers.
 #_
 #_**Returns:**
-#_  Result:   boolean
+#_  Result:   integer
 #_
 
-article id=552 dt=Text ctime=3892829915 mtime=3892835367 nm=ACTL_SETCURRENTWINDOW
+article id=552 dt=Text ctime=3892829915 mtime=3925808934 nm=ACTL_SETCURRENTWINDOW
 #_Result = far.AdvControl (Command, Param [, Param2])
 #_
 #_**Parameters:**
@@ -8401,10 +8419,10 @@ article id=552 dt=Text ctime=3892829915 mtime=3892835367 nm=ACTL_SETCURRENTWINDO
 #_  Param2:   boolean (if true then ACTL_COMMIT is called after ACTL_SETCURRENTWINDOW)
 #_
 #_**Returns:**
-#_  Result:   boolean
+#_  Result:   integer
 #_
 
-article id=553 dt=Text ctime=3892829915 mtime=3892838312 nm=ACTL_SETCURSORPOS
+article id=553 dt=Text ctime=3892829915 mtime=3925814035 nm=ACTL_SETCURSORPOS
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8413,7 +8431,7 @@ article id=553 dt=Text ctime=3892829915 mtime=3892838312 nm=ACTL_SETCURSORPOS
 #_              X, Y: integers
 #_
 #_**Returns:**
-#_  Result:   boolean
+#_  Result:   integer
 #_
 
 article id=556 dt=Text ctime=3892829915 mtime=3911294802 nm=ACTL_SYNCHRO

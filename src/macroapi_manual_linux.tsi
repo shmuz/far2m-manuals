@@ -30,6 +30,7 @@ node lv=3 id=104 art=104 nm=deserialize
 node lv=3 id=106 art=106 nm=EnumScripts
 node lv=3 id=79 art=79 nm=eval
 node lv=3 id=72 art=72 nm=GetMacroCopy
+node lv=3 id=118 art=118 nm=mainmenu
 node lv=3 id=15 art=15 nm=mdelete
 node lv=3 id=13 art=13 nm=mload
 node lv=3 id=12 art=12 nm=msave
@@ -602,40 +603,69 @@ article id=42 dt=Text ctime=3553243413 mtime=3717182713 nm=Libraries of macro fu
 #_
 #_
 
-article id=44 dt=Text ctime=3553243522 mtime=3906398197 nm=mf
-#_**Properties:** none.
+article id=44 dt=Text ctime=3553243522 mtime=3923472562 nm=mf
+#_**Properties:**
+#_  none.
 #_
 #_**Functions:**
-#_
-#_  abs                len            
-#_  `acall`              max             
-#_  `AddExitHandler`     `mdelete`        
-#_  akey               min              
-#_  asc                `mload`          
-#_  atoi               mmode            
-#_  beep               mod              
-#_  chr                `msave`          
-#_  clip               msgbox           
-#_  date               `postmacro`    
-#_  `deserialize`        print           
-#_  `EnumScripts`        `printconsole`   
-#_  env                prompt         
-#_  `eval`               replace         
-#_  `exit`               rindex           
-#_  fattr              `serialize`      
-#_  fexist             size2str         
-#_  float              sleep            
-#_  flock              string           
-#_  fmatch             strpad           
-#_  fsplit             strwrap        
-#_  `GetMacroCopy`       substr            
-#_  iif                testfolder       
-#_  index              trim             
-#_  int                ucase            
-#_  itoa               `usermenu`       
-#_  key                waitkey          
-#_  `Keys`               xlat            
-#_  lcase              
+#_  abs
+#_  `acall`
+#_  `AddExitHandler`
+#_  akey
+#_  asc
+#_  atoi
+#_  beep
+#_  chr
+#_  clip
+#_  date
+#_  `deserialize`
+#_  `EnumScripts`
+#_  env
+#_  `eval`
+#_  `exit`
+#_  fattr
+#_  fexist
+#_  float
+#_  flock
+#_  fmatch
+#_  fsplit
+#_  `GetMacroCopy`
+#_  iif
+#_  index
+#_  int
+#_  itoa
+#_  key
+#_  `Keys`
+#_  lcase
+#_  len
+#_  `mainmenu`
+#_  max
+#_  `mdelete`
+#_  min
+#_  `mload`
+#_  mmode
+#_  mod
+#_  `msave`
+#_  msgbox
+#_  `postmacro`
+#_  print
+#_  `printconsole`
+#_  prompt
+#_  replace
+#_  rindex
+#_  `serialize`
+#_  size2str
+#_  sleep
+#_  string
+#_  strpad
+#_  strwrap
+#_  substr
+#_  testfolder
+#_  trim
+#_  ucase
+#_  `usermenu`
+#_  waitkey
+#_  xlat
 #_
 #_@@@
 #_[acall]: 91.html
@@ -2221,7 +2251,7 @@ article id=91 dt=Text ctime=3614688602 mtime=3717266648 nm=acall
 #_[LuaMacro]: 7.html
 #_
 
-article id=92 dt=Text ctime=3617997112 mtime=3918484701 nm=Command line operations
+article id=92 dt=Text ctime=3617997112 mtime=3924955350 nm=Command line operations
 #_<markdown>
 #_* `macro: load [path]`<br>
 #_  (Re)load macrofiles. An optional parameter `path` has the same meaning as the field
@@ -2232,6 +2262,8 @@ article id=92 dt=Text ctime=3617997112 mtime=3918484701 nm=Command line operatio
 #_   Unload macros (except those created with operation `MCTL_ADDMACRO`) and event handlers.
 #_* `macro: about`<br>
 #_   Show versions of the plugin and the libraries it is using.
+#_* `macro: browser`<br>
+#_   Run macro browser.
 #_* `macro: test`<br>
 #_   Run tests and exit Far (exit code 0 = success)
 #_* `lua: [=] <code>`
@@ -2802,5 +2834,25 @@ article id=113 dt=Text ctime=3918663874 mtime=3918664105 nm=SetPluginPath
 #_
 #_**Returns:**
 #_  result:     boolean
+#_
+
+article id=118 dt=Text ctime=3923472475 mtime=3923998273 nm=mainmenu
+#_mf.mainmenu (Param)
+#_
+#_**Parameters:**
+#_  Param:  string
+#_
+#_**Returns:**
+#_  nothing
+#_
+#_**Param values:**
+#_  "fileassociations" : call "File associations" menu
+#_  "filehighlighting" : call "Files highlighting and sort groups" menu
+#_  "filemaskgroups"   : call "Groups of file masks" menu
+#_  "filepanelmodes"   : call "File panel modes" menu
+#_  "foldershortcuts"  : call "Folder bookmarks" menu
+#_
+#_**Note:**
+#_  The function is asynchronous and returns immediately.
 #_
 
