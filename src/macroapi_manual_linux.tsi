@@ -1214,13 +1214,14 @@ article id=61 dt=Text ctime=3555411121 mtime=3717266496 nm=exit
 #_[Restrictions in the use of some functions]: 62.html
 #_
 
-article id=62 dt=Text ctime=3557323094 mtime=3732332374 nm=Restrictions in the use of some functions
+article id=62 dt=Text ctime=3557323094 mtime=3926599338 nm=Restrictions in the use of some functions
 #_<markdown>
 #_The following functions have certain restrictions on their use in macros: 
 #_
 #_* [`exit`][exit]
 #_* [`mf.acall`][acall]
 #_* [`mf.AddExitHandler`][AddExitHandler]
+#_* [`mf.mainmenu`][mainmenu]
 #_* [`mf.usermenu`][usermenu] (in the "asynchronous" call mode)
 #_* [`Keys`][keys]
 #_* [`Plugin.Call`][plugincall]
@@ -1252,6 +1253,7 @@ article id=62 dt=Text ctime=3557323094 mtime=3732332374 nm=Restrictions in the u
 #_[exit]: 61.html
 #_[keys]: 4.html
 #_[AddExitHandler]: 100.html
+#_[mainmenu]: 118.html
 #_
 #_@@@
 #_{plugin.command}: https://api.farmanager.com/ru/macro/macrocmd/prop_func/general.html#plugin.command

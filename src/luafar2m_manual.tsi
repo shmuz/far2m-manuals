@@ -276,6 +276,8 @@ node lv=2 id=66 art=66 nm=far.NameToKey
 node lv=2 id=67 art=67 nm=far.PasteFromClipboard
 node lv=2 id=190 art=190 nm=far.ProcessName
 node lv=2 id=211 art=211 nm=far.RecursiveSearch
+node lv=2 id=606 art=596 nm=far.StrCellsCount
+node lv=2 id=607 art=597 nm=far.StrSizeOfCells
 node lv=2 id=209 art=209 nm=far.TruncPathStr
 node lv=2 id=210 art=210 nm=far.TruncStr
 node lv=2 id=335 art=335 nm=far.XLat
@@ -344,6 +346,7 @@ node lv=3 id=361 art=361 nm=win.DeleteFile
 node lv=3 id=436 art=436 nm=win.GetCurrentDir
 node lv=3 id=460 art=460 nm=win.GetFileAttr
 node lv=3 id=213 art=213 nm=win.GetFileInfo
+node lv=3 id=610 art=598 nm=win.GetFileTimes
 node lv=3 id=603 art=594 nm=win.JoinPath
 node lv=3 id=362 art=362 nm=win.MoveFile
 node lv=3 id=598 art=589 nm=win.OpenFile
@@ -355,6 +358,7 @@ node lv=3 id=373 art=373 nm=win.RemoveDir
 node lv=3 id=363 art=363 nm=win.RenameFile
 node lv=3 id=437 art=437 nm=win.SetCurrentDir
 node lv=3 id=469 art=469 nm=win.SetFileAttr
+node lv=3 id=611 art=599 nm=win.SetFileTimes
 node lv=2 id=421 art=421 nm=Text related functions
 node lv=3 id=274 art=274 nm=win.CompareString
 node lv=3 id=394 art=394 nm=win.EnumSystemCodePages
@@ -421,6 +425,8 @@ node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
 node lv=2 id=459 art=459 nm=far.Log
 node lv=2 id=590 art=583 nm=far.SplitCmdLine
+node lv=2 id=608 art=596 nm=far.StrCellsCount
+node lv=2 id=609 art=597 nm=far.StrSizeOfCells
 node lv=2 id=597 art=588 nm=far.SudoCRCall
 node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=586 art=580 nm=panel
@@ -791,7 +797,7 @@ article id=21 dt=Text ctime=0 mtime=3851868780 nm=editor.Editor
 #_
 #_
 
-article id=22 dt=Text ctime=0 mtime=3914843656 nm=editor.AddColor
+article id=22 dt=Text ctime=0 mtime=3927020360 nm=editor.AddColor
 #_result = editor.AddColor (EditorId, StringNumber, StartPos, EndPos,
 #_                          Flags, Color)
 #_
@@ -801,7 +807,7 @@ article id=22 dt=Text ctime=0 mtime=3914843656 nm=editor.AddColor
 #_  StartPos     : integer (1-based)
 #_  EndPos       : integer (1-based)
 #_  Flags        : flags (defaults to 0)
-#_  Color        : table or integer (defaults to 0x0F)
+#_  Color        : table, `bit64` or integer (defaults to 0x0F)
 #_
 #_**Returns:**
 #_  result : boolean
@@ -1642,7 +1648,7 @@ article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3923131839 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3926945682 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1739,14 +1745,6 @@ article id=71 dt=Text ctime=0 mtime=3923131839 nm=far.SendDlgMessage
 #_DM_GETCONSTTEXTPTR:
 #_    Param2:  none
 #_    Result:  string
-#_
-#_DM_GETCOLOR:
-#_    Param2:  none
-#_    Result:  integer
-#_
-#_DM_SETCOLOR:
-#_    Param2:  integer
-#_    Result:  integer
 #_
 #_DM_KEY:
 #_    Param2:  table (array of integers)
@@ -1878,16 +1876,14 @@ article id=71 dt=Text ctime=0 mtime=3923131839 nm=far.SendDlgMessage
 #_      res = far.SendDlgMessage(hDlg, "DM_SETEDITPOSITION", id,
 #_        { CurPos=3, Overtype=0 })
 #_
+#_DM_GETCOLOR,
+#_DM_GETDEFAULTCOLOR,
 #_DM_GETTRUECOLOR:
-#_    returns a table (as in DM_SETTRUECOLOR)
+#_    returns a table (array of 4 `bit64` values)
 #_
+#_DM_SETCOLOR,
 #_DM_SETTRUECOLOR:
-#_    Param2:  table
-#_      {
-#_        Normal    = `tFarTrueColorForeAndBack`;
-#_        Hilighted = `tFarTrueColorForeAndBack`;
-#_        Frame     = `tFarTrueColorForeAndBack`;
-#_      }
+#_    Param2:  table (array of 4 `bit64` values)
 #_
 #_DM_GETDLGDATA:
 #_    Result: the dialog data (can be any Lua value)
@@ -1996,13 +1992,13 @@ article id=74 dt=Text ctime=0 mtime=3480262815 nm=far.ShowHelp
 #_@@@
 #_
 
-article id=76 dt=Text ctime=0 mtime=3922804396 nm=far.Text
+article id=76 dt=Text ctime=0 mtime=3926856894 nm=far.Text
 #_far.Text (X, Y, Color, Str)
 #_
 #_**Parameters:**
 #_  X:     integer
 #_  Y:     integer
-#_  Color: integer, or table
+#_  Color: integer, `bit64`, or table
 #_  Str:   string, or nil (if nil, NULL is passed to Far)
 #_
 #_**Returns:**
@@ -2034,6 +2030,7 @@ article id=76 dt=Text ctime=0 mtime=3922804396 nm=far.Text
 #_
 #_
 #_@@@
+#_[bit64]: 471.html
 #_
 
 article id=77 dt=Text ctime=0 mtime=3482049266 nm=viewer.Viewer
@@ -2225,11 +2222,11 @@ article id=95 dt=Text ctime=0 mtime=3907314920 nm=export.Compare
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=96 dt=Text ctime=0 mtime=3907389159 nm=export.Configure
+article id=96 dt=Text ctime=0 mtime=3926532471 nm=export.Configure
 #_result = export.Configure (ItemNumber)
 #_
 #_**Parameters:**
-#_  ItemNumber: integer (0-based)
+#_  ItemNumber: integer (1-based)
 #_
 #_**Returns:**
 #_  result:     boolean
@@ -2446,12 +2443,12 @@ article id=108 dt=Text ctime=0 mtime=3907314793 nm=export.OpenFilePlugin
 #_
 #_
 
-article id=109 dt=Text ctime=0 mtime=3910450800 nm=export.Open
+article id=109 dt=Text ctime=0 mtime=3926532454 nm=export.Open
 #_ret = export.Open (OpenFrom, ItemNumber, Item)
 #_
 #_**Parameters:**
 #_  OpenFrom:    integer
-#_  ItemNumber:  integer (0-based)
+#_  ItemNumber:  integer (1-based)
 #_  Item:
 #_      if OpenFrom == OPEN_FROMMACRO:
 #_          table (array of arguments):
@@ -7021,7 +7018,7 @@ article id=461 dt=Text ctime=3853775362 mtime=3853776891 nm=far.InputRecordToNam
 #_[tInputRecord]: 187.html
 #_
 
-article id=462 dt=Text ctime=3853816798 mtime=3923057636 nm=Methods of dialog handle
+article id=462 dt=Text ctime=3853816798 mtime=3926945620 nm=Methods of dialog handle
 #_Besides passing the dialog handle as a parameter to `far.SendDlgMessage`
 #_there is an alternative way: using dialog handle methods. The latter
 #_is shorter and more expressive, e.g. the following 2 calls do the same
@@ -7044,6 +7041,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3923057636 nm=Methods of dialog ha
 #_  GetConstTextPtr         DM_GETCONSTTEXTPTR
 #_  GetCursorPos            DM_GETCURSORPOS
 #_  GetCursorSize           DM_GETCURSORSIZE
+#_  GetDefaultColor         DM_GETDEFAULTCOLOR
 #_  GetDialogInfo           DM_GETDIALOGINFO
 #_  GetDlgData              DM_GETDLGDATA
 #_  GetDlgItem              DM_GETDLGITEM
@@ -7467,7 +7465,7 @@ article id=478 dt=Text ctime=3862320437 mtime=3862320979 nm=far.MacroDelete
 #_[MCTL_DELMACRO]: https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_DELMACRO
 #_
 
-article id=479 dt=Text ctime=3862762502 mtime=3922804160 nm=far.ColorDialog
+article id=479 dt=Text ctime=3862762502 mtime=3927016966 nm=far.ColorDialog
 #_OutColor = far.ColorDialog (aInColor, aFlags)
 #_
 #_**Parameters:**
@@ -7483,7 +7481,8 @@ article id=479 dt=Text ctime=3862762502 mtime=3922804160 nm=far.ColorDialog
 #_     BackgroundColor:  integer (24 bits), default = 0
 #_     PaletteColor:     integer (8 bits),  default = 0x0F
 #_     Flags:            integer (8 bits),  default = 0
-#_     Mask:             integer
+#_     Color:            integer or `bit64`
+#_     Mask:             integer or `bit64`
 #_
 #_     -- *aInColor* may specify integer indexes [1] to [4]
 #_        rather than string fields.
@@ -8176,7 +8175,7 @@ article id=528 dt=Text ctime=3892829915 mtime=3925813894 nm=ACTL_COMMIT
 #_  Result:   integer
 #_
 
-article id=530 dt=Text ctime=3892829915 mtime=3892838157 nm=ACTL_GETARRAYCOLOR
+article id=530 dt=Text ctime=3892829915 mtime=3926856904 nm=ACTL_GETARRAYCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8184,10 +8183,13 @@ article id=530 dt=Text ctime=3892829915 mtime=3892838157 nm=ACTL_GETARRAYCOLOR
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   table (array of integers)
+#_  Result:   table (array of `bit64` userdata)
+#_
+#_@@@
+#_[bit64]: 471.html
 #_
 
-article id=531 dt=Text ctime=3892829915 mtime=3907780089 nm=ACTL_GETCOLOR
+article id=531 dt=Text ctime=3892829915 mtime=3926856908 nm=ACTL_GETCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8195,10 +8197,14 @@ article id=531 dt=Text ctime=3892829915 mtime=3907780089 nm=ACTL_GETCOLOR
 #_  Param:    flag
 #_
 #_**Returns:**
-#_  Result:   integer or nil
+#_  Result:   `bit64` userdata or nil
 #_
 #_**Example:**
 #_  color = actl.GetColor("COL_EDITORTEXT")
+#_
+#_@@@
+#_[bit64]: 471.html
+#_
 
 article id=532 dt=Text ctime=3892829915 mtime=3907826203 nm=ACTL_GETCONFIRMATIONS
 #_Result = far.AdvControl (Command, Param)
@@ -8396,7 +8402,7 @@ article id=550 dt=Text ctime=3892829915 mtime=3925813908 nm=ACTL_REDRAWALL
 #_  Result:   integer
 #_
 
-article id=551 dt=Text ctime=3892829915 mtime=3925814006 nm=ACTL_SETARRAYCOLOR
+article id=551 dt=Text ctime=3892829915 mtime=3926856914 nm=ACTL_SETARRAYCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8404,10 +8410,13 @@ article id=551 dt=Text ctime=3892829915 mtime=3925814006 nm=ACTL_SETARRAYCOLOR
 #_  Param:    table (see its fields below):
 #_              Flags:       flags combination
 #_              StartIndex:  integer
-#_            Its array part contains integers.
+#_            Its array part contains `bit64` userdata values.
 #_
 #_**Returns:**
 #_  Result:   integer
+#_
+#_@@@
+#_[bit64]: 471.html
 #_
 
 article id=552 dt=Text ctime=3892829915 mtime=3925808934 nm=ACTL_SETCURRENTWINDOW
@@ -9051,5 +9060,86 @@ article id=595 dt=Text ctime=3923024901 mtime=3923026824 nm=utf8.reformat
 #_@@@
 #_This function was taken from https://t.me/FarManager/11224
 #_with almost no modifications.
+#_
+
+article id=596 dt=Text ctime=3927203873 mtime=3927204806 nm=far.StrCellsCount
+#_CellsCount = far.StrCellsCount (Str [, CharsCount])
+#_
+#_**Parameters:**
+#_  Str:         string
+#_  CharsCount:  optional integer, defaults to Str:len()
+#_
+#_**Returns:**
+#_  CellsCount:  integer
+#_
+#_**Far API used:**
+#_  FSF.StrCellsCount
+#_
+#_@@@
+#_
+
+article id=597 dt=Text ctime=3927203902 mtime=3927204920 nm=far.StrSizeOfCells
+#_Count, CellsCount = far.StrSizeOfCells (Str [, CharsCount] [, RoundUp])
+#_
+#_**Parameters:**
+#_  Str:         string
+#_  CharsCount:  optional integer, defaults to Str:len()
+#_  RoundUp:     optional boolean, defaults to false
+#_
+#_**Returns:**
+#_  Count:       integer
+#_  CellsCount:  integer
+#_
+#_**Far API used:**
+#_  FSF.StrSizeOfCells
+#_
+#_@@@
+#_
+
+article id=598 dt=Text ctime=3927538814 mtime=3927539208 nm=win.GetFileTimes
+#_times = win.GetFileTimes (FileName)
+#_
+#_**Parameters:**
+#_  FileName: string
+#_
+#_**Returns:**
+#_  times:    table (success), or nil (failure)
+#_    Fields of *times*:
+#_      LastWriteTime:      number
+#_      LastAccessTime:     number
+#_      CreationTime:       number
+#_
+#_**Note:**
+#_  All time values are expressed in 100-ns intervals elapsed since 1601-01-01,00:00:00.
+#_
+#_**Windows API used:**
+#_  CreateFile, GetFileTime
+#_
+#_@@@
+#_[bit64-userdata]: 471.html
+#_
+
+article id=599 dt=Text ctime=3927538835 mtime=3927538986 nm=win.SetFileTimes
+#_result = win.SetFileTimes (FileName, times)
+#_
+#_**Parameters:**
+#_  FileName: string
+#_  times:    table
+#_    Fields of *times* (each one is optional):
+#_      LastWriteTime:      `bit64-userdata` or number
+#_      LastAccessTime:     `bit64-userdata` or number
+#_      CreationTime:       `bit64-userdata` or number
+#_
+#_**Returns:**
+#_  result:   boolean
+#_
+#_**Note:**
+#_  All time values are expressed in 100-ns intervals elapsed since 1601-01-01,00:00:00.
+#_
+#_**Windows API used:**
+#_  CreateFile, SetFileTime
+#_
+#_@@@
+#_[bit64-userdata]: 471.html
 #_
 
