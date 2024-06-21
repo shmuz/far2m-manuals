@@ -18,6 +18,7 @@ node lv=2 id=109 art=109 nm=export.Open
 node lv=2 id=485 art=485 nm=export.ProcessConsoleInput
 node lv=2 id=580 art=574 nm=export.ProcessSynchroEvent
 node lv=1 id=123 art=123 nm=Panel functions
+node lv=2 id=614 art=601 nm=export.Analyse
 node lv=2 id=94 art=94 nm=export.ClosePanel
 node lv=2 id=95 art=95 nm=export.Compare
 node lv=2 id=97 art=97 nm=export.DeleteFiles
@@ -321,6 +322,7 @@ node lv=1 id=411 art=411 nm=Tables
 node lv=2 id=57 art=57 nm=far.Flags
 node lv=2 id=427 art=427 nm=far.Guids
 node lv=1 id=84 art=84 nm="Structures"
+node lv=2 id=615 art=602 nm=tAnalyseData
 node lv=2 id=314 art=314 nm=tCoord
 node lv=2 id=295 art=295 nm=tFarDialogItem
 node lv=2 id=293 art=293 nm=tFarListColors
@@ -347,7 +349,7 @@ node lv=3 id=436 art=436 nm=win.GetCurrentDir
 node lv=3 id=460 art=460 nm=win.GetFileAttr
 node lv=3 id=213 art=213 nm=win.GetFileInfo
 node lv=3 id=610 art=598 nm=win.GetFileTimes
-node lv=3 id=603 art=594 nm=win.JoinPath
+node lv=3 id=613 art=600 nm=win.JoinPath
 node lv=3 id=362 art=362 nm=win.MoveFile
 node lv=3 id=598 art=589 nm=win.OpenFile
 node lv=4 id=602 art=593 nm=close
@@ -433,7 +435,7 @@ node lv=1 id=586 art=580 nm=panel
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
 node lv=1 id=587 art=581 nm=win
 node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
-node lv=2 id=604 art=594 nm=win.JoinPath
+node lv=2 id=612 art=589 nm=win.OpenFile
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
 node lv=2 id=158 art=158 nm=LF_ClosePanel
@@ -1384,12 +1386,12 @@ article id=60 dt=Text ctime=0 mtime=3907597121 nm=far.GetPluginDirList
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=62 dt=Text ctime=0 mtime=3890940945 nm=far.InputBox
+article id=62 dt=Text ctime=0 mtime=3927726893 nm=far.InputBox
 #_result = far.InputBox (Id, Title, Prompt, HistoryName, SrcText,
 #_                       DestLength, HelpTopic, Flags)
 #_
 #_**Parameters:**
-#_  Id:          any value; currently ignored
+#_  Id:          string (dialog GUID), or nil
 #_  Title:       string, or nil
 #_  Prompt:      string, or nil
 #_  HistoryName: string, or nil
@@ -9016,18 +9018,6 @@ article id=593 dt=Text ctime=3920104990 mtime=3920105194 nm=close
 #_@@@
 #_
 
-article id=594 dt=Text ctime=3922386679 mtime=3922386816 nm=win.JoinPath
-#_path = win.JoinPath (...)
-#_
-#_**Parameters:**
-#_  ...:   0 or more strings (nils allowed)
-#_
-#_**Returns:**
-#_  path:  string
-#_
-#_@@@
-#_
-
 article id=595 dt=Text ctime=3923024901 mtime=3923026824 nm=utf8.reformat
 #_result = utf8.reformat (pattern, ...)
 #_
@@ -9141,5 +9131,46 @@ article id=599 dt=Text ctime=3927538835 mtime=3927538986 nm=win.SetFileTimes
 #_
 #_@@@
 #_[bit64-userdata]: 471.html
+#_
+
+article id=600 dt=Text ctime=3927612271 mtime=3927612281 nm=win.JoinPath
+#_path = win.JoinPath (...)
+#_
+#_**Parameters:**
+#_  ... :  0 or more strings (nils allowed)
+#_
+#_**Returns:**
+#_  path:  string
+#_
+#_@@@
+#_
+
+article id=601 dt=Text ctime=3928139500 mtime=3928139920 nm=export.Analyse
+#_Result = export.Analyse (Data)
+#_
+#_**Parameters:**
+#_  Data:    table `tAnalyseData`
+#_
+#_**Returns:**
+#_  Result:  boolean
+#_
+#_**Far API used:**
+#_  AnalyseW, AnalyseData
+#_
+#_@@@
+#_[export.Open]: 109.html
+#_[tAnalyseData]: 602.html
+#_
+#_{analyseinfo}: http://api.farmanager.com/ru/structures/analyseinfo.html
+#_{analysew}: http://api.farmanager.com/ru/exported_functions/analysew.html
+#_
+
+article id=602 dt=Text ctime=3928139646 mtime=3928139726 nm=tAnalyseData
+#_<markdown>
+#_**`tAnalyseData`** is a table with the following predefined fields:
+#_
+#_      FileName: string (UTF-8)
+#_      Buffer:   string
+#_      OpMode:   flags
 #_
 
