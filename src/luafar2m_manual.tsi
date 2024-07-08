@@ -267,7 +267,9 @@ node lv=2 id=202 art=202 nm=far.LIsAlphanum
 node lv=2 id=203 art=203 nm=far.LIsLower
 node lv=2 id=204 art=204 nm=far.LIsUpper
 node lv=2 id=205 art=205 nm=far.LLowerBuf
+node lv=2 id=616 art=603 nm=far.LStrcmp
 node lv=2 id=188 art=188 nm=far.LStricmp
+node lv=2 id=617 art=604 nm=far.LStrncmp
 node lv=2 id=189 art=189 nm=far.LStrnicmp
 node lv=2 id=206 art=206 nm=far.LUpperBuf
 node lv=2 id=208 art=208 nm=far.MkLink
@@ -1590,7 +1592,7 @@ article id=67 dt=Text ctime=0 mtime=0 nm=far.PasteFromClipboard
 #_@@@
 #_
 
-article id=68 dt=Text ctime=0 mtime=3875448672 nm=far.PluginStartupInfo
+article id=68 dt=Text ctime=0 mtime=3929297531 nm=far.PluginStartupInfo
 #_Info = far.PluginStartupInfo ()
 #_
 #_**Parameters:**
@@ -1603,7 +1605,6 @@ article id=68 dt=Text ctime=0 mtime=3875448672 nm=far.PluginStartupInfo
 #_      ModuleDir:    string (no trailing slash)
 #_      ShareDir:     string (no trailing slash)
 #_      ModuleNumber: light userdata
-#_      RootKey:      string
 #_      PluginId:     number
 #_
 #_**Description:**
@@ -3708,7 +3709,7 @@ article id=183 dt=Text ctime=0 mtime=3902595115 nm=Mediator functions
 
 article id=184 dt=Text ctime=0 mtime=0 nm=Service functions
 
-article id=185 dt=Text ctime=0 mtime=0 nm=far.CPluginStartupInfo
+article id=185 dt=Text ctime=0 mtime=3929296787 nm=far.CPluginStartupInfo
 #_Info = far.CPluginStartupInfo()
 #_
 #_**Parameters:**
@@ -3718,8 +3719,8 @@ article id=185 dt=Text ctime=0 mtime=0 nm=far.CPluginStartupInfo
 #_  Info: light userdata (a pointer to struct PluginStartupInfo)
 #_
 #_**Description:**
-#_  The function gives access to Far Standard Functions (FSF)
-#_  to DLL's other than the plugin DLL.
+#_  The function is used to give access to Far functions to DLL's other
+#_  than the plugin DLL.
 #_
 #_@@@
 #_int far_CPluginStartupInfo(lua_State *L)
@@ -6545,7 +6546,7 @@ article id=424 dt=Text ctime=3851400447 mtime=3906818038 nm=win.Uuid
 #_  from text representation to binary one.
 #_
 
-article id=425 dt=Text ctime=3851409449 mtime=3912828710 nm=Customizing the generic plugin
+article id=425 dt=Text ctime=3851409449 mtime=3928784014 nm=Customizing the generic plugin
 #_<markdown>
 #_
 #_<a name="customizing"></a>
@@ -6562,8 +6563,7 @@ article id=425 dt=Text ctime=3851409449 mtime=3912828710 nm=Customizing the gene
 #_  list of functions that should be exported by the plugin
 #_  (in uppercase, whitespace-separated), e.g.:<br>
 #_  `set(EXP_NAMES OPENPLUGIN EXITFAR)`        <br>
-#_(The functions `SetStartupInfoW`, `GetGlobalInfoW`, `GetPluginInfoW` and `ProcessSynchroEventW`
-#_are always exported, so there's no need to include them in the list.)
+#_(The functions `SetStartupInfoW`, `GetGlobalInfoW`, `GetPluginInfoW`, `ExitFARW` and `ProcessSynchroEventW` are always exported, so there's no need to include them in the list.)
 #_
 #_@@@
 #_
@@ -8837,7 +8837,7 @@ article id=582 dt=Text ctime=3912631426 mtime=3912631486 nm=far.RunDefaultScript
 #_[export.Open]: 109.html
 #_
 
-article id=583 dt=Text ctime=3912956918 mtime=3913010668 nm=far.SplitCmdLine
+article id=583 dt=Text ctime=3912956918 mtime=3929160816 nm=far.SplitCmdLine
 #_... = far.SplitCmdLine (str)
 #_
 #_**Parameters:**
@@ -8847,15 +8847,19 @@ article id=583 dt=Text ctime=3912956918 mtime=3913010668 nm=far.SplitCmdLine
 #_  ... : 0 or more strings (up to 64)
 #_
 #_**Description:**
-#_  The function treats its parameter as consisting of space-delimitered
-#_  parts and those parts are returned.
+#_  - The function treats its parameter as consisting of space-delimitered
+#_    parts and those parts are returned.
 #_
-#_  A part can contain spaces if it is either enclosed in double quotes
-#_  or if those spaces are escaped with backslashes.
+#_  - A part can contain spaces if it is either enclosed in double quotes
+#_    or if those spaces are escaped with backslashes.
 #_
-#_  A part can contain double quotes if they are escaped with backslashes.
+#_  - A part can contain double quotes if they are escaped with backslashes.
 #_
-#_  Unescaped backslashes are skipped.
+#_  - If a part is not enclosed in double quotes and an unescaped double
+#_    quote is encountered then that double quote is considered as the
+#_    beginning of a next part.
+#_
+#_  - Unescaped backslashes are skipped.
 #_
 
 article id=584 dt=Text ctime=3914307387 mtime=3914307646 nm=export.GetLinkTarget
@@ -9068,17 +9072,17 @@ article id=596 dt=Text ctime=3927203873 mtime=3927204806 nm=far.StrCellsCount
 #_@@@
 #_
 
-article id=597 dt=Text ctime=3927203902 mtime=3927204920 nm=far.StrSizeOfCells
-#_Count, CellsCount = far.StrSizeOfCells (Str [, CharsCount] [, RoundUp])
+article id=597 dt=Text ctime=3927203902 mtime=3928837065 nm=far.StrSizeOfCells
+#_Count, CellsCountOut = far.StrSizeOfCells (Str, CellsCountIn [, RoundUp])
 #_
 #_**Parameters:**
-#_  Str:         string
-#_  CharsCount:  optional integer, defaults to Str:len()
-#_  RoundUp:     optional boolean, defaults to false
+#_  Str:            string
+#_  CellsCountIn:   integer
+#_  RoundUp:        optional boolean, defaults to false
 #_
 #_**Returns:**
-#_  Count:       integer
-#_  CellsCount:  integer
+#_  Count:          integer
+#_  CellsCountOut:  integer
 #_
 #_**Far API used:**
 #_  FSF.StrSizeOfCells
@@ -9172,5 +9176,36 @@ article id=602 dt=Text ctime=3928139646 mtime=3928139726 nm=tAnalyseData
 #_      FileName: string (UTF-8)
 #_      Buffer:   string
 #_      OpMode:   flags
+#_
+
+article id=603 dt=Text ctime=3929592819 mtime=3929592994 nm=far.LStrcmp
+#_result = far.LStrcmp (str1, str2)
+#_
+#_**Parameters:**
+#_  str1: string
+#_  str2: string
+#_
+#_**Returns:**
+#_  result: integer
+#_
+#_**Far API used:**
+#_  FSF.LStrcmp
+#_
+#_
+
+article id=604 dt=Text ctime=3929592839 mtime=3929593031 nm=far.LStrncmp
+#_result = far.LStrncmp (str1, str2, num)
+#_
+#_**Parameters:**
+#_  str1: string
+#_  str2: string
+#_  num : integer
+#_
+#_**Returns:**
+#_  result: integer
+#_
+#_**Far API used:**
+#_  FSF.LStrncmp
+#_
 #_
 
