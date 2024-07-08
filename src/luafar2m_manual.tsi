@@ -9193,7 +9193,7 @@ article id=603 dt=Text ctime=3929592819 mtime=3929592994 nm=far.LStrcmp
 #_
 #_
 
-article id=604 dt=Text ctime=3929592839 mtime=3929593031 nm=far.LStrncmp
+article id=604 dt=Text ctime=3929592839 mtime=3929597577 nm=far.LStrncmp
 #_result = far.LStrncmp (str1, str2, num)
 #_
 #_**Parameters:**
