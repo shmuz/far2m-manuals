@@ -322,6 +322,7 @@ node lv=3 id=356 art=356 nm=Events
 node lv=4 id=353 art=353 nm=OnTimer
 node lv=1 id=411 art=411 nm=Tables
 node lv=2 id=57 art=57 nm=far.Flags
+node lv=2 id=622 art=607 nm=far.Colors
 node lv=2 id=427 art=427 nm=far.Guids
 node lv=1 id=84 art=84 nm="Structures"
 node lv=2 id=615 art=602 nm=tAnalyseData
@@ -336,6 +337,7 @@ node lv=2 id=313 art=313 nm=tMouseEventRecord
 node lv=2 id=121 art=121 nm=tPanelMode
 node lv=2 id=562 art=560 nm=tPluginMenuItem
 node lv=2 id=85 art=85 nm=tPluginPanelItem
+node lv=2 id=627 art=610 nm=tStat
 node lv=2 id=218 art=218 nm=tSystemTime
 node lv=2 id=133 art=133 nm=ViewerInfo.CurMode
 node lv=0 id=404 art=404 nm=Additional libraries
@@ -344,6 +346,7 @@ node lv=2 id=473 art=473 nm=bit64.new
 node lv=2 id=472 art=472 nm=bit64.type
 node lv=1 id=405 art=405 nm=win
 node lv=2 id=419 art=419 nm=Files and directories
+node lv=3 id=623 art=608 nm=win.chmod
 node lv=3 id=480 art=480 nm=win.CopyFile
 node lv=3 id=372 art=372 nm=win.CreateDir
 node lv=3 id=361 art=361 nm=win.DeleteFile
@@ -363,6 +366,7 @@ node lv=3 id=363 art=363 nm=win.RenameFile
 node lv=3 id=437 art=437 nm=win.SetCurrentDir
 node lv=3 id=469 art=469 nm=win.SetFileAttr
 node lv=3 id=611 art=599 nm=win.SetFileTimes
+node lv=3 id=626 art=609 nm=win.stat
 node lv=2 id=421 art=421 nm=Text related functions
 node lv=3 id=274 art=274 nm=win.CompareString
 node lv=3 id=394 art=394 nm=win.EnumSystemCodePages
@@ -393,11 +397,13 @@ node lv=3 id=595 art=586 nm=win.ExtractKeyEx
 node lv=3 id=359 art=359 nm=win.GetConsoleScreenBufferInfo
 node lv=3 id=393 art=393 nm=win.GetCPInfo
 node lv=3 id=152 art=152 nm=win.GetEnv
+node lv=3 id=620 art=606 nm=win.GetHostName
 node lv=3 id=315 art=315 nm=win.GetVirtualKeys
 node lv=3 id=456 art=456 nm=win.IsProcess64bit
 node lv=3 id=192 art=192 nm=win.SetEnv
 node lv=3 id=435 art=435 nm=win.Sleep
 node lv=3 id=568 art=566 nm=win.system
+node lv=3 id=618 art=605 nm=win.uname
 node lv=3 id=424 art=424 nm=win.Uuid
 node lv=1 id=406 art=406 nm=luautf8
 node lv=2 id=407 art=407 nm=utf8.dump
@@ -436,8 +442,12 @@ node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=586 art=580 nm=panel
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
 node lv=1 id=587 art=581 nm=win
+node lv=2 id=625 art=608 nm=win.chmod
 node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
+node lv=2 id=621 art=606 nm=win.GetHostName
 node lv=2 id=612 art=589 nm=win.OpenFile
+node lv=2 id=628 art=609 nm=win.stat
+node lv=2 id=619 art=605 nm=win.uname
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
 node lv=2 id=158 art=158 nm=LF_ClosePanel
@@ -4077,7 +4087,7 @@ article id=210 dt=Text ctime=0 mtime=0 nm=far.TruncStr
 #_@@@
 #_
 
-article id=211 dt=Text ctime=0 mtime=3879499558 nm=far.RecursiveSearch
+article id=211 dt=Text ctime=0 mtime=3933267235 nm=far.RecursiveSearch
 #_far.RecursiveSearch (InitDir, Mask, UserFunc [, Flags [, ...]])
 #_
 #_**Parameters:**
@@ -4101,11 +4111,19 @@ article id=211 dt=Text ctime=0 mtime=3879499558 nm=far.RecursiveSearch
 #_  If the 1-st return value of *UserFunc* is neither *false* nor *nil* then the search
 #_  is stopped.
 #_
+#_**Note:**
+#_  The 2-nd parameter (Mask) can include file attributes following the mask itself
+#_  after a >> delimiter. The attribute characters are described in `this` article.
+#_  - A small letter means the attribute must be present.
+#_  - A large letter means the attribute must not be present.
+#_  **Example:** `*`|`*`.txt>>rA
+#_
 #_**Far API used:**
 #_  FSF.FarRecursiveSearch
 #_
 #_@@@
 #_[tFindData]: 90.html
+#_[this]: 90.html
 #_
 
 article id=213 dt=Text ctime=0 mtime=3900953917 nm=win.GetFileInfo
@@ -9221,5 +9239,87 @@ article id=604 dt=Text ctime=3929592839 mtime=3929597577 nm=far.LStrncmp
 #_**Far API used:**
 #_  FSF.LStrncmp
 #_
+#_
+
+article id=605 dt=Text ctime=3930914966 mtime=3930915739 nm=win.uname
+#_result = win.uname()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  result:  table or nil
+#_    sysname    : string
+#_    nodename   : string
+#_    release    : string
+#_    version    : string
+#_    machine    : string
+#_    domainname : string (may be missing)
+#_
+
+article id=606 dt=Text ctime=3930927268 mtime=3930927324 nm=win.GetHostName
+#_result = win.GetHostName()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  result: string, or nil
+#_
+
+article id=607 dt=Text ctime=3933524175 mtime=3933524398 nm=far.Colors
+#_far.Colors
+#_
+#_**Description:**
+#_  It is the same table as `far.Flags` created
+#_  for compatibility with Far3 scripts.
+#_
+#_@@@
+#_[far.Flags]: 57.html
+#_
+
+article id=608 dt=Text ctime=3933656670 mtime=3933656896 nm=win.chmod
+#_result = win.chmod (pathname, mode)
+#_
+#_**Parameters:**
+#_  pathname : string
+#_  mode     : integer
+#_
+#_**Returns:**
+#_  result   : true (or: nil, errormessage)
+#_
+
+article id=609 dt=Text ctime=3933659886 mtime=3933660617 nm=win.stat
+#_stat = win.stat (pathname)
+#_
+#_**Parameters:**
+#_  pathname : string
+#_
+#_**Returns:**
+#_  stat     : `tStat` table (or: nil, errormessage)
+#_
+#_@@@
+#_[tStat]: 610.html
+#_
+
+article id=610 dt=Text ctime=3933660062 mtime=3933660422 nm=tStat
+#_<markdown>
+#_**`tStat`** is a table with the following predefined fields:
+#_
+#_      dev:                number
+#_      ino:                number
+#_      mode:               number
+#_      nlink:              number
+#_      uid:                number
+#_      gid:                number
+#_      rdev:               number
+#_      size:               number
+#_      blksize:            number
+#_      blocks:             number
+#_      atim:               number
+#_      mtim:               number
+#_      ctim:               number
+#_
+#_@@@
 #_
 

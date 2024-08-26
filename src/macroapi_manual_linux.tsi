@@ -53,6 +53,7 @@ node lv=2 id=48 art=48 nm=Drv
 node lv=2 id=52 art=52 nm=Editor
 node lv=2 id=54 art=54 nm=Far
 node lv=3 id=111 art=111 nm=GetConfig
+node lv=3 id=119 art=119 nm=GetInfo
 node lv=3 id=112 art=112 nm=SetConfig
 node lv=2 id=49 art=49 nm=Help
 node lv=2 id=53 art=53 nm=Menu
@@ -122,7 +123,7 @@ article id=1 dt=Text ctime=3551829092 mtime=3891885452 nm=Far Manager macro syst
 #_{macrocontrol}: https://api.farmanager.com/ru/service_functions/macrocontrol.html
 #_
 
-article id=2 dt=Text ctime=3551901528 mtime=3862504351 nm=Macros beginning with @
+article id=2 dt=Text ctime=3551901528 mtime=3930329427 nm=Macros beginning with @
 #_<markdown>
 #_If a macrosequence begins with the `@` character, then the rest of the sequence is treated as name of the file containing Lua script.
 #_
@@ -131,7 +132,7 @@ article id=2 dt=Text ctime=3551901528 mtime=3862504351 nm=Macros beginning with 
 #_* Such scripts are easier for debugging and modifications, as they are automatically reloaded at each macro invocation.
 #_
 #_**Example 1:**
-#_        lua: @%FARHOME%/test/test.lua 123, "hello"
+#_        lua: @$FARHOME/test/test.lua 123, "hello"
 #_
 #_**Example 2:**<br>
 #_[running script from within the editor][example].
@@ -1022,7 +1023,7 @@ article id=53 dt=Text ctime=3553252746 mtime=3903968771 nm=Menu
 #_
 #_
 
-article id=54 dt=Text ctime=3553252749 mtime=3915632400 nm=Far
+article id=54 dt=Text ctime=3553252749 mtime=3930917352 nm=Far
 #_**Far** - a table with the following fields:
 #_
 #_**Properties:**
@@ -1039,6 +1040,7 @@ article id=54 dt=Text ctime=3553252749 mtime=3915632400 nm=Far
 #_
 #_  DisableHistory
 #_  `GetConfig`
+#_  `GetInfo`
 #_  KbdLayout
 #_  KeyBar_Show
 #_  `SetConfig`
@@ -1349,7 +1351,7 @@ article id=67 dt=Text ctime=3568746613 mtime=3600517601 nm=Format of macros and 
 #_At the stage of loading macros all regular and keyboard macro files are run one by one.
 #_
 
-article id=69 dt=Text ctime=3571243204 mtime=3915713550 nm=usermenu
+article id=69 dt=Text ctime=3571243204 mtime=3930329766 nm=usermenu
 #_mf.usermenu (mode, filename)
 #_
 #_**Parameters:**
@@ -1367,7 +1369,7 @@ article id=69 dt=Text ctime=3571243204 mtime=3915713550 nm=usermenu
 #_    0: equivalent to pressing F2 in panels; *filename* is ignored.
 #_    1: displays the dialog for user menu selection; *filename* is ignored.
 #_    2: opens user menu from the file "as is", i.e. by specified *filename*.
-#_    3: opens user menu from the file *filename* in %farprofile%\Menus
+#_    3: opens user menu from the file *filename* in ~/.config/far2m/Menus
 #_       (the directory is created automatically).
 #_
 #_  If the bit 0x100 of *mode* is set the function will return only upon closing
@@ -1853,7 +1855,7 @@ article id=77 dt=Text ctime=3580139041 mtime=3891885560 nm=External modules
 #_`$HOME/.config/far2m/Macros/lib64` and their subdirectories as those paths are automatically added to `package.cpath`.
 #_
 
-article id=78 dt=Text ctime=3580139337 mtime=3893867563 nm=Event handlers
+article id=78 dt=Text ctime=3580139337 mtime=3930299421 nm=Event handlers
 #_<markdown>
 #_
 #_Like [regular macros][1], event handlers are loaded from macrofiles (extensions `*.lua` and `*.moon`), residing in the directory `$HOME/.config/far2m/Macros/scripts` and its subdirectories. Each macrofile may contain both macros and event handlers.
@@ -1874,7 +1876,7 @@ article id=78 dt=Text ctime=3580139337 mtime=3893867563 nm=Event handlers
 #_
 #_The field `group` can have one of the following values:<br>
 #_`"ConsoleInput", "DialogEvent", "EditorEvent", "EditorInput", "ExitFAR",
-#_"MayExitFAR", "ViewerEvent"`.<br>
+#_"MayExitFAR", "SynchroEvent", "ViewerEvent"`.<br>
 #_These names are derived from names of the corresponding functions, exported by the plugin, e.g.:<br>
 #_        export.ProcessDialogEvent -> DialogEvent
 #_The functions `condition` and `action` are called with the same parameters as the corresponding exported functions are called (see LuaFAR manual).
@@ -1890,7 +1892,7 @@ article id=78 dt=Text ctime=3580139337 mtime=3893867563 nm=Event handlers
 #_
 #_
 
-article id=79 dt=Text ctime=3581755102 mtime=3862504320 nm=eval
+article id=79 dt=Text ctime=3581755102 mtime=3930329651 nm=eval
 #_<markdown>
 #_`ret = eval(S[,Mode[,Lang]])`
 #_
@@ -1917,7 +1919,7 @@ article id=79 dt=Text ctime=3581755102 mtime=3862504320 nm=eval
 #_
 #_#### Example:
 #_```
-#_    eval("@%MyFarScripts%/calc.moon 'factorial', 3+5", 0, "moonscript")
+#_    eval("@$MyFarScripts/calc.moon 'factorial', 3+5", 0, "moonscript")
 #_```
 #_
 #_### 3. New return codes of `eval(S, 2)`
@@ -2856,5 +2858,21 @@ article id=118 dt=Text ctime=3923472475 mtime=3923998273 nm=mainmenu
 #_
 #_**Note:**
 #_  The function is asynchronous and returns immediately.
+#_
+
+article id=119 dt=Text ctime=3930917157 mtime=3932134233 nm=GetInfo
+#_Info = Far.GetInfo()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Info:  table
+#_    Build               : string
+#_    Platform            : string
+#_    MainLang            : string
+#_    HelpLang            : string
+#_    WinPortBackEnd      : string
+#_    ConsoleColorPalette : number
 #_
 
