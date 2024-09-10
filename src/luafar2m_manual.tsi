@@ -676,13 +676,14 @@ article id=12 dt=Text ctime=0 mtime=3916572361 nm=panel.SetCmdLinePos
 #_@@@
 #_
 
-article id=13 dt=Text ctime=0 mtime=3916572489 nm=panel.SetPanelDirectory
+article id=13 dt=Text ctime=0 mtime=3935153384 nm=panel.SetPanelDirectory
 #_result = panel.SetPanelDirectory (handle, whatpanel, dir)
 #_
 #_**Parameters:**
 #_  handle:    panel handle, or nil
 #_  whatpanel: 1=active panel; 0=passive panel;
-#_  dir:       string
+#_  dir:       string, or table `tFarPanelDirectory`
+#_             (currently, only "Name" field can be used)
 #_
 #_**Returns:**
 #_  result: boolean
@@ -691,6 +692,7 @@ article id=13 dt=Text ctime=0 mtime=3916572489 nm=panel.SetPanelDirectory
 #_  Control, FCTL_SETPANELDIR
 #_
 #_@@@
+#_[tFarPanelDirectory]: 611.html
 #_
 
 article id=14 dt=Text ctime=0 mtime=3916572584 nm=panel.SetSelection
