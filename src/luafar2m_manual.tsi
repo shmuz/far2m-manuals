@@ -329,6 +329,7 @@ node lv=2 id=615 art=602 nm=tAnalyseData
 node lv=2 id=314 art=314 nm=tCoord
 node lv=2 id=295 art=295 nm=tFarDialogItem
 node lv=2 id=293 art=293 nm=tFarListColors
+node lv=2 id=629 art=611 nm=tFarPanelDirectory
 node lv=2 id=579 art=573 nm=tFarTrueColorForeAndBack
 node lv=2 id=90 art=90 nm=tFindData
 node lv=2 id=120 art=120 nm=tInfoLine
@@ -4540,7 +4541,7 @@ article id=259 dt=Text ctime=0 mtime=3916571816 nm=panel.GetColumnWidths
 #_@@@
 #_
 
-article id=260 dt=Text ctime=0 mtime=3916571872 nm=panel.GetPanelDirectory
+article id=260 dt=Text ctime=0 mtime=3935145871 nm=panel.GetPanelDirectory
 #_PanelDir = panel.GetPanelDirectory (handle, whatpanel)
 #_
 #_**Parameters:**
@@ -4548,13 +4549,14 @@ article id=260 dt=Text ctime=0 mtime=3916571872 nm=panel.GetPanelDirectory
 #_  whatpanel: 1=active panel; 0=passive panel;
 #_
 #_**Returns:**
-#_  PanelDir:  string
+#_  PanelDir:  table `tFarPanelDirectory`
+#_             (currently, only "Name" field can be used)
 #_
 #_**Far API used:**
 #_  Control, FCTL_GETPANELDIR
 #_
 #_@@@
-#_
+#_[tFarPanelDirectory]: 611.html
 #_
 
 article id=261 dt=Text ctime=0 mtime=3889634219 nm=editor.GetFileName
@@ -9321,5 +9323,16 @@ article id=610 dt=Text ctime=3933660062 mtime=3933660422 nm=tStat
 #_      ctim:               number
 #_
 #_@@@
+#_
+
+article id=611 dt=Text ctime=3935145741 mtime=3935145777 nm=tFarPanelDirectory
+#_<markdown>
+#_**`tFarPanelDirectory`** is a table with the following predefined fields:
+#_
+#_      Name:     string
+#_      Param:    string
+#_      PluginId: integer
+#_      File:     string
+#_
 #_
 
