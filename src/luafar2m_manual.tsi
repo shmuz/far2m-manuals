@@ -8213,7 +8213,7 @@ article id=528 dt=Text ctime=3892829915 mtime=3925813894 nm=ACTL_COMMIT
 #_  Result:   integer
 #_
 
-article id=530 dt=Text ctime=3892829915 mtime=3926856904 nm=ACTL_GETARRAYCOLOR
+article id=530 dt=Text ctime=3892829915 mtime=3936022713 nm=ACTL_GETARRAYCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8221,13 +8221,15 @@ article id=530 dt=Text ctime=3892829915 mtime=3926856904 nm=ACTL_GETARRAYCOLOR
 #_  Param:    none
 #_
 #_**Returns:**
-#_  Result:   table (array of `bit64` userdata)
+#_  Result:   table (array of integers and/or `bit64` userdata).
+#_            Userdata are used to represent RGB colors that
+#_            do not fit in 53 bit integers.
 #_
 #_@@@
 #_[bit64]: 471.html
 #_
 
-article id=531 dt=Text ctime=3892829915 mtime=3926856908 nm=ACTL_GETCOLOR
+article id=531 dt=Text ctime=3892829915 mtime=3936021044 nm=ACTL_GETCOLOR
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8235,10 +8237,15 @@ article id=531 dt=Text ctime=3892829915 mtime=3926856908 nm=ACTL_GETCOLOR
 #_  Param:    flag
 #_
 #_**Returns:**
-#_  Result:   `bit64` userdata or nil
+#_  Result:   integer, or `bit64` userdata, or nil
 #_
 #_**Example:**
 #_  color = actl.GetColor("COL_EDITORTEXT")
+#_  The possible result would be *0x1B* (an integer).
+#_
+#_  But if we do: Options -> Colors -> Set default colors (RGB)
+#_  and then: color = actl.GetColor("COL_EDITORTEXT")
+#_  the possible result would be *0x800000FFFF00031B* (a userdata).
 #_
 #_@@@
 #_[bit64]: 471.html
