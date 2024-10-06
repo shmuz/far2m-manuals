@@ -572,7 +572,7 @@ article id=6 dt=Text ctime=0 mtime=3916571742 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3916571945 nm=panel.GetPanelInfo
+article id=7 dt=Text ctime=0 mtime=3937001499 nm=panel.GetPanelInfo
 #_tPanelInfo = panel.GetPanelInfo (handle, whatpanel)
 #_
 #_**Parameters:**
@@ -593,9 +593,16 @@ article id=7 dt=Text ctime=0 mtime=3916571945 nm=panel.GetPanelInfo
 #_      ViewMode:            integer
 #_      SortMode:            integer
 #_      Flags:               flags
+#_      PluginObject:        non-false Lua value
 #_      OwnerHandle:         light userdata, or nil
 #_
 #_**Note 1:**
+#_  The *PluginObject* field is LuaFAR-specific. It is only present if OwnerID==PluginID,
+#_  i.e. when *panel.GetPanelInfo* was called from the same plugin that created the panel.
+#_  The intended use of this field is when a panel plugin processes macro calls for
+#_  operations on an already opened panel.
+#_
+#_**Note 2:**
 #_  For plugin panels *OwnerHandle* is a handle of the plugin that owns
 #_  the panel. It can be used e.g. in `far.GetPluginInformation`.
 #_
@@ -8354,7 +8361,7 @@ article id=541 dt=Text ctime=3892829915 mtime=3892838241 nm=ACTL_GETPLUGINMAXREA
 #_  Result:   integer
 #_
 
-article id=542 dt=Text ctime=3892829915 mtime=3892838247 nm=ACTL_GETSHORTWINDOWINFO
+article id=542 dt=Text ctime=3892829915 mtime=3936684684 nm=ACTL_GETSHORTWINDOWINFO
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8365,8 +8372,7 @@ article id=542 dt=Text ctime=3892829915 mtime=3892838247 nm=ACTL_GETSHORTWINDOWI
 #_  Result:   table (see its fields below), or nil
 #_              Type:      integer
 #_              Pos:       integer (1-based)
-#_              Modified:  boolean
-#_              Current:   boolean
+#_              Flags:     integer
 #_
 #_
 
@@ -8403,7 +8409,7 @@ article id=545 dt=Text ctime=3892829915 mtime=3892838263 nm=ACTL_GETWINDOWCOUNT
 #_  Result:   integer
 #_
 
-article id=546 dt=Text ctime=3892829915 mtime=3892838271 nm=ACTL_GETWINDOWINFO
+article id=546 dt=Text ctime=3892829915 mtime=3936715128 nm=ACTL_GETWINDOWINFO
 #_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
@@ -8413,9 +8419,9 @@ article id=546 dt=Text ctime=3892829915 mtime=3892838271 nm=ACTL_GETWINDOWINFO
 #_**Returns:**
 #_  Result:   table (see its fields below), or nil
 #_              Type:      integer
+#_              Id:        userdata (if Type is WTYPE_DIALOG), or integer
 #_              Pos:       integer (1-based)
-#_              Modified:  boolean
-#_              Current:   boolean
+#_              Flags:     integer
 #_              TypeName:  string
 #_              Name:      string
 #_
