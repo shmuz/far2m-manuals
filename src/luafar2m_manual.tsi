@@ -283,6 +283,8 @@ node lv=2 id=606 art=596 nm=far.StrCellsCount
 node lv=2 id=607 art=597 nm=far.StrSizeOfCells
 node lv=2 id=209 art=209 nm=far.TruncPathStr
 node lv=2 id=210 art=210 nm=far.TruncStr
+node lv=2 id=632 art=614 nm=far.VTEnumBackground
+node lv=2 id=633 art=615 nm=far.VTLogExport
 node lv=2 id=335 art=335 nm=far.XLat
 node lv=1 id=273 art=273 nm=Regular expression functions
 node lv=2 id=488 art=488 nm=regex.exec, execW
@@ -412,6 +414,7 @@ node lv=2 id=408 art=408 nm=utf8.format
 node lv=2 id=605 art=595 nm=utf8.reformat
 node lv=2 id=409 art=409 nm=utf8.rep
 node lv=2 id=410 art=410 nm=utf8.utf8valid
+node lv=1 id=631 art=613 nm=lpeg
 node lv=0 id=496 art=496 nm=Far2M-specific functions
 node lv=1 id=583 art=577 nm=actl
 node lv=2 id=527 art=525 nm=actl.WinPortBackEnd
@@ -439,6 +442,8 @@ node lv=2 id=590 art=583 nm=far.SplitCmdLine
 node lv=2 id=608 art=596 nm=far.StrCellsCount
 node lv=2 id=609 art=597 nm=far.StrSizeOfCells
 node lv=2 id=597 art=588 nm=far.SudoCRCall
+node lv=2 id=634 art=614 nm=far.VTEnumBackground
+node lv=2 id=635 art=615 nm=far.VTLogExport
 node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=586 art=580 nm=panel
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
@@ -490,6 +495,7 @@ node lv=2 id=130 art=130 nm=LF_RunDefaultScript
 node lv=0 id=194 art=194 nm=Third party software used
 node lv=1 id=196 art=196 nm=Lua
 node lv=1 id=251 art=251 nm=LuaUtf8
+node lv=1 id=630 art=612 nm=LPeg
 
 article id=2 dt=Text ctime=0 mtime=3892648982 nm=far.CmpName
 #_Result = far.CmpName (Mask, Name, Flags)
@@ -2820,14 +2826,14 @@ article id=133 dt=Text ctime=0 mtime=3878661339 nm=ViewerInfo.CurMode
 #_      Processed:      boolean
 #_
 
-article id=134 dt=Text ctime=0 mtime=3889634656 nm=viewer.Quit
-#_viewer.Quit (ViewerId)
+article id=134 dt=Text ctime=0 mtime=3939308595 nm=viewer.Quit
+#_result = viewer.Quit (ViewerId)
 #_
 #_**Parameters:**
 #_  ViewerId: integer, or nil
 #_
 #_**Returns:**
-#_  nothing
+#_  result:   boolean
 #_
 #_**Far API used:**
 #_  ViewerControl, VCTL_QUIT
@@ -8470,13 +8476,12 @@ article id=551 dt=Text ctime=3892829915 mtime=3926856914 nm=ACTL_SETARRAYCOLOR
 #_[bit64]: 471.html
 #_
 
-article id=552 dt=Text ctime=3892829915 mtime=3925808934 nm=ACTL_SETCURRENTWINDOW
-#_Result = far.AdvControl (Command, Param [, Param2])
+article id=552 dt=Text ctime=3892829915 mtime=3939372568 nm=ACTL_SETCURRENTWINDOW
+#_Result = far.AdvControl (Command, Param)
 #_
 #_**Parameters:**
 #_  Command:  ACTL_SETCURRENTWINDOW
 #_  Param:    integer (1-based)
-#_  Param2:   boolean (if true then ACTL_COMMIT is called after ACTL_SETCURRENTWINDOW)
 #_
 #_**Returns:**
 #_  Result:   integer
@@ -9349,5 +9354,73 @@ article id=611 dt=Text ctime=3935145741 mtime=3935145777 nm=tFarPanelDirectory
 #_      PluginId: integer
 #_      File:     string
 #_
+#_
+
+article id=612 dt=Text ctime=3937643764 mtime=3937644117 nm=LPeg
+#_
+#_
+#_Home page: https://www.inf.puc-rio.br/~roberto/lpeg/
+#_
+#_License
+#_
+#_Copyright © 2007-2023 Lua.org, PUC-Rio.
+#_
+#_Permission is hereby granted, free of charge, to any person
+#_obtaining a copy of this software and associated documentation
+#_files (the "Software"), to deal in the Software without
+#_restriction, including without limitation the rights to use,
+#_copy, modify, merge, publish, distribute, sublicense, and/or
+#_sell copies of the Software, and to permit persons to whom the
+#_Software is furnished to do so, subject to the following
+#_conditions:
+#_
+#_The above copyright notice and this permission notice shall be
+#_included in all copies or substantial portions of the Software.
+#_
+#_THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+#_EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+#_OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+#_NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+#_HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+#_WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+#_FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+#_OTHER DEALINGS IN THE SOFTWARE.
+#_
+
+article id=613 dt=Text ctime=3937644181 mtime=3937644454 nm=lpeg
+#_<markdown>
+#_See the documentation [here](https://www.inf.puc-rio.br/~roberto/lpeg/).
+#_
+
+article id=614 dt=Text ctime=3939061767 mtime=3939062184 nm=far.VTEnumBackground
+#_handles = far.VTEnumBackground()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  handles:  table (an array of lightuserdata)
+#_
+#_**Far API used:**
+#_  FSF.VTEnumBackground
+#_
+#_@@@
+#_
+
+article id=615 dt=Text ctime=3939061789 mtime=3939102145 nm=far.VTLogExport
+#_result = far.VTLogExport (handle, filename [, flags])
+#_
+#_**Parameters:**
+#_  handle:    nil or lightuserdata
+#_  filename:  string
+#_  flags:     flags (optional; default = 0)
+#_
+#_**Returns:**
+#_  result:    boolean
+#_
+#_**Far API used:**
+#_  FSF.VTLogExport
+#_
+#_@@@
 #_
 
