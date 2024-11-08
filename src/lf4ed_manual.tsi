@@ -368,7 +368,7 @@ article id=38 dt=Text ctime=0 mtime=0 nm=Binary modules
 #_
 #_
 
-article id=57 dt=Text ctime=0 mtime=3860309881 nm=AddCommand
+article id=57 dt=Text ctime=0 mtime=3939744194 nm=AddCommand
 #_<markdown>
 #_**`AddCommand (command, handler [, description])`**
 #_
@@ -393,7 +393,7 @@ article id=57 dt=Text ctime=0 mtime=3860309881 nm=AddCommand
 #_### Note
 #_
 #_`AddCommand` may be called several times with the same `command` parameter
-#_but different `handler` and `description` parameters. When such a comnmand
+#_but different `handler` and `description` parameters. When such a command
 #_is later invoked the user is presented with a menu for choosing the desired
 #_action.
 #_
