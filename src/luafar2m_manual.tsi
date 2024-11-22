@@ -8855,7 +8855,7 @@ article id=582 dt=Text ctime=3912631426 mtime=3912631486 nm=far.RunDefaultScript
 #_[export.Open]: 109.html
 #_
 
-article id=583 dt=Text ctime=3912956918 mtime=3929160816 nm=far.SplitCmdLine
+article id=583 dt=Text ctime=3912956918 mtime=3940763539 nm=far.SplitCmdLine
 #_... = far.SplitCmdLine (str)
 #_
 #_**Parameters:**
@@ -8873,9 +8873,8 @@ article id=583 dt=Text ctime=3912956918 mtime=3929160816 nm=far.SplitCmdLine
 #_
 #_  - A part can contain double quotes if they are escaped with backslashes.
 #_
-#_  - If a part is not enclosed in double quotes and an unescaped double
-#_    quote is encountered then that double quote is considered as the
-#_    beginning of a next part.
+#_  - A part that is not enclosed in double quotes may contain unescaped
+#_    double quotes.
 #_
 #_  - Unescaped backslashes are skipped.
 #_

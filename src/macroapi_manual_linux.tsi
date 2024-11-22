@@ -2860,7 +2860,7 @@ article id=118 dt=Text ctime=3923472475 mtime=3923998273 nm=mainmenu
 #_  The function is asynchronous and returns immediately.
 #_
 
-article id=119 dt=Text ctime=3930917157 mtime=3932134233 nm=GetInfo
+article id=119 dt=Text ctime=3930917157 mtime=3940429382 nm=GetInfo
 #_Info = Far.GetInfo()
 #_
 #_**Parameters:**
@@ -2872,7 +2872,7 @@ article id=119 dt=Text ctime=3930917157 mtime=3932134233 nm=GetInfo
 #_    Platform            : string
 #_    MainLang            : string
 #_    HelpLang            : string
-#_    WinPortBackEnd      : string
+#_    WinPortBackEnd      : table (array of strings)
 #_    ConsoleColorPalette : number
 #_
 
