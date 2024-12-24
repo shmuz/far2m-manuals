@@ -2,6 +2,7 @@
 
 node lv=0 id=1 art=1 nm=Far Manager macro system manual
 node lv=1 id=94 art=94 nm=Loading macrofiles
+node lv=2 id=120 art=120 nm=Redefining macro keys
 node lv=1 id=67 art=67 nm=Format of macros and event handlers
 node lv=2 id=75 art=75 nm=Regular macros
 node lv=2 id=76 art=76 nm=Keyboard macros
@@ -2323,7 +2324,7 @@ article id=93 dt=Text ctime=3617998172 mtime=3891885592 nm=File luamacro.ini
 #_  The default value is an empty string.
 #_
 
-article id=94 dt=Text ctime=3618592117 mtime=3891885480 nm=Loading macrofiles
+article id=94 dt=Text ctime=3618592117 mtime=3942384636 nm=Loading macrofiles
 #_<markdown>
 #_
 #_* [Regular macros](75.html) and [event handlers](78.html) are loaded from Lua-files (extension `*.lua`) and/or MoonScript files (extension `*.moon`). Further we will call these files *macrofiles*. The macros are loaded when macrofiles are executed by [LuaMacro][LuaMacro] plugin.
@@ -2349,9 +2350,12 @@ article id=94 dt=Text ctime=3618592117 mtime=3891885480 nm=Loading macrofiles
 #_* If macrofiles are loaded from a sequence of trees `root1;root2;...`,
 #_  that means that:
 #_  - The tree `root2` loads only after loading `root1`
-#_  - For each tree `rootN` the first macrofile run is `rootN/_macroinit.lua`
-#_    if it exists. For the rest of macrofiles in the given tree the order
-#_    of execution is not defined.<br><br>
+#_  - For each tree `rootN`:
+#_    - file `rootN/_keyreplace.cfg` is procecced if it exists.
+#_      See details [here](120.html).
+#_    - the first macrofile run is `rootN/_macroinit.lua`
+#_      if it exists. For the rest of macrofiles in the given tree the order
+#_      of execution is not defined.<br><br>
 #_
 #_[LuaMacro]: 7.html
 #_
@@ -2875,4 +2879,26 @@ article id=119 dt=Text ctime=3930917157 mtime=3940429382 nm=GetInfo
 #_    WinPortBackEnd      : table (array of strings)
 #_    ConsoleColorPalette : number
 #_
+
+article id=120 dt=Text ctime=3942383358 mtime=3942387022 nm=Redefining macro keys
+#_It is possible to redefine keys in macros via the file
+#__keyreplace.cfg. This file may contain lines with syntax
+#_*<id> = <key>*, e.g.
+#_
+#_    95ACF09A-F3FB-475C-8F63-6B12A7F16053 = AltF3
+#_    908710AB-E08C-43A0-8B63-09F788E55BAC = F5 F8
+#_    8D0C7D8E-601A-48A2-AE55-D9E351B33486 = /(Shift)?F2/
+#_
+#_If some macro has the field *id* in its definition
+#_and that *id* is also listed in _keyreplace.cfg
+#_then the key specified in _keyreplace.cfg overrides
+#_the key specified in the macro definition.
+#_
+#_**Notes on syntax:**
+#_- Leading and trailing spaces are ignored in both *<id>* and *<key>*
+#_- Any of *<id>* and *<key>* may be enclosed in single or double quotes
+#_- *<id>* is case insensitive
+#_- Backslashes (if any) in the *<key>* shouldn't be escaped
+#_- Lines that don't have *<id>=<key>* format are ignored (may be used
+#_  as comments)
 

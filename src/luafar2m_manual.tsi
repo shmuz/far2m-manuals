@@ -495,6 +495,7 @@ node lv=0 id=194 art=194 nm=Third party software used
 node lv=1 id=196 art=196 nm=Lua
 node lv=1 id=251 art=251 nm=LuaUtf8
 node lv=1 id=630 art=612 nm=LPeg
+node lv=1 id=636 art=616 nm=MoonScript
 
 article id=2 dt=Text ctime=0 mtime=3940177443 nm=far.CmpName
 #_Result = far.CmpName (Mask, Name, Flags)
@@ -7279,7 +7280,10 @@ article id=468 dt=Text ctime=3861166983 mtime=3889634649 nm=viewer.GetFileName
 #_
 #_
 
-article id=469 dt=Text ctime=3861201377 mtime=3861201471 nm=win.SetFileAttr
+article id=469 dt=Text ctime=3861201377 mtime=3942671786 nm=win.SetFileAttr
+#_**NOTE:**
+#_  **This function does nothing and returns true**
+#_
 #_result = win.SetFileAttr (FileName, Attr)
 #_
 #_**Parameters:**
@@ -7288,9 +7292,6 @@ article id=469 dt=Text ctime=3861201377 mtime=3861201471 nm=win.SetFileAttr
 #_
 #_**Returns:**
 #_  result:   boolean
-#_
-#_**Windows API used:**
-#_  SetFileAttributesW
 #_
 #_@@@
 #_[tFindData]: 90.html
@@ -8103,7 +8104,7 @@ article id=515 dt=Text ctime=3881479376 mtime=3891884993 nm=far.InMyCache
 #_@@@
 #_
 
-article id=516 dt=Text ctime=3881479391 mtime=3891885004 nm=far.InMyTemp
+article id=516 dt=Text ctime=3881479391 mtime=3942652195 nm=far.InMyTemp
 #_Path = far.InMyTemp(subpath)
 #_
 #_**Parameters:**
@@ -8113,7 +8114,9 @@ article id=516 dt=Text ctime=3881479391 mtime=3891885004 nm=far.InMyTemp
 #_  Path    : string
 #_
 #_**Description:**
-#_  Returns the path in the tmp directory.
+#_  In the tmp directory (usually /tmp but may be different on some systems):
+#_    - Creates all subdirectories (if any) from *subpath*
+#_    - Returns the resulting path   
 #_
 #_**Note:**
 #_  The function is not part of Far API.
@@ -9323,9 +9326,7 @@ article id=611 dt=Text ctime=3935145741 mtime=3935145777 nm=tFarPanelDirectory
 #_
 #_
 
-article id=612 dt=Text ctime=3937643764 mtime=3937644117 nm=LPeg
-#_
-#_
+article id=612 dt=Text ctime=3937643764 mtime=3944240968 nm=LPeg
 #_Home page: https://www.inf.puc-rio.br/~roberto/lpeg/
 #_
 #_License
@@ -9390,4 +9391,29 @@ article id=615 dt=Text ctime=3939061789 mtime=3939102145 nm=far.VTLogExport
 #_
 #_@@@
 #_
+
+article id=616 dt=Text ctime=3944240838 mtime=3944241495 nm=MoonScript
+#_<markdown>
+#_
+#_## License (MIT)
+#_
+#_Copyright (C) 2020 by Leaf Corcoran
+#_
+#_Permission is hereby granted, free of charge, to any person obtaining a copy
+#_of this software and associated documentation files (the "Software"), to deal
+#_in the Software without restriction, including without limitation the rights
+#_to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#_copies of the Software, and to permit persons to whom the Software is
+#_furnished to do so, subject to the following conditions:
+#_
+#_The above copyright notice and this permission notice shall be included in
+#_all copies or substantial portions of the Software.
+#_
+#_THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#_IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#_FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#_AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#_LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#_OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#_THE SOFTWARE.
 
