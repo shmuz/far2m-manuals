@@ -2763,16 +2763,17 @@ article id=108 dt=Text ctime=3882879596 mtime=3882880272 nm=Unsupported function
 #_These functions exist for testing purposes and may be removed at any time.
 #_
 
-article id=109 dt=Text ctime=3882879741 mtime=3883070653 nm=mf.udlsplit
+article id=109 dt=Text ctime=3882879741 mtime=3945273122 nm=mf.udlsplit
 #_*User-defined list split*
 #_
-#_s1,... = mf.udlsplit (flags, subject)
+#_items = mf.udlsplit (subject [,separators] [,flags])
 #_
 #_**Parameters**
-#_  flags   : integer
-#_  subject : string
+#_  subject    : string
+#_  separators : string  (default = ";,")
+#_  flags      : integer (default = 0)
 #_
-#_**Flag bits:**
+#_**Flags bits:**
 #_  ULF_ADDASTERISK      = 0x001
 #_  ULF_PACKASTERISKS    = 0x002
 #_  ULF_PROCESSBRACKETS  = 0x004
@@ -2783,7 +2784,7 @@ article id=109 dt=Text ctime=3882879741 mtime=3883070653 nm=mf.udlsplit
 #_  ULF_CASESENSITIVE    = 0x200
 #_
 #_**Returns**
-#_  s1,...  : either sequence of strings or *false*
+#_  items : either a table (array of strings) or *false*
 #_
 #_
 
@@ -2796,14 +2797,14 @@ article id=110 dt=Text ctime=3910196314 mtime=3910196845 nm=size2str
 #_  (see *FARFORMATFILESIZEFLAGS* in farplug-wide.h).
 #_
 
-article id=111 dt=Text ctime=3915204276 mtime=3915633105 nm=GetConfig
+article id=111 dt=Text ctime=3915204276 mtime=3944923084 nm=GetConfig
 #_val, type, val0, key, name, saved = Far.GetConfig (index)
 #_
 #_**Parameters:**
 #_  index:   integer (1-based), or string (e.g. "Editor.ShowTitleBar")
 #_
 #_**Returns:**
-#_  val:     integer or string (the current value of this option)
+#_  val:     integer, string, or table (the current value of this option)
 #_  type:    string; either of: "integer", "boolean", "3-state",
 #_                              "string" or "binary"
 #_  val0:    integer or string (the default value of this option)

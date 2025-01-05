@@ -4103,7 +4103,7 @@ article id=210 dt=Text ctime=0 mtime=0 nm=far.TruncStr
 #_@@@
 #_
 
-article id=211 dt=Text ctime=0 mtime=3933267235 nm=far.RecursiveSearch
+article id=211 dt=Text ctime=0 mtime=3944285135 nm=far.RecursiveSearch
 #_far.RecursiveSearch (InitDir, Mask, UserFunc [, Flags [, ...]])
 #_
 #_**Parameters:**
@@ -4127,8 +4127,13 @@ article id=211 dt=Text ctime=0 mtime=3933267235 nm=far.RecursiveSearch
 #_  If the 1-st return value of *UserFunc* is neither *false* nor *nil* then the search
 #_  is stopped.
 #_
-#_**Note:**
-#_  The 2-nd parameter (Mask) can include file attributes following the mask itself
+#_**Note 1:**
+#_  Parameter *Flags* contains the bit *FRS_CASESENSMASK* not described
+#_  in Far Encyclopedia. If that bit is set then parameter *Mask* will
+#_  be treated as case sensitive one.
+#_
+#_**Note 2:**
+#_  Parameter *Mask* may include file attributes following the mask itself
 #_  after a >> delimiter. The attribute characters are described in `this` article.
 #_  - A small letter means the attribute must be present.
 #_  - A large letter means the attribute must not be present.
