@@ -2845,7 +2845,7 @@ article id=113 dt=Text ctime=3918663874 mtime=3918664105 nm=SetPluginPath
 #_  result:     boolean
 #_
 
-article id=118 dt=Text ctime=3923472475 mtime=3923998273 nm=mainmenu
+article id=118 dt=Text ctime=3923472475 mtime=3948700808 nm=mainmenu
 #_mf.mainmenu (Param)
 #_
 #_**Parameters:**
@@ -2856,7 +2856,7 @@ article id=118 dt=Text ctime=3923472475 mtime=3923998273 nm=mainmenu
 #_
 #_**Param values:**
 #_  "fileassociations" : call "File associations" menu
-#_  "filehighlighting" : call "Files highlighting and sort groups" menu
+#_  "filehighlight"    : call "Files highlighting and sort groups" menu
 #_  "filemaskgroups"   : call "Groups of file masks" menu
 #_  "filepanelmodes"   : call "File panel modes" menu
 #_  "foldershortcuts"  : call "Folder bookmarks" menu
