@@ -114,6 +114,7 @@ node lv=2 id=301 art=301 nm=DN_DRAGGED
 node lv=2 id=302 art=302 nm=DN_DRAWDIALOG
 node lv=2 id=303 art=303 nm=DN_DRAWDIALOGDONE
 node lv=2 id=287 art=287 nm=DN_DRAWDLGITEM
+node lv=2 id=637 art=617 nm=DN_DROPDOWNOPENED
 node lv=2 id=288 art=288 nm=DN_EDITCHANGE
 node lv=2 id=304 art=304 nm=DN_ENTERIDLE
 node lv=2 id=305 art=305 nm=DN_GETDIALOGINFO
@@ -417,10 +418,25 @@ node lv=2 id=410 art=410 nm=utf8.utf8valid
 node lv=1 id=631 art=613 nm=lpeg
 node lv=0 id=496 art=496 nm=Far2M-specific functions
 node lv=1 id=583 art=577 nm=actl
+node lv=2 id=643 art=532 nm=actl.GetConfirmations
+node lv=2 id=644 art=534 nm=actl.GetDescSettings
+node lv=2 id=645 art=535 nm=actl.GetDialogSettings
+node lv=2 id=646 art=539 nm=actl.GetInterfaceSettings
+node lv=2 id=647 art=540 nm=actl.GetPanelSettings
+node lv=2 id=648 art=541 nm=actl.GetPluginMaxReadData
+node lv=2 id=649 art=542 nm=actl.GetShortWindowInfo
+node lv=2 id=651 art=543 nm=actl.GetSystemSettings
+node lv=2 id=650 art=544 nm=actl.GetSysWordDiv
+node lv=2 id=652 art=557 nm=actl.WaitKey
 node lv=2 id=527 art=558 nm=actl.WinPortBackEnd
+node lv=1 id=639 art=618 nm=editor
+node lv=2 id=653 art=138 nm=editor.ProcessKey
+node lv=2 id=640 art=137 nm=editor.TurnOffMarkingBlock
 node lv=1 id=584 art=578 nm=export
 node lv=2 id=592 art=584 nm=export.GetLinkTarget
 node lv=2 id=582 art=447 nm=export.MayExitFAR
+node lv=2 id=654 art=108 nm=export.OpenFilePlugin
+node lv=2 id=655 art=114 nm=export.ProcessKey
 node lv=1 id=585 art=579 nm=far
 node lv=2 id=453 art=453 nm=far.BackgroundTask
 node lv=2 id=509 art=505 nm=far.ClearPluginCache
@@ -429,14 +445,18 @@ node lv=2 id=451 art=451 nm=far.DisplayNotification
 node lv=2 id=449 art=449 nm=far.Execute
 node lv=2 id=450 art=450 nm=far.ExecuteLibrary
 node lv=2 id=569 art=526 nm=far.GetFileGroup
-node lv=2 id=570 art=56 nm=far.GetFileOwner
 node lv=2 id=519 art=517 nm=far.GetMyHome
-node lv=2 id=476 art=476 nm=far.GetPluginId
 node lv=2 id=563 art=561 nm=far.GetPluginGlobalInfo
+node lv=2 id=476 art=476 nm=far.GetPluginId
 node lv=2 id=517 art=515 nm=far.InMyCache
 node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
+node lv=2 id=656 art=186 nm=far.InputRecordToKey
+node lv=2 id=657 art=63 nm=far.KeyToName
 node lv=2 id=459 art=459 nm=far.Log
+node lv=2 id=658 art=603 nm=far.LStrcmp
+node lv=2 id=659 art=604 nm=far.LStrncmp
+node lv=2 id=660 art=66 nm=far.NameToKey
 node lv=2 id=590 art=583 nm=far.SplitCmdLine
 node lv=2 id=608 art=596 nm=far.StrCellsCount
 node lv=2 id=609 art=597 nm=far.StrSizeOfCells
@@ -445,14 +465,21 @@ node lv=2 id=634 art=614 nm=far.VTEnumBackground
 node lv=2 id=635 art=615 nm=far.VTLogExport
 node lv=2 id=564 art=562 nm=far.WriteConsole
 node lv=1 id=586 art=580 nm=panel
+node lv=2 id=638 art=455 nm=panel.GetPanelPluginHandle
+node lv=2 id=641 art=395 nm=panel.SetCaseSensitiveSort
+node lv=2 id=642 art=146 nm=panel.SetNumericSort
 node lv=2 id=572 art=567 nm=panel.SetPanelLocation
 node lv=1 id=587 art=581 nm=win
 node lv=2 id=625 art=608 nm=win.chmod
+node lv=2 id=661 art=464 nm=win.Clock
 node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
+node lv=2 id=662 art=563 nm=win.ExpandEnv
 node lv=2 id=621 art=606 nm=win.GetHostName
 node lv=2 id=612 art=589 nm=win.OpenFile
 node lv=2 id=628 art=609 nm=win.stat
 node lv=2 id=619 art=605 nm=win.uname
+node lv=2 id=663 art=264 nm=win.Utf32ToUtf8
+node lv=2 id=664 art=265 nm=win.Utf8ToUtf32
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
 node lv=2 id=158 art=158 nm=LF_ClosePanel
@@ -1324,7 +1351,7 @@ article id=53 dt=Text ctime=0 mtime=3478185727 nm=far.GetDirList
 #_[tFindData]: 90.html
 #_
 
-article id=56 dt=Text ctime=0 mtime=3892753739 nm=far.GetFileOwner
+article id=56 dt=Text ctime=3956671701 mtime=3956672035 nm=far.GetFileOwner
 #_result = far.GetFileOwner (Computer, Name)
 #_
 #_**Parameters:**
@@ -3789,7 +3816,7 @@ article id=186 dt=Text ctime=0 mtime=3853777092 nm=far.InputRecordToKey
 #_[tInputRecord]: 187.html
 #_
 
-article id=187 dt=Text ctime=0 mtime=3917348136 nm=tInputRecord
+article id=187 dt=Text ctime=0 mtime=3956479645 nm=tInputRecord
 #_**The table has the following fields:**
 #_
 #_  EventType:         integer (from Far) or flag (to Far)
@@ -3801,6 +3828,7 @@ article id=187 dt=Text ctime=0 mtime=3917348136 nm=tInputRecord
 #_  VirtualScanCode:   integer
 #_  UnicodeChar:       string
 #_  ControlKeyState:   integer
+#_  FarKeyName:        string (a LuaFAR-specific field added for convenience)
 #_
 #_  *--if EventType is MOUSE_EVENT:*
 #_  see `tMouseEventRecord`
@@ -7585,7 +7613,7 @@ article id=481 dt=Text ctime=3863801209 mtime=3865959577 nm=editor.GetStringW
 #_[editor.GetString]: 31.html
 #_
 
-article id=483 dt=Text ctime=3864718897 mtime=3867736447 nm=regex.tfind, tfindW
+article id=483 dt=Text ctime=3864718897 mtime=3953992158 nm=regex.tfind, tfindW
 #_from, to, tbl = regex.tfind (subj, pattern, [init], [cflags])
 #_
 #_**Parameters:**
@@ -7598,7 +7626,9 @@ article id=483 dt=Text ctime=3864718897 mtime=3867736447 nm=regex.tfind, tfindW
 #_  from    : integer
 #_  to      : integer
 #_  tbl     : table (array of captures);
-#_            (there can be *false* in place of captures not participated in the match)
+#_            (there can be *false* in place of captures not participated in the match).
+#_            If named subpatterns are used then the table also contains substring
+#_            matches keyed by their correspondent subpattern names (strings).
 #_
 #_**Returns on failure:**
 #_  nil
@@ -7614,7 +7644,7 @@ article id=483 dt=Text ctime=3864718897 mtime=3867736447 nm=regex.tfind, tfindW
 #_[RegExpControl]: https://api.farmanager.com/ru/service_functions/regexpcontrol.html
 #_
 
-article id=484 dt=Text ctime=3864719159 mtime=3867736618 nm=methods tfind, tfindW
+article id=484 dt=Text ctime=3864719159 mtime=3953992180 nm=methods tfind, tfindW
 #_from, to, tbl = regex_object:tfind (subj, [init])
 #_
 #_**Parameters:**
@@ -7625,7 +7655,9 @@ article id=484 dt=Text ctime=3864719159 mtime=3867736618 nm=methods tfind, tfind
 #_  from    : integer
 #_  to      : integer
 #_  tbl     : table (array of captures);
-#_            (there can be *false* in place of captures not participated in the match)
+#_            (there can be *false* in place of captures not participated in the match).
+#_            If named subpatterns are used then the table also contains substring
+#_            matches keyed by their correspondent subpattern names (strings).
 #_
 #_**Returns on failure:**
 #_  nil
@@ -7664,7 +7696,7 @@ article id=485 dt=Text ctime=3866071840 mtime=3907298158 nm=export.ProcessConsol
 
 article id=486 dt=Text ctime=3866132436 mtime=3870956917 nm=C-functions
 
-article id=488 dt=Text ctime=3867734456 mtime=3867735676 nm=regex.exec, execW
+article id=488 dt=Text ctime=3867734456 mtime=3953992068 nm=regex.exec, execW
 #_from, to, offsets = regex.exec (s, pattern, [init], [cflags])
 #_
 #_**Parameters:**
@@ -7677,7 +7709,10 @@ article id=488 dt=Text ctime=3867734456 mtime=3867735676 nm=regex.exec, execW
 #_  from    : integer
 #_  to      : integer
 #_  offsets : table - array of captures' offsets (there can be *false*
-#_                    in place of captures not participated in the match)
+#_                    in place of captures not participated in the match).
+#_                    If named subpatterns are used then the table also
+#_                    contains substring matches keyed by their
+#_                    correspondent subpattern names (strings).
 #_
 #_**Example:**
 #_  If the whole match is at offsets 10,20 and substring matches are
@@ -7694,7 +7729,7 @@ article id=488 dt=Text ctime=3867734456 mtime=3867735676 nm=regex.exec, execW
 #_[RegExpControl]: https://api.farmanager.com/ru/service_functions/regexpcontrol.html
 #_
 
-article id=489 dt=Text ctime=3867734783 mtime=3867736489 nm=methods exec, execW
+article id=489 dt=Text ctime=3867734783 mtime=3954048803 nm=methods exec, execW
 #_from, to, offsets = regex_object:exec (subj [, init])
 #_
 #_**Parameters:**
@@ -7705,7 +7740,10 @@ article id=489 dt=Text ctime=3867734783 mtime=3867736489 nm=methods exec, execW
 #_  from    : integer
 #_  to      : integer
 #_  offsets : table - array of captures' offsets (there can be *false*
-#_                    in place of captures not participated in the match)
+#_                    in place of captures not participated in the match).
+#_                    If named subpatterns are used then the table also
+#_                    contains substring matches keyed by their
+#_                    correspondent subpattern names (strings).
 #_
 #_**Example:**
 #_  If the whole match is at offsets 10,20 and substring matches are
@@ -9421,4 +9459,26 @@ article id=616 dt=Text ctime=3944240838 mtime=3944241495 nm=MoonScript
 #_LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 #_OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #_THE SOFTWARE.
+
+article id=617 dt=Text ctime=3955378605 mtime=3955378717 nm=DN_DROPDOWNOPENED
+#_**Param1**
+#_    integer; according to Far API 
+#_
+#_**Param2**
+#_    integer; according to Far API 
+#_
+#_**Return**
+#_    default processing of the return value, see `description`.
+#_
+#_**Far API used:**
+#_  DlgProc, DN_DROPDOWNOPENED
+#_
+#_@@@
+#_[description]: 285.html
+#_
+#_//{dlgproc}: http://api.farmanager.com/ru/defs/dlgproc.html
+#_//{dn_dropdownopened}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_dropdownopened.html
+#_
+
+article id=618 dt=Text ctime=3956657659 mtime=3956657797 nm=editor
 
