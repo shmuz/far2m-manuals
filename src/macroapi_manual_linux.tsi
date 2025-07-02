@@ -2324,7 +2324,7 @@ article id=93 dt=Text ctime=3617998172 mtime=3891885592 nm=File luamacro.ini
 #_  The default value is an empty string.
 #_
 
-article id=94 dt=Text ctime=3618592117 mtime=3942384636 nm=Loading macrofiles
+article id=94 dt=Text ctime=3618592117 mtime=3960609348 nm=Loading macrofiles
 #_<markdown>
 #_
 #_* [Regular macros](75.html) and [event handlers](78.html) are loaded from Lua-files (extension `*.lua`) and/or MoonScript files (extension `*.moon`). Further we will call these files *macrofiles*. The macros are loaded when macrofiles are executed by [LuaMacro][LuaMacro] plugin.
@@ -2351,7 +2351,7 @@ article id=94 dt=Text ctime=3618592117 mtime=3942384636 nm=Loading macrofiles
 #_  that means that:
 #_  - The tree `root2` loads only after loading `root1`
 #_  - For each tree `rootN`:
-#_    - file `rootN/_keyreplace.cfg` is procecced if it exists.
+#_    - file `rootN/_keyreplace.cfg` is processed if it exists.
 #_      See details [here](120.html).
 #_    - the first macrofile run is `rootN/_macroinit.lua`
 #_      if it exists. For the rest of macrofiles in the given tree the order

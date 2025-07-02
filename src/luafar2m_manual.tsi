@@ -3,6 +3,7 @@
 node lv=0 id=91 art=91 nm=Manual of LuaFAR 2M
 node lv=1 id=214 art=214 nm=Generic LuaFAR plugin
 node lv=2 id=425 art=425 nm=Customizing the generic plugin
+node lv=2 id=665 art=619 nm=luafar_init.lua
 node lv=2 id=426 art=426 nm=Extra exported functions
 node lv=3 id=577 art=571 nm=GetLuaState
 node lv=3 id=578 art=572 nm=luaopen_luaplug
@@ -1390,18 +1391,18 @@ article id=57 dt=Text ctime=0 mtime=3891885012 nm=far.Flags
 #_  editor.ProcessKey (F.KEY_CTRLEND)
 #_
 
-article id=58 dt=Text ctime=0 mtime=3907444598 nm=far.GetMsg
-#_msg = far.GetMsg (MsgId [, SysID])
+article id=58 dt=Text ctime=0 mtime=3959525624 nm=far.GetMsg
+#_msg = far.GetMsg (MsgId [, PluginId])
 #_
 #_**Parameters:**
-#_  MsgId:  integer
-#_  SysID:  integer (plugin ID; default: calling plugin ID)
+#_  MsgId:    integer
+#_  PluginId: integer (default: calling plugin ID)
 #_
 #_**Returns:**
-#_  msg:    string, or nil
+#_  msg:      string, or nil
 #_
 #_**Note:**
-#_  For OEM plugins nil is returned even if MsgId is valid.
+#_  For multi-byte plugins nil is returned even if MsgId is valid.
 #_
 #_**Far API used:**
 #_  GetMsg
@@ -1481,7 +1482,7 @@ article id=63 dt=Text ctime=0 mtime=0 nm=far.KeyToName
 #_@@@
 #_
 
-article id=64 dt=Text ctime=0 mtime=3925217398 nm=far.Menu
+article id=64 dt=Text ctime=0 mtime=3957517027 nm=far.Menu
 #_Item, Position = far.Menu (Properties, Items [, BreakKeys] [, Callback] [,...])
 #_
 #_**Parameters:**
@@ -1498,8 +1499,8 @@ article id=64 dt=Text ctime=0 mtime=3925217398 nm=far.Menu
 #_      Id:           string  (GUID)
 #_
 #_  Items: table (array of menu items)
-#_      a menu item is a table;
-#_      fields of a menu item (every field is optional):
+#_      A menu item is either a string or a table.
+#_      The fields of a table menu item (every field is optional):
 #_        text:         string
 #_        checked:      boolean, or string
 #_        separator:    boolean
@@ -2278,21 +2279,17 @@ article id=95 dt=Text ctime=0 mtime=3907314920 nm=export.Compare
 #_[tPluginPanelItem]: 85.html
 #_
 
-article id=96 dt=Text ctime=0 mtime=3930248915 nm=export.Configure
-#_result = export.Configure (ItemNumber)
+article id=96 dt=Text ctime=0 mtime=3960475744 nm=export.Configure
+#_result = export.Configure (Guid)
 #_
 #_**Parameters:**
-#_  ItemNumber: integer (1-based)
+#_  Guid:   string
 #_
 #_**Returns:**
-#_  result:     boolean
-#_
-#_**Note for plugin LuaMacro only:**
-#_  The argument is a string (binary GUID) rather than an integer.
+#_  result: boolean
 #_
 #_**Far API used:**
-#_  ConfigureW
-#_  ConfigureV3W (plugin LuaMacro only)
+#_  ConfigureV3W
 #_
 #_@@@
 #_
@@ -2419,7 +2416,7 @@ article id=104 dt=Text ctime=0 mtime=3907326847 nm=export.GetOpenPanelInfo
 #_[tPanelMode]: 121.html
 #_
 
-article id=105 dt=Text ctime=0 mtime=3930249736 nm=export.GetPluginInfo
+article id=105 dt=Text ctime=0 mtime=3960475343 nm=export.GetPluginInfo
 #_PluginInfo = export.GetPluginInfo ()
 #_
 #_**Parameters:**
@@ -2429,15 +2426,15 @@ article id=105 dt=Text ctime=0 mtime=3930249736 nm=export.GetPluginInfo
 #_  PluginInfo: table
 #_    fields of PluginInfo:
 #_      Flags:               flags combination
+#_      CommandPrefix:       string
+#_
 #_      DiskMenuStrings:     table (array of strings)
 #_      PluginMenuStrings:   table (array of strings)
 #_      PluginConfigStrings: table (array of strings)
-#_      CommandPrefix:       string
 #_
-#_    additionally for plugin LuaMacro:  
-#_      DiskMenuGuids:       string (optional)
-#_      PluginMenuGuids:     string (optional)
-#_      PluginConfigGuids:   string (optional)
+#_      DiskMenuGuids:       string (concatenated binary GUID's)
+#_      PluginMenuGuids:     string (concatenated binary GUID's)
+#_      PluginConfigGuids:   string (concatenated binary GUID's)
 #_
 #_**Far API used:**
 #_  GetPluginInfoW, PluginInfo
@@ -2508,12 +2505,12 @@ article id=108 dt=Text ctime=0 mtime=3907314793 nm=export.OpenFilePlugin
 #_
 #_
 
-article id=109 dt=Text ctime=0 mtime=3930248716 nm=export.Open
-#_ret = export.Open (OpenFrom, ItemNumber, Item)
+article id=109 dt=Text ctime=0 mtime=3960475624 nm=export.Open
+#_ret = export.Open (OpenFrom, Guid, Item)
 #_
 #_**Parameters:**
-#_  OpenFrom:    integer
-#_  ItemNumber:  integer (1-based)
+#_  OpenFrom: integer
+#_  Guid:     string
 #_  Item:
 #_      if OpenFrom == OPEN_FROMMACRO:
 #_          table (array of arguments):
@@ -2530,10 +2527,10 @@ article id=109 dt=Text ctime=0 mtime=3930248716 nm=export.Open
 #_      if OpenFrom == something else:
 #_          integer
 #_
-#_**Note for plugin LuaMacro only:**
+#_**Note:**
 #_  When the 1-st argument is any of
 #_    OPEN_PLUGINSMENU, OPEN_DISKMENU, OPEN_EDITOR, OPEN_VIEWER, OPEN_DIALOG,
-#_  then the 2-nd argument is a string (binary GUID) rather than an integer.
+#_  then the 2-nd argument is a string (binary GUID).
 #_
 #_**Returns:**
 #_  if OpenFrom == OPEN_FROMMACRO:
@@ -9481,4 +9478,31 @@ article id=617 dt=Text ctime=3955378605 mtime=3955378717 nm=DN_DROPDOWNOPENED
 #_
 
 article id=618 dt=Text ctime=3956657659 mtime=3956657797 nm=editor
+
+article id=619 dt=Text ctime=3959282882 mtime=3959283815 nm=luafar_init.lua
+#_<markdown>
+#_
+#_If the file `luafar_init.lua` exists in the user config directory
+#_(`~/.config/far2m` by default) then it is executed before the first run
+#_of the plugin's default script.<br><br>
+#_
+#_It is **not** executed when the default script is reloaded
+#_due to `far.ReloadDefaultScript == true`.
+#_
+#_### Note 1
+#_This feature is enabled by default. To disable it,
+#_add `-DNO_RUN_LUAFAR_INIT` to plugin's compilation flags.
+#_
+#_### Note 2
+#_The file `luafar_init.lua` is shared by all LuaFAR plugins.
+#_If some actions are needed only for some plugin then the following
+#_code can be used (assuming the plugin Id is 0x12345678):
+#_```
+#_if far.GetPluginId() == 0x12345678 then
+#_  -- do actions needed by this plugin
+#_end
+#_```
+#_
+#_@@@
+#_
 
