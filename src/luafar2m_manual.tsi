@@ -1467,7 +1467,7 @@ article id=62 dt=Text ctime=0 mtime=3927726893 nm=far.InputBox
 #_@@@
 #_
 
-article id=63 dt=Text ctime=0 mtime=0 nm=far.KeyToName
+article id=63 dt=Text ctime=0 mtime=3963320026 nm=far.KeyToName
 #_Name = far.KeyToName (Key)
 #_
 #_**Parameters:**
@@ -1478,6 +1478,11 @@ article id=63 dt=Text ctime=0 mtime=0 nm=far.KeyToName
 #_
 #_**Far API used:**
 #_  FSF.FarKeyToName
+#_
+#_**See also:**
+#_  `far.InputRecordToKey`
+#_  `far.NameToInputRecord`
+#_  `far.NameToKey`
 #_
 #_@@@
 #_
@@ -1615,7 +1620,7 @@ article id=65 dt=Text ctime=0 mtime=3916511554 nm=far.Message
 #_@@@
 #_
 
-article id=66 dt=Text ctime=0 mtime=0 nm=far.NameToKey
+article id=66 dt=Text ctime=0 mtime=3963320042 nm=far.NameToKey
 #_Key = far.NameToKey (Name)
 #_
 #_**Parameters:**
@@ -1626,6 +1631,11 @@ article id=66 dt=Text ctime=0 mtime=0 nm=far.NameToKey
 #_
 #_**Far API used:**
 #_  FSF.FarNameToKey
+#_
+#_**See also:**
+#_  `far.InputRecordToKey`
+#_  `far.KeyToName`
+#_  `far.NameToInputRecord`
 #_
 #_@@@
 #_
@@ -3793,7 +3803,7 @@ article id=185 dt=Text ctime=0 mtime=3929296787 nm=far.CPluginStartupInfo
 #_}
 #_
 
-article id=186 dt=Text ctime=0 mtime=3853777092 nm=far.InputRecordToKey
+article id=186 dt=Text ctime=0 mtime=3963320019 nm=far.InputRecordToKey
 #_Key = far.InputRecordToKey (Input)
 #_
 #_**Parameters:**
@@ -3809,8 +3819,12 @@ article id=186 dt=Text ctime=0 mtime=3853777092 nm=far.InputRecordToKey
 #_**Far API used:**
 #_  FSF.FarInputRecordToKey
 #_
+#_**See also:**
+#_  `far.KeyToName`
+#_  `far.NameToInputRecord`
+#_  `far.NameToKey`
+#_
 #_@@@
-#_[tInputRecord]: 187.html
 #_
 
 article id=187 dt=Text ctime=0 mtime=3956479645 nm=tInputRecord
@@ -6920,18 +6934,29 @@ article id=450 dt=Text ctime=3852926114 mtime=3879491421 nm=far.ExecuteLibrary
 #_[far.Execute]: 449.html
 #_
 
-article id=451 dt=Text ctime=3852953930 mtime=3852954119 nm=far.DisplayNotification
-#_far.DisplayNotification (action, object)
+article id=451 dt=Text ctime=3852953930 mtime=3963320913 nm=far.DisplayNotification
+#_far.DisplayNotification (title, text)
 #_
 #_**Parameters:**
-#_  action:  string
-#_  object:  string
+#_  title:   string
+#_  text:    string
 #_
 #_**Returns:**
 #_  nothing
 #_
+#_**Note:**
+#_  The notification will or will not be displayed depending
+#_  on *Notifications.OnlyIfBackground* setting.
+#_
 #_**Far API used:**
 #_  FSF.DisplayNotification
+#_
+#_**See also:**
+#_  `far.BackgroundTask`
+#_  `far.Execute`
+#_  `far.ExecuteLibrary`
+#_  `far.VTEnumBackground`
+#_  `far.VTLogExport`
 #_
 #_@@@
 #_
@@ -6951,12 +6976,15 @@ article id=452 dt=Text ctime=3852954168 mtime=3877361581 nm=far.DispatchInterThr
 #_@@@
 #_
 
-article id=453 dt=Text ctime=3852954289 mtime=3852954473 nm=far.BackgroundTask
-#_far.BackgroundTask (Info, Started)
+article id=453 dt=Text ctime=3852954289 mtime=3963320877 nm=far.BackgroundTask
+#_far.BackgroundTask (TaskName, Started)
 #_
 #_**Parameters:**
-#_  Info:     string
-#_  Started:  boolean
+#_  TaskName:  string
+#_  Started:   boolean (true: started, false: ended)
+#_
+#_**Description:**
+#_  Indicates about pending tasks in left-top screen corner.
 #_
 #_**Returns:**
 #_  nothing
@@ -6964,6 +6992,12 @@ article id=453 dt=Text ctime=3852954289 mtime=3852954473 nm=far.BackgroundTask
 #_**Far API used:**
 #_  FSF.BackgroundTask
 #_
+#_**See also:**
+#_  `far.DisplayNotification`
+#_  `far.Execute`
+#_  `far.ExecuteLibrary`
+#_  `far.VTEnumBackground`
+#_  `far.VTLogExport`
 #_
 #_@@@
 #_
@@ -7476,7 +7510,7 @@ article id=475 dt=Text ctime=3861727416 mtime=3861763383 nm=far.MacroGetLastErro
 #_[MacroControl]: https://api.farmanager.com/ru/service_functions/macrocontrol.html
 #_
 
-article id=476 dt=Text ctime=3861778095 mtime=3861778166 nm=far.GetPluginId
+article id=476 dt=Text ctime=3861778095 mtime=3963320358 nm=far.GetPluginId
 #_PluginId = far.GetPluginId()
 #_
 #_**Parameters:**
@@ -7484,6 +7518,10 @@ article id=476 dt=Text ctime=3861778095 mtime=3861778166 nm=far.GetPluginId
 #_
 #_**Returns:**
 #_  PluginId: integer
+#_
+#_**See also:**
+#_  `far.GetPluginInformation`
+#_  `far.GetPluginGlobalInfo`
 #_
 #_@@@
 #_
@@ -7950,7 +7988,7 @@ article id=503 dt=Text ctime=3873304138 mtime=3873304348 nm=win.GetSystemTime
 #_[tSystemTime]: 218.html
 #_
 
-article id=504 dt=Text ctime=3873815146 mtime=3879499529 nm=far.NameToInputRecord
+article id=504 dt=Text ctime=3873815146 mtime=3963320036 nm=far.NameToInputRecord
 #_Record = far.NameToInputRecord (Name)
 #_
 #_**Parameters:**
@@ -7963,8 +8001,12 @@ article id=504 dt=Text ctime=3873815146 mtime=3879499529 nm=far.NameToInputRecor
 #_**Far API used:**
 #_  FSF.FarNameToInputRecord
 #_
+#_**See also:**
+#_  `far.InputRecordToKey`
+#_  `far.KeyToName`
+#_  `far.NameToKey`
+#_
 #_@@@
-#_[tInputRecord]: 187.html
 #_
 
 article id=505 dt=Text ctime=3876148717 mtime=3876935094 nm=far.ClearPluginCache
@@ -8014,7 +8056,7 @@ article id=507 dt=Text ctime=3876937531 mtime=3877053602 nm=far.FindPlugin
 #_@@@
 #_
 
-article id=508 dt=Text ctime=3877053707 mtime=3895043709 nm=far.GetPluginInformation
+article id=508 dt=Text ctime=3877053707 mtime=3963320382 nm=far.GetPluginInformation
 #_Info = far.GetPluginInformation (Handle)
 #_
 #_**Parameters:**
@@ -8040,6 +8082,10 @@ article id=508 dt=Text ctime=3877053707 mtime=3895043709 nm=far.GetPluginInforma
 #_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_GETPLUGININFORMATION
+#_
+#_**See also:**
+#_  `far.GetPluginGlobalInfo`
+#_  `far.GetPluginId`
 #_
 #_@@@
 #_[tPluginMenuItem]: 560.html
@@ -8100,7 +8146,7 @@ article id=513 dt=Text ctime=3881311938 mtime=3915952467 nm=Lua engine
 #_If the environment variable `FARPLAINLUA` is set to 1 then the order is reversed.
 #_
 
-article id=514 dt=Text ctime=3881479361 mtime=3891885000 nm=far.InMyConfig
+article id=514 dt=Text ctime=3881479361 mtime=3963319675 nm=far.InMyConfig
 #_Path = far.InMyConfig(subpath, create_path)
 #_
 #_**Parameters:**
@@ -8119,10 +8165,15 @@ article id=514 dt=Text ctime=3881479361 mtime=3891885000 nm=far.InMyConfig
 #_  The function is not part of Far API.
 #_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
+#_**See also:**
+#_  `far.GetMyHome`
+#_  `far.InMyCache`
+#_  `far.InMyTemp`
+#_
 #_@@@
 #_
 
-article id=515 dt=Text ctime=3881479376 mtime=3891884993 nm=far.InMyCache
+article id=515 dt=Text ctime=3881479376 mtime=3963319670 nm=far.InMyCache
 #_Path = far.InMyCache(subpath, create_path)
 #_
 #_**Parameters:**
@@ -8141,10 +8192,15 @@ article id=515 dt=Text ctime=3881479376 mtime=3891884993 nm=far.InMyCache
 #_  The function is not part of Far API.
 #_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
+#_**See also:**
+#_  `far.GetMyHome`
+#_  `far.InMyConfig`
+#_  `far.InMyTemp`
+#_
 #_@@@
 #_
 
-article id=516 dt=Text ctime=3881479391 mtime=3942652195 nm=far.InMyTemp
+article id=516 dt=Text ctime=3881479391 mtime=3963319681 nm=far.InMyTemp
 #_Path = far.InMyTemp(subpath)
 #_
 #_**Parameters:**
@@ -8162,10 +8218,15 @@ article id=516 dt=Text ctime=3881479391 mtime=3942652195 nm=far.InMyTemp
 #_  The function is not part of Far API.
 #_  It uses the undocumented *utils* library which is part of far2m sources.
 #_
+#_**See also:**
+#_  `far.GetMyHome`
+#_  `far.InMyCache`
+#_  `far.InMyConfig`
+#_
 #_@@@
 #_
 
-article id=517 dt=Text ctime=3881479399 mtime=3891884985 nm=far.GetMyHome
+article id=517 dt=Text ctime=3881479399 mtime=3963319663 nm=far.GetMyHome
 #_Dir = far.GetMyHome()
 #_
 #_**Parameters:**
@@ -8180,6 +8241,11 @@ article id=517 dt=Text ctime=3881479399 mtime=3891884985 nm=far.GetMyHome
 #_**Note:**
 #_  The function is not part of Far API.
 #_  It uses the undocumented *utils* library which is part of far2m sources.
+#_
+#_**See also:**
+#_  `far.InMyCache`
+#_  `far.InMyConfig`
+#_  `far.InMyTemp`
 #_
 #_@@@
 #_
@@ -8555,7 +8621,7 @@ article id=560 dt=Text ctime=3894691937 mtime=3894692005 nm=tPluginMenuItem
 #_
 #_
 
-article id=561 dt=Text ctime=3894870504 mtime=3895043731 nm=far.GetPluginGlobalInfo
+article id=561 dt=Text ctime=3894870504 mtime=3963320365 nm=far.GetPluginGlobalInfo
 #_Info = far.GetPluginGlobalInfo()
 #_
 #_**Parameters:**
@@ -8568,6 +8634,11 @@ article id=561 dt=Text ctime=3894870504 mtime=3895043731 nm=far.GetPluginGlobalI
 #_    Title:          string
 #_    Description:    string
 #_    Author:         string
+#_    UseMenuGuids:   boolean
+#_
+#_**See also:**
+#_  `far.GetPluginInformation`
+#_  `far.GetPluginId`
 #_
 #_@@@
 #_
@@ -8590,7 +8661,7 @@ article id=562 dt=Text ctime=3896535740 mtime=3896536081 nm=far.WriteConsole
 #_@@@
 #_
 
-article id=563 dt=Text ctime=3899430803 mtime=3899432491 nm=win.ExpandEnv
+article id=563 dt=Text ctime=3899430803 mtime=3962880710 nm=win.ExpandEnv
 #_result = win.ExpandEnv (str [, remove])
 #_
 #_**Parameters:**
@@ -8601,6 +8672,8 @@ article id=563 dt=Text ctime=3899430803 mtime=3899432491 nm=win.ExpandEnv
 #_  result:  string
 #_
 #_**Description:**
+#_  Replaces *~* at the beginning of *str* by home directory path.
+#_
 #_  Replaces all occurrences of *$(var)* in *str* with the current value
 #_  of environment variable *var* and returns the resulting string.
 #_  
@@ -9400,7 +9473,7 @@ article id=613 dt=Text ctime=3937644181 mtime=3937644454 nm=lpeg
 #_See the documentation [here](https://www.inf.puc-rio.br/~roberto/lpeg/).
 #_
 
-article id=614 dt=Text ctime=3939061767 mtime=3939062184 nm=far.VTEnumBackground
+article id=614 dt=Text ctime=3939061767 mtime=3963320923 nm=far.VTEnumBackground
 #_handles = far.VTEnumBackground()
 #_
 #_**Parameters:**
@@ -9408,26 +9481,43 @@ article id=614 dt=Text ctime=3939061767 mtime=3939062184 nm=far.VTEnumBackground
 #_
 #_**Returns:**
 #_  handles:  table (an array of lightuserdata)
+#_            Elements are handles to background terminal session consoles.
 #_
 #_**Far API used:**
 #_  FSF.VTEnumBackground
 #_
+#_**See also:**
+#_  `far.BackgroundTask`
+#_  `far.DisplayNotification`
+#_  `far.Execute`
+#_  `far.ExecuteLibrary`
+#_  `far.VTLogExport`
+#_
 #_@@@
 #_
 
-article id=615 dt=Text ctime=3939061789 mtime=3939102145 nm=far.VTLogExport
+article id=615 dt=Text ctime=3939061789 mtime=3963320928 nm=far.VTLogExport
 #_result = far.VTLogExport (handle, filename [, flags])
 #_
 #_**Parameters:**
-#_  handle:    nil or lightuserdata
+#_  handle:    nil: active console
+#_             lightuserdata: one of handles obtained from `far.VTEnumBackground`
 #_  filename:  string
 #_  flags:     flags (optional; default = 0)
+#_             combination of: *VT_LOGEXPORT_COLORED* and *VT_LOGEXPORT_WITH_SCREENLINES*
 #_
 #_**Returns:**
 #_  result:    boolean
 #_
 #_**Far API used:**
 #_  FSF.VTLogExport
+#_
+#_**See also:**
+#_  `far.BackgroundTask`
+#_  `far.DisplayNotification`
+#_  `far.Execute`
+#_  `far.ExecuteLibrary`
+#_  `far.VTEnumBackground`
 #_
 #_@@@
 #_
