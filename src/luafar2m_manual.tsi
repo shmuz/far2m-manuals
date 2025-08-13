@@ -1391,7 +1391,7 @@ article id=57 dt=Text ctime=0 mtime=3891885012 nm=far.Flags
 #_  editor.ProcessKey (F.KEY_CTRLEND)
 #_
 
-article id=58 dt=Text ctime=0 mtime=3959525624 nm=far.GetMsg
+article id=58 dt=Text ctime=0 mtime=3963721683 nm=far.GetMsg
 #_msg = far.GetMsg (MsgId [, PluginId])
 #_
 #_**Parameters:**
@@ -1400,9 +1400,6 @@ article id=58 dt=Text ctime=0 mtime=3959525624 nm=far.GetMsg
 #_
 #_**Returns:**
 #_  msg:      string, or nil
-#_
-#_**Note:**
-#_  For multi-byte plugins nil is returned even if MsgId is valid.
 #_
 #_**Far API used:**
 #_  GetMsg
@@ -1697,14 +1694,14 @@ article id=69 dt=Text ctime=0 mtime=3884112552 nm=far.RestoreScreen
 #_@@@
 #_
 
-article id=70 dt=Text ctime=0 mtime=3884107900 nm=far.SaveScreen
+article id=70 dt=Text ctime=0 mtime=3963647207 nm=far.SaveScreen
 #_handle = far.SaveScreen (X1, Y1, X2, Y2)
 #_
 #_**Parameters:**
-#_  X1: integer, or nil
-#_  Y1: integer, or nil
-#_  X2: integer, or nil
-#_  Y2: integer, or nil
+#_  X1: integer (default = 0)
+#_  Y1: integer (default = 0)
+#_  X2: integer (default = -1)
+#_  Y2: integer (default = -1)
 #_
 #_**Returns:**
 #_  handle: userdata
@@ -2041,13 +2038,13 @@ article id=71 dt=Text ctime=0 mtime=3926945682 nm=far.SendDlgMessage
 #_{dn_controlinput}: http://api.farmanager.com/ru/dialogapi/dmsg/dn_controlinput.html
 #_
 
-article id=74 dt=Text ctime=0 mtime=3480262815 nm=far.ShowHelp
+article id=74 dt=Text ctime=0 mtime=3963845223 nm=far.ShowHelp
 #_result = far.ShowHelp (ModuleName, HelpTopic, Flags)
 #_
 #_**Parameters:**
-#_  ModuleName: string
-#_  HelpTopic:  string, or nil
-#_  Flags:      flags combination
+#_  ModuleName: string (default = nil)
+#_  HelpTopic:  string (default = nil)
+#_  Flags:      flags combination (default = 0)
 #_
 #_**Returns:**
 #_  result: boolean
@@ -2601,7 +2598,7 @@ article id=111 dt=Text ctime=0 mtime=3907298499 nm=export.ProcessEditorInput
 #_[tInputRecord]: 187.html
 #_
 
-article id=112 dt=Text ctime=0 mtime=3907340445 nm=export.ProcessPanelEvent
+article id=112 dt=Text ctime=0 mtime=3964094365 nm=export.ProcessPanelEvent
 #_result = export.ProcessPanelEvent (object, handle, Event, Param)
 #_
 #_**Parameters:**
@@ -2612,6 +2609,16 @@ article id=112 dt=Text ctime=0 mtime=3907340445 nm=export.ProcessPanelEvent
 #_
 #_**Returns:**
 #_  result: boolean
+#_
+#_**Note:**
+#_  There are 3 new Event types not described in the Far Encyclopedia:
+#_  1. *FE_CHANGESORTPARAMS*: called after sort parameters have changed.
+#_
+#_  2. *FE_STARTSORT*: called before panel sort starts.
+#_    If the plugin returns a non-false value then its export.Compare
+#_    will not be called during the sort operation.
+#_
+#_  3. *FE_ENDSORT*: called after panel sort ends.
 #_
 #_**Far API used:**
 #_  ProcessEventW
