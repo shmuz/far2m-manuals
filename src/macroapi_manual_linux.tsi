@@ -2799,40 +2799,58 @@ article id=110 dt=Text ctime=3910196314 mtime=3910196845 nm=size2str
 #_  (see *FARFORMATFILESIZEFLAGS* in farplug-wide.h).
 #_
 
-article id=111 dt=Text ctime=3915204276 mtime=3944923084 nm=GetConfig
+article id=111 dt=Text ctime=3915204276 mtime=3964862555 nm=GetConfig
 #_val, type, val0, key, name, saved = Far.GetConfig (index)
+#_  **or**
+#_maxindex = Far.GetConfig("#")
 #_
 #_**Parameters:**
 #_  index:   integer (1-based), or string (e.g. "Editor.ShowTitleBar")
 #_
 #_**Returns:**
-#_  val:     integer, string, or table (the current value of this option)
+#_  val:     boolean, integer, string, or table (the current value of this option)
 #_  type:    string; either of: "integer", "boolean", "3-state",
 #_                              "string" or "binary"
-#_  val0:    integer or string (the default value of this option)
+#_  val0:    boolean, integer or string (the default value of this option)
 #_  key:     string (e.g. "Editor")
 #_  name:    string (e.g. "ShowTitleBar")
 #_  saved:   boolean (saved when Far configuration is saved)
 #_
-#_The function returns *false* when parameter *index* is invalid.
+#_**Note 1:**
+#_  The function raises error when parameter *index* is invalid.
 #_
-#_**Note**:
-#_  This function is different from and not API-compatible with
-#_  the Far3 function having the same name.
+#_**Note 2:**
+#_  A special syntax *Far.GetConfig("#")* returns the maximal valid numeric index.
+#_
+#_**Note 3:**
+#_  This function is not fully API-compatible with the Far3 function having
+#_  the same name.
 #_
 
-article id=112 dt=Text ctime=3915204297 mtime=3915632428 nm=SetConfig
+article id=112 dt=Text ctime=3915204297 mtime=3964862731 nm=SetConfig
 #_result = Far.SetConfig (index, value)
 #_
 #_**Parameters:**
 #_  index:   integer (1-based), or string (e.g. "Editor.ShowTitleBar")
-#_  value:   integer, string (UTF-8) or binary { [1]=string }
+#_  value:   boolean, integer, string (UTF-8) or binary { [1]=string }
 #_
 #_**Returns:**
 #_  result:  boolean
 #_
-#_The function returns *false* when parameter *index* is invalid
-#_or when the parameter *value* has incorrect type.
+#_**Note 1:**
+#_  The function raises error when parameter *index* is invalid.
+#_  The function returns *false* when parameter *value* has incorrect type.
+#_
+#_**Note 2:**
+#_  If the configuration parameter is of boolean type
+#_  then *false*, *nil* or zero number will set it to *false*,
+#_  while *true* ot non-zero number will set it to *true*.
+#_
+#_**Note 3:**
+#_  If the configuration parameter is of 3-state type
+#_  then *false* or *nil* will set it to 0, *true* will set it to 1,
+#_  numeric values will set it to their value % 3
+#_  and string "other" will set it to 2.
 #_
 
 article id=113 dt=Text ctime=3918663874 mtime=3918664105 nm=SetPluginPath
