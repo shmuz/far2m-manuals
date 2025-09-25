@@ -64,6 +64,9 @@ node lv=2 id=74 art=74 nm=far.ShowHelp
 node lv=2 id=76 art=76 nm=far.Text
 node lv=1 id=561 art=559 nm=Advanced Control
 node lv=2 id=153 art=153 nm=far.AdvControl
+node lv=3 id=463 art=463 nm=actl namespace
+node lv=2 id=668 art=622 nm=far.AdvControlAsync
+node lv=2 id=667 art=621 nm=Description
 node lv=3 id=530 art=528 nm=ACTL_COMMIT
 node lv=3 id=532 art=530 nm=ACTL_GETARRAYCOLOR
 node lv=3 id=533 art=531 nm=ACTL_GETCOLOR
@@ -76,7 +79,6 @@ node lv=3 id=540 art=538 nm=ACTL_GETFARVERSION
 node lv=3 id=541 art=539 nm=ACTL_GETINTERFACESETTINGS
 node lv=3 id=542 art=540 nm=ACTL_GETPANELSETTINGS
 node lv=3 id=543 art=541 nm=ACTL_GETPLUGINMAXREADDATA
-node lv=3 id=544 art=542 nm=ACTL_GETSHORTWINDOWINFO
 node lv=3 id=545 art=543 nm=ACTL_GETSYSTEMSETTINGS
 node lv=3 id=546 art=544 nm=ACTL_GETSYSWORDDIV
 node lv=3 id=547 art=545 nm=ACTL_GETWINDOWCOUNT
@@ -90,7 +92,6 @@ node lv=3 id=555 art=553 nm=ACTL_SETCURSORPOS
 node lv=3 id=558 art=556 nm=ACTL_SYNCHRO
 node lv=3 id=559 art=557 nm=ACTL_WAITKEY
 node lv=3 id=560 art=558 nm=ACTL_WINPORTBACKEND
-node lv=2 id=463 art=463 nm=actl namespace
 node lv=1 id=81 art=81 nm=Dialog functions
 node lv=2 id=479 art=479 nm=far.ColorDialog
 node lv=2 id=438 art=438 nm=far.CreateUserControl
@@ -342,6 +343,7 @@ node lv=2 id=313 art=313 nm=tMouseEventRecord
 node lv=2 id=121 art=121 nm=tPanelMode
 node lv=2 id=562 art=560 nm=tPluginMenuItem
 node lv=2 id=85 art=85 nm=tPluginPanelItem
+node lv=2 id=666 art=620 nm=tSelectData
 node lv=2 id=627 art=610 nm=tStat
 node lv=2 id=218 art=218 nm=tSystemTime
 node lv=2 id=133 art=133 nm=ViewerInfo.CurMode
@@ -425,7 +427,6 @@ node lv=2 id=645 art=535 nm=actl.GetDialogSettings
 node lv=2 id=646 art=539 nm=actl.GetInterfaceSettings
 node lv=2 id=647 art=540 nm=actl.GetPanelSettings
 node lv=2 id=648 art=541 nm=actl.GetPluginMaxReadData
-node lv=2 id=649 art=542 nm=actl.GetShortWindowInfo
 node lv=2 id=651 art=543 nm=actl.GetSystemSettings
 node lv=2 id=650 art=544 nm=actl.GetSysWordDiv
 node lv=2 id=652 art=557 nm=actl.WaitKey
@@ -1004,10 +1005,7 @@ article id=29 dt=Text ctime=0 mtime=3906196260 nm=editor.GetInfo
 #_@@@
 #_
 
-article id=30 dt=Text ctime=0 mtime=3889634229 nm=editor.GetSelection
-#_**Note:**
-#_--This function does not have a prototype in Far API.
-#_
+article id=30 dt=Text ctime=0 mtime=3965201330 nm=editor.GetSelection
 #_Info = editor.GetSelection (EditorId)
 #_
 #_**Parameters:**
@@ -1017,10 +1015,13 @@ article id=30 dt=Text ctime=0 mtime=3889634229 nm=editor.GetSelection
 #_  Info: table, or nil
 #_    Info fields:
 #_      BlockType: integer
-#_      StartLine: integer, 0-based
-#_      StartPos:  integer, 0-based
-#_      EndLine:   integer, 0-based
-#_      EndPos:    integer, 0-based (can be -1)
+#_      StartLine: integer, 1-based (Far API + 1)
+#_      StartPos:  integer, 1-based (Far API + 1)
+#_      EndLine:   integer, 1-based (Far API + 1)
+#_      EndPos:    integer, 1-based (Far API + 0)
+#_
+#_**Note:**
+#_  This function does not have a prototype in Far API.
 #_
 #_**Far API used:**
 #_  EditorControl, ECTL_GETINFO, ECTL_SETPOSITION, ECTL_GETSTRING
@@ -1205,7 +1206,7 @@ article id=41 dt=Text ctime=0 mtime=3889634364 nm=editor.SaveFile
 #_@@@
 #_
 
-article id=42 dt=Text ctime=0 mtime=3889634446 nm=editor.Select
+article id=42 dt=Text ctime=0 mtime=3965200273 nm=editor.Select
 #_result = editor.Select (EditorId, SelectData)
 #_  or
 #_result = editor.Select (EditorId, BlockType, BlockStartLine, BlockStartPos,
@@ -1213,17 +1214,10 @@ article id=42 dt=Text ctime=0 mtime=3889634446 nm=editor.Select
 #_
 #_**Parameters:**
 #_  EditorId:   integer, or nil
-#_  SelectData: table
-#_    fields of SelectData:
-#_      BlockType:      flag
-#_        (either of: "BTYPE_NONE", "BTYPE_STREAM", "BTYPE_COLUMN")
-#_      BlockStartLine: integer, 1-based
-#_      BlockStartPos:  integer, 1-based
-#_      BlockWidth:     integer
-#_      BlockHeight:    integer
+#_  SelectData: `tSelectData` table
 #_
 #_  Parameters of the 2-nd function variant correspond to fields
-#_  of the *SelectData* table.
+#_  of the `tSelectData` table.
 #_
 #_**Returns:**
 #_  result: boolean
@@ -1712,7 +1706,7 @@ article id=70 dt=Text ctime=0 mtime=3963647207 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3926945682 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3965201695 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1794,12 +1788,15 @@ article id=71 dt=Text ctime=0 mtime=3926945682 nm=far.SendDlgMessage
 #_DM_GETDLGRECT,
 #_DM_GETEDITPOSITION,
 #_DM_GETITEMPOSITION,
-#_DM_GETSELECTION,
 #_DM_LISTGETCURPOS,
 #_DM_LISTGETTITLES,
 #_DM_LISTINFO:
 #_    Param2:  none
 #_    Result:  table
+#_
+#_DM_GETSELECTION:
+#_    Param2:  none
+#_    Result:  `tSelectData` table
 #_
 #_DM_GETCURSORPOS:
 #_    Param2:  none
@@ -1925,7 +1922,7 @@ article id=71 dt=Text ctime=0 mtime=3926945682 nm=far.SendDlgMessage
 #_        { Left=3, Top=3, Right=20, Bottom=5 })
 #_
 #_DM_SETSELECTION:
-#_    Param2:  table
+#_    Param2:  table `tSelectData`
 #_    Result:  integer
 #_    *Note:* this function has much in common with `editor.Select`
 #_
@@ -7228,7 +7225,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3926945620 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3939577607 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3968004158 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7251,7 +7248,6 @@ article id=463 dt=Text ctime=3853931289 mtime=3939577607 nm=actl namespace
 #_  GetInterfaceSettings    ACTL_GETINTERFACESETTINGS
 #_  GetPanelSettings        ACTL_GETPANELSETTINGS
 #_  GetPluginMaxReadData    ACTL_GETPLUGINMAXREADDATA
-#_  GetShortWindowInfo      ACTL_GETSHORTWINDOWINFO
 #_  GetSystemSettings       ACTL_GETSYSTEMSETTINGS
 #_  GetSysWordDiv           ACTL_GETSYSWORDDIV
 #_  GetWindowCount          ACTL_GETWINDOWCOUNT
@@ -8444,20 +8440,6 @@ article id=541 dt=Text ctime=3892829915 mtime=3940086488 nm=ACTL_GETPLUGINMAXREA
 #_  Result:   integer
 #_
 
-article id=542 dt=Text ctime=3892829915 mtime=3940086110 nm=ACTL_GETSHORTWINDOWINFO
-#_Result = far.AdvControl (ACTL_GETSHORTWINDOWINFO, Param)
-#_
-#_**Parameters:**
-#_  Param:    window number; 1-based integer (optional; default=0)
-#_
-#_**Returns:**
-#_  Result:   table (see its fields below), or nil
-#_              Type:      integer
-#_              Pos:       integer (1-based)
-#_              Flags:     integer
-#_
-#_
-
 article id=543 dt=Text ctime=3892829915 mtime=3940086495 nm=ACTL_GETSYSTEMSETTINGS
 #_Result = far.AdvControl (ACTL_GETSYSTEMSETTINGS)
 #_
@@ -9601,5 +9583,32 @@ article id=619 dt=Text ctime=3959282882 mtime=3959283815 nm=luafar_init.lua
 #_```
 #_
 #_@@@
+#_
+
+article id=620 dt=Text ctime=3965199976 mtime=3965201198 nm=tSelectData
+#_<markdown>
+#_**`tSelectData`** is a table with the following predefined fields:
+#_
+#_      BlockType:      flag
+#_      BlockStartLine: integer, 1-based
+#_      BlockStartPos:  integer, 1-based
+#_      BlockWidth:     integer
+#_      BlockHeight:    integer
+#_
+
+article id=621 dt=Text ctime=3965232147 mtime=3965233129 nm=Description
+#_<markdown>
+#_
+#_These commands are the same for `far.AdvControl`
+#_and `far.AdvControlAsync` functions.
+
+article id=622 dt=Text ctime=3965232220 mtime=3965296107 nm=far.AdvControlAsync
+#_<markdown>
+#_
+#_1. `far.AdvControlAsync` function has exactly
+#_[same](621.html) parameters and return values
+#_as [`far.AdvControl`](153.html).
+#_2. [`actl`](463.html) namespace functions always call
+#_[`far.AdvControl`](153.html).
 #_
 

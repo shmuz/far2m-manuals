@@ -2885,7 +2885,7 @@ article id=118 dt=Text ctime=3923472475 mtime=3948700808 nm=mainmenu
 #_  The function is asynchronous and returns immediately.
 #_
 
-article id=119 dt=Text ctime=3930917157 mtime=3940429382 nm=GetInfo
+article id=119 dt=Text ctime=3930917157 mtime=3965017492 nm=GetInfo
 #_Info = Far.GetInfo()
 #_
 #_**Parameters:**
@@ -2894,6 +2894,7 @@ article id=119 dt=Text ctime=3930917157 mtime=3940429382 nm=GetInfo
 #_**Returns:**
 #_  Info:  table
 #_    Build               : string
+#_    Compiler            : string
 #_    Platform            : string
 #_    MainLang            : string
 #_    HelpLang            : string
