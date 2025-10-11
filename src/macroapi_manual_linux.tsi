@@ -2392,14 +2392,14 @@ article id=97 dt=Text ctime=3639831305 mtime=3868112974 nm=File luafar_init.lua
 #_Plugin LuaMacro runs the file `$FARHOME/Plugins/luafar/luafar_init.lua` (if it exists) before running its default script.
 #_See description of this feature in LuaFAR manual.
 
-article id=98 dt=Text ctime=3730113272 mtime=3904044471 nm=Adding panel modules
+article id=98 dt=Text ctime=3730113272 mtime=3968087961 nm=Adding panel modules
 #_<markdown>
 #_
 #_"Panel module" is a set of Lua functions placed in a table and loaded with `PanelModule` function.
 #_
 #_- Names of those functions and their parameter sets coincide with functions from `export` table (see LuaFAR manual).
 #_- Here is the list of module-exported functions that are supported by the plugin:<br>
-#_`ClosePanel`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPanelInfo`, `MakeDirectory`, `Open`, `OpenFilePlugin`, `ProcessHostFile`, `ProcessPanelEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
+#_`Analyse`, `ClosePanel`, `Compare`, `DeleteFiles`, `GetFiles`, `GetFindData`, `GetOpenPanelInfo`, `MakeDirectory`, `Open`, `ProcessHostFile`, `ProcessPanelEvent`, `ProcessKey`, `PutFiles`, `SetDirectory`, `SetFindList`.
 #_- Every panel module must contain a table `Info` with a mandatory field `Guid`. Other fields are optional.
 #_
 #_```
@@ -2414,7 +2414,7 @@ article id=98 dt=Text ctime=3730113272 mtime=3904044471 nm=Adding panel modules
 #_}
 #_
 #_-- Add only those "exported" functions that are needed for this panel module
-#_mod.OpenFilePlugin = function(...) ...... end
+#_mod.Analyse        = function(...) ...... end
 #_mod.Open           = function(...) ...... end
 #_mod.GetFindData    = function(...) ...... end
 #_......
@@ -2427,12 +2427,12 @@ article id=98 dt=Text ctime=3730113272 mtime=3904044471 nm=Adding panel modules
 #_
 #_1. To create a panel from the command line or from the plugins menu, the existing function [`CommandLine`](96.html) and [`MenuItem`](90.html) should be used. Their `action()` should return 2 values: (1) the module table and (2) the panel object (any non-false Lua value).
 #_1. Function `mod.Open` is called by the plugin only with the following values of `OpenFrom` parameter:<br>
-#_`OPEN_FINDLIST` and `OPEN_SHORTCUT`.
+#_`OPEN_ANALYSE`, `OPEN_FINDLIST` and `OPEN_SHORTCUT`.
 #_
 #_See also: [Demo Example](99.html)
 #_
 
-article id=99 dt=Text ctime=3730114449 mtime=3902600507 nm=Demo example
+article id=99 dt=Text ctime=3730114449 mtime=3968087751 nm=Demo example
 #_<markdown>
 #_```
 #_local F = far.Flags
@@ -2461,16 +2461,15 @@ article id=99 dt=Text ctime=3730114449 mtime=3902600507 nm=Demo example
 #_  end
 #_end
 #_
-#_function mod.OpenFilePlugin (Name, Data, OpMode)
-#_  if Name and Name:sub(-5):lower() == ".abcd" then
-#_    return FileToObject(Name)
-#_  end
+#_function mod.Analyse(Data)
+#_  return Data.FileName and Data.FileName:sub(-5):lower() == ".abcd"
 #_end
 #_
-#_function mod.Open(OpenFrom, Item)
-#_  if OpenFrom == F.OPEN_SHORTCUT then
+#_function mod.Open(OpenFrom, _Id, Item)
+#_  if OpenFrom == F.OPEN_ANALYSE then
+#_    return FileToObject(Item.FileName)
+#_  elseif OpenFrom == F.OPEN_SHORTCUT then
 #_    return FileToObject(Item.HostFile)
-#_
 #_  elseif OpenFrom == F.OPEN_FINDLIST then -- luacheck: ignore
 #_    -- If we uncomment the line "return true", then this module will be
 #_    -- used instead of TmpPanel for displaying search results.
@@ -2827,7 +2826,7 @@ article id=111 dt=Text ctime=3915204276 mtime=3964862555 nm=GetConfig
 #_  the same name.
 #_
 
-article id=112 dt=Text ctime=3915204297 mtime=3964862731 nm=SetConfig
+article id=112 dt=Text ctime=3915204297 mtime=3969002251 nm=SetConfig
 #_result = Far.SetConfig (index, value)
 #_
 #_**Parameters:**
@@ -2849,8 +2848,7 @@ article id=112 dt=Text ctime=3915204297 mtime=3964862731 nm=SetConfig
 #_**Note 3:**
 #_  If the configuration parameter is of 3-state type
 #_  then *false* or *nil* will set it to 0, *true* will set it to 1,
-#_  numeric values will set it to their value % 3
-#_  and string "other" will set it to 2.
+#_  and numeric values will set it to their value % 3.
 #_
 
 article id=113 dt=Text ctime=3918663874 mtime=3918664105 nm=SetPluginPath

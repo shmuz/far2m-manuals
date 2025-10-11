@@ -30,7 +30,6 @@ node lv=2 id=591 art=584 nm=export.GetLinkTarget
 node lv=2 id=104 art=104 nm=export.GetOpenPanelInfo
 node lv=2 id=106 art=106 nm=export.GetVirtualFindData
 node lv=2 id=107 art=107 nm=export.MakeDirectory
-node lv=2 id=108 art=108 nm=export.OpenFilePlugin
 node lv=2 id=113 art=113 nm=export.ProcessHostFile
 node lv=2 id=114 art=114 nm=export.ProcessKey
 node lv=2 id=112 art=112 nm=export.ProcessPanelEvent
@@ -437,7 +436,6 @@ node lv=2 id=640 art=137 nm=editor.TurnOffMarkingBlock
 node lv=1 id=584 art=578 nm=export
 node lv=2 id=592 art=584 nm=export.GetLinkTarget
 node lv=2 id=582 art=447 nm=export.MayExitFAR
-node lv=2 id=654 art=108 nm=export.OpenFilePlugin
 node lv=2 id=655 art=114 nm=export.ProcessKey
 node lv=1 id=585 art=579 nm=far
 node lv=2 id=453 art=453 nm=far.BackgroundTask
@@ -501,7 +499,6 @@ node lv=2 id=170 art=170 nm=LF_GetVirtualFindData
 node lv=2 id=171 art=171 nm=LF_MakeDirectory
 node lv=2 id=448 art=448 nm=LF_MayExitFAR
 node lv=2 id=173 art=173 nm=LF_Open
-node lv=2 id=172 art=172 nm=LF_OpenFilePlugin
 node lv=2 id=222 art=222 nm=LF_ProcessDialogEvent
 node lv=2 id=174 art=174 nm=LF_ProcessEditorEvent
 node lv=2 id=175 art=175 nm=LF_ProcessEditorInput
@@ -2486,29 +2483,6 @@ article id=107 dt=Text ctime=0 mtime=3907314502 nm=export.MakeDirectory
 #_@@@
 #_
 
-article id=108 dt=Text ctime=0 mtime=3907314793 nm=export.OpenFilePlugin
-#_object = export.OpenFilePlugin (Name, Data, OpMode)
-#_
-#_**Parameters:**
-#_  Name:   string, or nil
-#_  Data:   string, or nil
-#_  OpMode: integer
-#_
-#_**Returns:**
-#_  object: plugin object (any Lua value)
-#_    - Nil and false result in returning INVALID_HANDLE_VALUE to Far.
-#_    - Number -2 (minus 2) tells Far that the operation was interrupted
-#_      by the user.
-#_    - The plugin object is passed to other exported functions
-#_      when they are called by Far.
-#_
-#_**Far API used:**
-#_  OpenFilePluginW
-#_
-#_@@@
-#_
-#_
-
 article id=109 dt=Text ctime=0 mtime=3960475624 nm=export.Open
 #_ret = export.Open (OpenFrom, Guid, Item)
 #_
@@ -2853,15 +2827,22 @@ article id=132 dt=Text ctime=0 mtime=3889634653 nm=viewer.GetInfo
 #_[CurMode]: 133.html
 #_
 
-article id=133 dt=Text ctime=0 mtime=3878661339 nm=ViewerInfo.CurMode
+article id=133 dt=Text ctime=0 mtime=3969339713 nm=ViewerInfo.CurMode
 #_<markdown>
 #_**`ViewerInfo.CurMode`** is a table with the following predefined fields:
 #_
 #_      CodePage:       integer
-#_      Wrap:           boolean
-#_      WordWrap:       integer
-#_      Hex:            boolean
+#_      Flags:          flags
+#_      ViewMode:       flag
 #_      Processed:      boolean
+#_
+#_#### Note:
+#_The field `Processed` is far2l/far2m specific (does not exist in far3).
+#_Its value is *true* when the viewer shows a "processed" file rather than the original one.
+#_
+#_- It is initially *false* when the viewer opens a file
+#_- It is initially *true* after **F3** press when the panels are hidden
+#_- It can be toggled ON and OFF with **F5**
 #_
 
 article id=134 dt=Text ctime=0 mtime=3939308595 nm=viewer.Quit
@@ -3506,32 +3487,6 @@ article id=171 dt=Text ctime=0 mtime=3480188058 nm=LF_MakeDirectory
 #_#### Description:
 #_
 #_If Lua function [`export.MakeDirectory`](107.html) exists, it is called.
-#_
-#_@@@
-#_
-
-article id=172 dt=Text ctime=0 mtime=0 nm=LF_OpenFilePlugin
-#_<markdown>
-#_    HANDLE LF_OpenFilePlugin(
-#_        lua_State* L,
-#_        const wchar_t *aName,
-#_        const unsigned char *aData,
-#_        int aDataSize,
-#_        int aOpMode)
-#_
-#_#### Parameters:
-#_      L:       Lua state
-#_      ....
-#_
-#_#### Returns:
-#_      Value, according to FAR Plugins API.
-#_
-#_#### Description:
-#_
-#_If `far.ReloadDefaultScript` is true, then the function runs
-#_the default script (see [`LF_RunDefaultScript`](130.html)).
-#_Then, if Lua function [`export.OpenFilePlugin`](108.html) exists,
-#_it is called. Else, `INVALID_HANDLE_VALUE` is returned to FAR.
 #_
 #_@@@
 #_
