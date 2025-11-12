@@ -190,11 +190,11 @@ article id=7 dt=Text ctime=3551991405 mtime=3891620580 nm=LuaMacro plugin
 #_
 #_
 
-article id=12 dt=Text ctime=3551993205 mtime=3862574089 nm=msave
+article id=12 dt=Text ctime=3551993205 mtime=3971165423 nm=msave
 #_ret = mf.msave (key, name, value)
 #_
 #_**Parameters:**
-#_  key:       string
+#_  key:       string or nil
 #_  name:      string
 #_  value:     nil, boolean, number, string, table, int64
 #_
@@ -216,11 +216,11 @@ article id=12 dt=Text ctime=3551993205 mtime=3862574089 nm=msave
 #_  int64 - a distinguished type of userdata, created by the bit64 library.
 #_
 
-article id=13 dt=Text ctime=3551993209 mtime=3862574039 nm=mload
+article id=13 dt=Text ctime=3551993209 mtime=3971165413 nm=mload
 #_value, errmsg = mf.mload (key, name)
 #_
 #_**Parameters:**
-#_  key:       string
+#_  key:       string or nil
 #_  name:      string
 #_
 #_**Returns:**
@@ -1282,7 +1282,7 @@ article id=63 dt=Text ctime=3558901787 mtime=3607111386 nm=Introspection
 #_@@@
 #_
 
-article id=65 dt=Text ctime=3560706460 mtime=3717266757 nm=Call
+article id=65 dt=Text ctime=3560706460 mtime=3970590941 nm=Call
 #_... = Plugin.Call (PluginId [, ...])
 #_
 #_**Parameters:**
@@ -1312,7 +1312,7 @@ article id=65 dt=Text ctime=3560706460 mtime=3717266757 nm=Call
 #_       string   -> FMVT_STRING  (automatically converted from UTF-8 to UTF-16LE)
 #_       {string} -> FMVT_BINARY  (in order to pass an arbitrary string without UTF-8 -> UTF16LE
 #_                                conversion, the string should be placed in a table as an element
-#_                                with its key==1)
+#_                                with its key=="__binary")
 #_
 #_  4. Values returned by the plugin via a *FarMacroCall* structure are passed to the macro
 #_     the following way:
@@ -1321,7 +1321,7 @@ article id=65 dt=Text ctime=3560706460 mtime=3717266757 nm=Call
 #_       FMVT_DOUBLE  -> number
 #_       FMVT_INTEGER -> number, if it "fits" in 53 bits, otherwise int64
 #_       FMVT_STRING  -> string (automatically converted from UTF-16LE to UTF-8)
-#_       FMVT_BINARY  -> table (the table contains a string as an element with its key==1;
+#_       FMVT_BINARY  -> table (the table contains a string as an element with its key=="__binary";
 #_                              the string is placed as is, without conversion)
 #_       FMVT_POINTER -> light userdata
 #_       FMVT_ARRAY   -> table (array of elements; the table contains 2 fields:

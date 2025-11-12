@@ -1703,7 +1703,7 @@ article id=70 dt=Text ctime=0 mtime=3963647207 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3965201695 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3969458853 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1799,6 +1799,7 @@ article id=71 dt=Text ctime=0 mtime=3965201695 nm=far.SendDlgMessage
 #_    Param2:  none
 #_    Result:  table (fields X,Y; 0-based), or nil
 #_
+#_DM_GETDIALOGTITLE,
 #_DM_GETTEXT,
 #_DM_GETCONSTTEXTPTR:
 #_    Param2:  none
@@ -2377,7 +2378,7 @@ article id=103 dt=Text ctime=0 mtime=3866133117 nm=GetMinFarVersionW
 #_int GetMinFarVersionW()
 #_
 
-article id=104 dt=Text ctime=0 mtime=3907326847 nm=export.GetOpenPanelInfo
+article id=104 dt=Text ctime=0 mtime=3970941855 nm=export.GetOpenPanelInfo
 #_OpenPanelInfo = export.GetOpenPanelInfo (object, handle)
 #_
 #_**Parameters:**
@@ -2402,6 +2403,7 @@ article id=104 dt=Text ctime=0 mtime=3907326847 nm=export.GetOpenPanelInfo
 #_      StartSortOrder:   integer
 #_      KeyBar:           table
 #_      ShortcutData:     string
+#_      CurURL:           string
 #_
 #_**Note:**
 #_  The *KeyBar* table may have the following fields (array tables):
@@ -2827,7 +2829,7 @@ article id=132 dt=Text ctime=0 mtime=3889634653 nm=viewer.GetInfo
 #_[CurMode]: 133.html
 #_
 
-article id=133 dt=Text ctime=0 mtime=3969339713 nm=ViewerInfo.CurMode
+article id=133 dt=Text ctime=0 mtime=3969346866 nm=ViewerInfo.CurMode
 #_<markdown>
 #_**`ViewerInfo.CurMode`** is a table with the following predefined fields:
 #_
@@ -2841,8 +2843,8 @@ article id=133 dt=Text ctime=0 mtime=3969339713 nm=ViewerInfo.CurMode
 #_Its value is *true* when the viewer shows a "processed" file rather than the original one.
 #_
 #_- It is initially *false* when the viewer opens a file
-#_- It is initially *true* after **F3** press when the panels are hidden
-#_- It can be toggled ON and OFF with **F5**
+#_- It is initially *true* after **F3** press in panels when the panels are hidden
+#_- It can be toggled ON and OFF with **F5** in the viewer
 #_
 
 article id=134 dt=Text ctime=0 mtime=3939308595 nm=viewer.Quit
@@ -4051,17 +4053,17 @@ article id=207 dt=Text ctime=0 mtime=0 nm=far.MkTemp
 #_@@@
 #_
 
-article id=208 dt=Text ctime=0 mtime=3890420002 nm=far.MkLink
-#_result = far.MkLink (Src, Dest, Type, Flags)
+article id=208 dt=Text ctime=0 mtime=3971626626 nm=far.MkLink
+#_result = far.MkLink (Target, LinkName, LinkType, Flags)
 #_
 #_**Parameters:**
-#_  Src:    string
-#_  Dest:   string
-#_  Type:   flags (default=FLINK_SYMLINK)
-#_  Flags:  flags (default=0)
+#_  Target:    string
+#_  LinkName:  string
+#_  LinkType:  flags (default=LINK_SYMLINK)
+#_  Flags:     flags (default=0)
 #_
 #_**Returns:**
-#_  result: boolean
+#_  result:    boolean
 #_
 #_**Far API used:**
 #_  MkLink
@@ -7092,7 +7094,7 @@ article id=461 dt=Text ctime=3853775362 mtime=3853776891 nm=far.InputRecordToNam
 #_[tInputRecord]: 187.html
 #_
 
-article id=462 dt=Text ctime=3853816798 mtime=3926945620 nm=Methods of dialog handle
+article id=462 dt=Text ctime=3853816798 mtime=3969458792 nm=Methods of dialog handle
 #_Besides passing the dialog handle as a parameter to `far.SendDlgMessage`
 #_there is an alternative way: using dialog handle methods. The latter
 #_is shorter and more expressive, e.g. the following 2 calls do the same
@@ -7117,6 +7119,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3926945620 nm=Methods of dialog ha
 #_  GetCursorSize           DM_GETCURSORSIZE
 #_  GetDefaultColor         DM_GETDEFAULTCOLOR
 #_  GetDialogInfo           DM_GETDIALOGINFO
+#_  GetDialogTitle          DM_GETDIALOGTITLE
 #_  GetDlgData              DM_GETDLGDATA
 #_  GetDlgItem              DM_GETDLGITEM
 #_  GetDlgRect              DM_GETDLGRECT
