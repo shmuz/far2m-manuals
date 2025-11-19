@@ -94,6 +94,7 @@ node lv=3 id=560 art=558 nm=ACTL_WINPORTBACKEND
 node lv=1 id=81 art=81 nm=Dialog functions
 node lv=2 id=479 art=479 nm=far.ColorDialog
 node lv=2 id=438 art=438 nm=far.CreateUserControl
+node lv=3 id=669 art=623 nm=Buffer:write
 node lv=2 id=20 art=20 nm=far.Dialog
 node lv=2 id=380 art=380 nm=far.DialogFree
 node lv=2 id=378 art=378 nm=far.DialogInit
@@ -9568,5 +9569,22 @@ article id=622 dt=Text ctime=3965232220 mtime=3965296107 nm=far.AdvControlAsync
 #_as [`far.AdvControl`](153.html).
 #_2. [`actl`](463.html) namespace functions always call
 #_[`far.AdvControl`](153.html).
+#_
+
+article id=623 dt=Text ctime=3972738613 mtime=3972739444 nm=Buffer:write
+#_len = Buffer:write (Index, Text, Color)
+#_
+#_**Parameters:**
+#_  Buffer : user control (userdata)
+#_  Index  : integer
+#_  Text   : string
+#_  Color  : either integer or "int64" (userdata, produced by `bit64.new`)
+#_
+#_**Returns:**
+#_  len    : number of user control cells used
+#_           (usually equals Text:len() but may be greater
+#_           if text contains some special chars, e.g. emoji)
+#_
+#_@@@
 #_
 
