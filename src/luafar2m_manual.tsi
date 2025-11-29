@@ -9644,7 +9644,19 @@ article id=625 dt=Text ctime=3972986163 mtime=3972987881 nm=FillText
 
 article id=626 dt=Text ctime=3973577816 mtime=3973577816 nm=Lua modules
 
-article id=627 dt=Text ctime=3973577824 mtime=3973577824 nm=simpledialog
+article id=627 dt=Text ctime=3973577824 mtime=3973581178 nm=simpledialog
+#_**About simpledialog module:**
+#_  Far3 minimal version:              3.0.3300
+#_  Plugin:                            Any LuaFAR plugin
+#_  Author:                            Shmuel Zeigerman
+#_  Started for far3:                  2020-08-15
+#_  Started for far2l/far2m:           2022-01-23
+#_
+#_**The ideas behind this module were:**
+#_- Make dialog code less verbose and more readable
+#_- Use named dialog item properties instead of properies array
+#_- Specify only non-default item properties
+#_
 
 article id=628 dt=Text ctime=3973577864 mtime=3973577864 nm=API functions
 
