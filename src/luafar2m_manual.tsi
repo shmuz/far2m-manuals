@@ -9660,22 +9660,24 @@ article id=627 dt=Text ctime=3973577824 mtime=3973581178 nm=simpledialog
 
 article id=628 dt=Text ctime=3973577864 mtime=3973577864 nm=API functions
 
-article id=629 dt=Text ctime=3973577872 mtime=3973580520 nm=New
+article id=629 dt=Text ctime=3973577872 mtime=3973582937 nm=New
 #_local sd = require "simpledialog"
-#_local dlg = sd.New(tIn)
+#_local t_Out = sd.New(t_In)
 #_
 #_**Parameters:**
-#_  tIn  :  Input table. Its array part contains dialog items;
-#_          its hash part contains dialog properties.
+#_  t_In  :  Input table. Its array part contains dialog `items`;
+#_           its hash part contains dialog `properties`.
 #_
 #_**Returns:**
-#_  dlg  :  table
+#_  t_Out :  table (a dialog object)
 #_
 #_**Description:**
 #_  Create a dialog object. This object has `methods`.
 #_
 #_@@@
 #_[methods]: 631.html
+#_[properties]: 641.html
+#_[items]: 642.html
 #_
 
 article id=630 dt=Text ctime=3973577877 mtime=3973580581 nm=OpenInEditor
