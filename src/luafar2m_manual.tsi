@@ -523,6 +523,29 @@ node lv=1 id=196 art=196 nm=Lua
 node lv=1 id=251 art=251 nm=LuaUtf8
 node lv=1 id=630 art=612 nm=LPeg
 node lv=1 id=636 art=616 nm=MoonScript
+node lv=0 id=670 art=624 nm=far2m plugins API
+node lv=1 id=671 art=625 nm=FillText
+node lv=0 id=672 art=626 nm=Lua modules
+node lv=1 id=673 art=627 nm=simpledialog
+node lv=2 id=674 art=628 nm=API functions
+node lv=3 id=675 art=629 nm=New
+node lv=3 id=676 art=630 nm=OpenInEditor
+node lv=2 id=677 art=631 nm=API methods
+node lv=3 id=678 art=632 nm=AssignHotKeys
+node lv=3 id=679 art=633 nm=ClearControls
+node lv=3 id=680 art=634 nm=Compile
+node lv=3 id=681 art=635 nm=GetDialogState
+node lv=3 id=682 art=636 nm=Indexes
+node lv=3 id=683 art=637 nm=LoadData
+node lv=3 id=684 art=638 nm=Run
+node lv=3 id=685 art=639 nm=SaveData
+node lv=3 id=686 art=640 nm=SetDialogState
+node lv=2 id=687 art=641 nm=Dialog properties
+node lv=2 id=688 art=642 nm=Dialog item properties
+node lv=3 id=689 art=643 nm=Properties for positions in FarDialogItem
+node lv=3 id=690 art=644 nm=Other properties
+node lv=3 id=691 art=645 nm=Dialog item types
+node lv=3 id=692 art=646 nm=Dialog item flags
 
 article id=2 dt=Text ctime=0 mtime=3940177443 nm=far.CmpName
 #_Result = far.CmpName (Mask, Name, Flags)
@@ -1524,7 +1547,7 @@ article id=64 dt=Text ctime=0 mtime=3957517027 nm=far.Menu
 #_
 #_  ...:
 #_      Optional extra arguments (any types) for passing to Callback
-#_     
+#_
 #_**Returns:**
 #_  Item:     table   Either the selected element of *Items* array (if *Enter* was pressed)
 #_                    or an element of *BreakKeys* array (if a corresponding break key was
@@ -2218,7 +2241,7 @@ article id=91 dt=Text ctime=0 mtime=3907771674 nm=Manual of LuaFAR 2M
 #_* The functions exported by the plugin are found in the `export` global Lua table
 #_and are mostly named after their C-function callers, e.g., `ConfigureW` calls
 #_[`export.Configure`](96.html), see the full list of exported functions [here](92.html).
-#_ 
+#_
 #_* The service functions provided by Far Manager are found in the global Lua tables
 #_`actl`, `editor`, `far`, `panel`, `regex`, `viewer`.
 #_For instance, function `EditorControl` with parameter `ECTL_GETINFO`
@@ -2227,9 +2250,9 @@ article id=91 dt=Text ctime=0 mtime=3907771674 nm=Manual of LuaFAR 2M
 #_* **Note:** the functions of the LuaFAR library assume
 #_string arguments and string return values to be in the **UTF-8**
 #_encoding (unless they are meant to hold binary data).
-#_ 
+#_
 #_One instance of `luafar.so` can serve arbitrary number of LuaFAR plugins at the same time.
-#_ 
+#_
 #_The starting (or "default") Lua script is searched in the plugin's
 #_directories as described in [`LF_RunDefaultScript`](130.html) article.
 #_
@@ -3144,7 +3167,7 @@ article id=152 dt=Text ctime=0 mtime=0 nm=win.GetEnv
 #_
 #_**Description:**
 #_  Use this instead of os.getenv, since the latter
-#_  does not always work correctly. 
+#_  does not always work correctly.
 #_
 #_@@@
 #_
@@ -5009,7 +5032,7 @@ article id=285 dt=Text ctime=3477040474 mtime=3900064658 nm=Dialog Events
 
 article id=286 dt=Text ctime=3477040544 mtime=3477137627 nm=DN_CTLCOLORDLGLIST
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
 #_    table (`tFarListColors`)
@@ -5024,7 +5047,7 @@ article id=286 dt=Text ctime=3477040544 mtime=3477137627 nm=DN_CTLCOLORDLGLIST
 
 article id=287 dt=Text ctime=3477040579 mtime=3477135140 nm=DN_DRAWDLGITEM
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
 #_    table (`tFarDialogItem`)
@@ -5039,7 +5062,7 @@ article id=287 dt=Text ctime=3477040579 mtime=3477135140 nm=DN_DRAWDLGITEM
 
 article id=288 dt=Text ctime=3477040592 mtime=3477135273 nm=DN_EDITCHANGE
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
 #_    table (`tFarDialogItem`)
@@ -5054,10 +5077,10 @@ article id=288 dt=Text ctime=3477040592 mtime=3477135273 nm=DN_EDITCHANGE
 
 article id=289 dt=Text ctime=3477040601 mtime=3477153723 nm=DN_HELP
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    string; according to Far API 
+#_    string; according to Far API
 #_
 #_**Return**
 #_    If the function returned a string, its address is returned
@@ -5068,10 +5091,10 @@ article id=289 dt=Text ctime=3477040601 mtime=3477153723 nm=DN_HELP
 
 article id=290 dt=Text ctime=3477040612 mtime=3477138291 nm=DN_MOUSECLICK
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    table (tMouseEventRecord) 
+#_    table (tMouseEventRecord)
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5083,10 +5106,10 @@ article id=290 dt=Text ctime=3477040612 mtime=3477138291 nm=DN_MOUSECLICK
 
 article id=291 dt=Text ctime=3477040627 mtime=3477138608 nm=DN_MOUSEEVENT
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    table (tMouseEventRecord) 
+#_    table (tMouseEventRecord)
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5098,10 +5121,10 @@ article id=291 dt=Text ctime=3477040627 mtime=3477138608 nm=DN_MOUSEEVENT
 
 article id=292 dt=Text ctime=3477040640 mtime=3900526195 nm=DN_RESIZECONSOLE
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    table (`tCoord`) 
+#_    table (`tCoord`)
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5147,10 +5170,10 @@ article id=295 dt=Text ctime=3477054110 mtime=3900232917 nm=tFarDialogItem
 
 article id=297 dt=Text ctime=3477111575 mtime=3477128221 nm=DN_BTNCLICK
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5161,10 +5184,10 @@ article id=297 dt=Text ctime=3477111575 mtime=3477128221 nm=DN_BTNCLICK
 
 article id=298 dt=Text ctime=3477111575 mtime=3477128999 nm=DN_CLOSE
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5175,10 +5198,10 @@ article id=298 dt=Text ctime=3477111575 mtime=3477128999 nm=DN_CLOSE
 
 article id=299 dt=Text ctime=3477111575 mtime=3477129107 nm=DN_CTLCOLORDIALOG
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5189,7 +5212,7 @@ article id=299 dt=Text ctime=3477111575 mtime=3477129107 nm=DN_CTLCOLORDIALOG
 
 article id=300 dt=Text ctime=3477111575 mtime=3900749011 nm=DN_CTLCOLORDLGITEM
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
 #_    table;   array of up to 4 colors (integers)
@@ -5203,10 +5226,10 @@ article id=300 dt=Text ctime=3477111575 mtime=3900749011 nm=DN_CTLCOLORDLGITEM
 
 article id=301 dt=Text ctime=3477111575 mtime=3477133365 nm=DN_DRAGGED
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5217,10 +5240,10 @@ article id=301 dt=Text ctime=3477111575 mtime=3477133365 nm=DN_DRAGGED
 
 article id=302 dt=Text ctime=3477111575 mtime=3477133526 nm=DN_DRAWDIALOG
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5231,10 +5254,10 @@ article id=302 dt=Text ctime=3477111575 mtime=3477133526 nm=DN_DRAWDIALOG
 
 article id=303 dt=Text ctime=3477111575 mtime=3477133567 nm=DN_DRAWDIALOGDONE
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5245,10 +5268,10 @@ article id=303 dt=Text ctime=3477111575 mtime=3477133567 nm=DN_DRAWDIALOGDONE
 
 article id=304 dt=Text ctime=3477111575 mtime=3477135407 nm=DN_ENTERIDLE
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5263,10 +5286,10 @@ article id=305 dt=Text ctime=3477111575 mtime=3900064582 nm=DN_GETDIALOGINFO
 
 article id=306 dt=Text ctime=3477111575 mtime=3477137091 nm=DN_GOTFOCUS
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5277,10 +5300,10 @@ article id=306 dt=Text ctime=3477111575 mtime=3477137091 nm=DN_GOTFOCUS
 
 article id=307 dt=Text ctime=3477111575 mtime=3477137752 nm=DN_HOTKEY
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5291,7 +5314,7 @@ article id=307 dt=Text ctime=3477111575 mtime=3477137752 nm=DN_HOTKEY
 
 article id=308 dt=Text ctime=3477111575 mtime=3501423628 nm=DN_INITDIALOG
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
 #_    nil
@@ -5305,10 +5328,10 @@ article id=308 dt=Text ctime=3477111575 mtime=3501423628 nm=DN_INITDIALOG
 
 article id=309 dt=Text ctime=3477111575 mtime=3477138115 nm=DN_KEY
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5319,10 +5342,10 @@ article id=309 dt=Text ctime=3477111575 mtime=3477138115 nm=DN_KEY
 
 article id=310 dt=Text ctime=3477111575 mtime=3477138131 nm=DN_KILLFOCUS
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5333,10 +5356,10 @@ article id=310 dt=Text ctime=3477111575 mtime=3477138131 nm=DN_KILLFOCUS
 
 article id=311 dt=Text ctime=3477111575 mtime=3477138149 nm=DN_LISTCHANGE
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -5347,10 +5370,10 @@ article id=311 dt=Text ctime=3477111575 mtime=3477138149 nm=DN_LISTCHANGE
 
 article id=312 dt=Text ctime=3477111575 mtime=3477138161 nm=DN_LISTHOTKEY
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -6127,7 +6150,7 @@ article id=385 dt=Text ctime=3497514263 mtime=3883319249 nm=LF_InitOtherLuaState
 #_<markdown>
 #_    int LF_InitOtherLuaState (lua_State *L,
 #_                              lua_State *Lplug,
-#_                              lua_CFunction aOpenLibs) 
+#_                              lua_CFunction aOpenLibs)
 #_
 #_#### Parameters:
 #_      L:            Other Lua state.
@@ -6290,7 +6313,7 @@ article id=406 dt=Text ctime=3851357353 mtime=3907256660 nm=luautf8
 #_string and pattern matching test in lua test suite[2].
 #_
 #_It also adds some useful routines against UTF-8 features, such as:
-#_- a convenient interface to escape Unicode sequence in string. 
+#_- a convenient interface to escape Unicode sequence in string.
 #_- string insert/remove, since UTF-8 substring extract may expensive.
 #_- calculate Unicode width, useful when implement e.g. console emulator.
 #_- a useful interface to translate Unicode offset and byte offset.
@@ -6789,7 +6812,7 @@ article id=437 dt=Text ctime=3852044260 mtime=3906376490 nm=win.SetCurrentDir
 #_result = win.SetCurrentDir (dir)
 #_
 #_**Parameters:**
-#_  dir    : string 
+#_  dir    : string
 #_
 #_**Returns:**
 #_  result : boolean
@@ -8174,7 +8197,7 @@ article id=516 dt=Text ctime=3881479391 mtime=3963319681 nm=far.InMyTemp
 #_**Description:**
 #_  In the tmp directory (usually /tmp but may be different on some systems):
 #_    - Creates all subdirectories (if any) from *subpath*
-#_    - Returns the resulting path   
+#_    - Returns the resulting path
 #_
 #_**Note:**
 #_  The function is not part of Far API.
@@ -8624,9 +8647,9 @@ article id=563 dt=Text ctime=3899430803 mtime=3962880710 nm=win.ExpandEnv
 #_
 #_  Replaces all occurrences of *$(var)* in *str* with the current value
 #_  of environment variable *var* and returns the resulting string.
-#_  
+#_
 #_  *var* may be any string not containing character *)*
-#_  
+#_
 #_  If an environment variable *var* does not exist then *$(var)*
 #_  is either left intact or removed (when *remove* is true).
 #_
@@ -9116,7 +9139,7 @@ article id=595 dt=Text ctime=3923024901 mtime=3923026824 nm=utf8.reformat
 #_**Description:**
 #_  This function is similar to utf8.format except for char '{' which must
 #_  be written as '%{'.
-#_  
+#_
 #_  {1}, {2}, etc. in the pattern are substituted by values corresponding
 #_  to parameters' numbers in the '%s' format.
 #_
@@ -9153,8 +9176,8 @@ article id=596 dt=Text ctime=3927203873 mtime=3927204806 nm=far.StrCellsCount
 #_@@@
 #_
 
-article id=597 dt=Text ctime=3927203902 mtime=3928837065 nm=far.StrSizeOfCells
-#_Count, CellsCountOut = far.StrSizeOfCells (Str, CellsCountIn [, RoundUp])
+article id=597 dt=Text ctime=3927203902 mtime=3973162718 nm=far.StrSizeOfCells
+#_CharsCount, CellsCount = far.StrSizeOfCells (Str, CellsCountIn [, RoundUp])
 #_
 #_**Parameters:**
 #_  Str:            string
@@ -9162,8 +9185,8 @@ article id=597 dt=Text ctime=3927203902 mtime=3928837065 nm=far.StrSizeOfCells
 #_  RoundUp:        optional boolean, defaults to false
 #_
 #_**Returns:**
-#_  Count:          integer
-#_  CellsCountOut:  integer
+#_  CharsCount:     integer
+#_  CellsCount:     integer
 #_
 #_**Far API used:**
 #_  FSF.StrSizeOfCells
@@ -9497,10 +9520,10 @@ article id=616 dt=Text ctime=3944240838 mtime=3944241495 nm=MoonScript
 
 article id=617 dt=Text ctime=3955378605 mtime=3955378717 nm=DN_DROPDOWNOPENED
 #_**Param1**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API 
+#_    integer; according to Far API
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
@@ -9571,20 +9594,426 @@ article id=622 dt=Text ctime=3965232220 mtime=3965296107 nm=far.AdvControlAsync
 #_[`far.AdvControl`](153.html).
 #_
 
-article id=623 dt=Text ctime=3972738613 mtime=3972739444 nm=Buffer:write
-#_len = Buffer:write (Index, Text, Color)
+article id=623 dt=Text ctime=3972738613 mtime=3972989259 nm=Buffer:write
+#_nScreen, nBuf = Buffer:write (Index, Text, Color)
 #_
 #_**Parameters:**
-#_  Buffer : user control (userdata)
-#_  Index  : integer
-#_  Text   : string
-#_  Color  : either integer or "int64" (userdata, produced by `bit64.new`)
+#_  Buffer  : user control (userdata)
+#_  Index   : integer
+#_  Text    : string
+#_  Color   : either integer or "int64" (userdata, produced by `bit64.new`)
 #_
 #_**Returns:**
-#_  len    : number of user control cells used
-#_           (usually equals Text:len() but may be greater
-#_           if text contains some special chars, e.g. emoji)
+#_  nScreen : number of screen cells needed to display *Text*
+#_  nBuf    : number of items placed in *Buffer*
 #_
 #_@@@
+#_
+
+article id=624 dt=Text ctime=3972986003 mtime=3972986003 nm=far2m plugins API
+
+article id=625 dt=Text ctime=3972986163 mtime=3972987881 nm=FillText
+#_<markdown>
+#_
+#_*Service functions | Miscellaneous API*
+#_
+#_`int WINAPI FillText (struct FillTextInfo *Info);`
+#_
+#_    struct FillTextInfo
+#_    {
+#_      size_t StructSize;  // [IN]
+#_      const wchar_t *Str; // [IN]
+#_      size_t Length;      // [IN]
+#_      DWORD64 Color;      // [IN]
+#_      CHAR_INFO *Buf;     // [OUT]
+#_      int nBufCells;      // [OUT] number of items copied to Buf
+#_      int nScreenCells;   // [OUT] number of screen cells required
+#_                          //       to display the copied characters
+#_    };
+#_
+#_Function `FillText` fills the given buffer `Buf` with `Length`
+#_characters from the input string `Str`.
+#_
+#_The function uses the same algorithm as `Text` function and
+#_makes the necessary corrections for multi-width unicode characters.
+#_
+#_It is the caller's responsibility to ensure that `Buf` has enough
+#_size to accomodate `Length` characters (`Length*2` must be always
+#_sufficient).
+#_
+
+article id=626 dt=Text ctime=3973577816 mtime=3973577816 nm=Lua modules
+
+article id=627 dt=Text ctime=3973577824 mtime=3973577824 nm=simpledialog
+
+article id=628 dt=Text ctime=3973577864 mtime=3973577864 nm=API functions
+
+article id=629 dt=Text ctime=3973577872 mtime=3973580520 nm=New
+#_local sd = require "simpledialog"
+#_local dlg = sd.New(tIn)
+#_
+#_**Parameters:**
+#_  tIn  :  Input table. Its array part contains dialog items;
+#_          its hash part contains dialog properties.
+#_
+#_**Returns:**
+#_  dlg  :  table
+#_
+#_**Description:**
+#_  Create a dialog object. This object has `methods`.
+#_
+#_@@@
+#_[methods]: 631.html
+#_
+
+article id=630 dt=Text ctime=3973577877 mtime=3973580581 nm=OpenInEditor
+#_local sd = require "simpledialog"
+#_local out_text = sd.OpenInEditor(in_text, ext)
+#_
+#_**Parameters:**
+#_  in_text  : input text; optional
+#_  ext      : extension of temporary file (affects syntax highlighting; optional)
+#_
+#_**Returns:**
+#_  out_text : output text (or nil)
+#_
+#_**Description:**
+#_  Edit a dialog DI_EDIT field in Far editor.
+
+article id=631 dt=Text ctime=3973578093 mtime=3973578093 nm=API methods
+
+article id=632 dt=Text ctime=3973578103 mtime=3973579111 nm=AssignHotKeys
+#_dlg:AssignHotKeys()
+#_
+#_**Description:**
+#_  Automatically assign hot keys in dialog items.
+#_
+
+article id=633 dt=Text ctime=3973578112 mtime=3973578875 nm=ClearControls
+#_dlg:ClearControls (hDlg)
+#_
+#_**Parameters:**
+#_  hDlg :  Dialog handle
+#_
+#_**Description:**
+#_  Dynamically clears controls of the dialog:
+#_  resets checkboxes, clears text in edit controls, etc.
+#_
+#_
+
+article id=634 dt=Text ctime=3973578120 mtime=3973578208 nm=Compile
+#_out = dlg:Compile()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  out  : table containing both array and hash parts.
+#_    {
+#_      guid, x1, y1, x2, y2, help, items, flags, nil, data,
+#_      guid  = guid;
+#_      x1    = x1;
+#_      y1    = y1;
+#_      x2    = x2;
+#_      y2    = y2;
+#_      help  = help;
+#_      items = items;
+#_      flags = flags;
+#_      proc  = proc;
+#_      data  = data;
+#_    }
+#_
+#_**Example:**
+#_
+#_local sd = require "far2.simpledialog"
+#_local Items = { ...... }
+#_local dlg = sd.New(Items)
+#_local T = dlg:Compile()
+#_
+#_local function DlgProc(hDlg,msg,par1,par2) ...... end
+#_T[9] = DlgProc
+#_far.Dialog(unpack(T))
+#_
+
+article id=635 dt=Text ctime=3973578125 mtime=3973578218 nm=GetDialogState
+#_out = dlg:GetDialogState (hDlg)
+#_
+#_**Parameters:**
+#_  hDlg :  Dialog handle
+#_
+#_**Returns:**
+#_  out  :  Dialog state; a table where keys are dialog elements' names
+#_          and values are their values at the call time.
+#_
+#_**Description:**
+#_  Dynamically get current state of the dialog.
+#_
+
+article id=636 dt=Text ctime=3973578133 mtime=3973579160 nm=Indexes
+#_Pos, Elem = dlg:Indexes()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Pos  :  a map of dialog item positions keyed by the field name of an item
+#_  Elem :  a map of dialog items keyed by the field name of an item
+#_
+#_**Examples:**
+#_  (1) if Message == F.DN_BTNCLICK then
+#_        if Param1 == Pos.bRegExpr and Param2 == 1 then
+#_          far.SendDlgMessage(hDlg, "DM_SETCHECK", Pos.bWholeWords, 0)
+#_        end
+#_
+#_  (2) Elem.reuse.val = Options.reuse
+#_
+#_  (3) Elem.reset.action = function(hDlg, p1, p2) .... end
+#_
+
+article id=637 dt=Text ctime=3973578138 mtime=3973578889 nm=LoadData
+#_dlg:LoadData(Data)
+#_
+#_**Parameters:**
+#_  Data : table
+#_
+#_**Description:**
+#_  Load data into the input table before running the dialog.
+#_
+
+article id=638 dt=Text ctime=3973578143 mtime=3973578262 nm=Run
+#_tOut, nPos = dlg:Run()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  If the dialog flags do not contain FDLG_NONMODAL:
+#_      tOut :  output table (or nil if the dialog was dismissed).
+#_      nPos :  return value of far.DialogRun (or nil if the dialog was dismissed).
+#_  If the dialog flags contain FDLG_NONMODAL:
+#_      hDlg :  dialog handle.
+#_
+#_**Note:**
+#_  The output table tOut contains the values of the dialog items at the time of dialog
+#_  closing keyed by the field "name" (if specified) in the item description table.
+#_  E.g., if an item was described as {tp="edit"; name="fruit"} then the output table
+#_  will contain a key-value pair like ["fruit"]="apple".
+#_
+#_
+
+article id=639 dt=Text ctime=3973578148 mtime=3973578898 nm=SaveData
+#_dlg:SaveData(Src, Trg)
+#_
+#_**Parameters:**
+#_  Src : table
+#_  Trg : table
+#_
+#_**Description:**
+#_  Copy data from Src to Trg.
+#_
+
+article id=640 dt=Text ctime=3973578153 mtime=3973578906 nm=SetDialogState
+#_dlg:SetDialogState (hDlg, data)
+#_
+#_**Parameters:**
+#_  hDlg :  Dialog handle
+#_  data :  a table from which the dialog state is set
+#_
+#_**Description:**
+#_  Dynamically set the state of the dialog.
+#_
+
+article id=641 dt=Text ctime=3973579326 mtime=3973579542 nm=Dialog properties
+#_Dialog is a table.
+#_Its array part are dialog items.
+#_Its dictionary part are dialog properties (all are optional).
+#_
+#_**Predefined dialog properties**
+#_
+#_guid        : text-form dialog GUID (string)
+#_width       : dialog width (number); the real dialog width will be
+#_              greater or equal to this value; to obtain the minimal
+#_              possible width specify width=0;
+#_x1          : x-coordinate of the upper-left dialog corner (number)
+#_y1          : y-coordinate of the upper-left dialog corner (number)
+#_flags       : dialog flags (number); this is assumed to be a combination
+#_              of Far API flags;
+#_help        : help topic (string or function); string means a parameter
+#_              to far.DialogInit(), function is called on F1 press
+#_
+#_proc        : dialog procedure (function)
+#_              parameters: hDlg, Msg, Par1, Par2
+#_              return value: *TODO*			
+#_
+#_              NOTE 1: when Msg == DN_CLOSE
+#_                - Not called when the dialog is cancelled.
+#_                - Par2 is a table containing dialog values indexed by 'name'
+#_                  field of the dialog items.
+#_                - Return value: as it should be in response to DN_CLOSE.
+#_
+#_              NOTE 2: when Msg == "EVENT_CANCEL" (a string)
+#_                - Same as DN_CLOSE but called when the dialog is cancelled.
+#_
+#_              NOTE 2: when Msg == "EVENT_KEY" (a string)
+#_                - Par2 is a string containing key name, e.g. "ShiftF4"
+#_
+#_              NOTE 3: when Msg == "EVENT_MOUSE" (a string)
+#_                - Par1 is either item number (a positive integer) or nil.
+#_                - Par2 contains a MOUSE_EVENT_RECORD table
+#_
+#_data        : any Lua value; received as Param2 on DN_INITFIALOG;
+#_              can be obtained or modified via DM_GETDLGDATA/DM_SETDLGDATA;
+#_
+
+article id=642 dt=Text ctime=3973579590 mtime=3973579614 nm=Dialog item properties
+#_- Dialog item is a table.
+#_- Dialog item properties are predefined keys listed below.
+#_- Only "tp" field is mandatory, the other fields are optional
+#_- All these predefined keys are ASCII fully-lowercase strings.
+#_- To avoid clashes when using non-predefined keys start them with a capital letter.
+#_
+
+article id=643 dt=Text ctime=3973579664 mtime=3973580362 nm=Properties for positions in FarDialogItem
+#_Properties for positions in FarDialogItem
+#_-----------------------------------------
+#_* All properties except tp are optional
+#_
+#_`tp` : type; a mandatory field (string)
+#_
+#_x1,x2,y1,y2 : position (number) or string "" that means taking value from the previous item
+#_ystep       : y1 position relative to y1 of the previous item (number; default=1)
+#_width       : width
+#_height      : height
+#_
+#_val    : value for initialization of DI_CHECKBOX, DI_RADIOBUTTON (number/boolean);
+#_         value for intialization text elements (has priority over "text" property)
+#_list   : mandatory field for DI_COMBOBOX, DI_LISTBOX (table)
+#_buffer : buffer for DI_USERCONTROL (userdata)
+#_
+#_hist : history name for DI_EDIT, DI_FIXEDIT (string).
+#_       If specified then flag DIF_HISTORY is set automatically by the module.
+#_
+#_mask : mask value for DI_FIXEDIT, DI_TEXT, DI_VTEXT (string)
+#_       If specified then flag DIF_MASK is set automatically by the module.
+#_
+#_`flags` : flags (number)
+#_
+#_text : text (string); see also val above
+#_
+#_@@@
+#_[tp]: 645.html
+#_[flags]: 646.html
+
+article id=644 dt=Text ctime=3973579715 mtime=3973579731 nm=Other properties
+#_Non-standard properties in FarDialogItem
+#_----------------------------------------
+#_* All these properties are optional
+#_
+#_name        : Used as a key in the function's output table (string or number).
+#_              No default value.
+#_
+#_cancel      : When a DI_BUTTON element has this property set, pressing
+#_              that button will discard the dialog.
+#_              Default=false.
+#_
+#_ext         : File extension (without dot) - used in DI_EDIT elements.
+#_              Pressing F4 opens Far editor on a temporary file with this extension.
+#_              The extension determines what syntax highlighting will be used.
+#_              Default="tmp".
+#_
+#_skipF4      : Ignore pressing F4 on DI_EDIT elements.
+#_
+#_colors      : This property is used for giving a dialog element non-standard colors.
+#_              It is used internally in DN_CTLCOLORDLGITEM event.
+#_              It should be specified as an array containing 4 color elements.
+#_              Each color element can be specified either relatively
+#_              (e.g. "COL_WARNDIALOGTEXT") or absolutely (e.g. 0xA5).
+#_              No default value.
+#_
+#_hchar       : Highlight char. Applicable to usercontrol2 items. Default="#".
+#_              (If tp=="usercontrol2" the module creates an DI_USERCONTROL item
+#_              out of 'text' property).
+#_
+#_hcolor      : Highlight color. Applicable to usercontrol2 items.
+#_              Default=0xF0 (black on white).
+#_              (If tp=="usercontrol2" the module creates an DI_USERCONTROL item
+#_              out of 'text' property).
+#_
+#_noload      : this item is ignored in SetDialogState(), ClearControls() and LoadData()
+#_
+#_noauto      : equivalent to combined noload and nosave
+#_
+#_nohilite    : function AssignHotKeys should ignore this dialog item
+#_
+#_nosave      : this item is ignored in GetDialogState()
+#_
+
+article id=645 dt=Text ctime=3973579763 mtime=3973579774 nm=Dialog item types
+#_The dialog item type is specified by "tp" property.
+#_Each Far API dialog item type has a corresponding tp value:
+#_
+#_DI_BUTTON                : butt
+#_DI_CHECKBOX              : chbox
+#_DI_COMBOBOX:             : combobox
+#_DI_DOUBLEBOX             : dbox
+#_DI_EDIT                  : edit
+#_DI_FIXEDIT               : fixedit
+#_DI_LISTBOX               : listbox
+#_DI_PSWEDIT               : pswedit
+#_DI_RADIOBUTTON           : rbutt
+#_DI_SINGLEBOX             : sbox
+#_DI_TEXT                  : text
+#_DI_TEXT + DIF_SEPARATOR  : sep
+#_DI_TEXT + DIF_SEPARATOR2 : sep2
+#_DI_USERCONTROL           : user, user2
+#_DI_VTEXT                 : vtext
+#_
+#_Example:
+#_--------
+#_  { tp="dbox"; text="Find in files" },
+#_  { tp="text"; text="&File mask"    },
+#_  { tp="edit"; name="filemask"      },
+#_
+
+article id=646 dt=Text ctime=3973579781 mtime=3973579798 nm=Dialog item flags
+#_Dialog item flags can be specified with the "flags" property
+#_but there are also predefined names for boolean properties
+#_for all Far API dialog items flags:
+#_
+#_DIF_3STATE                : tristate
+#_DIF_BOXCOLOR              : boxcolor
+#_DIF_BTNNOCLOSE            : btnnoclose
+#_DIF_CENTERGROUP           : centergroup
+#_DIF_CENTERTEXT            : centertext
+#_DIF_DEFAULTBUTTON         : default
+#_DIF_DISABLE               : disable
+#_DIF_DROPDOWNLIST          : dropdownlist
+#_DIF_EDITEXPAND            : editexpand
+#_DIF_EDITOR                : editor
+#_DIF_EDITPATH              : editpath
+#_DIF_EDITPATHEXEC          : editpathexec
+#_DIF_FOCUS                 : focus
+#_DIF_GROUP                 : group
+#_DIF_HIDDEN                : hidden
+#_DIF_LEFTTEXT              : lefttext
+#_DIF_LISTAUTOHIGHLIGHT     : listautohighlight
+#_DIF_LISTNOAMPERSAND       : listnoampersand
+#_DIF_LISTNOBOX             : listnobox
+#_DIF_LISTNOCLOSE           : listnoclose
+#_DIF_LISTTRACKMOUSE        : listtrackmouse
+#_DIF_LISTTRACKMOUSEINFOCUS : listtrackmouseinfocus
+#_DIF_LISTWRAPMODE          : listwrapmode
+#_DIF_MANUALADDHISTORY      : manualaddhistory
+#_DIF_MOVESELECT            : moveselect
+#_DIF_NOAUTOCOMPLETE        : noautocomplete
+#_DIF_NOBRACKETS            : nobrackets
+#_DIF_NOFOCUS               : nofocus
+#_DIF_READONLY              : readonly
+#_DIF_RIGHTTEXT             : righttext
+#_DIF_SELECTONENTRY         : selectonentry
+#_DIF_SETSHIELD             : setshield
+#_DIF_SHOWAMPERSAND         : showampersand
+#_DIF_USELASTHISTORY        : uselasthistory
+#_DIF_WORDWRAP              : wordwrap
 #_
 
