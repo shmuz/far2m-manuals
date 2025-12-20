@@ -264,6 +264,7 @@ node lv=2 id=56 art=56 nm=far.GetFileOwner
 node lv=2 id=59 art=59 nm=far.GetNumberOfLinks
 node lv=2 id=200 art=200 nm=far.GetReparsePointInfo
 node lv=2 id=186 art=186 nm=far.InputRecordToKey
+node lv=2 id=693 art=647 nm=far.InputRecordToName
 node lv=2 id=63 art=63 nm=far.KeyToName
 node lv=2 id=201 art=201 nm=far.LIsAlpha
 node lv=2 id=202 art=202 nm=far.LIsAlphanum
@@ -452,12 +453,9 @@ node lv=2 id=476 art=476 nm=far.GetPluginId
 node lv=2 id=517 art=515 nm=far.InMyCache
 node lv=2 id=516 art=514 nm=far.InMyConfig
 node lv=2 id=518 art=516 nm=far.InMyTemp
-node lv=2 id=656 art=186 nm=far.InputRecordToKey
-node lv=2 id=657 art=63 nm=far.KeyToName
 node lv=2 id=459 art=459 nm=far.Log
 node lv=2 id=658 art=603 nm=far.LStrcmp
 node lv=2 id=659 art=604 nm=far.LStrncmp
-node lv=2 id=660 art=66 nm=far.NameToKey
 node lv=2 id=590 art=583 nm=far.SplitCmdLine
 node lv=2 id=608 art=596 nm=far.StrCellsCount
 node lv=2 id=609 art=597 nm=far.StrSizeOfCells
@@ -1479,7 +1477,7 @@ article id=62 dt=Text ctime=0 mtime=3927726893 nm=far.InputBox
 #_@@@
 #_
 
-article id=63 dt=Text ctime=0 mtime=3963320026 nm=far.KeyToName
+article id=63 dt=Text ctime=0 mtime=3975319728 nm=far.KeyToName
 #_Name = far.KeyToName (Key)
 #_
 #_**Parameters:**
@@ -1493,6 +1491,7 @@ article id=63 dt=Text ctime=0 mtime=3963320026 nm=far.KeyToName
 #_
 #_**See also:**
 #_  `far.InputRecordToKey`
+#_  `far.InputRecordToName`
 #_  `far.NameToInputRecord`
 #_  `far.NameToKey`
 #_
@@ -1632,7 +1631,7 @@ article id=65 dt=Text ctime=0 mtime=3916511554 nm=far.Message
 #_@@@
 #_
 
-article id=66 dt=Text ctime=0 mtime=3963320042 nm=far.NameToKey
+article id=66 dt=Text ctime=0 mtime=3975319765 nm=far.NameToKey
 #_Key = far.NameToKey (Name)
 #_
 #_**Parameters:**
@@ -1646,6 +1645,7 @@ article id=66 dt=Text ctime=0 mtime=3963320042 nm=far.NameToKey
 #_
 #_**See also:**
 #_  `far.InputRecordToKey`
+#_  `far.InputRecordToName`
 #_  `far.KeyToName`
 #_  `far.NameToInputRecord`
 #_
@@ -3788,23 +3788,23 @@ article id=185 dt=Text ctime=0 mtime=3929296787 nm=far.CPluginStartupInfo
 #_}
 #_
 
-article id=186 dt=Text ctime=0 mtime=3963320019 nm=far.InputRecordToKey
+article id=186 dt=Text ctime=0 mtime=3975320063 nm=far.InputRecordToKey
 #_Key = far.InputRecordToKey (Input)
 #_
 #_**Parameters:**
-#_  Input: table `tInputRecord`
-#_         (Field *EventType* is mandatory, other fields
-#_         are optional. If some field is missing, the default
-#_         value of 0/false is used, except for *RepeatCount*
-#_         that defaults to 1).
+#_  Input:  table `tInputRecord`
+#_          (Field *EventType* is mandatory, other fields are optional.
+#_          If some field is missing, the default value of 0/false
+#_          is used, except for *RepeatCount* that defaults to 1).
 #_
 #_**Returns:**
-#_  Key: integer
+#_  Key:    integer
 #_
 #_**Far API used:**
 #_  FSF.FarInputRecordToKey
 #_
 #_**See also:**
+#_  `far.InputRecordToName`
 #_  `far.KeyToName`
 #_  `far.NameToInputRecord`
 #_  `far.NameToKey`
@@ -6541,7 +6541,7 @@ article id=411 dt=Text ctime=3851358133 mtime=3851358133 nm=Tables
 
 article id=415 dt=Text ctime=3851399234 mtime=3851399293 nm=Plugins Control
 
-article id=416 dt=Text ctime=3851399307 mtime=3876935129 nm=far.ForcedLoadPlugin
+article id=416 dt=Text ctime=3851399307 mtime=3974737202 nm=far.ForcedLoadPlugin
 #_plugin_handle = far.ForcedLoadPlugin (Param1, Param2)
 #_
 #_**Parameters:**
@@ -6551,13 +6551,17 @@ article id=416 dt=Text ctime=3851399307 mtime=3876935129 nm=far.ForcedLoadPlugin
 #_**Returns:**
 #_  plugin_handle:  userdata, or nil
 #_
+#_  **plugin_handle:rawhandle()**
+#_    returns the original value of handle received from Far Manager
+#_    that is suitable for using with LuaJIT FFI and as a table key.
+#_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_FORCEDLOADPLUGIN
 #_
 #_@@@
 #_
 
-article id=417 dt=Text ctime=3851399323 mtime=3876935198 nm=far.LoadPlugin
+article id=417 dt=Text ctime=3851399323 mtime=3974737184 nm=far.LoadPlugin
 #_plugin_handle = far.LoadPlugin (Param1, Param2)
 #_
 #_**Parameters:**
@@ -6566,6 +6570,10 @@ article id=417 dt=Text ctime=3851399323 mtime=3876935198 nm=far.LoadPlugin
 #_
 #_**Returns:**
 #_  plugin_handle:  userdata, or nil
+#_
+#_  **plugin_handle:rawhandle()**
+#_    returns the original value of handle received from Far Manager
+#_    that is suitable for using with LuaJIT FFI and as a table key.
 #_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_LOADPLUGIN
@@ -7973,7 +7981,7 @@ article id=503 dt=Text ctime=3873304138 mtime=3873304348 nm=win.GetSystemTime
 #_[tSystemTime]: 218.html
 #_
 
-article id=504 dt=Text ctime=3873815146 mtime=3963320036 nm=far.NameToInputRecord
+article id=504 dt=Text ctime=3873815146 mtime=3975319931 nm=far.NameToInputRecord
 #_Record = far.NameToInputRecord (Name)
 #_
 #_**Parameters:**
@@ -7981,13 +7989,13 @@ article id=504 dt=Text ctime=3873815146 mtime=3963320036 nm=far.NameToInputRecor
 #_
 #_**Returns:**
 #_  Record: table `tInputRecord`, or nil
-#_er
 #_
 #_**Far API used:**
 #_  FSF.FarNameToInputRecord
 #_
 #_**See also:**
 #_  `far.InputRecordToKey`
+#_  `far.InputRecordToName`
 #_  `far.KeyToName`
 #_  `far.NameToKey`
 #_
@@ -8025,7 +8033,7 @@ article id=506 dt=Text ctime=3876935307 mtime=3876935369 nm=far.GetPlugins
 #_@@@
 #_
 
-article id=507 dt=Text ctime=3876937531 mtime=3877053602 nm=far.FindPlugin
+article id=507 dt=Text ctime=3876937531 mtime=3974737154 nm=far.FindPlugin
 #_plugin_handle = far.FindPlugin (Param1, Param2)
 #_
 #_**Parameters:**
@@ -8034,6 +8042,10 @@ article id=507 dt=Text ctime=3876937531 mtime=3877053602 nm=far.FindPlugin
 #_
 #_**Returns:**
 #_  plugin_handle:  userdata, or nil
+#_
+#_  **plugin_handle:rawhandle()**
+#_    returns the original value of handle received from Far Manager
+#_    that is suitable for using with LuaJIT FFI and as a table key.
 #_
 #_**Far API used:**
 #_  PluginsControlV3, PCTL_FINDPLUGIN
@@ -10029,5 +10041,27 @@ article id=646 dt=Text ctime=3973579781 mtime=3973579798 nm=Dialog item flags
 #_DIF_SHOWAMPERSAND         : showampersand
 #_DIF_USELASTHISTORY        : uselasthistory
 #_DIF_WORDWRAP              : wordwrap
+#_
+
+article id=647 dt=Text ctime=3975319304 mtime=3975320041 nm=far.InputRecordToName
+#_Name = far.InputRecordToName (Input)
+#_
+#_**Parameters:**
+#_  Input:  table `tInputRecord`
+#_          (Field *EventType* is mandatory, other fields are optional.
+#_          If some field is missing, the default value of 0/false
+#_          is used, except for *RepeatCount* that defaults to 1).
+#_
+#_**Returns:**
+#_  Name:   string
+#_
+#_**See also:**
+#_  `far.InputRecordToKey`
+#_  `far.KeyToName`
+#_  `far.NameToInputRecord`
+#_  `far.NameToKey`
+#_
+#_@@@
+#_[tInputRecord]: 187.html
 #_
 
