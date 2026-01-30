@@ -85,10 +85,10 @@ node lv=2 id=88 art=88 nm=MoonScript
 node lv=1 id=70 art=70 nm=Articles
 node lv=2 id=71 art=71 nm=FAR Manager. Macros and whatnot.
 
-article id=1 dt=Text ctime=3551829092 mtime=3891885452 nm=Far Manager macro system manual
+article id=1 dt=Text ctime=3551829092 mtime=3976046816 nm=Far Manager macro system manual
 #_<markdown>
 #_
-#_### This is a manual for a Linux version which requires [far2m][4] (a far2l fork).
+#_### This is a manual for a Linux version which requires [far2m][4].
 #_Far2m contains *luafar.so* library and *LuaMacro* plugin and has a Lua-based macro system very similar to that used in Far3.0 Windows version.
 #_
 #_## Some history
@@ -1856,7 +1856,7 @@ article id=77 dt=Text ctime=3580139041 mtime=3891885560 nm=External modules
 #_`$HOME/.config/far2m/Macros/lib64` and their subdirectories as those paths are automatically added to `package.cpath`.
 #_
 
-article id=78 dt=Text ctime=3580139337 mtime=3930299421 nm=Event handlers
+article id=78 dt=Text ctime=3580139337 mtime=3976046737 nm=Event handlers
 #_<markdown>
 #_
 #_Like [regular macros][1], event handlers are loaded from macrofiles (extensions `*.lua` and `*.moon`), residing in the directory `$HOME/.config/far2m/Macros/scripts` and its subdirectories. Each macrofile may contain both macros and event handlers.
@@ -1877,7 +1877,7 @@ article id=78 dt=Text ctime=3580139337 mtime=3930299421 nm=Event handlers
 #_
 #_The field `group` can have one of the following values:<br>
 #_`"ConsoleInput", "DialogEvent", "EditorEvent", "EditorInput", "ExitFAR",
-#_"MayExitFAR", "SynchroEvent", "ViewerEvent"`.<br>
+#_"FolderChanged", "MayExitFAR", "SynchroEvent", "ViewerEvent"`.<br>
 #_These names are derived from names of the corresponding functions, exported by the plugin, e.g.:<br>
 #_        export.ProcessDialogEvent -> DialogEvent
 #_The functions `condition` and `action` are called with the same parameters as the corresponding exported functions are called (see LuaFAR manual).
@@ -1886,6 +1886,8 @@ article id=78 dt=Text ctime=3580139337 mtime=3930299421 nm=Event handlers
 #_
 #_The `ExitFAR` handler is called in the following cases: (a) exit from Far Manager,
 #_(b) unloading LuaMacro plugin, \(c) unloading or reloading macros. The handler receives one argument of boolean type: `false` for cases (a) and (b); `true` for case \(c).
+#_
+#_The `FolderChanged` handler is called with no arguments. Its return value, if any, is ignored.
 #_
 #_[1]: 75.html
 #_
@@ -2900,9 +2902,9 @@ article id=119 dt=Text ctime=3930917157 mtime=3965017492 nm=GetInfo
 #_    ConsoleColorPalette : number
 #_
 
-article id=120 dt=Text ctime=3942383358 mtime=3942387022 nm=Redefining macro keys
-#_It is possible to redefine keys in macros via the file
-#__keyreplace.cfg. This file may contain lines with syntax
+article id=120 dt=Text ctime=3942383358 mtime=3976545188 nm=Redefining macro keys
+#_It is possible to redefine keys in macros using the file
+#_**_keyreplace.cfg**. This file may contain lines with syntax
 #_*<id> = <key>*, e.g.
 #_
 #_    95ACF09A-F3FB-475C-8F63-6B12A7F16053 = AltF3
@@ -2918,7 +2920,7 @@ article id=120 dt=Text ctime=3942383358 mtime=3942387022 nm=Redefining macro key
 #_- Leading and trailing spaces are ignored in both *<id>* and *<key>*
 #_- Any of *<id>* and *<key>* may be enclosed in single or double quotes
 #_- *<id>* is case insensitive
-#_- Backslashes (if any) in the *<key>* shouldn't be escaped
-#_- Lines that don't have *<id>=<key>* format are ignored (may be used
-#_  as comments)
+#_- Backslashes (if any) in the *<key>* should not be escaped
+#_- Lines that don't have *<id>=<key>* format are ignored
+#_  (may be used as comments)
 

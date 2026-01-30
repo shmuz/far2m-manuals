@@ -1049,7 +1049,7 @@ article id=30 dt=Text ctime=0 mtime=3965201330 nm=editor.GetSelection
 #_
 #_
 
-article id=31 dt=Text ctime=0 mtime=3921834327 nm=editor.GetString
+article id=31 dt=Text ctime=0 mtime=3978959205 nm=editor.GetString
 #_**Note:**
 #_  This function is an extension over its prototype in Far API.
 #_
@@ -1058,12 +1058,12 @@ article id=31 dt=Text ctime=0 mtime=3921834327 nm=editor.GetString
 #_StringText, StringEOL = editor.GetString (EditorId, StringNumber, Mode)
 #_
 #_**Parameters:**
-#_  EditorId:     integer, or nil
+#_  EditorId:     integer (default=CURRENT_EDITOR)
 #_  StringNumber: integer, 1-based (default=0)
-#_  Mode:         integer (0,1,2,3; default=0)
+#_  Mode:         integer (0,1,2,3,4; default=0)
 #_
 #_**Returns:**
-#_  LineInfo: table (Mode<2), or 2 strings (Mode>=2), or nil
+#_  LineInfo: table (Mode<2), or multiple values (Mode>=2), or nil
 #_    fields of LineInfo:
 #_      StringNumber: integer, 1-based
 #_      StringText:   string
@@ -1727,7 +1727,7 @@ article id=70 dt=Text ctime=0 mtime=3963647207 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3969458853 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3975947725 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1766,8 +1766,8 @@ article id=71 dt=Text ctime=0 mtime=3969458853 nm=far.SendDlgMessage
 #_    Result:  integer
 #_
 #_DM_ENABLE:
-#_    Param2:  boolean or integer
-#_    Result:  boolean
+#_    Param2:  boolean or integer (default = -1)
+#_    Result:  integer
 #_
 #_DM_ENABLEREDRAW:
 #_    Param1:  boolean or integer (default = -1)
@@ -4935,7 +4935,7 @@ article id=280 dt=Text ctime=3476605549 mtime=3900989957 nm=far.MakeMenuItems
 #_[far.Menu]: 64.html
 #_
 
-article id=282 dt=Text ctime=3476617735 mtime=3900989997 nm=far.Show
+article id=282 dt=Text ctime=3476617735 mtime=3976301097 nm=far.Show
 #_Item, Position = far.Show (...)
 #_
 #_**Parameters:**
@@ -4954,6 +4954,8 @@ article id=282 dt=Text ctime=3476617735 mtime=3900989997 nm=far.Show
 #_
 #_  Due to using `far.MakeMenuItems` the returned *Item* table contains
 #_  the value of the corresponding original argument under the field 'arg'.
+#_
+#_  *Ctrl+C* and *Ctrl+Ins* copy the selected line to clipboard and close the menu.
 #_
 #_@@@
 #_[far.Menu]: 64.html
