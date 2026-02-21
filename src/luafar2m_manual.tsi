@@ -62,10 +62,7 @@ node lv=2 id=70 art=70 nm=far.SaveScreen
 node lv=2 id=74 art=74 nm=far.ShowHelp
 node lv=2 id=76 art=76 nm=far.Text
 node lv=1 id=561 art=559 nm=Advanced Control
-node lv=2 id=153 art=153 nm=far.AdvControl
-node lv=3 id=463 art=463 nm=actl namespace
-node lv=2 id=668 art=622 nm=far.AdvControlAsync
-node lv=2 id=667 art=621 nm=Description
+node lv=2 id=667 art=621 nm=far.AdvControl
 node lv=3 id=530 art=528 nm=ACTL_COMMIT
 node lv=3 id=532 art=530 nm=ACTL_GETARRAYCOLOR
 node lv=3 id=533 art=531 nm=ACTL_GETCOLOR
@@ -82,6 +79,7 @@ node lv=3 id=545 art=543 nm=ACTL_GETSYSTEMSETTINGS
 node lv=3 id=546 art=544 nm=ACTL_GETSYSWORDDIV
 node lv=3 id=547 art=545 nm=ACTL_GETWINDOWCOUNT
 node lv=3 id=548 art=546 nm=ACTL_GETWINDOWINFO
+node lv=3 id=696 art=649 nm=ACTL_GETWINDOWTYPE
 node lv=3 id=549 art=547 nm=ACTL_KEYMACRO
 node lv=3 id=551 art=549 nm=ACTL_QUIT
 node lv=3 id=552 art=550 nm=ACTL_REDRAWALL
@@ -91,6 +89,8 @@ node lv=3 id=555 art=553 nm=ACTL_SETCURSORPOS
 node lv=3 id=558 art=556 nm=ACTL_SYNCHRO
 node lv=3 id=559 art=557 nm=ACTL_WAITKEY
 node lv=3 id=560 art=558 nm=ACTL_WINPORTBACKEND
+node lv=2 id=668 art=622 nm=far.AdvControlAsync
+node lv=2 id=463 art=463 nm=actl namespace
 node lv=1 id=81 art=81 nm=Dialog functions
 node lv=2 id=479 art=479 nm=far.ColorDialog
 node lv=2 id=438 art=438 nm=far.CreateUserControl
@@ -170,6 +170,7 @@ node lv=2 id=43 art=43 nm=editor.SetPosition
 node lv=2 id=44 art=44 nm=editor.SetString
 node lv=2 id=490 art=490 nm=editor.SetStringW
 node lv=2 id=45 art=45 nm=editor.SetTitle
+node lv=2 id=694 art=648 nm=editor.SetVirtualFileName
 node lv=2 id=48 art=48 nm=editor.TabToReal
 node lv=2 id=137 art=137 nm=editor.TurnOffMarkingBlock
 node lv=2 id=283 art=283 nm=editor.UndoRedo
@@ -434,6 +435,7 @@ node lv=2 id=652 art=557 nm=actl.WaitKey
 node lv=2 id=527 art=558 nm=actl.WinPortBackEnd
 node lv=1 id=639 art=618 nm=editor
 node lv=2 id=653 art=138 nm=editor.ProcessKey
+node lv=2 id=695 art=648 nm=editor.SetVirtualFileName
 node lv=2 id=640 art=137 nm=editor.TurnOffMarkingBlock
 node lv=1 id=584 art=578 nm=export
 node lv=2 id=592 art=584 nm=export.GetLinkTarget
@@ -1727,7 +1729,7 @@ article id=70 dt=Text ctime=0 mtime=3963647207 nm=far.SaveScreen
 #_@@@
 #_
 
-article id=71 dt=Text ctime=0 mtime=3975947725 nm=far.SendDlgMessage
+article id=71 dt=Text ctime=0 mtime=3979369398 nm=far.SendDlgMessage
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -1974,6 +1976,11 @@ article id=71 dt=Text ctime=0 mtime=3975947725 nm=far.SendDlgMessage
 #_DM_SETDLGDATA:
 #_    Param1: any Lua value
 #_    Result: any Lua value (the previous data)
+#_
+#_DM_GETMEMOEDITID:
+#_    Param1: dialog item position (1-based)
+#_    Result: integer on success, *false* on failure
+#_    Note:   the returned value can be used as EditorID in editor.xxx functions
 #_
 #_**Far API used:**
 #_  SendDlgMessage
@@ -2568,13 +2575,17 @@ article id=109 dt=Text ctime=0 mtime=3960475624 nm=export.Open
 #_[bit64]: 471.html
 #_
 
-article id=110 dt=Text ctime=0 mtime=3862213220 nm=export.ProcessEditorEvent
+article id=110 dt=Text ctime=0 mtime=3979125631 nm=export.ProcessEditorEvent
 #_result = export.ProcessEditorEvent (EditorID, Event, Param)
 #_
 #_**Parameters:**
 #_  EditorID: integer
 #_  Event:    integer
-#_  Param:    integer, or nil
+#_  Param:    - table (for Event == EE_SAVE)
+#_                FileName:     string
+#_                FileEOL:      string
+#_                CodePage:     integer
+#_            - integer (for other events)
 #_
 #_**Returns:**
 #_  result: integer
@@ -3171,8 +3182,6 @@ article id=152 dt=Text ctime=0 mtime=0 nm=win.GetEnv
 #_
 #_@@@
 #_
-
-article id=153 dt=Text ctime=0 mtime=3892837090 nm=far.AdvControl
 
 article id=155 dt=Text ctime=0 mtime=3883247920 nm=LF_LuaClose
 #_<markdown>
@@ -7128,7 +7137,7 @@ article id=461 dt=Text ctime=3853775362 mtime=3853776891 nm=far.InputRecordToNam
 #_[tInputRecord]: 187.html
 #_
 
-article id=462 dt=Text ctime=3853816798 mtime=3969458792 nm=Methods of dialog handle
+article id=462 dt=Text ctime=3853816798 mtime=3979368900 nm=Methods of dialog handle
 #_Besides passing the dialog handle as a parameter to `far.SendDlgMessage`
 #_there is an alternative way: using dialog handle methods. The latter
 #_is shorter and more expressive, e.g. the following 2 calls do the same
@@ -7162,6 +7171,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3969458792 nm=Methods of dialog ha
 #_  GetFocus                DM_GETFOCUS
 #_  GetItemData             DM_GETITEMDATA
 #_  GetItemPosition         DM_GETITEMPOSITION
+#_  GetMemoEditId           DM_GETMEMOEDITID
 #_  GetSelection            DM_GETSELECTION
 #_  GetText                 DM_GETTEXT
 #_  GetTrueColor            DM_GETTRUECOLOR
@@ -7217,7 +7227,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3969458792 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3968004158 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3980870515 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7244,6 +7254,7 @@ article id=463 dt=Text ctime=3853931289 mtime=3968004158 nm=actl namespace
 #_  GetSysWordDiv           ACTL_GETSYSWORDDIV
 #_  GetWindowCount          ACTL_GETWINDOWCOUNT
 #_  GetWindowInfo           ACTL_GETWINDOWINFO
+#_  GetWindowType           ACTL_GETWINDOWTYPE
 #_  Quit                    ACTL_QUIT
 #_  RedrawAll               ACTL_REDRAWALL
 #_  SetArrayColor           ACTL_SETARRAYCOLOR
@@ -8507,11 +8518,12 @@ article id=550 dt=Text ctime=3892829915 mtime=3940086521 nm=ACTL_REDRAWALL
 #_  Result:   integer
 #_
 
-article id=551 dt=Text ctime=3892829915 mtime=3940086292 nm=ACTL_SETARRAYCOLOR
-#_Result = far.AdvControl (ACTL_SETARRAYCOLOR, Param)
+article id=551 dt=Text ctime=3892829915 mtime=3980844544 nm=ACTL_SETARRAYCOLOR
+#_Result = far.AdvControl (ACTL_SETARRAYCOLOR, Param1, Param2)
 #_
 #_**Parameters:**
-#_  Param:    table (see its fields below):
+#_  Param1:   N/A
+#_  Param2:   table (see its fields below):
 #_              Flags:       flags combination
 #_              StartIndex:  integer
 #_            Its array part contains `bit64` userdata values.
@@ -9592,20 +9604,18 @@ article id=620 dt=Text ctime=3965199976 mtime=3965201198 nm=tSelectData
 #_      BlockHeight:    integer
 #_
 
-article id=621 dt=Text ctime=3965232147 mtime=3965233129 nm=Description
+article id=621 dt=Text ctime=3965232147 mtime=3965233129 nm=far.AdvControl
 #_<markdown>
 #_
 #_These commands are the same for `far.AdvControl`
 #_and `far.AdvControlAsync` functions.
 
-article id=622 dt=Text ctime=3965232220 mtime=3965296107 nm=far.AdvControlAsync
+article id=622 dt=Text ctime=3965232220 mtime=3980870853 nm=far.AdvControlAsync
 #_<markdown>
 #_
-#_1. `far.AdvControlAsync` function has exactly
-#_[same](621.html) parameters and return values
-#_as [`far.AdvControl`](153.html).
-#_2. [`actl`](463.html) namespace functions always call
-#_[`far.AdvControl`](153.html).
+#_1. `far.AdvControlAsync` function has exactly [same](621.html)
+#_   parameters and return values as [`far.AdvControl`](153.html).
+#_2. [`actl`](463.html) namespace functions always call [`far.AdvControl`](153.html).
 #_
 
 article id=623 dt=Text ctime=3972738613 mtime=3972989259 nm=Buffer:write
@@ -9932,7 +9942,7 @@ article id=643 dt=Text ctime=3973579664 mtime=3973580362 nm=Properties for posit
 #_[tp]: 645.html
 #_[flags]: 646.html
 
-article id=644 dt=Text ctime=3973579715 mtime=3973579731 nm=Other properties
+article id=644 dt=Text ctime=3973579715 mtime=3979477496 nm=Other properties
 #_Non-standard properties in FarDialogItem
 #_----------------------------------------
 #_* All these properties are optional
@@ -9953,7 +9963,7 @@ article id=644 dt=Text ctime=3973579715 mtime=3973579731 nm=Other properties
 #_
 #_colors      : This property is used for giving a dialog element non-standard colors.
 #_              It is used internally in DN_CTLCOLORDLGITEM event.
-#_              It should be specified as an array containing 4 color elements.
+#_              It should be specified as an array containing up to 4 color elements.
 #_              Each color element can be specified either relatively
 #_              (e.g. "COL_WARNDIALOGTEXT") or absolutely (e.g. 0xA5).
 #_              No default value.
@@ -9976,7 +9986,7 @@ article id=644 dt=Text ctime=3973579715 mtime=3973579731 nm=Other properties
 #_nosave      : this item is ignored in GetDialogState()
 #_
 
-article id=645 dt=Text ctime=3973579763 mtime=3973579774 nm=Dialog item types
+article id=645 dt=Text ctime=3973579763 mtime=3979640096 nm=Dialog item types
 #_The dialog item type is specified by "tp" property.
 #_Each Far API dialog item type has a corresponding tp value:
 #_
@@ -9987,6 +9997,7 @@ article id=645 dt=Text ctime=3973579763 mtime=3973579774 nm=Dialog item types
 #_DI_EDIT                  : edit
 #_DI_FIXEDIT               : fixedit
 #_DI_LISTBOX               : listbox
+#_DI_MEMOEDIT              : memo
 #_DI_PSWEDIT               : pswedit
 #_DI_RADIOBUTTON           : rbutt
 #_DI_SINGLEBOX             : sbox
@@ -10065,5 +10076,40 @@ article id=647 dt=Text ctime=3975319304 mtime=3975320041 nm=far.InputRecordToNam
 #_
 #_@@@
 #_[tInputRecord]: 187.html
+#_
+
+article id=648 dt=Text ctime=3980312575 mtime=3980312934 nm=editor.SetVirtualFileName
+#_result = editor.SetVirtualFileName (EditorId, FileName)
+#_
+#_**Parameters:**
+#_  EditorId: integer, or nil
+#_  FileName: string
+#_
+#_**Returns:**
+#_  result:   boolean
+#_
+#_**Description:**
+#_  This function sets virtual file name for MemoEdit dialog control.
+#_  That helps highlighting plugins (e.g. Colorer) to decide what
+#_  syntax to use.
+#_
+#_**Far API used:**
+#_  EditorControl, ECTL_SETVIRTUALFILENAME
+#_
+#_@@@
+#_
+#_
+
+article id=649 dt=Text ctime=3980870423 mtime=3980870455 nm=ACTL_GETWINDOWTYPE
+#_Result = far.AdvControl (ACTL_GETWINDOWTYPE)
+#_
+#_**Parameters:**
+#_  Param1:   N/A
+#_  Param2:   N/A
+#_
+#_**Returns:**
+#_  Result:   table (see its fields below), or nil
+#_              Type: integer
+#_
 #_
 
