@@ -111,8 +111,9 @@ local searchPattern = rex.new( [[
 ]], "ix")
 
 local function postprocess_article (part1, part2, is_markdown, LocalLinks)
+  local links, links2 = {}, {}
+
   if part2 then
-    local links, links2 = {}, {}
     for line in part2:gmatch("[^\n]+") do
       local name, url
       if not is_markdown then
@@ -125,23 +126,24 @@ local function postprocess_article (part1, part2, is_markdown, LocalLinks)
         if name then links2[name] = url end
       end
     end
+  end
 
-    if not is_markdown then
-      part1 = part1:gsub("`([^`\n]+)`",
-        function(c)
-          local url = links[c] or LocalLinks[c]
-          return url and ('<a href="%s">%s</a>'):format(url, c)
-        end)
-    end
-
-    part1 = rex.gsub(part1, searchPattern,
+  if not is_markdown then
+    part1 = part1:gsub("`([^`\n]+)`",
       function(c)
-        if c then
-          local url = links2[c:lower()]
-          if url then return '<a href="'..url..'">'..c..'</a>' end
-        end
+        local url = links[c] or LocalLinks[c]
+        return url and ('<a href="%s">%s</a>'):format(url, c)
       end)
   end
+
+  part1 = rex.gsub(part1, searchPattern,
+    function(c)
+      if c then
+        local url = links2[c:lower()]
+        if url then return '<a href="'..url..'">'..c..'</a>' end
+      end
+    end)
+
   return is_markdown and part1 or "\n<pre>"..part1.."</pre>\n"
 end
 
@@ -174,7 +176,7 @@ local function process_article (article, LocalLinks)
         return lxsh.highlighters.lua(c,
           { formatter=lxsh.formatters.html,
             external=false,
-            colors=lxsh.colors.earendel })
+            colors=lxsh.colors.earendel }) .. "\n"
       end
     )
     part1 = discount(part1)
