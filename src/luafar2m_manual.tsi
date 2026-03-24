@@ -70,6 +70,7 @@ node lv=3 id=534 art=532 nm=ACTL_GETCONFIRMATIONS
 node lv=3 id=535 art=533 nm=ACTL_GETCURSORPOS
 node lv=3 id=536 art=534 nm=ACTL_GETDESCSETTINGS
 node lv=3 id=537 art=535 nm=ACTL_GETDIALOGSETTINGS
+node lv=3 id=702 art=654 nm=ACTL_GETFARCOMMITTIME
 node lv=3 id=539 art=537 nm=ACTL_GETFARRECT
 node lv=3 id=540 art=538 nm=ACTL_GETFARVERSION
 node lv=3 id=541 art=539 nm=ACTL_GETINTERFACESETTINGS
@@ -429,6 +430,7 @@ node lv=1 id=583 art=577 nm=actl
 node lv=2 id=643 art=532 nm=actl.GetConfirmations
 node lv=2 id=644 art=534 nm=actl.GetDescSettings
 node lv=2 id=645 art=535 nm=actl.GetDialogSettings
+node lv=2 id=703 art=654 nm=actl.GetFarCommitTime
 node lv=2 id=646 art=539 nm=actl.GetInterfaceSettings
 node lv=2 id=647 art=540 nm=actl.GetPanelSettings
 node lv=2 id=648 art=541 nm=actl.GetPluginMaxReadData
@@ -6831,19 +6833,21 @@ article id=437 dt=Text ctime=3852044260 mtime=3906376490 nm=win.SetCurrentDir
 #_  chdir
 #_
 
-article id=438 dt=Text ctime=3852117934 mtime=3900525801 nm=far.CreateUserControl
+article id=438 dt=Text ctime=3852117934 mtime=3982837719 nm=far.CreateUserControl
 #_<markdown>
 #_Buffer support for `DI_USERCONTROL`. Use it like this:
 #_
-#_    local buffer=far.CreateUserControl(10,10)
-#_    local textel={Char="a",Attributes=0x4C}
-#_    for ii=1,#buffer do
-#_      buffer[ii]=textel
-#_    end
-#_    local items={
-#_      {"DI_DOUBLEBOX",0,0,11,11,0,0,0,0,""},
-#_      {"DI_USERCONTROL",1,1,10,10,buffer,0,0,0,""}
-#_    }
+#_```
+#_  local buffer = far.CreateUserControl(10,10)
+#_  local textel = {Char="a", Attributes=0x4C}
+#_  for ii=1,#buffer do
+#_    buffer[ii] = textel
+#_  end
+#_  local items = {
+#_    {"DI_DOUBLEBOX",0,0,11,11,0,0,0,0,""},
+#_    {"DI_USERCONTROL",1,1,10,10,buffer,0,0,0,""}
+#_  }
+#_```
 #_
 #_@@@
 #_{di_usercontrol}: https://api.farmanager.com/ru/dialogapi/controls/di_usercontrol.html
@@ -7215,7 +7219,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3979368900 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3980870515 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3982907734 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -7233,8 +7237,9 @@ article id=463 dt=Text ctime=3853931289 mtime=3980870515 nm=actl namespace
 #_  GetCursorPos            ACTL_GETCURSORPOS
 #_  GetDescSettings         ACTL_GETDESCSETTINGS
 #_  GetDialogSettings       ACTL_GETDIALOGSETTINGS
-#_  GetFarRect              ACTL_GETFARRECT
+#_  GetFarCommitTime        ACTL_GETFARCOMMITTIME
 #_  GetFarManagerVersion    ACTL_GETFARVERSION
+#_  GetFarRect              ACTL_GETFARRECT
 #_  GetInterfaceSettings    ACTL_GETINTERFACESETTINGS
 #_  GetPanelSettings        ACTL_GETPANELSETTINGS
 #_  GetPluginMaxReadData    ACTL_GETPLUGINMAXREADDATA
@@ -7305,7 +7310,7 @@ article id=466 dt=Text ctime=3859993119 mtime=3889634161 nm=editor.DelColor
 #_@@@
 #_
 
-article id=467 dt=Text ctime=3861011876 mtime=3912828916 nm=GetGlobalInfoW
+article id=467 dt=Text ctime=3861011876 mtime=3982846075 nm=GetGlobalInfoW
 #_<markdown>
 #_`void GetGlobalInfoW(struct GlobalInfo *Info)`
 #_
@@ -7314,9 +7319,9 @@ article id=467 dt=Text ctime=3861011876 mtime=3912828916 nm=GetGlobalInfoW
 #_  and other fields with information about the plugin.
 #_
 #_### Notes:
-#_  1. LuaFAR plugins are required to export this function.
-#_  1. `GetGlobalInfoW` is called by Far prior to [`SetStartupInfoW()`](118.html)
-#_     and Far Manager fills the `Private` field of `StartupInfo` struct
+#_  1. All far2m plugins are required to export this function.
+#_  1. `GetGlobalInfoW` is called prior to [`SetStartupInfoW`](118.html)
+#_     and far2m fills the `Private` field of `StartupInfo` struct
 #_     if `SysID` identifies one of the "known plugins".
 #_
 #_@@@
@@ -9571,7 +9576,7 @@ article id=622 dt=Text ctime=3965232220 mtime=3980870853 nm=far.AdvControlAsync
 #_2. [`actl`](463.html) namespace functions always call [`far.AdvControl`](153.html).
 #_
 
-article id=623 dt=Text ctime=3972738613 mtime=3982644839 nm=Buffer:write
+article id=623 dt=Text ctime=3972738613 mtime=3982835420 nm=Buffer:write
 #_nScreen, nBuf = Buffer:write (Index, Text, Color)
 #_
 #_**Parameters:**
@@ -9583,6 +9588,9 @@ article id=623 dt=Text ctime=3972738613 mtime=3982644839 nm=Buffer:write
 #_**Returns:**
 #_  nScreen : number of screen cells needed to display *Text*
 #_  nBuf    : number of items placed in *Buffer*
+#_
+#_**Far API used:**
+#_  FSF.StrSizeOfCells, `FillText`
 #_
 #_@@@
 #_
@@ -10151,5 +10159,22 @@ article id=653 dt=Text ctime=3982670318 mtime=3982676237 nm=lua_explorer
 #_---
 #_
 #_[1]: https://forum.farmanager.com/viewtopic.php?p=100565
+#_
+
+article id=654 dt=Text ctime=3982851519 mtime=3982907808 nm=ACTL_GETFARCOMMITTIME
+#_Result = far.AdvControl (ACTL_GETFARCOMMITTIME)
+#_
+#_**Parameters:**
+#_  Param:    none
+#_
+#_**Returns:**
+#_  Result:   integer
+#_
+#_**Note:**
+#_  If far2m was built from a Git repository clone (with *.git* directory present)
+#_  then the return value is the Unix Time of the commit, otherwise it is 0.
+#_
+#_  This function allows comparing versions of arbitrary far2m builds
+#_  (provided their commits are not older than 2026-03-17).
 #_
 
