@@ -9975,7 +9975,7 @@ article id=645 dt=Text ctime=3973579763 mtime=3979640096 nm=Dialog item types
 #_  { tp="edit"; name="filemask"      },
 #_
 
-article id=646 dt=Text ctime=3973579781 mtime=3973579798 nm=Dialog item flags
+article id=646 dt=Text ctime=3973579781 mtime=3983547398 nm=Dialog item flags
 #_Dialog item flags can be specified with the "flags" property
 #_but there are also predefined names for boolean properties
 #_for all Far API dialog items flags:
@@ -9985,13 +9985,14 @@ article id=646 dt=Text ctime=3973579781 mtime=3973579798 nm=Dialog item flags
 #_DIF_BTNNOCLOSE            : btnnoclose
 #_DIF_CENTERGROUP           : centergroup
 #_DIF_CENTERTEXT            : centertext
+#_DIF_COLORMASK             : colormask (far2m)
 #_DIF_DEFAULTBUTTON         : default
 #_DIF_DISABLE               : disable
-#_DIF_DROPDOWNLIST          : dropdownlist
+#_DIF_DROPDOWNLIST          : dropdown
 #_DIF_EDITEXPAND            : editexpand
 #_DIF_EDITOR                : editor
 #_DIF_EDITPATH              : editpath
-#_DIF_EDITPATHEXEC          : editpathexec
+#_DIF_EDITPATHEXEC          : editpathexec (far3)
 #_DIF_FOCUS                 : focus
 #_DIF_GROUP                 : group
 #_DIF_HIDDEN                : hidden
@@ -10000,8 +10001,8 @@ article id=646 dt=Text ctime=3973579781 mtime=3973579798 nm=Dialog item flags
 #_DIF_LISTNOAMPERSAND       : listnoampersand
 #_DIF_LISTNOBOX             : listnobox
 #_DIF_LISTNOCLOSE           : listnoclose
-#_DIF_LISTTRACKMOUSE        : listtrackmouse
-#_DIF_LISTTRACKMOUSEINFOCUS : listtrackmouseinfocus
+#_DIF_LISTTRACKMOUSE        : listtrackmouse (far3)
+#_DIF_LISTTRACKMOUSEINFOCUS : listtrackmouseinfocus (far3)
 #_DIF_LISTWRAPMODE          : listwrapmode
 #_DIF_MANUALADDHISTORY      : manualaddhistory
 #_DIF_MOVESELECT            : moveselect
@@ -10009,12 +10010,13 @@ article id=646 dt=Text ctime=3973579781 mtime=3973579798 nm=Dialog item flags
 #_DIF_NOBRACKETS            : nobrackets
 #_DIF_NOFOCUS               : nofocus
 #_DIF_READONLY              : readonly
-#_DIF_RIGHTTEXT             : righttext
+#_DIF_RIGHTTEXT             : righttext (far3)
 #_DIF_SELECTONENTRY         : selectonentry
+#_DIF_SETCOLOR              : setcolor (far2m)
 #_DIF_SETSHIELD             : setshield
 #_DIF_SHOWAMPERSAND         : showampersand
 #_DIF_USELASTHISTORY        : uselasthistory
-#_DIF_WORDWRAP              : wordwrap
+#_DIF_WORDWRAP              : wordwrap (far3)
 #_
 
 article id=647 dt=Text ctime=3975319304 mtime=3975320041 nm=far.InputRecordToName
