@@ -199,6 +199,8 @@ end
 
 -- generate: files, project, TOC and FileIndex
 local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
+  local MakeFileName = function(id) return ("%d.html"):format(id) end
+
   local path_project_name = path_join(out_dir, ProjectName)
   -- create a FileIndex, a project file and a TOC file
   local fIndex = assert( io.open(path_project_name..".htm", "wt") )
@@ -208,21 +210,22 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
   local fToc  = assert( io.open(path_project_name..".hhc", "wt") )
   writeTocHeader(fToc)
 
-  local ProjectHeaderReady
   local nodeLevel = -1
   local ProjectFiles = {}
   local tNodes, tArticles = assert( tsi4.ReadFile(DataFile) )
+
+  writeProjectHeader(fProj, ProjectName, tNodes[1].name, MakeFileName(tNodes[1].art))
 
   local LocalLinks = {}
   for _, art in ipairs(tArticles) do
     if art.datatype ~= "Text" then
       error(art.name .. ": article must be pure text type")
     end
-    LocalLinks[art.name] = ("%d.html"):format(art.id)
+    LocalLinks[art.name] = MakeFileName(art.id)
   end
 
   for _, art in ipairs(tArticles) do
-    local filename = ("%d.html"):format(art.id)
+    local filename = MakeFileName(art.id)
     local fCurrent = assert( io.open(path_join(out_dir,filename), "wt") )
     local article, ready = process_article(art.content, LocalLinks)
     if ready then
@@ -234,11 +237,6 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
     end
     fCurrent:close()
 
-    if not ProjectHeaderReady then
-      writeProjectHeader(fProj, ProjectName, tNodes[1].name, filename)
-      ProjectHeaderReady = true
-    end
-
     -- include file name into the project file;
     -- do not write directly - put in a table for sorting (work around a conjectural compiler bug)
     table.insert(ProjectFiles, filename)
@@ -249,7 +247,7 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
   fProj:close()
 
   for _, node in ipairs(tNodes) do
-    local filename = ("%d.html"):format(node.art)
+    local filename = MakeFileName(node.art)
 
     -- get node level
     -- put node info into the TOC and the FileIndex
