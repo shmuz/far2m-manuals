@@ -1,12 +1,23 @@
 # Example:
 #   make lf SHOW=1 ARTICLE_ID=10
 
-APPDIR= C:\Program Files (x86)\HTML Help Workshop
-PATH := $(APPDIR);$(PATH)
+HH_COMPILER = hhc.exe
+HH_VIEWER = hh.exe
+HH_DIR = C:\Program Files (x86)\HTML Help Workshop
+PATH := $(HH_DIR);$(PATH)
+
+# Lua parameters
 LUA_INIT  =
 LUA_PATH  = ./?.lua;./?/init.lua
 LUA_CPATH = ./?.dll
-TP2HH     = tp2hh_new.lua
+
+# Script parameters
+LUA      = set LUA_PATH=$(LUA_PATH) && set LUA_CPATH=$(LUA_CPATH) && lua
+SCRIPT   = tp2hh_new.lua
+TSILIB   = tsi4
+LANG     = "0x809 English (British)"
+TEMPL    = templates\api.tem
+CODEPAGE = 1252
 
 # LuaFAR manual
 lf: FILE_SRC = src\luafar2m_manual.tsi
@@ -29,14 +40,14 @@ endif
 lf lm l4: $(CHM)
 
 $(CHM): $(HHP)
-	-hhc.exe $(HHP)
+	-$(HH_COMPILER) $(HHP)
 ifdef SHOW
-	$(ComSpec) /C start hh.exe $(CHM)$(SUFFIX)
+	$(ComSpec) /C start $(HH_VIEWER) $(CHM)$(SUFFIX)
 endif
 
 $(HHP): $(FILE_SRC)
 	@if not exist $(DIR_OUT) mkdir $(DIR_OUT)
-	set LUA_PATH=$(LUA_PATH) && set LUA_CPATH=$(LUA_CPATH) && lua $(TP2HH) $(FILE_SRC) templates\api.tem $(DIR_OUT)
+	$(LUA) $(SCRIPT) $(FILE_SRC) $(TSILIB) $(LANG) $(TEMPL) $(CODEPAGE) $(DIR_OUT)
 
 clean:
 	@if exist out rmdir /s /q out

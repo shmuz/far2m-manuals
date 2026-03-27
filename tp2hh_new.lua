@@ -3,10 +3,9 @@
 -- Started:  29 Dec 2000
 -- Ported to Lua: 02-03 Dec 2008
 
+local rex = require "rex_pcre"
 local discount = require "discount"
-local lxsh     = require "lxsh"
-local rex      = require "rex_pcre"
-local tsi4     = require "tsi4"
+local lxsh = require "lxsh"
 
 local function fprintf(fp_out, fmt, ...)
   fp_out:write(fmt:format(...))
@@ -26,7 +25,7 @@ local function fputs_indent(s, fp_out, indent)
   fp_out:write(s)
 end
 
-local function writeProjectHeader (fp_out, ProjectName, Title, DefaultTopic)
+local function writeProjectHeader (fp_out, ProjectName, Title, DefaultTopic, language)
   local WindowName = "MyDefaultWindow"
   fprintf(fp_out, "[OPTIONS]\n")
   fprintf(fp_out, "Compatibility=1.1 or later\n")
@@ -37,8 +36,7 @@ local function writeProjectHeader (fp_out, ProjectName, Title, DefaultTopic)
   fprintf(fp_out, "Display compile progress=No\n")
   fprintf(fp_out, "Error log file=Logfile.txt\n")
   fprintf(fp_out, "Full-text search=Yes\n")
---fprintf(fp_out, "Language=0x809 English (British)\n")
-  fprintf(fp_out, "Language=0x419 Russian\n")
+  fprintf(fp_out, "Language=%s\n", language)
   fprintf(fp_out, "Title=%s\n", Title)
   fprintf(fp_out, "\n[WINDOWS]\n")
   fprintf(fp_out, "%s=,\"%s.hhc\",,,\"%s\",,,,,0x23520,,0x301e,,,,,,,,0\n",
@@ -58,7 +56,7 @@ local function writeTocHeader(fp_out)
     "</OBJECT>\n")
 end
 
-local function writeTopicHeader(fp_out, Title, fp_template)
+local function writeTopicHeader(fp_out, Title, fp_template, codepage)
   if not fp_template then
       fp_out:write("<HTML>\n<HEAD>\n<TITLE>\n")
       HTML_puts(Title, fp_out)
@@ -86,7 +84,12 @@ local function writeTopicHeader(fp_out, Title, fp_template)
       if "<!--Body-->" == line:sub(1,11) then return end
       local cp1, cp2 = line:find("<!--Title-->", 1, true)
       if not cp1 then
-          fp_out:write(line, "\n")
+          if line:find("charset=windows%-%%s") then
+              fprintf(fp_out, line, codepage)
+              fp_out:write("\n")
+          else
+              fp_out:write(line, "\n")
+          end
       else
           fp_out:write(line:sub(1, cp1 - 1))
           HTML_puts(Title, fp_out)
@@ -198,7 +201,7 @@ local function path_join(path1, path2)
 end
 
 -- generate: files, project, TOC and FileIndex
-local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
+local function generateFPT (lib, DataFile, ProjectName, fp_template, codepage, language, out_dir)
   local MakeFileName = function(id) return ("%d.html"):format(id) end
 
   local path_project_name = path_join(out_dir, ProjectName)
@@ -212,9 +215,9 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
 
   local nodeLevel = -1
   local ProjectFiles = {}
-  local tNodes, tArticles = assert( tsi4.ReadFile(DataFile) )
+  local tNodes, tArticles = assert( lib.ReadFile(DataFile) )
 
-  writeProjectHeader(fProj, ProjectName, tNodes[1].name, MakeFileName(tNodes[1].art))
+  writeProjectHeader(fProj, ProjectName, tNodes[1].name, MakeFileName(tNodes[1].art), language)
 
   local LocalLinks = {}
   for _, art in ipairs(tArticles) do
@@ -231,7 +234,7 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
     if ready then
       fCurrent:write(article)
     else
-      writeTopicHeader(fCurrent, art.name, fp_template)
+      writeTopicHeader(fCurrent, art.name, fp_template, codepage)
       fCurrent:write(article)
       writeTopicFooter(fCurrent, fp_template)
     end
@@ -293,10 +296,11 @@ local function generateFPT (DataFile, ProjectName, fp_template, out_dir)
 end
 
 do
-  local datafile, tem, outdir = ...
-  assert(datafile and tem and outdir, "some parameter is missing")
+  local datafile, lib, language, tem, codepage, outdir = ...
+  assert(outdir, "some parameter is missing")
+  lib = require(lib)
   local fp_template = (tem~="-") and assert(io.open(tem))
   local project_name = datafile:match("[^/\\]+$"):gsub("%.[^.]+$", "")
-  generateFPT(datafile, project_name, fp_template, outdir or ".")
+  generateFPT(lib, datafile, project_name, fp_template, codepage, language, outdir or ".")
   if fp_template then fp_template:close() end
 end
