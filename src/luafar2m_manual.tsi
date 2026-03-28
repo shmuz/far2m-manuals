@@ -560,6 +560,8 @@ node lv=2 id=663 art=264 nm=win.Utf32ToUtf8
 node lv=2 id=664 art=265 nm=win.Utf8ToUtf32
 node lv=0 id=128 art=128 nm=LuaFAR C-interface
 node lv=1 id=183 art=183 nm=Mediator functions
+node lv=2 id=777 art=728 nm=LF_Analyse
+node lv=2 id=778 art=729 nm=LF_CloseAnalyse
 node lv=2 id=158 art=158 nm=LF_ClosePanel
 node lv=2 id=159 art=159 nm=LF_Compare
 node lv=2 id=160 art=160 nm=LF_Configure
@@ -2176,25 +2178,27 @@ article id=104 dt=Text ctime=0 mtime=3970941855 nm=export.GetOpenPanelInfo
 #_[tPanelMode]: 121.html
 #_
 
-article id=105 dt=Text ctime=0 mtime=3960475343 nm=export.GetPluginInfo
-#_PluginInfo = export.GetPluginInfo ()
+article id=105 dt=Text ctime=0 mtime=3983903392 nm=export.GetPluginInfo
+#_PInfo = export.GetPluginInfo ()
 #_
 #_**Parameters:**
 #_  none
 #_
 #_**Returns:**
-#_  PluginInfo: table
-#_    fields of PluginInfo:
-#_      Flags:               flags combination
+#_  PInfo: table
+#_    fields of PInfo:
+#_      Flags:               flags
+#_
+#_      DiskMenuStrings:     array of strings
+#_      DiskMenuGuids:       string (concatenated GUIDs)
+#_
+#_      PluginMenuStrings:   array of strings
+#_      PluginMenuGuids:     string (concatenated GUIDs)
+#_
+#_      PluginConfigStrings: array of strings
+#_      PluginConfigGuids:   string (concatenated GUIDs)
+#_
 #_      CommandPrefix:       string
-#_
-#_      DiskMenuStrings:     table (array of strings)
-#_      PluginMenuStrings:   table (array of strings)
-#_      PluginConfigStrings: table (array of strings)
-#_
-#_      DiskMenuGuids:       string (concatenated binary GUID's)
-#_      PluginMenuGuids:     string (concatenated binary GUID's)
-#_      PluginConfigGuids:   string (concatenated binary GUID's)
 #_
 #_**Far API used:**
 #_  GetPluginInfoW, PluginInfo
@@ -2242,7 +2246,7 @@ article id=107 dt=Text ctime=0 mtime=3907314502 nm=export.MakeDirectory
 #_@@@
 #_
 
-article id=109 dt=Text ctime=0 mtime=3982070920 nm=export.Open
+article id=109 dt=Text ctime=0 mtime=3983903778 nm=export.Open
 #_ret = export.Open (OpenFrom, Guid, Item)
 #_
 #_**Parameters:**
@@ -2279,8 +2283,8 @@ article id=109 dt=Text ctime=0 mtime=3982070920 nm=export.Open
 #_      To open a panel, return a "panel" value as the first return value.
 #_  if OpenFrom == something else:
 #_      ret: any Lua value; it is processed by LuaFAR as follows:
-#_      - nil or false : INVALID_HANDLE_VALUE is returned to Far.
-#_      - -1           : PANEL_STOP is returned to Far.
+#_      - Nil or false : INVALID_HANDLE_VALUE is returned to Far.
+#_      - Number -1    : PANEL_STOP is returned to Far.
 #_      - Otherwise    : *ret* is considered a panel object, stored in the Lua
 #_                       registry, its registry reference is returned to Far.
 #_                       The object is passed to other exported functions
@@ -6371,7 +6375,7 @@ article id=424 dt=Text ctime=3851400447 mtime=3906818038 nm=win.Uuid
 #_  from text representation to binary one.
 #_
 
-article id=425 dt=Text ctime=3851409449 mtime=3983892898 nm=Customizing the generic plugin
+article id=425 dt=Text ctime=3851409449 mtime=3983898501 nm=Customizing the generic plugin
 #_<markdown>
 #_
 #_<a name="customizing"></a>
@@ -6390,7 +6394,7 @@ article id=425 dt=Text ctime=3851409449 mtime=3983892898 nm=Customizing the gene
 #_
 #_    `set(EXP_NAMES CONFIGURE OPENPLUGIN PROCESSEDITORINPUT)`
 #_
-#_    There are some functions that are always exported (no need to include them in the `EXP_NAMES` list):
+#_    There are a few functions that are always exported (no need to include them in the `EXP_NAMES` list):
 #_    - `ExitFARW`
 #_    - `GetGlobalInfoW`
 #_    - `GetPluginInfoW`
@@ -8984,17 +8988,23 @@ article id=600 dt=Text ctime=3927612271 mtime=3939990720 nm=win.JoinPath
 #_@@@
 #_
 
-article id=601 dt=Text ctime=3928139500 mtime=3982071116 nm=export.Analyse
-#_Result = export.Analyse (Data)
+article id=601 dt=Text ctime=3928139500 mtime=3983906790 nm=export.Analyse
+#_Handle = export.Analyse (Data)
 #_
 #_**Parameters:**
-#_  Data:    table `tAnalyseInfo`
+#_  Data:   table `tAnalyseInfo`
 #_
 #_**Returns:**
-#_  Result:  boolean
+#_  Handle: any Lua value, or nothing
+#_
+#_**Description:**
+#_  The returned value of false/nil/nothing means the plugin will not process
+#_  the file. Otherwise, the value is stored in the registry, may be passed
+#_  to the plugin in `export.Open` and will be removed from the registry in
+#_  either `export.Open` or `LF_CloseAnalyse`.
 #_
 #_**Far API used:**
-#_  AnalyseW, AnalyseData
+#_  AnalyseW, AnalyseInfo
 #_
 #_@@@
 #_[export.Open]: 109.html
@@ -11021,5 +11031,40 @@ article id=727 dt=Text ctime=3983554481 mtime=3983606082 nm=DM_USER
 #_
 #_@@@
 #_{dm_user}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_user.html
+#_
+
+article id=728 dt=Text ctime=3983906884 mtime=3983907189 nm=LF_Analyse
+#_<markdown>
+#_    Handle LF_Analyse(lua_State* L, const struct AnalyseInfo *Info)
+#_
+#_#### Parameters:
+#_      L:       Lua state
+#_      Info:    Data about the file to analyse
+#_
+#_#### Returns:
+#_      Either handle to some stored Lua value or INVALID_HANDLE_VALUE
+#_
+#_#### Description:
+#_
+#_If Lua function [`export.Analyse`](601.html) exists, it is called.
+#_
+#_@@@
+#_
+
+article id=729 dt=Text ctime=3983906893 mtime=3983907311 nm=LF_CloseAnalyse
+#_<markdown>
+#_    void LF_CloseAnalyse (lua_State* L, const struct CloseAnalyseInfo *Info)
+#_
+#_#### Parameters:
+#_      L:       Lua state
+#_      ....
+#_
+#_#### Returns:
+#_      nothing
+#_
+#_#### Description:
+#_This function removes the value returned by [`export.Analyse`](601.html) from the Lua registry.
+#_
+#_@@@
 #_
 
