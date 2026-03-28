@@ -6371,7 +6371,7 @@ article id=424 dt=Text ctime=3851400447 mtime=3906818038 nm=win.Uuid
 #_  from text representation to binary one.
 #_
 
-article id=425 dt=Text ctime=3851409449 mtime=3928784014 nm=Customizing the generic plugin
+article id=425 dt=Text ctime=3851409449 mtime=3983892898 nm=Customizing the generic plugin
 #_<markdown>
 #_
 #_<a name="customizing"></a>
@@ -6379,16 +6379,23 @@ article id=425 dt=Text ctime=3851409449 mtime=3928784014 nm=Customizing the gene
 #_A plugin's configuration is described in its **CMakeLists.txt** file.
 #_It accepts (among others) the following parameters:
 #_
-#_- **`project(<plugin name>)`**<br>
-#_  name of the plugin, e.g.:   <br>
-#_  `project(hello)`            <br>
-#_  will result in `hello.far-plug-wide` DLL.
+#_### Project name
 #_
-#_- **`EXP_NAMES`**<br>
-#_  list of functions that should be exported by the plugin
-#_  (in uppercase, whitespace-separated), e.g.:<br>
-#_  `set(EXP_NAMES OPENPLUGIN EXITFAR)`        <br>
-#_(The functions `SetStartupInfoW`, `GetGlobalInfoW`, `GetPluginInfoW`, `ExitFARW` and `ProcessSynchroEventW` are always exported, so there's no need to include them in the list.)
+#_- `project(hello)` <br>
+#_  will produce the `hello.far-plug-wide` binary.
+#_
+#_### List of exported functions
+#_
+#_- **`EXP_NAMES`** - the list of functions that should be exported by the plugin (uppercase, whitespace-separated, no `W` at the end), e.g.:
+#_
+#_    `set(EXP_NAMES CONFIGURE OPENPLUGIN PROCESSEDITORINPUT)`
+#_
+#_    There are some functions that are always exported (no need to include them in the `EXP_NAMES` list):
+#_    - `ExitFARW`
+#_    - `GetGlobalInfoW`
+#_    - `GetPluginInfoW`
+#_    - `ProcessSynchroEventW`
+#_    - `SetStartupInfoW`
 #_
 #_@@@
 #_

@@ -11,6 +11,9 @@ local pattern_node = ("^%s*node lv=(%d+) id=(%d+) art=(%d+) nm=(.*)")           
 local pattern_art =  ("^%s*article id=(%d+) dt=(%S+) ctime=(%d+) mtime=(%d+) nm=(.*)") :gsub("%s+", "%%s+")
 
 local function _ReadFile (fp)
+  if fp:read(3) ~= "\239\187\191" then -- skip UTF-8 BOM if any
+    fp:seek("set", 0)
+  end
   for line in fp:lines() do
     if line ~= "" then
       if string.match(line, pattern_head) then break
