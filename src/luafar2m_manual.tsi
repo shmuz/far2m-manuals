@@ -6375,18 +6375,13 @@ article id=424 dt=Text ctime=3851400447 mtime=3906818038 nm=win.Uuid
 #_  from text representation to binary one.
 #_
 
-article id=425 dt=Text ctime=3851409449 mtime=3983898501 nm=Customizing the generic plugin
+article id=425 dt=Text ctime=3851409449 mtime=3984063574 nm=Customizing the generic plugin
 #_<markdown>
 #_
 #_<a name="customizing"></a>
 #_
 #_A plugin's configuration is described in its **CMakeLists.txt** file.
 #_It accepts (among others) the following parameters:
-#_
-#_### Project name
-#_
-#_- `project(hello)` <br>
-#_  will produce the `hello.far-plug-wide` binary.
 #_
 #_### List of exported functions
 #_
@@ -6396,10 +6391,17 @@ article id=425 dt=Text ctime=3851409449 mtime=3983898501 nm=Customizing the gene
 #_
 #_    There are a few functions that are always exported (no need to include them in the `EXP_NAMES` list):
 #_    - `ExitFARW`
-#_    - `GetGlobalInfoW`
+#_    - `GetGlobalInfoW` (this function is usually kept in a separate file)
 #_    - `GetPluginInfoW`
 #_    - `ProcessSynchroEventW`
 #_    - `SetStartupInfoW`
+#_
+#_### Including the plugin's directory into `package.path`
+#_
+#_- By default the plugin's installation directory is not included in `package.path`.
+#_- It may be needed when the plugin's Lua files `require` each other.
+#_- Specify **`SETPACKAGEPATH`** compilation flag to enable this feature.
+#_
 #_
 #_@@@
 #_
