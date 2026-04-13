@@ -2449,12 +2449,14 @@ article id=118 dt=Text ctime=0 mtime=3866133413 nm=SetStartupInfoW
 #_@@@
 #_
 
-article id=120 dt=Text ctime=0 mtime=0 nm=tInfoLine
+article id=120 dt=Text ctime=0 mtime=3985176418 nm=tInfoLine
 #_<markdown>
 #_**`tInfoLine`** is a table with the following predefined fields:
 #_
-#_      Text: string
-#_      Data: string
+#_      Text:   string
+#_      Data:   string
+#_      Flags:  flags
+#_
 
 article id=121 dt=Text ctime=0 mtime=3985118303 nm=tPanelMode
 #_<markdown>
