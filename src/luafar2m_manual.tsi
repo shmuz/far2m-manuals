@@ -414,6 +414,7 @@ node lv=2 id=579 art=573 nm=tFarTrueColorForeAndBack
 node lv=2 id=90 art=90 nm=tFindData
 node lv=2 id=120 art=120 nm=tInfoLine
 node lv=2 id=187 art=187 nm=tInputRecord
+node lv=2 id=779 art=730 nm=tKeyBarLabel
 node lv=2 id=313 art=313 nm=tMouseEventRecord
 node lv=2 id=121 art=121 nm=tPanelMode
 node lv=2 id=562 art=560 nm=tPluginMenuItem
@@ -2134,8 +2135,8 @@ article id=103 dt=Text ctime=0 mtime=3866133117 nm=GetMinFarVersionW
 #_int GetMinFarVersionW()
 #_
 
-article id=104 dt=Text ctime=0 mtime=3970941855 nm=export.GetOpenPanelInfo
-#_OpenPanelInfo = export.GetOpenPanelInfo (object, handle)
+article id=104 dt=Text ctime=0 mtime=3985265799 nm=export.GetOpenPanelInfo
+#_OPInfo = export.GetOpenPanelInfo (object, handle)
 #_
 #_**Parameters:**
 #_  object: plugin object
@@ -2144,7 +2145,7 @@ article id=104 dt=Text ctime=0 mtime=3970941855 nm=export.GetOpenPanelInfo
 #_**Returns:**
 #_  OPInfo: table
 #_    fields of OPInfo (most are optional):
-#_      Flags:            flags combination
+#_      Flags:            flags
 #_      HostFile:         string
 #_      CurDir:           string
 #_      Format:           string
@@ -2157,15 +2158,9 @@ article id=104 dt=Text ctime=0 mtime=3970941855 nm=export.GetOpenPanelInfo
 #_      StartPanelMode:   integer
 #_      StartSortMode:    flag
 #_      StartSortOrder:   integer
-#_      KeyBar:           table
+#_      KeyBar:           table (array of `tKeyBarLabel` tables)
 #_      ShortcutData:     string
 #_      CurURL:           string
-#_
-#_**Note:**
-#_  The *KeyBar* table may have the following fields (array tables):
-#_      "Titles", "CtrlTitles", "AltTitles", "ShiftTitles",
-#_      "CtrlShiftTitles", "AltShiftTitles",  "CtrlAltTitles".
-#_  Each of these arrays may contain up to 12 strings.
 #_
 #_**Far API used:**
 #_  GetOpenPluginInfoW
@@ -10994,5 +10989,15 @@ article id=729 dt=Text ctime=3983906893 mtime=3983907311 nm=LF_CloseAnalyse
 #_This function removes the value returned by [`export.Analyse`](601.html) from the Lua registry.
 #_
 #_@@@
+#_
+
+article id=730 dt=Text ctime=3985265858 mtime=3985265880 nm=tKeyBarLabel
+#_<markdown>
+#_**`tKeyBarLabel`** is a table with the following predefined fields:
+#_
+#_      VirtualKeyCode:  integer
+#_      ControlKeyState: flags
+#_      Text:            string
+#_      LongText:        string
 #_
 
