@@ -410,7 +410,6 @@ node lv=2 id=700 art=652 nm=tFarColor
 node lv=2 id=295 art=295 nm=tFarDialogItem
 node lv=2 id=293 art=293 nm=tFarListColors
 node lv=2 id=629 art=611 nm=tFarPanelDirectory
-node lv=2 id=579 art=573 nm=tFarTrueColorForeAndBack
 node lv=2 id=90 art=90 nm=tFindData
 node lv=2 id=120 art=120 nm=tInfoLine
 node lv=2 id=187 art=187 nm=tInputRecord
@@ -4808,7 +4807,7 @@ article id=293 dt=Text ctime=3477043729 mtime=3477044041 nm=tFarListColors
 #_Color count can be obtained via the operator `#`.
 #_
 
-article id=295 dt=Text ctime=3477054110 mtime=3900232917 nm=tFarDialogItem
+article id=295 dt=Text ctime=3477054110 mtime=3985355947 nm=tFarDialogItem
 #_<markdown>
 #_**`tFarDialogItem`** is a table (array)
 #_
@@ -4830,6 +4829,7 @@ article id=295 dt=Text ctime=3477054110 mtime=3900232917 nm=tFarDialogItem
 #_      [8]  Mask:             string
 #_      [9]  Flags             flags
 #_      [10] Data:             string
+#_      [11] MaxLength:        integer
 #_
 
 article id=297 dt=Text ctime=3477111575 mtime=3477128221 nm=DN_BTNCLICK
@@ -4860,32 +4860,33 @@ article id=298 dt=Text ctime=3477111575 mtime=3477128999 nm=DN_CLOSE
 #_[description]: 285.html
 #_
 
-article id=299 dt=Text ctime=3477111575 mtime=3477129107 nm=DN_CTLCOLORDIALOG
+article id=299 dt=Text ctime=3477111575 mtime=3985357439 nm=DN_CTLCOLORDIALOG
 #_**Param1**
 #_    integer; according to Far API
 #_
 #_**Param2**
-#_    integer; according to Far API
+#_    table `tFarColor`
 #_
 #_**Return**
-#_    default processing of the return value, see `description`.
+#_    table `tFarColor`, or integer, or nothing
+#_
+#_For default processing of the return value, see the `description`.
 #_
 #_@@@
 #_[description]: 285.html
 #_
 
-article id=300 dt=Text ctime=3477111575 mtime=3900749011 nm=DN_CTLCOLORDLGITEM
+article id=300 dt=Text ctime=3477111575 mtime=3985357163 nm=DN_CTLCOLORDLGITEM
 #_**Param1**
 #_    integer; according to Far API
 #_
 #_**Param2**
-#_    table;   array of up to 4 colors (integers)
+#_    table;   array of up to 4 `tFarColor` tables
 #_
 #_**Return**
-#_    table;   array of up to 4 colors (or nothing)
+#_    table;   array of up to 4 `tFarColor` tables (or nothing)
 #_
 #_@@@
-#_[description]: 285.html
 #_
 
 article id=301 dt=Text ctime=3477111575 mtime=3477133365 nm=DN_DRAGGED
@@ -8503,25 +8504,6 @@ article id=572 dt=Text ctime=3910446132 mtime=3910446158 nm=luaopen_luaplug
 #_```
 #_
 
-article id=573 dt=Text ctime=3910513952 mtime=3910516051 nm=tFarTrueColorForeAndBack
-#_<markdown>
-#_**`tFarTrueColorForAndBack`** is a table with the following predefined fields:
-#_
-#_      ForegroundColor:  integer
-#_      BackgroundColor:  integer
-#_
-#_When passing data to Far it is also possible to use integer keys
-#_1 and 2 instead of the string keys, i.e., the following tables A
-#_and B are equivalent in the sense of defining a color:
-#_
-#_      A = { ForegroundColor=0x123456; BackgroundColor=0x789ABC; }
-#_      B = { 0x123456; 0x789ABC; }
-#_
-#_If both string and integer keys are present the string key has higher priority.
-#_
-#_When the data comes from Far the string keys are always used.
-#_
-
 article id=574 dt=Text ctime=3911294479 mtime=3911294514 nm=export.ProcessSynchroEvent
 #_ret = export.ProcessSynchroEvent (event, param)
 #_
@@ -8937,13 +8919,19 @@ article id=601 dt=Text ctime=3928139500 mtime=3983906790 nm=export.Analyse
 #_{analysew}: http://api.farmanager.com/ru/exported_functions/analysew.html
 #_
 
-article id=602 dt=Text ctime=3928139646 mtime=3982071138 nm=tAnalyseInfo
+article id=602 dt=Text ctime=3928139646 mtime=3985355510 nm=tAnalyseInfo
 #_<markdown>
 #_**`tAnalyseInfo`** is a table with the following predefined fields:
 #_
 #_      FileName: string (UTF-8)
 #_      Buffer:   string
 #_      OpMode:   flags
+#_      Handle:   any Lua type
+#_
+#_### Note:
+#_In [`export.Analyse`](601.html) `Handle` is nil.<br>
+#_In [`export.Open`](109.html) `Handle` is the value
+#_returned by [`export.Analyse`](601.html).
 #_
 
 article id=603 dt=Text ctime=3929592819 mtime=3929592994 nm=far.LStrcmp
