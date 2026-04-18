@@ -4246,7 +4246,7 @@ article id=259 dt=Text ctime=0 mtime=3916571816 nm=panel.GetColumnWidths
 #_@@@
 #_
 
-article id=260 dt=Text ctime=0 mtime=3935145871 nm=panel.GetPanelDirectory
+article id=260 dt=Text ctime=0 mtime=3985508077 nm=panel.GetPanelDirectory
 #_PanelDir = panel.GetPanelDirectory (handle, whatpanel)
 #_
 #_**Parameters:**
@@ -4255,10 +4255,9 @@ article id=260 dt=Text ctime=0 mtime=3935145871 nm=panel.GetPanelDirectory
 #_
 #_**Returns:**
 #_  PanelDir:  table `tFarPanelDirectory`
-#_             (currently, only "Name" field can be used)
 #_
 #_**Far API used:**
-#_  Control, FCTL_GETPANELDIR
+#_  Control, FCTL_GETPANELDIR_V2
 #_
 #_@@@
 #_[tFarPanelDirectory]: 611.html
