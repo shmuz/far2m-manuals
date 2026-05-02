@@ -222,6 +222,7 @@ node lv=2 id=230 art=230 nm=editor.GetSessionBookmarks
 node lv=2 id=31 art=31 nm=editor.GetString
 node lv=2 id=481 art=481 nm=editor.GetStringW
 node lv=2 id=497 art=497 nm=editor.GetTitle
+node lv=2 id=780 art=731 nm=editor.GetVirtualFileName
 node lv=2 id=32 art=32 nm=editor.InsertString
 node lv=2 id=33 art=33 nm=editor.InsertText
 node lv=2 id=502 art=502 nm=editor.InsertTextW
@@ -1068,7 +1069,7 @@ article id=28 dt=Text ctime=0 mtime=3982648250 nm=editor.GetColor
 #_@@@
 #_
 
-article id=29 dt=Text ctime=0 mtime=3906196260 nm=editor.GetInfo
+article id=29 dt=Text ctime=0 mtime=3986915250 nm=editor.GetInfo
 #_Info = editor.GetInfo (EditorId)
 #_
 #_**Parameters:**
@@ -1096,6 +1097,9 @@ article id=29 dt=Text ctime=0 mtime=3906196260 nm=editor.GetInfo
 #_      SessionBookmarkCount:  integer
 #_      CurState:              integer
 #_      CodePage:              integer
+#_      WindowArea:            table (fields: left, top, right, bottom)
+#_      ClientArea:            table (fields: left, top, right, bottom)
+#_      IsMemoEdit:            boolean
 #_
 #_**Far API used:**
 #_  EditorControl, ECTL_GETINFO
@@ -8286,7 +8290,7 @@ article id=562 dt=Text ctime=3896535740 mtime=3896536081 nm=far.WriteConsole
 #_@@@
 #_
 
-article id=563 dt=Text ctime=3899430803 mtime=3962880710 nm=win.ExpandEnv
+article id=563 dt=Text ctime=3899430803 mtime=3986383224 nm=win.ExpandEnv
 #_result = win.ExpandEnv (str [, remove])
 #_
 #_**Parameters:**
@@ -8299,16 +8303,16 @@ article id=563 dt=Text ctime=3899430803 mtime=3962880710 nm=win.ExpandEnv
 #_**Description:**
 #_  Replaces *~* at the beginning of *str* by home directory path.
 #_
-#_  Replaces all occurrences of *$(var)* in *str* with the current value
+#_  Replaces all occurrences of *${var}* in *str* with the current value
 #_  of environment variable *var* and returns the resulting string.
 #_
-#_  *var* may be any string not containing character *)*
+#_  *var* may be any string not containing character *}*
 #_
-#_  If an environment variable *var* does not exist then *$(var)*
+#_  If an environment variable *var* does not exist then *${var}*
 #_  is either left intact or removed (when *remove* is true).
 #_
 #_**Example:**
-#_  win.ExpandEnv("-$(HOME)-$(SHELL)-") --> -/home/shmuel-/bin/bash-
+#_  win.ExpandEnv("-${HOME}-${SHELL}-") --> -/home/shmuel-/bin/bash-
 #_
 #_@@@
 #_
@@ -9704,7 +9708,7 @@ article id=647 dt=Text ctime=3975319304 mtime=3975320041 nm=far.InputRecordToNam
 #_[tInputRecord]: 187.html
 #_
 
-article id=648 dt=Text ctime=3980312575 mtime=3980312934 nm=editor.SetVirtualFileName
+article id=648 dt=Text ctime=3980312575 mtime=3985782289 nm=editor.SetVirtualFileName
 #_result = editor.SetVirtualFileName (EditorId, FileName)
 #_
 #_**Parameters:**
@@ -9718,6 +9722,9 @@ article id=648 dt=Text ctime=3980312575 mtime=3980312934 nm=editor.SetVirtualFil
 #_  This function sets virtual file name for MemoEdit dialog control.
 #_  That helps highlighting plugins (e.g. Colorer) to decide what
 #_  syntax to use.
+#_
+#_**See also:**
+#_  `editor.GetVirtualFileName`
 #_
 #_**Far API used:**
 #_  EditorControl, ECTL_SETVIRTUALFILENAME
@@ -10986,5 +10993,24 @@ article id=730 dt=Text ctime=3985265858 mtime=3985265880 nm=tKeyBarLabel
 #_      ControlKeyState: flags
 #_      Text:            string
 #_      LongText:        string
+#_
+
+article id=731 dt=Text ctime=3985782010 mtime=3985782242 nm=editor.GetVirtualFileName
+#_FileName = editor.GetVirtualFileName (EditorId)
+#_
+#_**Parameters:**
+#_  EditorId : integer, or nil
+#_
+#_**Returns:**
+#_  FileName : string
+#_
+#_**See also:**
+#_  `editor.SetVirtualFileName`
+#_
+#_**Far API used:**
+#_  EditorControl, ECTL_GETVIRTUALFILENAME
+#_
+#_@@@
+#_
 #_
 
