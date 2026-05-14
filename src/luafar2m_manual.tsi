@@ -234,6 +234,7 @@ node lv=2 id=37 art=37 nm=editor.Quit
 node lv=2 id=38 art=38 nm=editor.ReadInput
 node lv=2 id=39 art=39 nm=editor.RealToTab
 node lv=2 id=40 art=40 nm=editor.Redraw
+node lv=2 id=781 art=732 nm=editor.Reparse
 node lv=2 id=41 art=41 nm=editor.SaveFile
 node lv=2 id=42 art=42 nm=editor.Select
 node lv=2 id=139 art=139 nm=editor.SetKeyBar
@@ -511,6 +512,7 @@ node lv=2 id=652 art=557 nm=actl.WaitKey
 node lv=2 id=527 art=558 nm=actl.WinPortBackEnd
 node lv=1 id=639 art=618 nm=editor
 node lv=2 id=653 art=138 nm=editor.ProcessKey
+node lv=2 id=782 art=732 nm=editor.Reparse
 node lv=2 id=698 art=650 nm=editor.SetSavedState
 node lv=2 id=695 art=648 nm=editor.SetVirtualFileName
 node lv=2 id=640 art=137 nm=editor.TurnOffMarkingBlock
@@ -8581,14 +8583,14 @@ article id=582 dt=Text ctime=3912631426 mtime=3912631486 nm=far.RunDefaultScript
 #_[export.Open]: 109.html
 #_
 
-article id=583 dt=Text ctime=3912956918 mtime=3940763539 nm=far.SplitCmdLine
-#_... = far.SplitCmdLine (str)
+article id=583 dt=Text ctime=3912956918 mtime=3987677728 nm=far.SplitCmdLine
+#_arr = far.SplitCmdLine (str)
 #_
 #_**Parameters:**
 #_  str : string
 #_
 #_**Returns:**
-#_  ... : 0 or more strings (up to 64)
+#_  arr : table (an array of strings)
 #_
 #_**Description:**
 #_  - The function treats its parameter as consisting of space-delimitered
@@ -11012,5 +11014,28 @@ article id=731 dt=Text ctime=3985782010 mtime=3985782242 nm=editor.GetVirtualFil
 #_
 #_@@@
 #_
+#_
+
+article id=732 dt=Text ctime=3987444939 mtime=3987445704 nm=editor.Reparse
+#_result = editor.Reparse (EditorId)
+#_
+#_**Parameters:**
+#_  EditorId: integer, or nil
+#_
+#_**Returns:**
+#_  result:   boolean
+#_
+#_**Description:**
+#_  - Triggers a synthetic re-initialization cycle for editor plugins.
+#_  - This command broadcasts a sequence of *EE_CLOSE* followed
+#_    by *EE_READ* events via *ProcessEditorEvent*.
+#_  - It is designed to force plugins to refresh their internal state
+#_    or re-parse the current buffer without modifying editor data
+#_    or performing disk I/O.
+#_
+#_**Far API used:**
+#_  EditorControl, ECTL_REPARSE
+#_
+#_@@@
 #_
 
