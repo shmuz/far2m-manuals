@@ -7604,7 +7604,20 @@ article id=500 dt=Text ctime=3871827136 mtime=3907258200 nm=win.WideCharToMultiB
 #_  WideCharToMultiByte
 #_
 
-article id=501 dt=Text ctime=3939577583 mtime=3939577583 nm=Unnamed
+article id=501 dt=Text ctime=3939577583 mtime=3989164105 nm=far.DetectCodePage
+#_codepage = far.DetectCodePage (filename)
+#_
+#_**Parameters:**
+#_  filename:  string
+#_
+#_**Returns:**
+#_  codepage:  integer (or nil)
+#_
+#_**Far API used:**
+#_  DetectCodePage
+#_
+#_@@@
+#_
 
 article id=502 dt=Text ctime=3872589307 mtime=3889634293 nm=editor.InsertTextW
 #_result = editor.InsertTextW (EditorId, text [, redraw])
@@ -9511,7 +9524,7 @@ article id=641 dt=Text ctime=3973579326 mtime=3973579542 nm=Dialog properties
 #_
 #_proc        : dialog procedure (function)
 #_              parameters: hDlg, Msg, Par1, Par2
-#_              return value: *TODO*			
+#_              return value: *TODO*
 #_
 #_              NOTE 1: when Msg == DN_CLOSE
 #_                - Not called when the dialog is cancelled.
