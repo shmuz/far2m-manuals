@@ -51,6 +51,7 @@ node lv=2 id=319 art=319 nm=ProcessSynchroEventW
 node lv=2 id=118 art=118 nm=SetStartupInfoW
 node lv=0 id=131 art=131 nm=LuaFAR Far libraries
 node lv=1 id=78 art=78 nm=Common functions
+node lv=2 id=783 art=733 nm=far.Flavor
 node lv=2 id=524 art=522 nm=far.FreeScreen
 node lv=2 id=53 art=53 nm=far.GetDirList
 node lv=2 id=58 art=58 nm=far.GetMsg
@@ -1890,11 +1891,11 @@ article id=83 dt=Text ctime=0 mtime=0 nm=Other functions
 
 article id=84 dt=Text ctime=0 mtime=0 nm="Structures"
 
-article id=85 dt=Text ctime=0 mtime=3921745261 nm=tPluginPanelItem
+article id=85 dt=Text ctime=0 mtime=3990689112 nm=tPluginPanelItem
 #_<markdown>
 #_**`tPluginPanelItem`** is a table with the following predefined fields:
 #_
-#_      CreationTime:       number
+#_      CreationTime:       number (despite the name, it contains 'ChangeTime')
 #_      LastAccessTime:     number
 #_      LastWriteTime:      number
 #_
@@ -11050,5 +11051,10 @@ article id=732 dt=Text ctime=3987444939 mtime=3987445704 nm=editor.Reparse
 #_  EditorControl, ECTL_REPARSE
 #_
 #_@@@
+#_
+
+article id=733 dt=Text ctime=3990094445 mtime=3990095977 nm=far.Flavor
+#_far.Flavor is a string "far2m".
+#_It is intended for use in scripts portable between far3/far2l/far2m.
 #_
 
