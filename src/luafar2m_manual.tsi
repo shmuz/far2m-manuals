@@ -709,7 +709,7 @@ article id=6 dt=Text ctime=0 mtime=3916571742 nm=panel.GetCmdLinePos
 #_@@@
 #_
 
-article id=7 dt=Text ctime=0 mtime=3937001499 nm=panel.GetPanelInfo
+article id=7 dt=Text ctime=0 mtime=3993132622 nm=panel.GetPanelInfo
 #_tPanelInfo = panel.GetPanelInfo (handle, whatpanel)
 #_
 #_**Parameters:**
@@ -742,6 +742,9 @@ article id=7 dt=Text ctime=0 mtime=3937001499 nm=panel.GetPanelInfo
 #_**Note 2:**
 #_  For plugin panels *OwnerHandle* is a handle of the plugin that owns
 #_  the panel. It can be used e.g. in `far.GetPluginInformation`.
+#_
+#_**Note 3:**
+#_  The *PluginHandle* field can also be obtained via `panel.GetPanelPluginHandle`.
 #_
 #_**Far API used:**
 #_  Control, FCTL_GETPANELINFO, PanelInfo
@@ -6696,7 +6699,7 @@ article id=454 dt=Text ctime=3853224715 mtime=3916572407 nm=panel.SetDirectories
 #_@@@
 #_
 
-article id=455 dt=Text ctime=3853322264 mtime=3916572046 nm=panel.GetPanelPluginHandle
+article id=455 dt=Text ctime=3853322264 mtime=3993133296 nm=panel.GetPanelPluginHandle
 #_panel_handle = panel.GetPanelPluginHandle (handle, whatpanel)
 #_
 #_**Parameters:**
@@ -6705,6 +6708,9 @@ article id=455 dt=Text ctime=3853322264 mtime=3916572046 nm=panel.GetPanelPlugin
 #_
 #_**Returns:**
 #_  panel_handle:  lightuserdata, or nil
+#_
+#_**Note:**
+#_  panel_handle can also be obtained via `panel.GetPanelInfo`().PluginHandle.
 #_
 #_**Far API used:**
 #_  Control, FCTL_GETPANELPLUGINHANDLE
