@@ -72,7 +72,7 @@ node lv=3 id=536 art=534 nm=ACTL_GETDESCSETTINGS
 node lv=3 id=537 art=535 nm=ACTL_GETDIALOGSETTINGS
 node lv=3 id=702 art=654 nm=ACTL_GETFARCOMMITTIME
 node lv=3 id=539 art=537 nm=ACTL_GETFARRECT
-node lv=3 id=540 art=538 nm=ACTL_GETFARVERSION
+node lv=3 id=540 art=538 nm=ACTL_GETFARMANAGERVERSION
 node lv=3 id=541 art=539 nm=ACTL_GETINTERFACESETTINGS
 node lv=3 id=542 art=540 nm=ACTL_GETPANELSETTINGS
 node lv=3 id=543 art=541 nm=ACTL_GETPLUGINMAXREADDATA
@@ -387,10 +387,12 @@ node lv=2 id=512 art=511 nm=far.Host.GetFindData
 node lv=2 id=513 art=512 nm=far.Host.SetDirectory
 node lv=1 id=83 art=83 nm=Other functions
 node lv=2 id=185 art=185 nm=far.CPluginStartupInfo
+node lv=2 id=784 art=734 nm=far.GetErrorMode
 node lv=2 id=461 art=461 nm=far.InputRecordToName
 node lv=2 id=280 art=280 nm=far.MakeMenuItems
 node lv=2 id=68 art=68 nm=far.PluginStartupInfo
 node lv=2 id=588 art=582 nm=far.RunDefaultScript
+node lv=2 id=785 art=735 nm=far.SetErrorMode
 node lv=2 id=282 art=282 nm=far.Show
 node lv=2 id=589 art=583 nm=far.SplitCmdLine
 node lv=2 id=346 art=346 nm=far.Timer
@@ -475,7 +477,6 @@ node lv=3 id=503 art=503 nm=win.GetSystemTime
 node lv=3 id=217 art=217 nm=win.GetSystemTimeAsFileTime
 node lv=3 id=216 art=216 nm=win.SystemTimeToFileTime
 node lv=2 id=423 art=423 nm=Various functions
-node lv=3 id=574 art=569 nm=win.EnsureColorsAreInverted
 node lv=3 id=565 art=563 nm=win.ExpandEnv
 node lv=3 id=51 art=51 nm=win.ExtractKey
 node lv=3 id=595 art=586 nm=win.ExtractKeyEx
@@ -553,7 +554,6 @@ node lv=2 id=572 art=567 nm=panel.SetPanelLocation
 node lv=1 id=587 art=581 nm=win
 node lv=2 id=625 art=608 nm=win.chmod
 node lv=2 id=661 art=464 nm=win.Clock
-node lv=2 id=575 art=569 nm=win.EnsureColorsAreInverted
 node lv=2 id=662 art=563 nm=win.ExpandEnv
 node lv=2 id=621 art=606 nm=win.GetHostName
 node lv=2 id=612 art=589 nm=win.OpenFile
@@ -1075,7 +1075,7 @@ article id=28 dt=Text ctime=0 mtime=3982648250 nm=editor.GetColor
 #_@@@
 #_
 
-article id=29 dt=Text ctime=0 mtime=3986915250 nm=editor.GetInfo
+article id=29 dt=Text ctime=0 mtime=3994840356 nm=editor.GetInfo
 #_Info = editor.GetInfo (EditorId)
 #_
 #_**Parameters:**
@@ -1105,7 +1105,6 @@ article id=29 dt=Text ctime=0 mtime=3986915250 nm=editor.GetInfo
 #_      CodePage:              integer
 #_      WindowArea:            table (fields: left, top, right, bottom)
 #_      ClientArea:            table (fields: left, top, right, bottom)
-#_      IsMemoEdit:            boolean
 #_
 #_**Far API used:**
 #_  EditorControl, ECTL_GETINFO
@@ -5446,7 +5445,7 @@ article id=350 dt=Text ctime=3482328603 mtime=3482345154 nm=Enabled
 #_
 #_
 
-article id=351 dt=Text ctime=3482328655 mtime=3851879409 nm=Interval
+article id=351 dt=Text ctime=3482328655 mtime=3995390700 nm=Interval
 #_value = timer.Interval
 #_    or
 #_timer.Interval = value
@@ -5455,8 +5454,8 @@ article id=351 dt=Text ctime=3482328655 mtime=3851879409 nm=Interval
 #_  Query or set the interval (in milliseconds) of the timer.
 #_  This is a read/write integer property.
 #_
-#_**NOTE:**
-#_  Currently *Interval* is a read-only property.
+#_  When the interval is set, the time already accumulated by the timer
+#_  is discarded, and the new accumulation is started from 0.
 #_
 #_@@@
 #_
@@ -6903,7 +6902,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3983603647 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3982907734 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=3994648314 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -6922,7 +6921,7 @@ article id=463 dt=Text ctime=3853931289 mtime=3982907734 nm=actl namespace
 #_  GetDescSettings         ACTL_GETDESCSETTINGS
 #_  GetDialogSettings       ACTL_GETDIALOGSETTINGS
 #_  GetFarCommitTime        ACTL_GETFARCOMMITTIME
-#_  GetFarManagerVersion    ACTL_GETFARVERSION
+#_  GetFarManagerVersion    ACTL_GETFARMANAGERVERSION
 #_  GetFarRect              ACTL_GETFARRECT
 #_  GetInterfaceSettings    ACTL_GETINTERFACESETTINGS
 #_  GetPanelSettings        ACTL_GETPANELSETTINGS
@@ -8061,15 +8060,15 @@ article id=537 dt=Text ctime=3892829915 mtime=3940086465 nm=ACTL_GETFARRECT
 #_             Left, Top, Right, Bottom: integers
 #_
 
-article id=538 dt=Text ctime=3892829915 mtime=3940085990 nm=ACTL_GETFARVERSION
-#_Result = far.AdvControl (ACTL_GETFARVERSION, Param)
+article id=538 dt=Text ctime=3892829915 mtime=3994648243 nm=ACTL_GETFARMANAGERVERSION
+#_Result = far.AdvControl (ACTL_GETFARMANAGERVERSION, Param)
 #_
 #_**Parameters:**
-#_  Param:    boolean (optional)
+#_  Param:   boolean (optional)
 #_
 #_**Returns:**
-#_  Result:  string (e.g. "2.4"), if Param==false;
-#_           two numbers (e.g. 2,4), if Param==true;
+#_  Result:  string (e.g. "2.7.0.0.0"), if Param==false;
+#_           5 numbers (e.g. 2,7,0,0,0), if Param==true;
 #_
 
 article id=539 dt=Text ctime=3892829915 mtime=3940086475 nm=ACTL_GETINTERFACESETTINGS
@@ -8458,22 +8457,6 @@ article id=568 dt=Text ctime=3907582185 mtime=3907582267 nm=far.SubscribeDialogD
 #_
 #_**Far API used:**
 #_  none
-#_
-#_@@@
-#_
-
-article id=569 dt=Text ctime=3909482400 mtime=3909482621 nm=win.EnsureColorsAreInverted
-#_win.EnsureColorsAreInverted (X, Y)
-#_
-#_**Parameters:**
-#_  X:  integer
-#_  Y:  integer
-#_
-#_**Returns:**
-#_  nothing
-#_
-#_**Note:**
-#_  This function is used in the Lua implementation of ColorDialog.
 #_
 #_@@@
 #_
@@ -10372,7 +10355,7 @@ article id=688 dt=Text ctime=3983554481 mtime=3983559465 nm=DM_LISTGETDATASIZE
 #_{dm_listgetdatasize}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgetdatasize.html
 #_
 
-article id=689 dt=Text ctime=3983554481 mtime=3983559472 nm=DM_LISTGETITEM
+article id=689 dt=Text ctime=3983554481 mtime=3995099149 nm=DM_LISTGETITEM
 #_Result = far.SendDlgMessage (hDlg, Msg, Param1, Param2)
 #_    or
 #_Result = hDlg:send (Msg, Param1, Param2)
@@ -10382,6 +10365,8 @@ article id=689 dt=Text ctime=3983554481 mtime=3983559472 nm=DM_LISTGETITEM
 #_    Param1:  integer (ID of dialog item)
 #_    Param2:  integer (ItemIndex)
 #_    Result:  table, or nil
+#_               Flags : integer
+#_               Text  : string
 #_
 #_@@@
 #_{dm_listgetitem}: http://api.farmanager.com/ru/dialogapi/dmsg/dm_listgetitem.html
@@ -11063,5 +11048,33 @@ article id=732 dt=Text ctime=3987444939 mtime=3987445704 nm=editor.Reparse
 article id=733 dt=Text ctime=3990094445 mtime=3990095977 nm=far.Flavor
 #_far.Flavor is a string "far2m".
 #_It is intended for use in scripts portable between far3/far2l/far2m.
+#_
+
+article id=734 dt=Text ctime=3993969421 mtime=3993969482 nm=far.GetErrorMode
+#_Mode = far.GetErrorMode()
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Mode: integer
+#_
+#_**See also:**
+#_  `far.SetErrorMode`
+#_
+
+article id=735 dt=Text ctime=3993969446 mtime=3993969466 nm=far.SetErrorMode
+#_PrevMode = far.SetErrorMode(Mode)
+#_
+#_**Parameters:**
+#_  Mode     : integer
+#_             bit0 = 0: enable event handlers error output
+#_             bit0 = 1: disable event handlers error output
+#_
+#_**Returns:**
+#_  PrevMode : integer, previous mode
+#_
+#_**See also:**
+#_  `far.GetErrorMode`
 #_
 
