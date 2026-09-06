@@ -2764,7 +2764,7 @@ article id=108 dt=Text ctime=3882879596 mtime=3882880272 nm=Unsupported function
 #_These functions exist for testing purposes and may be removed at any time.
 #_
 
-article id=109 dt=Text ctime=3882879741 mtime=3945273122 nm=mf.udlsplit
+article id=109 dt=Text ctime=3882879741 mtime=3996756079 nm=mf.udlsplit
 #_*User-defined list split*
 #_
 #_items = mf.udlsplit (subject [,separators] [,flags])
@@ -2782,7 +2782,7 @@ article id=109 dt=Text ctime=3882879741 mtime=3945273122 nm=mf.udlsplit
 #_  ULF_SORT             = 0x020
 #_  ULF_NOTTRIM          = 0x040
 #_  ULF_ACCOUNTEMPTYLINE = 0x100
-#_  ULF_CASESENSITIVE    = 0x200
+#_  ULF_CASEINSENSITIVE  = 0x200
 #_
 #_**Returns**
 #_  items : either a table (array of strings) or *false*
