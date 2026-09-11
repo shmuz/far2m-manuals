@@ -189,13 +189,14 @@ article id=7 dt=Text ctime=3551991405 mtime=3891620580 nm=LuaMacro plugin
 #_
 #_
 
-article id=12 dt=Text ctime=3551993205 mtime=3971165423 nm=msave
-#_ret = mf.msave (key, name, value)
+article id=12 dt=Text ctime=3551993205 mtime=3998293667 nm=msave
+#_ret = mf.msave (key, name, value [, location])
 #_
 #_**Parameters:**
-#_  key:       string or nil
+#_  key:       string
 #_  name:      string
 #_  value:     nil, boolean, number, string, table, int64
+#_  location:  string ("roaming" or "local"; default: "roaming")
 #_
 #_**Returns:**
 #_  ret:       boolean
@@ -215,12 +216,13 @@ article id=12 dt=Text ctime=3551993205 mtime=3971165423 nm=msave
 #_  int64 - a distinguished type of userdata, created by the bit64 library.
 #_
 
-article id=13 dt=Text ctime=3551993209 mtime=3971165413 nm=mload
-#_value, errmsg = mf.mload (key, name)
+article id=13 dt=Text ctime=3551993209 mtime=3998293625 nm=mload
+#_value, errmsg = mf.mload (key, name [, location])
 #_
 #_**Parameters:**
-#_  key:       string or nil
+#_  key:       string
 #_  name:      string
+#_  location:  string ("roaming" or "local"; default: "roaming")
 #_
 #_**Returns:**
 #_  value:     number, string, boolean, table, int64 or nil.
@@ -275,12 +277,13 @@ article id=14 dt=Text ctime=3552028510 mtime=3600542728 nm=Variables
 #_{mctl_loadall}: https://api.farmanager.com/ru/service_functions/macrocontrol.html#MCTL_LOADALL
 #_
 
-article id=15 dt=Text ctime=3552066075 mtime=3862574116 nm=mdelete
-#_ret = mf.mdelete (key, name)
+article id=15 dt=Text ctime=3552066075 mtime=3998293595 nm=mdelete
+#_ret = mf.mdelete (key, name [, location])
 #_
 #_**Parameters:**
 #_  key:       string
 #_  name:      string
+#_  location:  string ("roaming" or "local"; default: "roaming")
 #_
 #_**Returns:**
 #_  ret:       boolean
@@ -288,6 +291,7 @@ article id=15 dt=Text ctime=3552066075 mtime=3862574116 nm=mdelete
 #_**Description:**
 #_  Function *mdelete* deletes a value or key from the database.
 #_  To delete a key, specify *name* == "`*`" (asterisk).
+#_
 #_
 
 article id=20 dt=Text ctime=3552221109 mtime=3659609142 nm=Global properties and functions
