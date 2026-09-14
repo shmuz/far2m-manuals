@@ -10024,7 +10024,7 @@ article id=651 dt=Text ctime=3982159896 mtime=3982160025 nm=win.GetEnvironmentSt
 #_
 #_
 
-article id=652 dt=Text ctime=3982608708 mtime=3982608740 nm=tFarColor
+article id=652 dt=Text ctime=3982608708 mtime=3998568494 nm=tFarColor
 #_<markdown>
 #_**`tFarColor`** is a table with the following predefined fields:
 #_
@@ -10032,6 +10032,11 @@ article id=652 dt=Text ctime=3982608708 mtime=3982608740 nm=tFarColor
 #_      ForegroundColor: integer
 #_      BackgroundColor: integer
 #_
+#_#### Note
+#_LuaFAR functions duplicate the `ForegroundColor` and `BackgroundColor` fields
+#_as `fg` and `bg` on output, and accept these aliases on input.
+#_This is provided as a convenience for those who prefer shorter names;
+#_however, on input, the full names take precedence over their shorter counterparts.
 #_
 
 article id=653 dt=Text ctime=3982670318 mtime=3982676237 nm=lua_explorer
