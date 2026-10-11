@@ -823,20 +823,20 @@ article id=12 dt=Text ctime=0 mtime=3916572361 nm=panel.SetCmdLinePos
 #_@@@
 #_
 
-article id=13 dt=Text ctime=0 mtime=3935153384 nm=panel.SetPanelDirectory
+article id=13 dt=Text ctime=0 mtime=4000840674 nm=panel.SetPanelDirectory
 #_result = panel.SetPanelDirectory (handle, whatpanel, dir)
 #_
 #_**Parameters:**
 #_  handle:    panel handle, or nil
 #_  whatpanel: 1=active panel; 0=passive panel;
 #_  dir:       string, or table `tFarPanelDirectory`
-#_             (currently, only "Name" field can be used)
+#_             (if dir.PluginId is not set, it defaults to Far ID)
 #_
 #_**Returns:**
 #_  result: boolean
 #_
 #_**Far API used:**
-#_  Control, FCTL_SETPANELDIR
+#_  Control, FCTL_SETPANELDIR_v2
 #_
 #_@@@
 #_[tFarPanelDirectory]: 611.html
