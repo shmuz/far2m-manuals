@@ -71,8 +71,9 @@ node lv=3 id=535 art=533 nm=ACTL_GETCURSORPOS
 node lv=3 id=536 art=534 nm=ACTL_GETDESCSETTINGS
 node lv=3 id=537 art=535 nm=ACTL_GETDIALOGSETTINGS
 node lv=3 id=702 art=654 nm=ACTL_GETFARCOMMITTIME
-node lv=3 id=539 art=537 nm=ACTL_GETFARRECT
+node lv=3 id=806 art=756 nm=ACTL_GETFARHWND
 node lv=3 id=540 art=538 nm=ACTL_GETFARMANAGERVERSION
+node lv=3 id=539 art=537 nm=ACTL_GETFARRECT
 node lv=3 id=541 art=539 nm=ACTL_GETINTERFACESETTINGS
 node lv=3 id=542 art=540 nm=ACTL_GETPANELSETTINGS
 node lv=3 id=543 art=541 nm=ACTL_GETPLUGINMAXREADDATA
@@ -4780,34 +4781,34 @@ article id=289 dt=Text ctime=3477040601 mtime=3477153723 nm=DN_HELP
 #_@@@
 #_
 
-article id=290 dt=Text ctime=3477040612 mtime=3477138291 nm=DN_MOUSECLICK
+article id=290 dt=Text ctime=3477040612 mtime=4001950046 nm=DN_MOUSECLICK
 #_**Param1**
 #_    integer; according to Far API
 #_
 #_**Param2**
-#_    table (tMouseEventRecord)
+#_    table (`tMouseEventRecord`)
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
 #_
 #_@@@
 #_[description]: 285.html
-#_[MouseEventRecord]: 313.html
+#_[tMouseEventRecord]: 313.html
 #_
 
-article id=291 dt=Text ctime=3477040627 mtime=3477138608 nm=DN_MOUSEEVENT
+article id=291 dt=Text ctime=3477040627 mtime=4001950089 nm=DN_MOUSEEVENT
 #_**Param1**
 #_    integer; according to Far API
 #_
 #_**Param2**
-#_    table (tMouseEventRecord)
+#_    table (`tMouseEventRecord`)
 #_
 #_**Return**
 #_    default processing of the return value, see `description`.
 #_
 #_@@@
 #_[description]: 285.html
-#_[MouseEventRecord]: 313.html
+#_[tMouseEventRecord]: 313.html
 #_
 
 article id=292 dt=Text ctime=3477040640 mtime=3900526195 nm=DN_RESIZECONSOLE
@@ -6727,7 +6728,7 @@ article id=462 dt=Text ctime=3853816798 mtime=3983603647 nm=Methods of dialog ha
 #_[far.SendDlgMessage]: 71.html
 #_
 
-article id=463 dt=Text ctime=3853931289 mtime=3994648314 nm=actl namespace
+article id=463 dt=Text ctime=3853931289 mtime=4001999227 nm=actl namespace
 #_This is an alternative interface to FAR's advanced control commands.
 #_It is shorter and more expressive, e.g. the following 2 calls do the
 #_same thing:
@@ -6746,6 +6747,7 @@ article id=463 dt=Text ctime=3853931289 mtime=3994648314 nm=actl namespace
 #_  GetDescSettings         ACTL_GETDESCSETTINGS
 #_  GetDialogSettings       ACTL_GETDIALOGSETTINGS
 #_  GetFarCommitTime        ACTL_GETFARCOMMITTIME
+#_  GetFarHwnd              ACTL_GETFARHWND
 #_  GetFarManagerVersion    ACTL_GETFARMANAGERVERSION
 #_  GetFarRect              ACTL_GETFARRECT
 #_  GetInterfaceSettings    ACTL_GETINTERFACESETTINGS
@@ -7797,21 +7799,21 @@ article id=526 dt=Text ctime=3892753646 mtime=3892753730 nm=far.GetFileGroup
 #_@@@
 #_
 
-article id=528 dt=Text ctime=3892829915 mtime=3940086404 nm=ACTL_COMMIT
+article id=528 dt=Text ctime=3892829915 mtime=4001999951 nm=ACTL_COMMIT
 #_Result = far.AdvControl (ACTL_COMMIT)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer
 #_
 
-article id=530 dt=Text ctime=3892829915 mtime=3982608879 nm=ACTL_GETARRAYCOLOR
+article id=530 dt=Text ctime=3892829915 mtime=4001999962 nm=ACTL_GETARRAYCOLOR
 #_Result = far.AdvControl (ACTL_GETARRAYCOLOR)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   table (array of `tFarColor` tables)
@@ -7832,53 +7834,53 @@ article id=531 dt=Text ctime=3892829915 mtime=3982608826 nm=ACTL_GETCOLOR
 #_[bit64]: 471.html
 #_
 
-article id=532 dt=Text ctime=3892829915 mtime=3940086423 nm=ACTL_GETCONFIRMATIONS
+article id=532 dt=Text ctime=3892829915 mtime=4001999974 nm=ACTL_GETCONFIRMATIONS
 #_Result = far.AdvControl (ACTL_GETCONFIRMATIONS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer (flags combination)
 #_
 
-article id=533 dt=Text ctime=3892829915 mtime=3940086436 nm=ACTL_GETCURSORPOS
+article id=533 dt=Text ctime=3892829915 mtime=4001999981 nm=ACTL_GETCURSORPOS
 #_Result = far.AdvControl (ACTL_GETCURSORPOS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   table (see its fields below), or nil
 #_              X, Y: integers
 #_
 
-article id=534 dt=Text ctime=3892829915 mtime=3940086446 nm=ACTL_GETDESCSETTINGS
+article id=534 dt=Text ctime=3892829915 mtime=4001999987 nm=ACTL_GETDESCSETTINGS
 #_Result = far.AdvControl (ACTL_GETDESCSETTINGS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer (flags combination)
 #_
 #_
 
-article id=535 dt=Text ctime=3892829915 mtime=3940086457 nm=ACTL_GETDIALOGSETTINGS
+article id=535 dt=Text ctime=3892829915 mtime=4001999993 nm=ACTL_GETDIALOGSETTINGS
 #_Result = far.AdvControl (ACTL_GETDIALOGSETTINGS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer (flags combination)
 #_
 
-article id=537 dt=Text ctime=3892829915 mtime=3940086465 nm=ACTL_GETFARRECT
+article id=537 dt=Text ctime=3892829915 mtime=4002000029 nm=ACTL_GETFARRECT
 #_Result = far.AdvControl (ACTL_GETFARRECT)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:  table (see its fields below), or nil
@@ -7896,61 +7898,61 @@ article id=538 dt=Text ctime=3892829915 mtime=3994648243 nm=ACTL_GETFARMANAGERVE
 #_           5 numbers (e.g. 2,7,0,0,0), if Param==true;
 #_
 
-article id=539 dt=Text ctime=3892829915 mtime=3940086475 nm=ACTL_GETINTERFACESETTINGS
+article id=539 dt=Text ctime=3892829915 mtime=4002000034 nm=ACTL_GETINTERFACESETTINGS
 #_Result = far.AdvControl (ACTL_GETINTERFACESETTINGS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer (flags combination)
 #_
 
-article id=540 dt=Text ctime=3892829915 mtime=3940086483 nm=ACTL_GETPANELSETTINGS
+article id=540 dt=Text ctime=3892829915 mtime=4002000039 nm=ACTL_GETPANELSETTINGS
 #_Result = far.AdvControl (ACTL_GETPANELSETTINGS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer (flags combination)
 #_
 
-article id=541 dt=Text ctime=3892829915 mtime=3940086488 nm=ACTL_GETPLUGINMAXREADDATA
+article id=541 dt=Text ctime=3892829915 mtime=4002000045 nm=ACTL_GETPLUGINMAXREADDATA
 #_Result = far.AdvControl (ACTL_GETPLUGINMAXREADDATA)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer
 #_
 
-article id=543 dt=Text ctime=3892829915 mtime=3940086495 nm=ACTL_GETSYSTEMSETTINGS
+article id=543 dt=Text ctime=3892829915 mtime=4002000049 nm=ACTL_GETSYSTEMSETTINGS
 #_Result = far.AdvControl (ACTL_GETSYSTEMSETTINGS)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer (flags combination)
 #_
 
-article id=544 dt=Text ctime=3892829915 mtime=3940086506 nm=ACTL_GETSYSWORDDIV
+article id=544 dt=Text ctime=3892829915 mtime=4002000055 nm=ACTL_GETSYSWORDDIV
 #_Result = far.AdvControl (ACTL_GETSYSWORDDIV)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   string
 #_
 
-article id=545 dt=Text ctime=3892829915 mtime=3940086513 nm=ACTL_GETWINDOWCOUNT
+article id=545 dt=Text ctime=3892829915 mtime=4002000061 nm=ACTL_GETWINDOWCOUNT
 #_Result = far.AdvControl (ACTL_GETWINDOWCOUNT)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer
@@ -7987,11 +7989,11 @@ article id=549 dt=Text ctime=3892829915 mtime=3940086241 nm=ACTL_QUIT
 #_  The function either returns integer or does not return.
 #_
 
-article id=550 dt=Text ctime=3892829915 mtime=3940086521 nm=ACTL_REDRAWALL
+article id=550 dt=Text ctime=3892829915 mtime=4002000092 nm=ACTL_REDRAWALL
 #_Result = far.AdvControl (ACTL_REDRAWALL)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer
@@ -8075,11 +8077,11 @@ article id=557 dt=Text ctime=3892829915 mtime=3940086350 nm=ACTL_WAITKEY
 #_  actl.WaitKey("KEY_F5")
 #_
 
-article id=558 dt=Text ctime=3892829915 mtime=3940086533 nm=ACTL_WINPORTBACKEND
+article id=558 dt=Text ctime=3892829915 mtime=4002000111 nm=ACTL_WINPORTBACKEND
 #_Result = far.AdvControl (ACTL_WINPORTBACKEND)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   string
@@ -9564,12 +9566,11 @@ article id=648 dt=Text ctime=3980312575 mtime=3985782289 nm=editor.SetVirtualFil
 #_
 #_
 
-article id=649 dt=Text ctime=3980870423 mtime=3980870455 nm=ACTL_GETWINDOWTYPE
+article id=649 dt=Text ctime=3980870423 mtime=4002000080 nm=ACTL_GETWINDOWTYPE
 #_Result = far.AdvControl (ACTL_GETWINDOWTYPE)
 #_
 #_**Parameters:**
-#_  Param1:   N/A
-#_  Param2:   N/A
+#_  none
 #_
 #_**Returns:**
 #_  Result:   table (see its fields below), or nil
@@ -9669,11 +9670,11 @@ article id=653 dt=Text ctime=3982670318 mtime=3982676237 nm=lua_explorer
 #_[1]: https://forum.farmanager.com/viewtopic.php?p=100565
 #_
 
-article id=654 dt=Text ctime=3982851519 mtime=3982907808 nm=ACTL_GETFARCOMMITTIME
+article id=654 dt=Text ctime=3982851519 mtime=4002000013 nm=ACTL_GETFARCOMMITTIME
 #_Result = far.AdvControl (ACTL_GETFARCOMMITTIME)
 #_
 #_**Parameters:**
-#_  Param:    none
+#_  none
 #_
 #_**Returns:**
 #_  Result:   integer
@@ -11687,4 +11688,16 @@ article id=754 dt=Text ctime=4001078878 mtime=4001240239 nm=The full author's pa
 #_It uses the same license as Lua: http://www.lua.org/license.html
 
 article id=755 dt=Text ctime=4001078931 mtime=4001079093 nm=Additional functions
+
+article id=756 dt=Text ctime=4001998975 mtime=4002000018 nm=ACTL_GETFARHWND
+#_Result = far.AdvControl (ACTL_GETFARHWND)
+#_
+#_**Parameters:**
+#_  none
+#_
+#_**Returns:**
+#_  Result:   light userdata
+#_
+#_@@@
+#_
 
